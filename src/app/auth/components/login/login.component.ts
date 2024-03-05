@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FieldConfig } from 'src/app/shared/dynmic-form/models/field-config';
+import { loginForm } from '../../config/form.constant';
+import { CommonService } from 'src/app/core/common.service';
 
 @Component({
   selector: 'app-login',
@@ -10,52 +12,24 @@ import { FieldConfig } from 'src/app/shared/dynmic-form/models/field-config';
 export class LoginComponent {
 
   @ViewChild('form') form: any;
-  userName = {
-    type: 'input',
-    feildType: 'input',
-    name: 'userName',
-    value: '',
-    placeholder: 'User Name',
-    validation: [Validators.required],
-    isRequired: true,
-    class: 'input',
-    error: false
-  }
-  config: FieldConfig[] = [
-    {
-      type: 'input',
-      feildType: 'email',
-      name: 'Email/Phone',
-      value: '',
-      placeholder: 'Email',
-      validation: [Validators.required],
-      isRequired: true,
-      class: 'input',
-      error: false
-    },
-    {
-      type: 'input',
-      feildType: 'password',
-      name: 'password',
-      value: '',
-      placeholder: 'Password',
-      validation: [Validators.required],
-      isRequired: true,
-      class: 'input',
-      error: false
-    },
-    {
-      type: 'button',
-      name: 'Login',
-      class: 'button',
-      // disabled: true,
-    },
-  ];
+  config: FieldConfig[] = loginForm
 
-  constructor() {}
+  constructor(private apiService: CommonService) { }
 
   ngOnInit() {
 
+  }
+  Submit(e:any) {
+    debugger
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+    }
+    else {
+      this.apiService.senduserdata(this.form.form.value).subscribe((Element: any) =>
+        console.log(Element)
+      )
+      // this.form.reset()
+    }
   }
 
 

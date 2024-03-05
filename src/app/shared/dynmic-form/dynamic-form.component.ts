@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FieldConfig } from './models/field-config';
 
@@ -15,17 +15,22 @@ export class DynamicFormComponent {
   
   form: FormGroup;
   field: any;
-
+  @Output() submitted = new EventEmitter<any>();
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group(this.config);
   }
 
   ngOnInit() {
-    // this.form = this.createGroup();
+    this.form = this.createGroup();
   }
 
+  createGroup() {
+    const group = this.fb.group({});
+    this.config.forEach(control => group.addControl(control.name, this.fb.control(control.name)));
+    return group;
+  }
   handleSubmit(e:any) {
-
+    
   }
 
 

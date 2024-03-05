@@ -4,7 +4,7 @@ import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-button-field',
-  standalone: true,
+  // standalone: true,
   templateUrl: './button-field.component.html',
   styleUrls: ['./button-field.component.sass'],
 })
@@ -16,6 +16,7 @@ export class ButtonFieldComponent {
   constructor() {}
 
   onButtonClicked() {
+    debugger
     this.btnClickEvent.emit('Click');
   }
   

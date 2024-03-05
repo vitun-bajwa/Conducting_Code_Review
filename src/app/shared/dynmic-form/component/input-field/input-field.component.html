@@ -1,1 +1,3 @@
-<input [class]="config.class" [type]="config.feildType" [name]="config.name" [placeholder]="config.placeholder" />
+<div [formGroup]="group">
+<input [class]="config.class" [type]="config.feildType" [name]="config.name" [formControlName]="config.name"  [placeholder]="config.placeholder" />
+</div>

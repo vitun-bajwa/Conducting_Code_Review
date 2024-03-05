@@ -1,22 +1,22 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-input-field',
-  standalone: true,
+  // standalone: true,
   templateUrl: './input-field.component.html',
   styleUrls: ['./input-field.component.sass'],
 })
 export class InputFieldComponent {
   @Input() config: any;
   group!: FormGroup;
-  field: any;
-
+  // field: any;
   @Input() disabled: any;
 
-  constructor() {}
+  constructor() { }
 
   onButtonClicked() {
   }
-
+  ngOnInit() {
+  }
 }
