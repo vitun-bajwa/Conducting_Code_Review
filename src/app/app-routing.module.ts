@@ -4,17 +4,22 @@ import { authGuard } from './core/guards/auth.guard';
 import { unauthGuard } from './core/guards/unauth.guard';
 
 const routes: Routes = [
+  // {
+  //   path: '',
+  //   pathMatch: 'full',
+  //   // canActivate: [unauthGuard],
+  //   children: [
+  //     {
+  //       path: '',
+  //       loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  //     },
+  //   ]
+  // },
   {
     path: '',
-    pathMatch: 'full',
-    canActivate: [unauthGuard],
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
-      },
-    ]
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
+
   {
     path: 'layout',
     canActivate: [authGuard],

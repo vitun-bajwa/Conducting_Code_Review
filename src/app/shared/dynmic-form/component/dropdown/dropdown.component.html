@@ -1,0 +1,8 @@
+<mat-form-field [formGroup]="group" >
+    <!-- <mat-label>Favorite food</mat-label> -->
+    <mat-select [placeholder]="config.placeholder" >
+      <mat-option *ngFor="let option of config.options" [value]="option.name">
+        {{option.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>

@@ -7,15 +7,18 @@ import { DynamicFormComponent } from './dynamic-form.component';
 import { DynamicFormDirective } from './directive/dynamic-form.directive';
 import { InputFieldComponent } from './component/input-field/input-field.component';
 import { ButtonFieldComponent } from './component/button-field/button-field.component';
+import { UiModule } from 'src/app/ui/ui.module';
+import { DropdownComponent } from './component/dropdown/dropdown.component';
 
 
 @NgModule({
-  declarations: [DynamicFormComponent, DynamicFormDirective, InputFieldComponent, ButtonFieldComponent],
+  declarations: [DynamicFormComponent, DynamicFormDirective, InputFieldComponent, ButtonFieldComponent, DropdownComponent],
   imports: [
     CommonModule,
     DynamicFormRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    UiModule
   ],
   exports: [DynamicFormComponent,InputFieldComponent,ButtonFieldComponent]
 })

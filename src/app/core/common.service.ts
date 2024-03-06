@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
-  private apiUrl = 'http://localhost:3000/users';
+  apiUrl = environment.baseURL;
   users: any = []
   httpClient: any;
   baseURL: any;
@@ -13,5 +14,11 @@ export class CommonService {
 
   senduserdata(data: any) {
     return this.http.post(this.apiUrl, data)
+  }
+  get() {
+    return this.http.get(this.apiUrl);
+  }
+  getEmployeeById(id: number){
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 }

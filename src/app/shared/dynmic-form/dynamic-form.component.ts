@@ -12,7 +12,7 @@ export class DynamicFormComponent {
 
   @Input()
   config: FieldConfig[] = [];
-  
+
   form: FormGroup;
   field: any;
   @Output() submitted = new EventEmitter<any>();
@@ -26,7 +26,7 @@ export class DynamicFormComponent {
 
   createGroup() {
     const group = this.fb.group({});
-    this.config.forEach(control => group.addControl(control.name, this.fb.control(control.name)));
+    this.config.forEach(control => group.addControl(control.name, this.fb.control(control.value, control.validation)));
     return group;
   }
   handleSubmit(e:any) {

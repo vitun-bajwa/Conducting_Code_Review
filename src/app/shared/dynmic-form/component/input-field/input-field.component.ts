@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MyErrorStateMatcher } from 'src/app/auth/components/regex/error';
 
 @Component({
   selector: 'app-input-field',

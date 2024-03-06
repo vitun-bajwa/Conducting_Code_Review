@@ -3,11 +3,12 @@ import { FormGroup } from '@angular/forms';
 import { Field } from '../models/field';
 import { ButtonFieldComponent } from '../component/button-field/button-field.component';
 import { InputFieldComponent } from '../component/input-field/input-field.component';
+import { DropdownComponent } from '../component/dropdown/dropdown.component';
 
 const components: {[type: string]: Type<Field>} = {
   button: ButtonFieldComponent,
   input: InputFieldComponent,
-  // select: FormSelectComponent,
+  dropdown: DropdownComponent,
   // textArea: FormTextareaComponent,
   // checkbox: FormCheckboxComponent,
   // password: FormPasswordComponent,
