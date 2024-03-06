@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FieldConfig } from 'src/app/core/models/field-config';
-import { loginForm } from '../../config/form.constant';
+import { loginForm } from '../../../core/config/form.constant';
 import { CommonService } from 'src/app/core/common.service';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { signUpForm } from '../../config/form.constant';
+import { signUpForm } from '../../../core/config/form.constant';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/common.service';
 import { DynamicFormComponent } from 'src/app/shared/dynmic-form/dynamic-form.component';

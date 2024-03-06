@@ -1,5 +1,5 @@
 import { Validators } from "@angular/forms";
-import { reg } from "../../core/regex/reg";
+import { reg } from "../regex/reg";
 
 export const loginForm = [
     {
