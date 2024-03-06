@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { loginForm } from '../../../core/config/form.constant';
-import { CommonService } from 'src/app/core/common.service';
+import { CommonService } from 'src/app/core/service/common.service';
 
 @Component({
   selector: 'app-forgot-paaword',
