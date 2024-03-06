@@ -1,13 +1,4 @@
-<div [formGroup]="group" class="example-form">
-<mat-form-field class="example-full-width">
-<input matInput  [id]="config.name"  [class]="config.class" [type]="config.fieldType"  [formControlName]="config.name"  [placeholder]="config.placeholder" />
+<mat-form-field [formGroup]="group">
+<input matInput  [id]="config.name"  [class]="config.class" [type]="config.fieldType!"  [formControlName]="config.name"  [placeholder]="config.placeholder!" />
 </mat-form-field>
-<!-- <ng-container *ngFor="let err of config.customErrorMessages">
-    <mat-error *ngIf="group.get(config.name)?.errors?.['required'] && group.get(config.name)?.touched">{{err.required}}</mat-error>
-    <mat-error *ngIf="group.get(config.name)?.errors?.['pattern'] && group.get(config.name)?.touched">{{err.character}}</mat-error>
-</ng-container> -->
-
-<ng-container *ngFor="let err of errorArray">
-<mat-error>{{err}}</mat-error>
-</ng-container>
-</div>
+<app-errors [errors]="config" [group]="group"></app-errors>

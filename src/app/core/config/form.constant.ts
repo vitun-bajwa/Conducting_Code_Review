@@ -38,7 +38,7 @@ export const loginForm = [
       name: 'firstname',
       value: '',
       placeholder: 'First Name',
-      validation: [Validators.required, Validators.pattern(reg.name)],
+      validation: [Validators.required, Validators.pattern(reg.name), Validators.minLength(9)],
       isRequired: true,
       class: 'input',
       error: false,

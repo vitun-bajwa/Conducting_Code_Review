@@ -13,6 +13,7 @@ import { UiModule } from '../ui/ui.module';
   ],
   exports: [
     DynamicFormModule,
+    UiModule
   ]
 })
 export class SharedModule { }

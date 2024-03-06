@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FieldConfig } from 'src/app/core/models/field-config';
 
 @Component({
   selector: 'app-input-field',
@@ -8,7 +9,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./input-field.component.sass'],
 })
 export class InputFieldComponent {
-  @Input() config: any;
+  @Input() config!: FieldConfig;
   group!: FormGroup;
   // field: any;
   @Input() disabled: any;
@@ -19,24 +20,5 @@ export class InputFieldComponent {
   onButtonClicked() {
   }
   ngOnInit() {
-    this.updateErrorMessage()
   }
-
-  updateErrorMessage() {
-    let controlName  = this.config.name
-
-    console.log('this.config', this.config);
-    console.log('controlName', controlName);
-    console.log('validators', this.group.controls[controlName]);
-    
-    this.errorArray = this.config.customErrorMessages.map((errorMessage: object) => errorMessage)
-
-    if (controlName?.errors?.['required'] && controlName?.touched) {
-        this.errorMessage = 'Field is required.';
-    } else if (controlName?.errors?.['pattern'] && controlName?.touched) {
-        this.errorMessage = 'Invalid pattern.';
-    } else {
-        this.errorMessage = ''; 
-    }
-}
 }

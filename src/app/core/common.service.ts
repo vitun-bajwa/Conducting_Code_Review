@@ -6,19 +6,25 @@ import { environment } from 'environments/environment';
   providedIn: 'root'
 })
 export class CommonService {
-  apiUrl = environment.baseURL;
+  baseUrl = environment.baseURL;
   users: any = []
   httpClient: any;
-  baseURL: any;
   constructor(public http: HttpClient) { }
 
-  senduserdata(data: any) {
-    return this.http.post(this.apiUrl, data)
+  get(url: string, param:string) {
+    return this.http.get(this.baseUrl + url + param);
   }
-  get() {
-    return this.http.get(this.apiUrl);
+
+  add(url: string, data: object) {
+    return this.http.post(this.baseUrl + url, data)
   }
-  getEmployeeById(id: number){
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
+
+  edit(url: string, data: object) {
+    return this.http.put(this.baseUrl + url, data);
   }
+
+  delete(url: string) {
+    return this.http.delete(this.baseUrl + url);
+  }
+  
 }
