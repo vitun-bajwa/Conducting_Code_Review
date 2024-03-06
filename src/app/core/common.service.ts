@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,11 @@ export class CommonService {
   baseURL: any;
   constructor(public http: HttpClient) { }
 
-  senduserdata(data: any) {
-    return this.http.post(this.apiUrl, data)
+  loginData(data: any) {
+    return this.http.get(this.apiUrl, data);
+  }
+
+  getUserData(){
+    return this.http.get(this.apiUrl)
   }
 }

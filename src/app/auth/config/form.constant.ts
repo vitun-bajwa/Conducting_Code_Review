@@ -4,8 +4,8 @@ import { reg } from "../components/regex/reg";
 export const loginForm = [
     {
       type: 'input',
-      feildType: 'email',
-      name: 'Email',
+      fieldType: 'email',
+      name: 'email',
       value: '',
       placeholder: 'Email',
       validation: [Validators.required,Validators.pattern(reg.email)],
@@ -15,7 +15,7 @@ export const loginForm = [
     },
     {
       type: 'input',
-      feildType: 'password',
+      fieldType: 'password',
       name: 'password',
       value: '',
       placeholder: 'Password',

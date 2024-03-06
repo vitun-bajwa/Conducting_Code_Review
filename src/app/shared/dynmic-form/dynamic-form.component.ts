@@ -26,9 +26,10 @@ export class DynamicFormComponent {
 
   createGroup() {
     const group = this.fb.group({});
-    this.config.forEach(control => group.addControl(control.name, this.fb.control(control.name)));
+    this.config.forEach(control => group.addControl(control.name, this.fb.control(control.value)));
     return group;
   }
+  
   handleSubmit(e:any) {
     
   }
