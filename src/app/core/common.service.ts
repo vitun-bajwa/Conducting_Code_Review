@@ -1,22 +1,30 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
-  private apiUrl = 'http://localhost:3000/users';
+  baseUrl = environment.baseURL;
   users: any = []
   httpClient: any;
-  baseURL: any;
   constructor(public http: HttpClient) { }
 
-  loginData(data: any) {
-    return this.http.get(this.apiUrl, data);
+  get(url: string, param?:string) {
+    return this.http.get(this.baseUrl + url + param);
   }
 
-  getUserData(){
-    return this.http.get(this.apiUrl)
+  add(url: string, data: object) {
+    return this.http.post(this.baseUrl + url, data)
   }
+
+  edit(url: string, data: object) {
+    return this.http.put(this.baseUrl + url, data);
+  }
+
+  delete(url: string) {
+    return this.http.delete(this.baseUrl + url);
+  }
+  
 }

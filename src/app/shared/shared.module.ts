@@ -2,18 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DynamicFormModule } from './dynmic-form/dynamic-form.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UiModule } from '../ui/ui.module';
 
-const material:any = []
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     DynamicFormModule,
-    material,
+    UiModule
   ],
   exports: [
-    material,
     DynamicFormModule,
+    UiModule
   ]
 })
 export class SharedModule { }

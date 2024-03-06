@@ -14,11 +14,13 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const userToken = sessionStorage.getItem('token');
-        if (userToken) {
-            request = request.clone({
-                setHeaders: {Authorization: `Bearer ${userToken}`}
-            });
-        }
+    //uncomment the code when integrating API's
+
+        // if (userToken) {
+        //     request = request.clone({
+        //         setHeaders: {Authorization: `Bearer ${userToken}`}
+        //     });
+        // }
     return next.handle(request);
   }
 }

@@ -1,3 +1,4 @@
-<div [formGroup]="group">
-<input [class]="config.class" [type]="config.fieldType" [name]="config.name" [formControlName]="config.name"  [placeholder]="config.placeholder" />
-</div>
+<mat-form-field [formGroup]="group">
+<input matInput  [id]="config.name"  [class]="config.class" [type]="config.fieldType!"  [formControlName]="config.name"  [placeholder]="config.placeholder!" />
+</mat-form-field>
+<app-errors [errors]="config" [group]="group"></app-errors>

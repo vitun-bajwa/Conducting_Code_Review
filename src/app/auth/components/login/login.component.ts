@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { FieldConfig } from 'src/app/shared/dynmic-form/models/field-config';
-import { loginForm } from '../../config/form.constant';
+import { Validators } from '@angular/forms';
+import { FieldConfig } from 'src/app/core/models/field-config';
+import { loginForm } from '../../../core/config/form.constant';
 import { CommonService } from 'src/app/core/common.service';
 import { Router } from '@angular/router';
 
@@ -29,19 +30,18 @@ export class LoginComponent {
       password: this.form.form.value.password
     }
     if (this.form.invalid) {
-      this.form.markAllAsTouched();
+      this.form.form.markAllAsTouched();
     }
     else {
-      this.apiService.loginData(payload).subscribe((res: any) => {
+      this.apiService.get('user').subscribe((res: any) => {
         this.user = res.find((x: any) => x.email === this.form.form.value.email && x.password === this.form.form.value.password);
         if (this.user) {
           let token = Math.random().toString(36).slice(2);
           sessionStorage.setItem('token', token);
           if (token) {
             let url = this.user.role ? '/admin' : '/candidate';
-            this.router.navigateByUrl(url)
+            this.router.navigateByUrl(url);
           }
-
         }
       })
     }

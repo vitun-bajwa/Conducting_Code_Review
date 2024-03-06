@@ -16,7 +16,6 @@ export class ButtonFieldComponent {
   constructor() {}
 
   onButtonClicked() {
-    debugger
     this.btnClickEvent.emit('Click');
   }
   
