@@ -42,10 +42,6 @@ export const loginForm = [
       isRequired: true,
       class: 'input',
       error: false,
-      customErrorMessages:[
-       { required: 'firstname is required'},
-       { character: 'enter only characters'}
-      ]
     },
     {
       type: 'input',

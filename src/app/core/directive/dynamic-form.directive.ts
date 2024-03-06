@@ -1,9 +1,9 @@
 import { ComponentFactoryResolver, ComponentRef, Directive, Input, OnChanges, OnInit, SimpleChanges, Type, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Field } from '../models/field';
-import { ButtonFieldComponent } from '../component/button-field/button-field.component';
-import { InputFieldComponent } from '../component/input-field/input-field.component';
-import { DropdownComponent } from '../component/dropdown/dropdown.component';
+import { ButtonFieldComponent } from '../../shared/dynmic-form/component/button-field/button-field.component';
+import { InputFieldComponent } from '../../shared/dynmic-form/component/input-field/input-field.component';
+import { DropdownComponent } from '../../shared/dynmic-form/component/dropdown/dropdown.component';
 
 const components: {[type: string]: Type<Field>} = {
   button: ButtonFieldComponent,
