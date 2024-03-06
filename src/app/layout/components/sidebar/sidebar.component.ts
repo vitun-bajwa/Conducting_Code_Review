@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
 
+constructor() {}
+
+ngOnInit() {}
+
+expand(id:string) {
+  document.getElementById(id)?.classList.toggle('show')
+}
+
 }

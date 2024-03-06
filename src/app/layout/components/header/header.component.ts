@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+  constructor() {}
+
+  ngOnInit() {}
+
+  expand(id:string) {
+    document.getElementById(id)?.classList.toggle('show')
+  }
+
+
 }
