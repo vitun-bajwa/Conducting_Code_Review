@@ -28,7 +28,7 @@ export class SignUpComponent {
       }
       this.apiService.add('users', data).subscribe((res: any) => {
         this.snackBar.open('sign-up successfully','',{
-          duration: 1000
+          duration: 1000, panelClass: ['snackbar-success']
         });
       })
     }
