@@ -11,6 +11,15 @@
       "password": "Vishal@12",
       "role": "admin",
       "id": "955a"
+    },
+    {
+      "id": "3084",
+      "firstName": "jaspreet",
+      "lastName": "Singh",
+      "email": "jaspreet@gmail.com",
+      "password": "Jaspreet@1",
+      "userRole": "admin",
+      "status": "Inactive"
     }
   ],
   "roles": [

@@ -94,7 +94,7 @@ export const loginForm = [
     },
     {
       type: 'button',
-      name: 'Sign Up',
+      name: 'SignUp',
       class: 'button',
     },
   ];
