@@ -66,15 +66,10 @@ export class ForgotPaawordComponent {
       clearInterval(this.timer)
     }
     if (this.validOtp == this.otp) {
-      // this.notifyService.showSuccess("Otp Send Successful");
-      // sessionStorage.setItem('token', this.matchdata.id);
-      // sessionStorage.setItem('username', this.matchdata.email)
-      // this.router.navigate(['/']);
       this.verifiedReset = true;
     }
     else {
       this.timer = setTimeout(() => {
-        // this.notifyService.showError("Please enter a Valid otp")
       }, 1000);
     }
   }
@@ -87,13 +82,13 @@ export class ForgotPaawordComponent {
       this.form.form.markAllAsTouched()
     }
     else {
-      let id = this.route.snapshot.paramMap.get('id');
       let data: any = {
-        id: id,
+        ...this.matchdata,
         password: this.form.form.value.password,
       }
-      this.apiService.edit('users', data).subscribe((data: any) =>
-        console.log(data)
+      this.apiService.edit('users/'+this.matchdata.id, data).subscribe((data: any) => {
+        this.router.navigateByUrl('/')
+      }
       );
       this.form.form.reset()
       // this.message.showSuccess("Password Reset Succesfull")

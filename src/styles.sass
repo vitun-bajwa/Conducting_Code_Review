@@ -79,6 +79,13 @@ mat-form-field
     .mdc-line-ripple, .mat-mdc-form-field-subscript-wrapper
         display: none
 
+mat-form-field.withIcon 
+    @include d_c_sb
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) .input
+        width: 90%
+    i 
+        width: 10%
+
 app-errors 
     position: absolute
     left: 0px
@@ -93,4 +100,38 @@ app-errors
         background: $background-dark
         color: $primary
 
+.authPage
+    @include d_s_c
+    border: 2px solid $primary
+    overflow: hidden
+    height: 100vh
+    .lft 
+        width: 70%
+        padding: 50px
+        background-color: $background
+        background-image: url('assets/images/bg.svg')
+        background-position: center
+        background-repeat: no-repeat
+    .rgt
+        @include d_c_c
+        width: 30%
+        padding: 50px
+        h1 
+            font-size: 35px
+            font-weight: bold
+            color: $secondary
+        h5 
+            font-size: 14px
+            font-weight: bold
+            color: $secondary
+            padding-top: 20px
+            a 
+            color: $secondary
+        .buttonBox
+            width: 100%
+            @include d_c_sb
+            a
+            font-size: 14px
+            font-weight: bold
+            color: $secondary
 
