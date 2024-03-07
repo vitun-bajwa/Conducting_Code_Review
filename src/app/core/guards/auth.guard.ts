@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
     let authenticated = sessionStorage.getItem('token')
 
       if (!authenticated) {
-        this.router.navigate(['/']);
+        this.router.navigate(['/auth/login']);
         return false;
       }else {
         return true;
