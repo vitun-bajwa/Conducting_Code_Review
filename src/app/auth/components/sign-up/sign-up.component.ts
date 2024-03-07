@@ -26,7 +26,7 @@ export class SignUpComponent {
         ...this.form.form.value,
         status: 'Inactive'
       }
-      this.apiService.add('user', data).subscribe((res: any) => {
+      this.apiService.add('users', data).subscribe((res: any) => {
         this.snackBar.open('sign-up successfully','',{
           duration: 1000
         });
