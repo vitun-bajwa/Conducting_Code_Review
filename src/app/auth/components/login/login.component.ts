@@ -37,7 +37,7 @@ export class LoginComponent {
           sessionStorage.setItem('token', token);
           sessionStorage.setItem('user', this.user);
           if (token) {
-            let url = (this.user.role == 'admin') ? '/' : '/candidate';
+            let url = (this.user.role == 'admin') ? '/admin' : '/candidate';
             this.router.navigateByUrl(url);
           }
         }

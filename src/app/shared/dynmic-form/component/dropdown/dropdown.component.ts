@@ -9,4 +9,14 @@ import { FormGroup } from '@angular/forms';
 export class DropdownComponent {
   @Input() config: any;
   group!: FormGroup
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+  checkValue() {
+      this.group.controls
+  }
+
 }

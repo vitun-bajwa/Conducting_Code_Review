@@ -8,7 +8,7 @@ import { DropdownComponent } from '../../shared/dynmic-form/component/dropdown/d
 const components: {[type: string]: Type<Field>} = {
   button: ButtonFieldComponent,
   input: InputFieldComponent,
-  dropdown: DropdownComponent,
+  select: DropdownComponent,
   // textArea: FormTextareaComponent,
   // checkbox: FormCheckboxComponent,
   // password: FormPasswordComponent,

@@ -1,10 +1,11 @@
 <div class="" [formGroup]="group" >
   <mat-form-field>
-      <mat-select [placeholder]="config.placeholder" >
-        <mat-option *ngFor="let option of config.options" [value]="option.name">
+      <mat-select [placeholder]="config.placeholder"  [formControlName]="config.name">
+        <mat-option (click)="checkValue()" *ngFor="let option of config.options" [value]="option.name">
           {{option.name}}
         </mat-option>
       </mat-select>
   </mat-form-field>
+  {{config | json}}
   <app-errors [errors]="config" [group]="group"></app-errors>
 </div>
