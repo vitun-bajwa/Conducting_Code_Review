@@ -14,7 +14,7 @@ export class InputFieldComponent {
   @Input() disabled: any;
   errorMessage: string = '';
   errorArray: Array<string> = [];
-  hide = true;
+  hide = false;
   constructor() { }
 
   onButtonClicked() {
