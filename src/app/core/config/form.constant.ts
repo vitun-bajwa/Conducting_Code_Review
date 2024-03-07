@@ -1,5 +1,6 @@
 import { Validators } from "@angular/forms";
 import { reg } from "../regex/reg";
+import { passwordvalidaator } from "../regex/passwordvalidaator";
 
 export const loginForm = [
     {
@@ -97,3 +98,53 @@ export const loginForm = [
       class: 'button',
     },
   ];
+
+  export const forgotForm:any = [
+    {
+      type: 'input',
+      fieldType: 'email',
+      name: 'email',
+      value: '',
+      placeholder: 'Email',
+      validation: [Validators.required, Validators.pattern(reg.email)],
+      isRequired: true,
+      class: 'input',
+      error: false,
+    },
+    {
+      type: 'button',
+      name: 'Forgot Password',
+      class: 'button',
+    },
+  ]
+
+  
+  export const resetPasswordForm:any = [
+    {
+      type: 'input',
+      fieldType: 'password',
+      name: 'password',
+      value: '',
+      placeholder: 'Password',
+      validation: [Validators.required, Validators.pattern(reg.password)],
+      isRequired: true,
+      class: 'input',
+      error: false
+    },
+    {
+      type: 'input',
+      fieldType: 'password',
+      name: 'confirmPassword',
+      value: '',
+      placeholder: 'Confirm Password',
+      validation: [Validators.required, Validators.pattern(reg.password), passwordvalidaator()],
+      isRequired: true,
+      class: 'input',
+      error: false
+    },
+    {
+      type: 'button',
+      name: 'Save',
+      class: 'button',
+    },
+  ]

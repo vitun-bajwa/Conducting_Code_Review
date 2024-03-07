@@ -28,7 +28,7 @@ export class LoginComponent {
       email: this.form.form.value.email,
       password: this.form.form.value.password
     }
-    if (this.form.invalid) {
+    if (this.form.form.invalid) {
       this.form.form.markAllAsTouched();
     }
     else {
@@ -42,7 +42,7 @@ export class LoginComponent {
             this.router.navigateByUrl(url);
           }
         }
-      })
+      });
     }
   }
 

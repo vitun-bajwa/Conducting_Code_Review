@@ -12,7 +12,7 @@ export class CommonService {
   constructor(public http: HttpClient) { }
 
   get(url: string, param?:string) {
-    return this.http.get(this.baseUrl + url + param);
+    return this.http.get(this.baseUrl + url + (param ? param : ''));
   }
 
   add(url: string, data: object) {
@@ -26,5 +26,8 @@ export class CommonService {
   delete(url: string) {
     return this.http.delete(this.baseUrl + url);
   }
+//   patchdata(id:any,data:any){
+//     return this.http.patch(this.baseUrl  data);
+// }
   
 }

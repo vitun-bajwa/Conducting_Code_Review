@@ -11,14 +11,17 @@ import { FieldConfig } from 'src/app/core/models/field-config';
 export class InputFieldComponent {
   @Input() config!: FieldConfig;
   group!: FormGroup;
-  // field: any;
   @Input() disabled: any;
   errorMessage: string = '';
   errorArray: Array<string> = [];
+  hide = true;
   constructor() { }
 
   onButtonClicked() {
   }
   ngOnInit() {
+  }
+  toggleVisibility(): void {
+    this.hide = !this.hide;
   }
 }

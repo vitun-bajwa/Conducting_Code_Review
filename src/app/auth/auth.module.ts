@@ -6,6 +6,8 @@ import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgotPaawordComponent } from './components/forgot-paaword/forgot-paaword.component';
 import { SharedModule } from '../shared/shared.module';
+import { NgOtpInputModule } from  'ng-otp-input';
+
 
 
 @NgModule({
@@ -17,7 +19,8 @@ import { SharedModule } from '../shared/shared.module';
     imports: [
         CommonModule,
         AuthRoutingModule,
-        SharedModule
-    ]
+        SharedModule,
+        NgOtpInputModule
+    ],
 })
 export class AuthModule { }
