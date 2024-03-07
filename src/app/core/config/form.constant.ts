@@ -2,6 +2,8 @@ import { Validators } from "@angular/forms";
 import { reg } from "../regex/reg";
 import { passwordvalidaator } from "../regex/passwordvalidaator";
 
+const token = sessionStorage.getItem('token');
+
 export const loginForm = [
     {
       type: 'input',
@@ -83,18 +85,18 @@ export const loginForm = [
       name: 'userRole',
       value: '',
       placeholder: 'Select Role',
-      validation: [Validators.required],
+      validation: '',
       isRequired: true,
       class: 'input',
       error: false,
       options: [
-        {id: '1', name:'candidate'},
-        {id:'2', name: 'admin'}
+        {id: '1', name:'candidate', value: 'candidate'},
+        {id:'2', name: 'admin', value: 'admin'}
       ]
     },
     {
       type: 'button',
-      name: 'Sign-Up',
+      name: token ? 'Add User' : 'Sign-Up',
       class: 'button',
     },
   ];

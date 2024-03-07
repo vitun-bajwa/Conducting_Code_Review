@@ -23,15 +23,15 @@ export class LoginComponent {
 
   constructor(private apiService: CommonService, private router: Router) { }
 
-  ngOnInit() {}
-  
+  ngOnInit() { }
+
   login() {
     if (this.form.form.invalid) {
       this.form.form.markAllAsTouched();
     }
     else {
       this.apiService.get('users').subscribe((res: any) => {
-        this.user = res.find((x: any) => x.email === this.form.form.value.email && x.password === this.form.form.value.password);
+        this.user = res.find((x: any) => x.email === this.form.form.value.email && x.password === this.form.form.value.password && x.status == 'Active');
         if (this.user) {
           let token = Math.random().toString(36).slice(2);
           sessionStorage.setItem('token', token);
