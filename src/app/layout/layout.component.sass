@@ -1,0 +1,33 @@
+@import ../../assets/sass/mixin
+@import ../../assets/sass/variables
+
+.layoutPage
+    @include d_fs_sb
+
+.headerOtr
+    width: 100%
+    height: 70px
+    color: $secondary
+    background: $background
+    border-bottom: 1px solid #e1e1e1
+    z-index: 2
+
+.sidebarOtr
+    width: 150px
+    height: calc(100vh - 110px)
+    border-right: 1px solid #e1e1e1
+    
+
+.outletOtr 
+    width: calc(100% - 150px)
+    height: calc(100vh - 110px)
+    display: block
+    overflow: auto
+    padding: 20px 30px
+
+.footerOtr
+    width: 100%
+    height: 40px
+    border-top: 1px solid #e1e1e1
+    background: $background
+    color: $secondary

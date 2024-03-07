@@ -1,0 +1,7 @@
+<mat-form-field [formGroup]="group" [class]="config.fieldType === 'password' ? 'withIcon':'' ">
+    <input matInput [id]="config.name" [class]="config.class" 
+    [type]="(hide) ? 'text' : config.fieldType!" [formControlName]="config.name" [placeholder]="config.placeholder!" />
+    <i class="fa" [ngClass]="hide ? 'fa-eye': 'fa-eye-slash'" *ngIf="config.fieldType === 'password'"
+        (click)="toggleVisibility()"></i>
+</mat-form-field>
+<app-errors [errors]="config" [group]="group"></app-errors>
