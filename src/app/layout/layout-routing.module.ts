@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout.component';
+import { UserProfileComponent } from '../shared/components/user-profile/user-profile.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,10 @@ const routes: Routes = [
       {
         path: 'codeReview',
         loadChildren: () => import('./../features/code-review/code-review.module').then((m) => m.CodeReviewModule),
+      },
+      {
+        path: 'user-profile',
+        component: UserProfileComponent
       }
     ]
   }

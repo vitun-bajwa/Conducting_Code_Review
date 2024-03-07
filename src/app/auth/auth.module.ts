@@ -16,7 +16,7 @@ import { ButtonFieldComponent } from "../shared/dynmic-form/component/button-fie
     declarations: [
         LoginComponent,
         SignUpComponent,
-        ForgotPaawordComponent,
+        ForgotPaawordComponent
     ],
     imports: [
         CommonModule,
