@@ -24,9 +24,7 @@ export class SignUpComponent {
       this.form.form.markAllAsTouched();
     }
     else {
-      this.apiService.add('user',this.form.form.value).subscribe((res: any) => {
-
-      })
+      this.apiService.add('user',this.form.form.value).subscribe((res: any) => {})
     }
   }
 }
