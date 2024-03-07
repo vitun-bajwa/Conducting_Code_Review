@@ -16,7 +16,7 @@ export class HeaderComponent {
     let token = sessionStorage.getItem('token');
     if(token) {
       sessionStorage.clear();
-      this.router.navigateByUrl('/')
+      this.router.navigateByUrl('/auth/login')
     }
   }
 
