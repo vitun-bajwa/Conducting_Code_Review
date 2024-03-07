@@ -6,11 +6,11 @@ import { CommonService } from 'src/app/core/service/common.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-forgot-paaword',
-  templateUrl: './forgot-paaword.component.html',
-  styleUrls: ['./forgot-paaword.component.sass']
+  selector: 'app-forgot-password',
+  templateUrl: './forgot-password.component.html',
+  styleUrls: ['./forgot-password.component.sass']
 })
-export class ForgotPaawordComponent {
+export class ForgotPasswordComponent {
   @ViewChild('form') form: any;
   config: FieldConfig[] = forgotForm
   resetPasswordForm: FieldConfig[] = resetPasswordForm
