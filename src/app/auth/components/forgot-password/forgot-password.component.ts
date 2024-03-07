@@ -3,23 +3,26 @@ import { FieldConfig } from 'src/app/core/models/field-config';
 import { forgotForm, resetPasswordForm } from '../../../core/config/form.constant';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/core/service/common.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-forgot-paaword',
-  templateUrl: './forgot-paaword.component.html',
-  styleUrls: ['./forgot-paaword.component.sass']
+  selector: 'app-forgot-password',
+  templateUrl: './forgot-password.component.html',
+  styleUrls: ['./forgot-password.component.sass']
 })
-export class ForgotPaawordComponent {
+export class ForgotPasswordComponent {
   @ViewChild('form') form: any;
   config: FieldConfig[] = forgotForm
   resetPasswordForm: FieldConfig[] = resetPasswordForm
-  
+  verifiedReset: boolean = false;
+  loader: boolean = false;
   logindata: any = [] = []
   showloginpage: Boolean = true
   matchdata: any
   timer: any;
   validOtp!: number;
-  otp: any
+  otp: any;
+  hidepage: boolean = false;
   configs = {
     allowNumbersOnly: false,
     length: 6,
@@ -30,8 +33,12 @@ export class ForgotPaawordComponent {
       'height': '50px'
     }
   }
-  verifiedReset: boolean = false;
-  constructor(private apiService: CommonService, public router: Router, private route: ActivatedRoute) { }
+
+  constructor(
+    private apiService: CommonService, 
+    private router: Router, 
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit() {
 
@@ -44,21 +51,23 @@ export class ForgotPaawordComponent {
     }
     this.apiService.get('users').subscribe(
       (data: any) => {
+        this.loader = true;
         this.logindata = data;
         this.matchdata = this.logindata.find((data: any) => data.email === alluseremail.email);
+        this.snackBar.open(this.matchdata ? 'email verified successfully' : 'please enter valid email','',{
+          duration: 1800
+        });
         if (this.matchdata) {
           setTimeout(() => {
+            this.loader = false;
+            this.showloginpage = false
             this.validOtp = Math.floor(Math.random() * 1000000);
-          }, 5000);
-          this.showloginpage = false
-          console.log(this.validOtp)
+          }, 1500);
+        } else {
+          this.loader = false;
         }
-        else {
-          this.timer = setTimeout(() => {
-          }, 1000)
-      }
       this.form.form.reset();
-  });
+    });
   }
 
   otpVerfication() {

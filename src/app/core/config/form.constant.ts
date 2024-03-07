@@ -37,18 +37,18 @@ export const loginForm = [
   export const signUpForm:any = [
     {
       type: 'input',
-      fieldType: 'firstname',
-      name: 'firstname',
+      fieldType: 'text',
+      name: 'firstName',
       value: '',
       placeholder: 'First Name',
-      validation: [Validators.required, Validators.pattern(reg.name), Validators.minLength(9)],
+      validation: [Validators.required, Validators.pattern(reg.name)],
       isRequired: true,
       class: 'input',
       error: false,
     },
     {
       type: 'input',
-      fieldType: 'lastname',
+      fieldType: 'text',
       name: 'lastName',
       value: '',
       placeholder: 'Last Name',
@@ -80,8 +80,8 @@ export const loginForm = [
       error: false
     },
     {
-      type: 'dropdown',
-      fieldType: 'userRole',
+      type: 'select',
+      fieldType: 'text',
       name: 'userRole',
       value: '',
       placeholder: 'Select Role',

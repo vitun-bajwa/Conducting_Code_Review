@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DynamicFormModule } from '../../dynamic-form.module';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-button-field',
