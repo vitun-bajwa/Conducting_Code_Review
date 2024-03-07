@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 export class TableComponent {
 
   @Input() tableConfig: any;
+  @Output() userInfo = new EventEmitter();
   tableData: any;
   tableConfiguration: any;
 
@@ -19,6 +20,10 @@ export class TableComponent {
     }
 
     this.tableData = new MatTableDataSource<any>(this.tableConfiguration.tableData);
+  }
+
+  updateStatus(event: any){
+    this.userInfo.emit(event);
   }
 
 }

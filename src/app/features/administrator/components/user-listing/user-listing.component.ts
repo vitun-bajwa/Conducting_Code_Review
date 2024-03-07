@@ -13,6 +13,7 @@ export class UserListingComponent {
   // tableConfig!: MatTableDataSource<any>;
   tableConfig : any;
   tableHeaders: any = [];
+  usersConfig: any;
   constructor(private commonService: CommonService){
 
   }
@@ -25,8 +26,18 @@ export class UserListingComponent {
 
   getUserData(){
     this.commonService.get('users', '').subscribe((res:any) => {
+      this.usersConfig = res;
       this.tableColumns = Object.keys(res[0]).filter((x:any) => x != 'password');
       this.tableConfig = { tableHeaders: this.tableColumns, tableData: res}
     });
+  }
+
+  updateUserInfo(event: any){
+    let userData = this.usersConfig.find((x:any) => x.id == event.id);
+    userData['status'] = 1;
+    this.commonService.edit('users/'+userData.id,userData).subscribe((res:any) => {
+      debugger
+      res
+    })
   }
 }

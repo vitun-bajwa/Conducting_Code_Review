@@ -3,7 +3,10 @@
     <th mat-header-cell *matHeaderCellDef> {{column | titlecase}} </th>
     <ng-container *matCellDef="let element">
       <td mat-cell *ngIf="column != 'status'">{{element[column]}} </td>
-      <td mat-cell *ngIf="column == 'status'"><mat-icon>{{element[column] == '1' ? 'check_circle' : 'highlight_off'}}</mat-icon></td>
+      <td mat-cell *ngIf="column == 'status'">
+        <!-- <mat-icon >{{element[column] == '1' ? 'check_circle' : 'highlight_off'}}</mat-icon> -->
+        <button class="status" (click)="updateStatus(element)">{{element[column]}}</button>
+      </td>
     </ng-container>
   </ng-container>
 

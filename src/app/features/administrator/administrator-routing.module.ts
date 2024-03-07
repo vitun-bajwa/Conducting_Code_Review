@@ -5,12 +5,12 @@ import { UserViewComponent } from './components/user-view/user-view.component';
 
 const routes: Routes = [
   {
-    path:'admin',
+    path:'',
     component: UserListingComponent
     
   },
   {
-    path:'admin/view',
+    path:'view',
     component: UserViewComponent
   }
 ];
