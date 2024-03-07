@@ -24,7 +24,11 @@ export class SignUpComponent {
       this.form.form.markAllAsTouched();
     }
     else {
-      this.apiService.add('user',this.form.form.value).subscribe((res: any) => {})
+      let data = {
+        ...this.form.form.value,
+        status: 'Inactive'
+      }
+      this.apiService.add('user', data).subscribe((res: any) => {})
     }
   }
 }

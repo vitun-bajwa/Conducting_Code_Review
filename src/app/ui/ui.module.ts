@@ -11,7 +11,7 @@ import {MatTableModule} from '@angular/material/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
-const material:any = [MatFormFieldModule,MatInputModule,MatSelectModule, MatIconModule,MatProgressSpinnerModule]
+const material:any = [MatFormFieldModule,MatInputModule,MatSelectModule, MatIconModule,MatProgressSpinnerModule,MatTabsModule,MatTableModule,MatIconModule,]
 @NgModule({
   declarations: [
     
@@ -21,16 +21,11 @@ const material:any = [MatFormFieldModule,MatInputModule,MatSelectModule, MatIcon
     UiRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MatTableModule,
-    MatIconModule,
     material,
   ],
    exports: [
     FormsModule,
     ReactiveFormsModule,
-    MatTabsModule,
-    MatTableModule,
-    MatIconModule,
     material,
    ]
 })
