@@ -2,7 +2,8 @@
   "users": [
     {
       "email": "vitun@gmail.com",
-      "password": "Vitun@12"
+      "password": "Vitun@12",
+      "role": "admin"
     }
   ]
 }
