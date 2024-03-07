@@ -34,10 +34,8 @@ export class UserListingComponent {
 
   updateUserInfo(event: any){
     let userData = this.usersConfig.find((x:any) => x.id == event.id);
-    userData['status'] = 1;
+    userData['status'] = userData['status'] == 'Active' ? 'Inactive' : 'Active';
     this.commonService.edit('users/'+userData.id,userData).subscribe((res:any) => {
-      debugger
-      res
     })
   }
 }
