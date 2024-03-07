@@ -25,11 +25,11 @@ export const loginForm = [
       class: 'input',
       error: false
     },
-    {
-      type: 'button',
-      name: 'Login',
-      class: 'button',
-    },
+    // {
+    //   type: 'button',
+    //   name: 'Login',
+    //   class: 'button',
+    // },
   ];
 
   export const signUpForm:any = [

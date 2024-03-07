@@ -2,7 +2,25 @@
   "users": [
     {
       "email": "vitun@gmail.com",
-      "password": "Vitun@12"
+      "password": "Vitun@65",
+      "role": "admin",
+      "id": "9903"
+    },
+    {
+      "email": "vishal@gmail.com",
+      "password": "Vishal@12",
+      "role": "admin",
+      "id": "955a"
+    }
+  ],
+  "roles": [
+    {
+      "name": "Admin",
+      "id": "edaf"
+    },
+    {
+      "name": "Candidate",
+      "id": "53c7"
     }
   ]
 }

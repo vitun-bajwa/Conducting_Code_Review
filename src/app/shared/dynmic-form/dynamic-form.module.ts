@@ -13,7 +13,7 @@ import { ErrorsComponent } from './component/errors/errors.component';
 
 
 @NgModule({
-  declarations: [DynamicFormComponent, DynamicFormDirective, InputFieldComponent, ButtonFieldComponent, DropdownComponent, ErrorsComponent],
+  declarations: [DynamicFormComponent, DynamicFormDirective, InputFieldComponent, DropdownComponent, ErrorsComponent],
   imports: [
     CommonModule,
     DynamicFormRoutingModule,
@@ -21,6 +21,6 @@ import { ErrorsComponent } from './component/errors/errors.component';
     FormsModule,
     UiModule
   ],
-  exports: [DynamicFormComponent,InputFieldComponent,ButtonFieldComponent]
+  exports: [DynamicFormComponent,InputFieldComponent]
 })
 export class DynamicFormModule { }

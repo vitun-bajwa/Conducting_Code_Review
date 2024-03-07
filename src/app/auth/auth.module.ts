@@ -8,6 +8,7 @@ import { ForgotPaawordComponent } from './components/forgot-paaword/forgot-paawo
 import { SharedModule } from '../shared/shared.module';
 import { NgOtpInputModule } from  'ng-otp-input';
 import { UiModule } from '../ui/ui.module';
+import { ButtonFieldComponent } from "../shared/dynmic-form/component/button-field/button-field.component";
 
 
 
@@ -22,7 +23,8 @@ import { UiModule } from '../ui/ui.module';
         AuthRoutingModule,
         SharedModule,
         NgOtpInputModule,
-        UiModule
+        UiModule,
+        ButtonFieldComponent
     ],
 })
 export class AuthModule { }

@@ -1,11 +1,13 @@
-<div class="forgotPage">
+<div class="authPage">
     <div class="lft">
     </div>
     <div class="rgt">
         <h1>Conducting Code Review</h1>
         <ng-container *ngIf="showloginpage">
             <app-dynamic-form class="feild_50" [config]="config" #form="dynamicForm" (submitted)="forgotPassword($event)"></app-dynamic-form>
-            <a routerLink="/">login</a>
+            <h5>
+              Already have an Account? <a routerLink="/">Login</a>
+           </h5>
         </ng-container>
 
         <div class="content" *ngIf="!showloginpage && !verifiedReset">
