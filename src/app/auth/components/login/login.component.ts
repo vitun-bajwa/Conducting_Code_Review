@@ -15,26 +15,29 @@ export class LoginComponent {
   @ViewChild('form') form: any;
   config: FieldConfig[] = loginForm
   user: any = [];
-
+  loginButton: object = {
+    type: 'button',
+    name: 'Login',
+    class: 'button',
+  }
 
   constructor(private apiService: CommonService, private router: Router) { }
 
-  ngOnInit() {
-
-  }
-
+  ngOnInit() {}
+  
   login() {
     if (this.form.form.invalid) {
       this.form.form.markAllAsTouched();
     }
     else {
-      this.apiService.get('user').subscribe((res: any) => {
+      this.apiService.get('users').subscribe((res: any) => {
         this.user = res.find((x: any) => x.email === this.form.form.value.email && x.password === this.form.form.value.password);
         if (this.user) {
           let token = Math.random().toString(36).slice(2);
           sessionStorage.setItem('token', token);
+          sessionStorage.setItem('user', this.user);
           if (token) {
-            let url = this.user.role ? '/admin' : '/candidate';
+            let url = (this.user.role == 'admin') ? '/layout' : '/candidate';
             this.router.navigateByUrl(url);
           }
         }
