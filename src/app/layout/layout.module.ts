@@ -7,6 +7,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LayoutComponent } from './layout.component';
 import { SharedModule } from '../shared/shared.module';
+import { UiModule } from '../ui/ui.module';
 
 
 @NgModule({
@@ -14,12 +15,15 @@ import { SharedModule } from '../shared/shared.module';
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
-    LayoutComponent,
+    LayoutComponent
   ],
   imports: [
     CommonModule,
     LayoutRoutingModule,
-    SharedModule
+    SharedModule,
+    UiModule
   ]
 })
-export class LayoutModule { }
+export class LayoutModule {constructor(){
+  console.log('LayoutModule');
+} }

@@ -26,6 +26,7 @@ export class CommonService {
   delete(url: string) {
     return this.http.delete(this.baseUrl + url);
   }
+  
   patchdata(url:any,data:any){
     return this.http.patch(this.baseUrl + url, data);
   }

@@ -27,4 +27,6 @@ import { ButtonFieldComponent } from "../shared/dynmic-form/component/button-fie
         ButtonFieldComponent
     ],
 })
-export class AuthModule { }
+export class AuthModule { constructor(){
+    console.log('AuthModule');
+  }}

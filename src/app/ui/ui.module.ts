@@ -6,13 +6,17 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatTableModule} from '@angular/material/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
-const material:any = [MatFormFieldModule,MatInputModule,MatSelectModule, MatIconModule,MatProgressSpinnerModule,MatSnackBarModule]
+const material:any = [MatFormFieldModule,MatInputModule,MatSelectModule, MatIconModule,MatProgressSpinnerModule,MatTabsModule,MatTableModule,MatIconModule,]
 @NgModule({
-  declarations: [],
+  declarations: [
+    
+  ],
   imports: [
     CommonModule,
     UiRoutingModule,

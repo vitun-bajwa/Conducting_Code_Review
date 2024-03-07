@@ -1,22 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserListingComponent } from './components/user-listing/user-listing.component';
-import { AddEditUserComponent } from './components/add-edit-user/add-edit-user.component';
 import { UserViewComponent } from './components/user-view/user-view.component';
 
 const routes: Routes = [
   {
-    path:'users',
+    path:'',
     component: UserListingComponent
+    
   },
   {
-    path:'users/add',
-    component: AddEditUserComponent
-  },
-  {
-    path:'users/view',
+    path:'view',
     component: UserViewComponent
-  },
+  }
 ];
 
 @NgModule({
