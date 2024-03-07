@@ -3,6 +3,7 @@ import { signUpForm } from '../../../core/config/form.constant';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
 import { DynamicFormComponent } from 'src/app/shared/dynmic-form/dynamic-form.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,7 +14,7 @@ export class SignUpComponent {
   @ViewChild('form') form: any;
   config: FieldConfig[] = signUpForm
 
-  constructor(private apiService: CommonService) { }
+  constructor(private apiService: CommonService,private snackBar: MatSnackBar) { }
 
   ngOnInit() {
 
@@ -25,7 +26,9 @@ export class SignUpComponent {
     }
     else {
       this.apiService.add('user',this.form.form.value).subscribe((res: any) => {
-
+        this.snackBar.open('sign-up successfully','',{
+          duration: 1000
+        });
       })
     }
   }
