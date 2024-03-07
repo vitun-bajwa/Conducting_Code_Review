@@ -9,6 +9,9 @@ html, body, p, ul, li
     margin: 0px
     padding: 0px
 
+ul, li
+    list-style-type: none
+
 body 
     width: 100%
     height: 100vh
@@ -45,6 +48,9 @@ body
     background-size: cover
     background-position: center
 
+app-dynamic-form 
+    width: 100%
+
 mat-form-field
     width: 100%
     .mdc-text-field--filled:not(.mdc-text-field--disabled)
@@ -80,3 +86,11 @@ app-errors
     font-size: 12px
     font-weight: 500
     color: red
+
+.dropdown-menu.show
+    background: $background
+    li a:hover
+        background: $background-dark
+        color: $primary
+
+

@@ -1,8 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { Validators } from '@angular/forms';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { loginForm } from '../../../core/config/form.constant';
-import { CommonService } from 'src/app/core/common.service';
+import { CommonService } from 'src/app/core/service/common.service';
 import { Router } from '@angular/router';
 
 
@@ -25,11 +24,7 @@ export class LoginComponent {
   }
 
   login() {
-    const payload = {
-      email: this.form.form.value.email,
-      password: this.form.form.value.password
-    }
-    if (this.form.invalid) {
+    if (this.form.form.invalid) {
       this.form.form.markAllAsTouched();
     }
     else {
@@ -43,7 +38,7 @@ export class LoginComponent {
             this.router.navigateByUrl(url);
           }
         }
-      })
+      });
     }
   }
 
