@@ -6,13 +6,17 @@ import { SignUpComponent } from '../auth/components/sign-up/sign-up.component';
 
 const routes: Routes = [
   {
-    path: 'layout',
+    path: '',
     component: LayoutComponent,
     children: [
       {
-        path: 'signup',
-        component: SignUpComponent
-      }
+        path: '',
+        loadChildren: () => import('../features/administrator/administrator.module').then((m) => m.AdministratorModule),
+      },
+      {
+        path: 'codereview',
+        loadChildren: () => import('../features/code-review/code-review.module').then((m) => m.CodeReviewModule),
+      },
     ]
   }
 ];

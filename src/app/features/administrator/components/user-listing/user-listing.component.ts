@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonService } from 'src/app/core/common.service';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { UiModule } from 'src/app/ui/ui.module';
+import { CommonService } from 'src/app/core/service/common.service';
 
 @Component({
   selector: 'app-user-listing',
