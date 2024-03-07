@@ -24,10 +24,6 @@ export class LoginComponent {
   }
 
   login() {
-    const payload = {
-      email: this.form.form.value.email,
-      password: this.form.form.value.password
-    }
     if (this.form.form.invalid) {
       this.form.form.markAllAsTouched();
     }
