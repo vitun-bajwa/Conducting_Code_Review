@@ -6,8 +6,7 @@ import { ForgotPaawordComponent } from './components/forgot-paaword/forgot-paawo
 
 const routes: Routes = [
   {
-    path:'',
-    pathMatch:'full',
+    path:'login',
     component: LoginComponent
   },
   {
