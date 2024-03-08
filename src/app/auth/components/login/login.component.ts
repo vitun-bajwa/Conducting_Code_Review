@@ -3,7 +3,6 @@ import { FieldConfig } from 'src/app/core/models/field-config';
 import { loginForm } from '../../../core/config/form.constant';
 import { CommonService } from 'src/app/core/service/common.service';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -22,7 +21,7 @@ export class LoginComponent {
     class: 'button',
   }
 
-  constructor(private apiService: CommonService, private router: Router,  private snackBar: MatSnackBar) { }
+  constructor(private apiService: CommonService, private router: Router) { }
 
   ngOnInit() {}
   
@@ -40,14 +39,16 @@ export class LoginComponent {
           if (token) {
             let url = (this.user.role == 'admin') ? '/admin' : '/candidate';
             this.router.navigateByUrl(url);
-            this.snackBar.open('login successfully','',{
-              duration: 1800, panelClass: ['snackbar-error']
-            });
+            // this.snackBar.open('login successfully','',{
+            //   duration: 1800, panelClass: ['snackbar-error']
+            // });
+            this.apiService.successMSG('login successfully')
           }
         } else {
-          this.snackBar.open('invalid email or password','',{
-            duration: 1800, panelClass: ['snackbar-error']
-          });
+          // this.snackBar.open('invalid email or password','',{
+          //   duration: 1800, panelClass: ['snackbar-error']
+          // });
+          this.apiService.successMSG('Invalid email or password')
         }
         this.form.form.reset();
       });
