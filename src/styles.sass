@@ -25,21 +25,21 @@ body
         @include d_c_sb
     app-input-field, app-dropdown
         width: 48%
-        position: relative
     app-button-field 
         width: 100%
         text-align: right
         margin-top: 10px
 
 .button 
+    width: 100%
     padding: 8px 15px
     color: $primary
     font-size: 14px
     font-weight: bold
     border: none
     background: $background-dark
-    border-radius: 2px
-    cursor: pointer
+    border-radius: 20px
+    margin-top: 10px
 
 .main 
     width: 100%
@@ -50,6 +50,9 @@ body
 
 app-dynamic-form 
     width: 100%
+    app-input-field, app-dropdown
+        position: relative
+        display: block
 
 mat-form-field
     width: 100%
@@ -82,9 +85,10 @@ mat-form-field
 mat-form-field.withIcon 
     @include d_c_sb
     .mdc-text-field--filled:not(.mdc-text-field--disabled) .input
-        width: 90%
+        width: 85%
     i 
-        width: 10%
+        width: 15%
+        text-align: center
 
 app-errors 
     position: absolute
@@ -101,23 +105,35 @@ app-errors
         color: $primary
 
 .authPage
-    @include d_s_c
+    @include d_c_c
     border: 2px solid $primary
+    background: $background-gradient
     overflow: hidden
     height: 100vh
+    .innerPage
+        @include d_s_c
+        width: 50%
+        height: 70%
+        border-radius: 15px
+        overflow: hidden
     .lft 
-        width: 70%
+        width: 50%
+        height: 100%
         padding: 50px
         background-color: $background
-        background-image: url('assets/images/bg.svg')
-        background-position: center
+        background-image: url('assets/images/bg.jpg')
+        background-position: right
         background-repeat: no-repeat
+        background-size: cover 
     .rgt
         @include d_c_c
-        width: 30%
+        width: 50%
+        height: 100%
         padding: 50px
+        background: $background-white
+        overflow: auto
         h1 
-            font-size: 35px
+            font-size: 26px
             font-weight: bold
             color: $secondary
         h5 
@@ -127,13 +143,12 @@ app-errors
             padding-top: 20px
             a 
             color: $secondary
-        .buttonBox
+        .forgotBtn
             width: 100%
-            @include d_c_sb
-            a
             font-size: 14px
             font-weight: bold
             color: $secondary
+            text-align: center
 
 .sideBarPage
     ul 
@@ -167,3 +182,17 @@ app-errors
         width: 100%
         height: 100%
         object-fit: contain
+
+.mat-mdc-tab-labels
+    .mat-mdc-tab
+        width: max-content
+        flex-grow: unset !important
+        background: $background
+        border-radius: 15px 0px 15px 0px
+        margin-right: 5px
+    .mat-mdc-tab.mdc-tab--active, .mat-mdc-tab.mdc-tab--active:focus 
+        background: $background-dark
+        .mdc-tab__text-label
+            color: $primary
+        .mdc-tab-indicator__content--underline
+            border: 0px solid $background
