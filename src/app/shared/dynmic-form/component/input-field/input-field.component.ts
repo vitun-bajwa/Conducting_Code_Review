@@ -20,6 +20,7 @@ export class InputFieldComponent {
   onButtonClicked() {
   }
   ngOnInit() {
+    
   }
   toggleVisibility(): void {
     this.hide = !this.hide;

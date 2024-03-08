@@ -2,6 +2,8 @@ import { Validators } from "@angular/forms";
 import { reg } from "../regex/reg";
 import { passwordvalidaator } from "../regex/passwordvalidaator";
 
+const token = sessionStorage.getItem('token');
+
 export const loginForm = [
     {
       type: 'input',
@@ -83,18 +85,18 @@ export const loginForm = [
       name: 'userRole',
       value: '',
       placeholder: 'Select Role',
-      validation: [Validators.required],
+      validation: '',
       isRequired: true,
       class: 'input',
       error: false,
       options: [
-        {id: '1', name:'candidate'},
-        {id:'2', name: 'admin'}
+        {id: '1', name:'candidate', value: 'candidate'},
+        {id:'2', name: 'admin', value: 'admin'}
       ]
     },
     {
       type: 'button',
-      name: 'SignUp',
+      name: token ? 'Add User' : 'Sign-Up',
       class: 'button',
     },
   ];
@@ -189,3 +191,46 @@ export const loginForm = [
       class: 'button',
     },
   ]
+  export const profileForm :any = [
+    {
+      type: 'input',
+      fieldType: 'firstname',
+      name: 'firstname',
+      value: '',
+      placeholder: 'First Name',
+      validation: [Validators.required, Validators.pattern(reg.name), Validators.minLength(9)],
+      isRequired: true,
+      class: 'input',
+      error: false,
+      disabled: ""
+    },
+    {
+      type: 'input',
+      fieldType: 'lastname',
+      name: 'lastName',
+      value: '',
+      placeholder: 'Last Name',
+      validation: [Validators.required, Validators.pattern(reg.name)],
+      isRequired: true,
+      class: 'input',
+      error: false,
+      disabled: ""
+    },
+    {
+      type: 'input',
+      fieldType: 'email',
+      name: 'email',
+      value: '',
+      placeholder: 'Email',
+      validation: [Validators.required, Validators.pattern(reg.email)],
+      isRequired: true,
+      class: 'input',
+      error: false,
+      disabled: "disabled"
+    },
+    {
+      type: 'button',
+      name: 'Update Profile',
+      class: 'button',
+    },
+  ];
