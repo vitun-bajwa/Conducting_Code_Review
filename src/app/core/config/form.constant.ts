@@ -27,11 +27,11 @@ export const loginForm = [
       class: 'input',
       error: false
     },
-    // {
-    //   type: 'button',
-    //   name: 'Login',
-    //   class: 'button',
-    // },
+    {
+      type: 'button',
+      name: 'Login',
+      class: 'button',
+    },
   ];
 
   export const signUpForm:any = [
@@ -162,6 +162,7 @@ export const loginForm = [
       isRequired: true,
       class: 'input',
       error: false,
+      disabled: ""
     },
     {
       type: 'input',
@@ -173,6 +174,7 @@ export const loginForm = [
       isRequired: true,
       class: 'input',
       error: false,
+      disabled: ""
     },
     {
       type: 'input',
@@ -184,36 +186,11 @@ export const loginForm = [
       isRequired: true,
       class: 'input',
       error: false,
-    },
-    {
-      type: 'input',
-      fieldType: 'password',
-      name: 'password',
-      value: '',
-      placeholder: 'Password',
-      validation: [Validators.required, Validators.pattern(reg.password)],
-      isRequired: true,
-      class: 'input',
-      error: false
-    },
-    {
-      type: 'dropdown',
-      fieldType: 'userRole',
-      name: 'userRole',
-      value: '',
-      placeholder: 'Select Role',
-      validation: '',
-      isRequired: true,
-      class: 'input',
-      error: false,
-      options: [
-        {id: '1', name:'candidate', value: 'candidate'},
-        {id:'2', name: 'admin', value: 'admin'}
-      ]
+      disabled: "disabled"
     },
     {
       type: 'button',
-      name: token ? 'Add User' : 'Sign-Up',
+      name: 'Update Profile',
       class: 'button',
     },
   ];

@@ -25,7 +25,7 @@ export class ForgotPasswordComponent {
   hidepage: boolean = false;
   configs = {
     allowNumbersOnly: false,
-    length: 6,
+    length: 0,
     isPasswordInput: false,
     disableAutoFocus: false,
     inputStyles: {
@@ -62,6 +62,7 @@ export class ForgotPasswordComponent {
             this.loader = false;
             this.showloginpage = false
             this.validOtp = Math.floor(Math.random() * 1000000);
+            this.configs.length = this.validOtp.toString().length
           }, 1500);
         } else {
           this.loader = false;

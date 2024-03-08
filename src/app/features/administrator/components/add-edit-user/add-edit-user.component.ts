@@ -1,4 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { signUpForm } from 'src/app/core/config/form.constant';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
@@ -12,7 +14,7 @@ export class AddEditUserComponent {
   @ViewChild('form') form: any;
   config: FieldConfig[] = signUpForm
  
-  constructor(private apiService: CommonService){}
+  constructor(private apiService: CommonService, private snackBar: MatSnackBar, private router: Router){}
 
   addUser(){
     if (this.form.form.invalid) {
@@ -23,7 +25,12 @@ export class AddEditUserComponent {
         ...this.form.form.value,
         status: 'Active'
       }
-      this.apiService.add('user', data).subscribe((res: any) => {})
+      this.apiService.add('users', data).subscribe((res: any) => {
+        this.snackBar.open('User added successfully.','',{
+          duration: 1000
+        });
+        this.router.navigateByUrl('admin');
+      })
     }
   }
 
