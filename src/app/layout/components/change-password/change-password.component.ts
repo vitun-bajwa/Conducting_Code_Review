@@ -21,8 +21,6 @@ export class ChangePasswordComponent {
   constructor(
     private apiService: CommonService,
     private router: Router,
-    private route: ActivatedRoute,
-    private snackBar: MatSnackBar
   ) { }
 
   changePassword() { 
@@ -37,16 +35,12 @@ export class ChangePasswordComponent {
       }
       this.apiService.edit('users/' + user.id, data).subscribe((data: any) => {
         sessionStorage.setItem('user', JSON.stringify(data));
-        this.snackBar.open('Your Password Changed Successfully' ,'',{
-          duration: 1800
-        });
+        this.apiService.successMSG('Your Password Changed Successfully');
         this.router.navigateByUrl('/admin');
       });
     }
     else{
-      this.snackBar.open('Old Password Does Not Match' ,'',{
-        duration: 1800
-      });
+      this.apiService.successMSG('Old Password Does Not Match');
       this.form.form.reset();
     }
   }

@@ -98,6 +98,7 @@ export class ForgotPasswordComponent {
       }
       this.apiService.edit('users/'+this.matchdata.id, data).subscribe((data: any) => {
         this.router.navigateByUrl('/');
+        this.apiService.successMSG('Your password has been updated successfully');
       }
       );
       this.form.form.reset()

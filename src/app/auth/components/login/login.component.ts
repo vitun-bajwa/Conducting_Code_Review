@@ -39,16 +39,10 @@ export class LoginComponent {
           if (token) {
             let url = (this.user.role == 'admin') ? '/admin' : '/candidate';
             this.router.navigateByUrl(url);
-            // this.snackBar.open('login successfully','',{
-            //   duration: 1800, panelClass: ['snackbar-error']
-            // });
-            this.apiService.successMSG('login successfully')
+            this.apiService.successMSG('login successfully');
           }
         } else {
-          // this.snackBar.open('invalid email or password','',{
-          //   duration: 1800, panelClass: ['snackbar-error']
-          // });
-          this.apiService.successMSG('Invalid email or password')
+          this.apiService.successMSG('Invalid email or password');
         }
         this.form.form.reset();
       });
