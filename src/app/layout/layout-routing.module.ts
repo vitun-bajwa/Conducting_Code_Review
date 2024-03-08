@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,9 @@ const routes: Routes = [
         loadChildren: () => import('./../features/code-review/code-review.module').then((m) => m.CodeReviewModule),
       }
     ]
+  },
+  {
+    path: 'changePassword', component: ChangePasswordComponent,
   }
 ];
 

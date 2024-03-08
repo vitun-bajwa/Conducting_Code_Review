@@ -125,7 +125,7 @@ export const loginForm = [
       fieldType: 'password',
       name: 'password',
       value: '',
-      placeholder: 'Password',
+      placeholder: 'New Password',
       validation: [Validators.required, Validators.pattern(reg.password)],
       isRequired: true,
       class: 'input',
@@ -145,6 +145,47 @@ export const loginForm = [
     {
       type: 'button',
       name: 'Save',
+      class: 'button',
+    },
+  ]
+
+  export const changePasswordForm:any = [
+    {
+      type: 'input',
+      fieldType: 'password',
+      name: 'oldPassword',
+      value: '',
+      placeholder: 'Old Password',
+      validation: [Validators.required, Validators.pattern(reg.password)],
+      isRequired: true,
+      class: 'input',
+      error: false
+    },
+    {
+      type: 'input',
+      fieldType: 'password',
+      name: 'password',
+      value: '',
+      placeholder: 'New Password',
+      validation: [Validators.required, Validators.pattern(reg.password)],
+      isRequired: true,
+      class: 'input',
+      error: false
+    },
+    {
+      type: 'input',
+      fieldType: 'password',
+      name: 'confirmPassword',
+      value: '',
+      placeholder: 'Confirm Password',
+      validation: [Validators.required, Validators.pattern(reg.password), passwordvalidaator()],
+      isRequired: true,
+      class: 'input',
+      error: false
+    },
+    {
+      type: 'button',
+      name: 'Change Password',
       class: 'button',
     },
   ]

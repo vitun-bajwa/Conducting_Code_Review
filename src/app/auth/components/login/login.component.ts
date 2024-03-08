@@ -36,7 +36,7 @@ export class LoginComponent {
         if (this.user) {
           let token = Math.random().toString(36).slice(2);
           sessionStorage.setItem('token', token);
-          sessionStorage.setItem('user', this.user);
+          sessionStorage.setItem('user',JSON.stringify(this.user) );
           if (token) {
             let url = (this.user.role == 'admin') ? '/admin' : '/candidate';
             this.router.navigateByUrl(url);

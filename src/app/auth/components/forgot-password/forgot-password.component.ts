@@ -97,11 +97,10 @@ export class ForgotPasswordComponent {
         password: this.form.form.value.password,
       }
       this.apiService.edit('users/'+this.matchdata.id, data).subscribe((data: any) => {
-        this.router.navigateByUrl('/')
+        this.router.navigateByUrl('/');
       }
       );
       this.form.form.reset()
-      // this.message.showSuccess("Password Reset Succesfull")
     }
   }
 }

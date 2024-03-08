@@ -31,7 +31,8 @@ export class SignUpComponent {
         this.snackBar.open('sign-up successfully','',{
           duration: 1000, panelClass: ['snackbar-success']
         });
-      })
+      });
+      this.form.form.reset();
     }
   }
 }
