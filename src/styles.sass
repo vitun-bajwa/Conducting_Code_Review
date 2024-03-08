@@ -2,6 +2,8 @@
 @import assets/sass/variables
 @import ~@angular/material/prebuilt-themes/indigo-pink.css
 
+/* Preset Css */
+
 * 
     box-sizing: border-box
 
@@ -19,6 +21,28 @@ body
 .container 
     width: 1140px
     margin: 0 auto
+
+/* Preset Css End */
+
+/* Scroll Css */
+
+::-webkit-scrollbar 
+  width: 5px
+
+::-webkit-scrollbar-track 
+  box-shadow: inset 0 0 5px grey
+  border-radius: 10px
+ 
+::-webkit-scrollbar-thumb 
+  background: $background
+  border-radius: 10px
+
+::-webkit-scrollbar-thumb:hover 
+  background: $background-dark
+
+/* Scroll Css End*/
+
+/* Form Css */
 
 .feild_50
     form
@@ -40,13 +64,6 @@ body
     background: $background-dark
     border-radius: 20px
     margin-top: 10px
-
-.main 
-    width: 100%
-    height: 100%
-    @include d_c_c
-    background-size: cover
-    background-position: center
 
 app-dynamic-form 
     width: 100%
@@ -104,9 +121,12 @@ app-errors
         background: $background-dark
         color: $primary
 
+/* Form Css End */
+
+/* Auth Css */
+
 .authPage
     @include d_c_c
-    border: 2px solid $primary
     background: $background-gradient
     overflow: hidden
     height: 100vh
@@ -137,6 +157,8 @@ app-errors
             font-weight: bold
             color: $secondary
         h5 
+            width: 100%
+            text-align: center
             font-size: 14px
             font-weight: bold
             color: $secondary
@@ -144,11 +166,15 @@ app-errors
             a 
             color: $secondary
         .forgotBtn
-            width: 100%
+            width: auto
             font-size: 14px
             font-weight: bold
             color: $secondary
             text-align: center
+
+/* Auth Css End */
+
+/* Sidebar Css */
 
 .sideBarPage
     ul 
@@ -174,6 +200,10 @@ app-errors
         background: $secondary
         color: $text-white
 
+/* Sidebar Css End */
+
+/* Page not found Css */
+
 .pageNotFound 
     width: 100%
     height: 100%
@@ -190,9 +220,39 @@ app-errors
         background: $background
         border-radius: 15px 0px 15px 0px
         margin-right: 5px
+        .mdc-tab__text-label
+            color: $text-black
     .mat-mdc-tab.mdc-tab--active, .mat-mdc-tab.mdc-tab--active:focus 
         background: $background-dark
         .mdc-tab__text-label
             color: $primary
         .mdc-tab-indicator__content--underline
             border: 0px solid $background
+
+/* Page not found Css End */
+
+/* Table css */
+
+app-table
+    table.mdc-data-table__table
+        border: 1px solid #e4e4e4
+        margin: 10px 0px
+        thead
+            tr
+                background: $background-dark
+                color: $primary
+        tbody
+            tr:nth-child(2n)
+                background: $background
+
+/* Table css End */
+
+/* Responsive Css */
+
+@media (max-width: 1600px) 
+    .authPage .rgt 
+        padding: 30px
+        h1
+            font-size: 24px
+
+/* Responsive Css End */
