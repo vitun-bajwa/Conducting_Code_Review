@@ -8,6 +8,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -22,11 +23,13 @@ const material:any = [MatFormFieldModule,MatInputModule,MatSelectModule, MatIcon
     UiRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    MatPaginatorModule,
     material,
   ],
    exports: [
     FormsModule,
     ReactiveFormsModule,
+    MatPaginatorModule,
     material,
    ]
 })

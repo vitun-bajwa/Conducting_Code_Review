@@ -2,10 +2,14 @@
   <ng-container [matColumnDef]="column" *ngFor="let column of tableConfiguration?.tableHeaders">
     <th mat-header-cell *matHeaderCellDef> {{column | titlecase}} </th>
     <ng-container *matCellDef="let element">
-      <td mat-cell *ngIf="column != 'status'">{{element[column]}} </td>
+      <td mat-cell *ngIf="column != 'status' && column != 'action'">{{element[column]}} </td>
       <td mat-cell *ngIf="column == 'status'">
         <!-- <mat-icon >{{element[column] == '1' ? 'check_circle' : 'highlight_off'}}</mat-icon> -->
         <button class="status" (click)="updateStatus(element)">{{element[column]}}</button>
+      </td>
+      <td mat-cdell *ngIf="column == 'action'">
+        <button>Edit</button>
+        <button>Delete</button>
       </td>
     </ng-container>
   </ng-container>
@@ -13,3 +17,4 @@
   <tr mat-header-row *matHeaderRowDef="tableConfiguration?.tableHeaders"></tr>
   <tr mat-row *matRowDef="let row; columns: tableConfiguration?.tableHeaders;"></tr>
 </table>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>

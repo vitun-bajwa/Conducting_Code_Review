@@ -35,7 +35,6 @@ export class UserProfileComponent {
     this.commonService.get('users', '').subscribe((res: any) => {
       this.userConfig = res;
       let user = this.userConfig.find((x:any) => x.id == this.currentUser.id);
-      debugger
       this.form.form.patchValue({
         firstname: user?.firstname,
         email: user?.email,
