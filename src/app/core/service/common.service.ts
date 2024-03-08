@@ -1,16 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, NgModule } from '@angular/core';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-@NgModule({
-  imports: [
-    MatSnackBarModule,
-  ]
-})
+
 export class CommonService {
   baseUrl = environment.baseURL;
   users: any = []

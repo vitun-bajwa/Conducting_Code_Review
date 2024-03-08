@@ -25,5 +25,4 @@ import { UiModule } from '../ui/ui.module';
   ]
 })
 export class LayoutModule {constructor(){
-  console.log('LayoutModule');
 } }
