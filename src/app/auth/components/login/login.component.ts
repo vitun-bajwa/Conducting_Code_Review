@@ -40,12 +40,16 @@ export class LoginComponent {
           if (token) {
             let url = (this.user.role == 'admin') ? '/admin' : '/candidate';
             this.router.navigateByUrl(url);
+            this.snackBar.open('login successfully','',{
+              duration: 1800, panelClass: ['snackbar-error']
+            });
           }
         } else {
           this.snackBar.open('invalid email or password','',{
-            duration: 1000, panelClass: ['snackbar-error']
+            duration: 1800, panelClass: ['snackbar-error']
           });
         }
+        this.form.form.reset();
       });
     }
   }
