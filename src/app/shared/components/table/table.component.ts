@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-table',
@@ -10,16 +11,22 @@ export class TableComponent {
 
   @Input() tableConfig: any;
   @Output() userInfo = new EventEmitter();
+  @ViewChild(MatPaginator) paginator!:  MatPaginator;
   tableData: any;
   tableConfiguration: any;
 
   ngOnChanges(){
-    this.tableConfiguration = {
-      tableHeaders: this.tableConfig?.tableHeaders,
-      tableData: this.tableConfig?.tableData
-    }
+  }
 
-    this.tableData = new MatTableDataSource<any>(this.tableConfiguration.tableData);
+  ngAfterViewInit() {
+    if(this.tableConfig) {
+      this.tableConfiguration = {
+        tableHeaders: this.tableConfig?.tableHeaders,
+        tableData: this.tableConfig?.tableData
+      }
+      this.tableData = new MatTableDataSource<any>(this.tableConfiguration.tableData);
+      this.tableData.paginator = this.paginator;
+    }
   }
 
   updateStatus(event: any){

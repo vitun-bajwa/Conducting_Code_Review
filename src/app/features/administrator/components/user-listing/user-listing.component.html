@@ -1,7 +1,7 @@
 <mat-tab-group>
     <mat-tab label="User Listing"> 
         <a routerLink="add-user">Add User</a>
-        <app-table [tableConfig]="tableConfig" (userInfo)="updateUserInfo($event)"></app-table>
+        <app-table *ngIf="tableConfig" [tableConfig]="tableConfig" (userInfo)="updateUserInfo($event)"></app-table>
     </mat-tab>
     <mat-tab label="User Request"> Content 2 </mat-tab>
 </mat-tab-group>

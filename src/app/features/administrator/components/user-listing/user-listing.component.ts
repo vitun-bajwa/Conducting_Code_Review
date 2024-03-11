@@ -17,7 +17,7 @@ export class UserListingComponent {
   currentUser: any;
 
   constructor(private commonService: CommonService){
-
+    this.getUserData();
   }
   tableColumns : any[] = [];
 
@@ -25,7 +25,6 @@ export class UserListingComponent {
   ngOnInit(){
     this.currentUser = sessionStorage.getItem('user');
     this.currentUser = JSON.parse(this.currentUser)
-    this.getUserData();
   }
 
   getUserData(){
@@ -34,6 +33,7 @@ export class UserListingComponent {
       let index = this.usersConfig.findIndex((x:any) => x.id == this.currentUser.id);
       this.usersConfig.splice(index, 1);
       this.tableColumns = Object.keys(this.usersConfig[0]).filter((x:any) => x != 'password');
+      this.tableColumns.push('action')
       this.tableConfig = { tableHeaders: this.tableColumns, tableData: this.usersConfig}
     });
   }
