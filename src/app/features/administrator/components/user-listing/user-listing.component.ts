@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { CommonService } from 'src/app/core/service/common.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UiModule } from 'src/app/ui/ui.module';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-listing',
@@ -16,7 +18,7 @@ export class UserListingComponent {
   usersConfig: any;
   currentUser: any;
 
-  constructor(private commonService: CommonService){
+  constructor(private commonService: CommonService, private router: Router, public dialog: MatDialog){
     this.getUserData();
   }
   tableColumns : any[] = [];
@@ -43,5 +45,18 @@ export class UserListingComponent {
     userData['status'] = userData['status'] == 'Active' ? 'Inactive' : 'Active';
     this.commonService.edit('users/'+userData.id,userData).subscribe((res:any) => {
     })
+  }
+
+  editUser(event: any){
+    this.router.navigateByUrl(`admin/edit/${event.id}`);
+  }
+
+  deleteUser(event: any){
+    debugger
+    this.commonService.delete('users/'+ event.id).subscribe((res: any) => {
+      this.getUserData();
+    })
+
+    //this.router.navigateByUrl(`admin/edit/${event.id}`);
   }
 }
