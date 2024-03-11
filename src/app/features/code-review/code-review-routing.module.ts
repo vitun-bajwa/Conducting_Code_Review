@@ -13,10 +13,6 @@ const routes: Routes = [
     path:'add',
     component: AddCodeReviewComponent
   },
-  {
-    path:'view',
-    component: AddCodeReviewComponent
-  }
 ];
 
 @NgModule({

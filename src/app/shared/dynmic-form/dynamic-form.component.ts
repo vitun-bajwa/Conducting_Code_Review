@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FieldConfig } from '../../core/models/field-config';
 
 @Component({
@@ -28,11 +28,20 @@ export class DynamicFormComponent {
     const group = this.fb.group({});
     this.config.forEach(control => group.addControl(control.name, this.fb.control(control.value, control.validation)));
     return group;
+
+    // const group = new FormGroup({});
+    // this.config.forEach((control:any) => {
+    //   if (control.type === 'input' && control.fieldType === 'date') {
+    //     group.addControl(control.name, new FormControl(control.value, control.validation));
+    //   }
+    // });
+    // return group;
   }
+
   
   handleSubmit(e:any) {
     
   }
 
-
 }
+

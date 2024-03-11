@@ -6,18 +6,20 @@ import { CodeReviewListingComponent } from './components/code-review-listing/cod
 import { AddCodeReviewComponent } from './components/add-code-review/add-code-review.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { UiModule } from 'src/app/ui/ui.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
   declarations: [
     CodeReviewListingComponent,
-    AddCodeReviewComponent
+    AddCodeReviewComponent,
   ],
   imports: [
     CommonModule,
     CodeReviewRoutingModule,
     CKEditorModule,
-    UiModule
+    UiModule,
+    SharedModule
   ]
 })
 export class CodeReviewModule { }

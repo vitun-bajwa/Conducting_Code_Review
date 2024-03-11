@@ -234,3 +234,33 @@ export const loginForm = [
       class: 'button',
     },
   ];
+
+  export const codeReviewForm:any = [
+    {
+      type: 'daterange', 
+      fieldType: 'date', 
+      name: 'startDate', 
+      value: '',
+      placeholder: 'Start Date',
+      validation: [Validators.required],
+      isRequired: true,
+      class: 'date-input',  
+      error: false,
+    },
+    {
+      type: 'daterange', 
+      fieldType: 'date',
+      name: 'endDate',
+      value: '',
+      placeholder: 'End Date',
+      validation: [Validators.required],
+      isRequired: true,
+      class: 'date-input',
+      error: false,
+    },
+    {
+      type: 'button',
+      name: token ? 'Add User' : 'Sign-Up',
+      class: 'button',
+    },
+  ];

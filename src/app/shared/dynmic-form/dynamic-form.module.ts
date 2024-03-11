@@ -10,10 +10,11 @@ import { ButtonFieldComponent } from './component/button-field/button-field.comp
 import { UiModule } from 'src/app/ui/ui.module';
 import { DropdownComponent } from './component/dropdown/dropdown.component';
 import { ErrorsComponent } from './component/errors/errors.component';
+import { DatePickerComponent } from './component/date-picker/date-picker.component';
 
 
 @NgModule({
-  declarations: [DynamicFormComponent, DynamicFormDirective, InputFieldComponent, DropdownComponent, ErrorsComponent],
+  declarations: [DynamicFormComponent, DynamicFormDirective, InputFieldComponent, DropdownComponent, ErrorsComponent, DatePickerComponent],
   imports: [
     CommonModule,
     DynamicFormRoutingModule,
