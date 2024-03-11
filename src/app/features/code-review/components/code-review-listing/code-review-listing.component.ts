@@ -19,45 +19,6 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
   styleUrls: ['./code-review-listing.component.sass']
 })
 export class CodeReviewListingComponent        {
-  public Editor = ClassicEditor;
-
-  // public htmlData:any = "<p>Hello, world!</p>";
-  // public Editor = ClassicEditor;
-  // public config = {
-  //   toolbar: [ 'heading', '|',
-  //     'fontfamily','fontsize', '|',
-  //     'Comments', '|',
-  //     'alignment',
-  //     'fontColor','fontBackgroundColor', '|',
-  //     'bold', 'italic', 'custombutton', 'strikethrough','underline','subscript','superscript','|',
-  //     'link','|',
-  //     'outdent','indent','|',
-  //     'bulletedList','numberedList','|',
-  //     'code','codeBlock','|',
-  //     'insertTable','|',
-  //     'imageUpload','blockQuote','|',
-  //     'undo','redo','|',
-  //     'youtube',
-  //     'mediaEmbed'
-  //   ]
-  // }
-
-  ngOnInit() {
-    // this.Editor.builtinPlugins = [ Essentials, Paragraph, Bold, Italic, Image, Comments, List ];
-
-    // // The editor configuration.
-    // this.Editor.defaultConfig = {
-    //     language: 'en',
-    //     // Provide the configuration for the comments feature.
-    //     comments: {
-    //         editorConfig: {
-    //             // The list of plugins that will be included in the comments editors.
-    //             extraPlugins: [ Bold, Italic, List, Autoformat ]
-    //         }
-    //   }
-    // }
-    
-  }
-
-
+  tableConfig : any;
+ 
 }

@@ -3,8 +3,9 @@
     {
       "email": "vitun@gmail.com",
       "password": "Vitun@123456",
-      "role": "admin",
-      "id": "9903"
+      "userRole": "admin",
+      "id": "9903",
+      "status": "Active"
     },
     {
       "email": "vishal@gmail.com",
