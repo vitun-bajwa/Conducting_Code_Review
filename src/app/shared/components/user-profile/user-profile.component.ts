@@ -4,7 +4,6 @@ import { FieldConfig } from 'src/app/core/models/field-config';
 import { UiModule } from 'src/app/ui/ui.module';
 import { DynamicFormModule } from '../../dynmic-form/dynamic-form.module';
 import { CommonService } from 'src/app/core/service/common.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-profile',
@@ -19,7 +18,7 @@ export class UserProfileComponent {
   currentUser: any;
   userConfig: any;
 
-  constructor(private commonService: CommonService, private snackBar: MatSnackBar) { }
+  constructor(private commonService: CommonService) { }
 
   ngOnInit() {
     this.currentUser = sessionStorage.getItem('user');
@@ -50,9 +49,7 @@ export class UserProfileComponent {
     }
     
     this.commonService.edit('users/'+ this.currentUser.id,data).subscribe((res:any) => {
-      this.snackBar.open('Details updated successfully','',{
-        duration: 1000
-      });
+      this.commonService.successMSG('Details updated successfully');
     })
   }
 
