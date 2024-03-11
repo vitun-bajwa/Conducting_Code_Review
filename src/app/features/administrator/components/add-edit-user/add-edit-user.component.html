@@ -1,2 +1,2 @@
 <a routerLink="/admin">Back</a>
-<app-dynamic-form class="feild_50" [config]="config" #form="dynamicForm" (submitted)="addUser()"></app-dynamic-form>
+<app-dynamic-form class="feild_50" [config]="config" #form="dynamicForm" (submitted)="userId ? updateUser() : addUser()"></app-dynamic-form>

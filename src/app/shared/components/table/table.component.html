@@ -1,6 +1,6 @@
-<table mat-table [dataSource]="tableData" class="mat-elevation-z8">
+<table mat-table [dataSource]="tableData" matSort="true" class="mat-elevation-z8">
   <ng-container [matColumnDef]="column" *ngFor="let column of tableConfiguration?.tableHeaders">
-    <th mat-header-cell *matHeaderCellDef> {{column | titlecase}} </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column | titlecase}} </th>
     <ng-container *matCellDef="let element">
       <td mat-cell *ngIf="column != 'status' && column != 'action'">{{element[column]}} </td>
       <td mat-cell *ngIf="column == 'status'">
@@ -8,8 +8,8 @@
         <button class="status" (click)="updateStatus(element)">{{element[column]}}</button>
       </td>
       <td mat-cdell *ngIf="column == 'action'">
-        <button>Edit</button>
-        <button>Delete</button>
+        <button (click)="editUser(element)">Edit</button>
+        <button (click)="deleteUser(element)">Delete</button>
       </td>
     </ng-container>
   </ng-container>
