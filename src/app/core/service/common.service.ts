@@ -46,14 +46,13 @@ export class CommonService {
 
   warningMSG(msg:string) {
     this.snackBar.open(msg,'',{
-      duration: 1000, panelClass: ['snackbar-warning']
+      duration: 2000, panelClass: ['snackbar-warning']
     });
   }
 
   uploadImage(file: File) {
     const formData = new FormData();
     formData.append('image', file);
-
     return this.http.post<any>('http://localhost:3000/images', formData);
   }
  }

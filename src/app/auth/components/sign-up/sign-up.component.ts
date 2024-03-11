@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { signUpForm } from '../../../core/config/form.constant';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -12,24 +13,52 @@ export class SignUpComponent {
   @ViewChild('form') form: any;
   config: FieldConfig[] = signUpForm
 
-  constructor(private apiService: CommonService) { }
+  constructor(private apiService: CommonService,  private router: Router) { }
 
   ngOnInit() {}
+  
+  // signUpUser() {
+  //   if (this.form.form.invalid) {
+  //     this.form.form.markAllAsTouched();
+  //   }
+  //   else {
+  //     let data = {
+  //       ...this.form.form.value,
+  //       status: 'Inactive'
+  //     }
+  //     delete data.SignUp
+  //     this.apiService.add('users', data).subscribe((res: any) => {
+  //       this.router.navigateByUrl('/auth/login');
+  //       this.apiService.successMSG('sign-up successfully');
+  //     });
+  //     this.form.form.reset();
+  //   }
+  // }
+
   
   signUpUser() {
     if (this.form.form.invalid) {
       this.form.form.markAllAsTouched();
-    }
-    else {
-      let data = {
-        ...this.form.form.value,
-        status: 'Inactive'
-      }
-      delete data.SignUp
-      this.apiService.add('users', data).subscribe((res: any) => {
-        this.apiService.successMSG('sign-up successfully');
+    } else {
+      const email = this.form.form.get('email').value;
+      this.apiService.get('users').subscribe((response: any) => {
+        const existingUser = response.find((user:any) => user.email === email);
+        if (existingUser) {
+          this.apiService.successMSG('This email is already registered. Please use a different email address.');
+          this.form.form.reset();
+        } else {
+          const data = {
+            ...this.form.form.value,
+            status: 'Inactive'
+          };
+          delete data.SignUp;
+          this.apiService.add('users', data).subscribe((res: any) => {
+            this.router.navigateByUrl('/auth/login');
+            this.apiService.successMSG('Sign-up successful');
+          });
+          this.form.form.reset();
+        }
       });
-      this.form.form.reset();
     }
   }
 }

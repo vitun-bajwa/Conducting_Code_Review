@@ -2,10 +2,10 @@ import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core
 import { MatTableDataSource } from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';
-import { MatDialog } from '@angular/material/dialog';
+// import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { CommonService } from 'src/app/core/service/common.service';
-
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',

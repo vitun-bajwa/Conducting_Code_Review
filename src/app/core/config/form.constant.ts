@@ -25,7 +25,7 @@ export const loginForm = [
       validation: [Validators.required, Validators.pattern(reg.password)],
       isRequired: true,
       class: 'input',
-      error: false
+      error: false,
     },
     {
       type: 'button',

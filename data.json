@@ -31,6 +31,46 @@
       "Add User": null,
       "status": "Active",
       "id": "EFfV8e4"
+    },
+    {
+      "firstName": "gg",
+      "lastName": "wdeq",
+      "email": "vitu@gmail.com",
+      "password": "Vitun@12",
+      "userRole": "candidate",
+      "Sign-Up": null,
+      "status": "Inactive",
+      "id": "njduBT2"
+    },
+    {
+      "firstName": "ewvf",
+      "lastName": "qwfevwf",
+      "email": "vishal@gmail.com",
+      "password": "Vitun@12",
+      "userRole": "admin",
+      "Sign-Up": null,
+      "status": "Inactive",
+      "id": "MWlCy3R"
+    },
+    {
+      "firstName": "gg",
+      "lastName": "wdedvf",
+      "email": "vishal@gmail.com",
+      "password": "Vitun@12",
+      "userRole": "",
+      "Sign-Up": null,
+      "status": "Inactive",
+      "id": "Ha6U7ST"
+    },
+    {
+      "firstName": "garyy",
+      "lastName": "bajwa",
+      "email": "garry@gmail.com",
+      "password": "Garry@12",
+      "userRole": "candidate",
+      "Sign-Up": null,
+      "status": "Active",
+      "id": "QMQstHm"
     }
   ],
   "codeReview": [

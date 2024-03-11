@@ -1,3 +1,4 @@
 <mat-error *ngIf="group.controls[this.errors.name].errors?.['required'] && group.controls[this.errors.name].touched">This feild is required</mat-error>
-<mat-error *ngIf="group.controls[this.errors.name].errors?.['pattern'] && group.controls[this.errors.name].touched">This is invalid pattern</mat-error>
+<!-- <mat-error *ngIf="group.controls[this.errors.name].errors?.['pattern'] && group.controls[this.errors.name].touched">This is invalid pattern</mat-error> -->
+<mat-error *ngIf="group.controls[this.errors.name].errors?.['pattern'] && group.controls[this.errors.name].touched">Your password should be at least 8 characters long, one uppercase and special charcter and number</mat-error>
 <mat-error *ngIf="group.controls[this.errors.name].errors?.['matched'] && group.controls[this.errors.name].touched">password mis-matched</mat-error>

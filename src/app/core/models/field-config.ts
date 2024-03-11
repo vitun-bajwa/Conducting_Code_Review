@@ -28,4 +28,5 @@ export interface FieldConfig {
   hidden?: boolean;
   updateOn?: any;
   error?: boolean;
+  hint?: any;
 }
