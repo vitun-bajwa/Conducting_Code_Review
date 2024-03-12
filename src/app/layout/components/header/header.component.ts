@@ -7,10 +7,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.sass']
 })
 export class HeaderComponent {
+  currentUser:any;
 
   constructor(private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.currentUser = sessionStorage.getItem('user');
+    this.currentUser = JSON.parse(this.currentUser)
+  }
 
   logOut() {
     let token = sessionStorage.getItem('token');

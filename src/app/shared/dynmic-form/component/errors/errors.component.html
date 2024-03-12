@@ -1,4 +1,24 @@
 <mat-error *ngIf="group.controls[this.errors.name].errors?.['required'] && group.controls[this.errors.name].touched">This feild is required</mat-error>
-<!-- <mat-error *ngIf="group.controls[this.errors.name].errors?.['pattern'] && group.controls[this.errors.name].touched">This is invalid pattern</mat-error> -->
-<mat-error *ngIf="group.controls[this.errors.name].errors?.['pattern'] && group.controls[this.errors.name].touched">Your password should be at least 8 characters long, one uppercase and special charcter and number</mat-error>
-<mat-error *ngIf="group.controls[this.errors.name].errors?.['matched'] && group.controls[this.errors.name].touched">password mis-matched</mat-error>
+<mat-error *ngIf="errors?.fieldType === 'password' && group.controls[this.errors.name].touched && group.controls[this.errors.name].errors?.['pattern'] && group.value[this.errors.name]">
+    Hint :- Min 8 characters, include uppercase, lower letters, special character and number.
+  </mat-error>
+  <mat-error *ngIf="errors?.fieldType === 'email' && group.controls[this.errors.name].touched && group.controls[this.errors.name].errors?.['pattern'] && group.value[this.errors.name]">
+    Hint :- abc@gmail.com
+  </mat-error>
+  <mat-error *ngIf="group.controls[this.errors.name].errors?.['matched'] && group.controls[this.errors.name].touched">Password mis-matched</mat-error>
+  <mat-error *ngIf="group.controls[this.errors.name].touched && group.controls[this.errors.name].errors?.['pattern'] && group.value[this.errors.name]">
+    Invalid input
+  </mat-error>
+  <!-- <mat-error *ngIf="errors?.fieldType === 'firstName' && group.controls[this.errors.name].touched && group.controls[this.errors.name].errors?.['pattern'] && group.value[this.errors.name]">
+    required
+  </mat-error>
+  <mat-error *ngIf="errors?.fieldType === 'lastName' && group.controls[this.errors.name].touched && group.controls[this.errors.name].errors?.['pattern'] && group.value[this.errors.name]">
+    required
+  </mat-error> -->
+
+<!-- <mat-error *ngIf="errors?.fieldType === 'firstName' && group.controls[this.errors.name].touched && group.controls[this.errors.name].errors?.['pattern']">
+  Must match the pattern
+</mat-error> -->
+<!-- <mat-error *ngIf="errors?.fieldType === 'firstName' && group.controls[this.errors.name].errors?.['required'] && group.controls[this.errors.name].touched">
+  This field is required
+</mat-error> -->

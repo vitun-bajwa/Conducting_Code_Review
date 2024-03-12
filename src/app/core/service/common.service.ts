@@ -35,18 +35,18 @@ export class CommonService {
   
   successMSG(msg:string) {
     this.snackBar.open(msg,'',{
-      duration: 1000, panelClass: ['snackbar-success']
+      duration: 3000, panelClass: ['snackbar-success']
     });
   }
   errorMSG(msg:string) { 
     this.snackBar.open(msg,'',{
-      duration: 1000, panelClass: ['snackbar-error']
+      duration: 3000, panelClass: ['snackbar-error']
     });
   }
 
   warningMSG(msg:string) {
     this.snackBar.open(msg,'',{
-      duration: 2000, panelClass: ['snackbar-warning']
+      duration: 3000, panelClass: ['snackbar-warning']
     });
   }
 

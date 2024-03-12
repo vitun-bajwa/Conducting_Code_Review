@@ -6,9 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./sidebar.component.sass']
 })
 export class SidebarComponent {
+currentUser: any;
 
 constructor() {}
 
-ngOnInit() {}
+ngOnInit() {
+  this.currentUser = sessionStorage.getItem('user');
+  this.currentUser = JSON.parse(this.currentUser).userRole
+}
+
 
 }

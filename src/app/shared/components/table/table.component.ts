@@ -19,20 +19,18 @@ export class TableComponent {
   @Output() userDeleteInfo = new EventEmitter();
   @ViewChild(MatPaginator) paginator!:  MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
   constructor(public dialog: MatDialog, private apiService: CommonService){
 
   }
 
   tableData: any;
   tableConfiguration: any;
-
   ngOnChanges(){
-    this.createTableData()
+    // this.createTableData();
   }
-
+  
   ngAfterViewInit() {
-    //this.createTableData();
+    this.createTableData();
   }
 
   createTableData(){
@@ -46,7 +44,25 @@ export class TableComponent {
       this.tableData.sort = this.sort;
     }
   }
+  // createTableData() {
+  //   if (this.tableConfig) {
+  //     this.tableConfiguration = {
+  //       tableHeaders: ['SrNo', ...this.tableConfig.tableHeaders], 
+  //       tableData: this.tableConfig.tableData
+  //     };
+  //     this.tableData = new MatTableDataSource<any>(this.tableConfiguration.tableData);
+  //     this.tableData.paginator = this.paginator;
+  //     this.tableData.sort = this.sort;
+  //   }
+  // }
 
+  getDisplayedIndex(i: number): number {
+    return i + 1 + (this.paginator.pageIndex * this.paginator.pageSize);
+  }
+  applyFilter(event: any) {
+    const filterValue = event?.target?.value;
+    this.tableData.filter = filterValue.trim().toLowerCase();
+  }
   updateStatus(event: any){
     this.userInfo.emit(event);
   }
@@ -61,7 +77,10 @@ export class TableComponent {
         id: userData.id,
       },
     }).afterClosed().subscribe((res:any) => {
-      this.userDeleteInfo.emit(userData);
+      this.userDeleteInfo.emit(userData.id);
+      let i = this.tableConfig.tableData.findIndex((res:any) => res.id === userData.id);
+      this.tableConfig.tableData.splice(i, 1);
+      this.createTableData()
     })
   }
 }

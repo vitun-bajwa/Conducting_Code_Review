@@ -14,7 +14,11 @@ export class AddEditUserComponent {
   @ViewChild('form') form: any;
   config: FieldConfig[] = signUpForm
   userId: any;
- 
+  currentUser: any;
+  addBtn = {
+    class: 'button',
+    name: 'Back',
+  }
   constructor(private apiService: CommonService, private snackBar: MatSnackBar, private router: Router, private activatedRoute: ActivatedRoute){
     this.activatedRoute.paramMap.subscribe((param: any) => {
       this.userId = param.params.id;
@@ -22,6 +26,8 @@ export class AddEditUserComponent {
   }
   
   ngOnInit(){
+    this.currentUser = sessionStorage.getItem('user');
+    this.currentUser = JSON.parse(this.currentUser)
     if(this.userId) {
       this.config.splice(this.config.findIndex((x: any) => x.fieldType == 'password'), 1);
      let test =  this.config.find((x:any) => { x.type == 'button'})
@@ -45,7 +51,8 @@ export class AddEditUserComponent {
     else {
       let data = {
         ...this.form.form.value,
-        status: 'Active'
+        status: 'Active',
+        createdBy: this.currentUser.id
       }
       this.apiService.add('users', data).subscribe((res: any) => {
         this.snackBar.open('User added successfully.','',{

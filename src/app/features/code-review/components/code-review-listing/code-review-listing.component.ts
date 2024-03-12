@@ -28,13 +28,16 @@ export class CodeReviewListingComponent implements OnInit {
   constructor(private commonService: CommonService) {
     this.getUserData();
   }
+  addBtn = {
+    class: 'button',
+    name: 'Add Code'
+  }
   ngOnInit() {
     this.currentUser = sessionStorage.getItem('user');
     this.currentUser = JSON.parse(this.currentUser)
   }
   getUserData() {
     this.commonService.get('codeReview', '').subscribe((res: any) => {
-      debugger
       this.usersConfig = res;
       let index = this.usersConfig.findIndex((x: any) => x.id == this.currentUser.id);
       this.usersConfig.splice(index, 1);

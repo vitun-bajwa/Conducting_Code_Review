@@ -1,20 +1,32 @@
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Search">
+</mat-form-field>
 <table mat-table [dataSource]="tableData" matSort="true" class="mat-elevation-z8">
-  <ng-container [matColumnDef]="column" *ngFor="let column of tableConfiguration?.tableHeaders">
+ 
+  <ng-container [matColumnDef]="column" *ngFor="let column of tableConfiguration?.tableHeaders; let i=index;">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column | titlecase}} </th>
     <ng-container *matCellDef="let element">
+      <td mat-cell *ngIf="column == 'Sno'">{{element[column]}}</td>
       <td mat-cell *ngIf="column != 'status' && column != 'action'">{{element[column]}} </td>
-      <td mat-cell *ngIf="column == 'status'">
-        <!-- <mat-icon >{{element[column] == '1' ? 'check_circle' : 'highlight_off'}}</mat-icon> -->
-        <button class="status" (click)="updateStatus(element)">{{element[column]}}</button>
+      <td mat-cell *ngIf="column == 'status'" [ngClass]="{'active-status': element[column] === 'Active', 'inactive-status': element[column] === 'Inactive'}">
+        <button class="status" mat-raised-button color="primary" [color]="element[column] === 'Active' ? 'primary' : 'warn'"  (click)="updateStatus(element)">{{element[column]}}</button>
       </td>
       <td mat-cdell *ngIf="column == 'action'">
-        <button (click)="editUser(element)">Edit</button>
-        <button (click)="deleteUser(element)">Delete</button>
+          <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
+            color="primary" (click)="editUser(element)">
+            <mat-icon>edit</mat-icon>
+          </button> 
+          <button mat-icon-button matTooltip="Click to Delete" class="iconbutton"
+                (click)="deleteUser(element)" color="warn">
+                <mat-icon>delete</mat-icon>
+              </button>
       </td>
     </ng-container>
   </ng-container>
 
+
   <tr mat-header-row *matHeaderRowDef="tableConfiguration?.tableHeaders"></tr>
   <tr mat-row *matRowDef="let row; columns: tableConfiguration?.tableHeaders;"></tr>
 </table>
-<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons #myPaginator></mat-paginator>
+<!-- muje agar table me sr no dena ho toh kaise du or jab koi record mai delete kru ton sr no bhi update ho jaye apne aap -->

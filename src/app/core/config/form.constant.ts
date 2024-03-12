@@ -85,7 +85,7 @@ export const loginForm = [
       name: 'userRole',
       value: '',
       placeholder: 'Select Role',
-      validation: '',
+      validation: [Validators.required,],
       isRequired: true,
       class: 'input',
       error: false,

@@ -17,6 +17,7 @@ export class ErrorsComponent {
   ngOnInit() {}
   
   ngAfterViewInit() {
+    this.errors
   }
 
 

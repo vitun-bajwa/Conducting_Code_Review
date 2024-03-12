@@ -37,7 +37,7 @@ export class LoginComponent {
           sessionStorage.setItem('token', token);
           sessionStorage.setItem('user', JSON.stringify(this.user));
           if (token) {
-            let url = (this.user.userRole == 'admin') ? '/admin' : '/candidate';
+            let url = (this.user.userRole == 'admin' || this.user.userRole == 'superAdmin') ? '/admin' : '/codeReview';
             this.router.navigateByUrl(url);
             this.apiService.successMSG('login successfully');
           }

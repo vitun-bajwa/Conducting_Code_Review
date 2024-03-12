@@ -14,7 +14,10 @@ export class AddCodeReviewComponent {
   config: FieldConfig[] = codeReviewForm
  
   constructor(private apiService: CommonService, private snackBar: MatSnackBar, private router: Router){}
-
+  addBtn = {
+    class: 'button',
+    name: 'Back',
+  }
   addUser(){
     if (this.form.form.invalid) {
       this.form.form.markAllAsTouched();

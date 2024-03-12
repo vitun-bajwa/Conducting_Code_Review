@@ -1,8 +1,9 @@
 <mat-tab-group>
-    <mat-tab label="Code Review Listing"> 
-        <a routerLink="add">Add Code</a>
+    <mat-tab label="Code Review Listing">
+        <div class="hrdBtn rgt">
+            <app-button-field [config]="addBtn" routerLink="add"></app-button-field>
+        </div>
         <app-table *ngIf="tableConfig" [tableConfig]="tableConfig" (userInfo)="updateUserInfo($event)"></app-table>
-        <!-- <app-table *ngIf="tableConfig" [tableConfig]="tableConfig" (userInfo)="updateUserInfo($event)"></app-table> -->
     </mat-tab>
     <mat-tab label="Code Review Request"> Content 2 </mat-tab>
 </mat-tab-group>

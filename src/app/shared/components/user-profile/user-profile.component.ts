@@ -27,7 +27,6 @@ export class UserProfileComponent {
 
   ngAfterViewInit() {
     this.getUserInfo();
-
   }
 
   getUserInfo() {
@@ -46,7 +45,6 @@ export class UserProfileComponent {
     let data = {
       ...this.form.form.value,
     }
-    
     this.commonService.edit('users/'+ this.currentUser.id,data).subscribe((res:any) => {
       this.commonService.successMSG('Details updated successfully');
     })
