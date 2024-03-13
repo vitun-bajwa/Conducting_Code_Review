@@ -29,10 +29,6 @@ export class CommonService {
     return this.http.delete(this.baseUrl + url);
   }
   
-  patchdata(url:any,data:any){
-    return this.http.patch(this.baseUrl + url, data);
-  }
-  
   successMSG(msg:string) {
     this.snackBar.open(msg,'',{
       duration: 3000, panelClass: ['snackbar-success']

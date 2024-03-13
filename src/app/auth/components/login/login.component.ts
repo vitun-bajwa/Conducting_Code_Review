@@ -21,9 +21,10 @@ export class LoginComponent {
     class: 'button',
   }
 
-  constructor(private apiService: CommonService, private router: Router) { }
+  constructor(private commonService: CommonService, private router: Router) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+   }
 
   login() {
     this.trimFormValues();
@@ -31,7 +32,7 @@ export class LoginComponent {
       this.form.form.markAllAsTouched();
     }
     else {
-      this.apiService.get('users').subscribe((res: any) => {
+      this.commonService.get('users').subscribe((res: any) => {
         this.user = res.find((x: any) => x.email === this.form.form.value.email && x.password === this.form.form.value.password && x.status == 'Active');
         if (this.user) {
           let token = Math.random().toString(36).slice(2);
@@ -40,10 +41,10 @@ export class LoginComponent {
           if (token) {
             let url = (this.user.userRole == 'admin' || this.user.userRole == 'superAdmin') ? '/admin' : '/codeReview';
             this.router.navigateByUrl(url);
-            this.apiService.successMSG('login successfully');
+            this.commonService.successMSG('login successfully');
           }
         } else {
-          this.apiService.successMSG('Invalid email or password');
+          this.commonService.errorMSG('Invalid email or password');
         }
         this.form.form.reset();
       });
