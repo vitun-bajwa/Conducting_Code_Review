@@ -25,7 +25,7 @@ export const loginForm = [
       validation: [Validators.required, Validators.pattern(reg.password)],
       isRequired: true,
       class: 'input',
-      error: false,
+      error: false
     },
     {
       type: 'button',
@@ -85,7 +85,7 @@ export const loginForm = [
       name: 'userRole',
       value: '',
       placeholder: 'Select Role',
-      validation: [Validators.required,],
+      validation: '',
       isRequired: true,
       class: 'input',
       error: false,
@@ -234,6 +234,18 @@ export const loginForm = [
 
   export const codeReviewForm:any = [
     {
+      type: 'input',
+      fieldType: 'Module Name',
+      name: 'moduleName',
+      value: '',
+      placeholder: 'Module Name',
+      validation: [Validators.required],
+      isRequired: true,
+      class: 'input',
+      error: false,
+      disabled: false
+    },
+    {
       type: 'daterange', 
       fieldType: 'date', 
       name: 'startDate', 
@@ -241,7 +253,7 @@ export const loginForm = [
       placeholder: 'Start Date',
       validation: [Validators.required],
       isRequired: true,
-      class: 'date-input',  
+      class: 'input',  
       error: false,
     },
     {
@@ -252,12 +264,34 @@ export const loginForm = [
       placeholder: 'End Date',
       validation: [Validators.required],
       isRequired: true,
-      class: 'date-input',
+      class: 'input',
+      error: false,
+    },
+    {
+      type: 'textEditor', 
+      fieldType: 'textEditor', 
+      name: 'textEditor', 
+      value: '',
+      placeholder: '',
+      validation: [Validators.required],
+      isRequired: true,
+      class: 'input',  
+      error: false,
+    },
+    {
+      type: 'textArea', 
+      fieldType: 'codeReview', 
+      name: 'codeReview', 
+      value: '',
+      placeholder: 'Write code review',
+      validation: [Validators.required],
+      isRequired: true,
+      class: 'input',  
       error: false,
     },
     {
       type: 'button',
-      name: token ? 'Add User' : 'Sign-Up',
+      name: 'Add Review Request',
       class: 'button',
     },
   ];

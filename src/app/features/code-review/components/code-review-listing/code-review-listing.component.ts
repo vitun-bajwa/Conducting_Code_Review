@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonService } from 'src/app/core/service/common.service';
 
 @Component({
@@ -12,7 +13,8 @@ export class CodeReviewListingComponent implements OnInit {
   tableColumns: any[] = [];
   usersConfig: any;
   currentUser: any;
-  constructor(private commonService: CommonService) {
+  constructor(private commonService: CommonService,
+    private router: Router) {
     this.getUserData();
   }
   addBtn = {
@@ -28,15 +30,15 @@ export class CodeReviewListingComponent implements OnInit {
       this.usersConfig = res;
       let index = this.usersConfig.findIndex((x: any) => x.id == this.currentUser.id);
       this.usersConfig.splice(index, 1);
-      this.tableColumns = Object.keys(this.usersConfig[0]).filter((x: any) => x != 'password');
+      this.tableColumns = Object.keys(this.usersConfig[0]).filter((x: any) => x != 'textEditor');
       this.tableColumns.push('action')
       this.tableConfig = { tableHeaders: this.tableColumns, tableData: this.usersConfig }
     });
   }
-  updateUserInfo(event: any){
-    let userData = this.usersConfig.find((x:any) => x.id == event.id);
-    userData['status'] = userData['status'] == 'Active' ? 'Inactive' : 'Active';
-    this.commonService.edit('users/'+userData.id,userData).subscribe((res:any) => {
-    })
+  
+  editReview(event: any){
+     this.router.navigateByUrl(`codeReview/edit/${event.id}`);
   }
+
+  
 }
