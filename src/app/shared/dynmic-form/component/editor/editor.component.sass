@@ -1,0 +1,56 @@
+/* Set the minimum height of Classic editor
+
+.ck.ck-editor__editable_inline:not(.ck-editor__nested-editable)
+  min-height: 400px
+
+/* Styles to render an editor with a sidebar for comments & suggestions
+
+.container
+  display: flex
+  flex-direction: row
+
+.document-outline-container
+  background-color: #f3f7fb
+  width: 200px
+
+.sidebar
+  width: 320px
+
+#editor-container
+  .ck.ck-editor
+    width: 860px
+
+  .sidebar
+    margin-left: 20px
+
+    &.narrow
+      width: 30px
+
+/* Keep the automatic height of the editor for adding comments
+
+.ck-annotation-wrapper .ck.ck-editor__editable_inline
+  min-height: auto
+
+/* Styles for viewing revision history
+
+#revision-viewer-container
+  display: none
+
+  .ck
+    &.ck-editor
+      width: 860px
+
+    &.ck-content
+      min-height: 400px
+
+  .sidebar
+    border: 1px #c4c4c4 solid
+    margin-left: -1px
+    width: 320px
+
+  .ck.ck-revision-history-sidebar__header
+    height: 39px
+    background: #FAFAFA
+
+.hidden
+  display: none !important

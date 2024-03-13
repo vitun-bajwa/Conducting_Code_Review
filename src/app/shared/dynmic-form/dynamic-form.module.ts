@@ -11,10 +11,11 @@ import { UiModule } from 'src/app/ui/ui.module';
 import { DropdownComponent } from './component/dropdown/dropdown.component';
 import { ErrorsComponent } from './component/errors/errors.component';
 import { DatePickerComponent } from './component/date-picker/date-picker.component';
+import { TextareaComponent } from './component/textarea/textarea.component'
 
 
 @NgModule({
-  declarations: [DynamicFormComponent, DynamicFormDirective, InputFieldComponent, DropdownComponent, ErrorsComponent, DatePickerComponent],
+  declarations: [DynamicFormComponent, DynamicFormDirective, InputFieldComponent, DropdownComponent, ErrorsComponent, DatePickerComponent, TextareaComponent],
   imports: [
     CommonModule,
     DynamicFormRoutingModule,
@@ -22,6 +23,6 @@ import { DatePickerComponent } from './component/date-picker/date-picker.compone
     FormsModule,
     UiModule
   ],
-  exports: [DynamicFormComponent,InputFieldComponent]
+  exports: [DynamicFormComponent, InputFieldComponent]
 })
 export class DynamicFormModule { }

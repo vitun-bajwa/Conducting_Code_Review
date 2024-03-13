@@ -16,11 +16,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
-import { MatDialogModule} from '@angular/material/dialog';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { MatDialogModule } from '@angular/material/dialog';
 
-
-const material:any = [MatFormFieldModule,MatInputModule,MatSelectModule, MatIconModule,MatProgressSpinnerModule,MatTabsModule,MatTableModule,MatIconModule,MatSnackBarModule,MatDatepickerModule,MatNativeDateModule,MatButtonModule,MatDialogModule]
-
+const material:any = [MatFormFieldModule,MatInputModule,MatSelectModule, MatIconModule,MatProgressSpinnerModule,MatTabsModule,MatTableModule,MatIconModule,MatSnackBarModule,MatDatepickerModule,MatNativeDateModule,MatButtonModule, MatDialogModule, CKEditorModule]
 @NgModule({
   declarations: [
 

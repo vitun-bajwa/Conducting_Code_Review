@@ -13,6 +13,10 @@ const routes: Routes = [
     path:'add',
     component: AddCodeReviewComponent
   },
+  {
+    path:'edit/:id',
+    component: AddCodeReviewComponent
+  },
 ];
 
 @NgModule({

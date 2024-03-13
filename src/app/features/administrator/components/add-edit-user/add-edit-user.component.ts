@@ -54,25 +54,6 @@ export class AddEditUserComponent {
 
   }
 
-  // addUser(){
-  //   if (this.form.form.invalid) {
-  //     this.form.form.markAllAsTouched();
-  //   }
-  //   else {
-  //     let data = {
-  //       ...this.form.form.value,
-  //       status: 'Active',
-  //       createdBy: this.currentUser.firstName
-  //     }
-  //     this.apiService.add('users', data).subscribe((res: any) => {
-  //       this.snackBar.open('User added successfully.','',{
-  //         duration: 1000
-  //       });
-  //       this.router.navigateByUrl('admin');
-  //     })
-  //   }
-  // }
-
   addUser() {
     this.trimFormValues();
     if (this.form.form.invalid) {
