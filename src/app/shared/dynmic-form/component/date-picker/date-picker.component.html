@@ -1,9 +1,8 @@
 <div class="" [formGroup]="group" >
     <mat-form-field color="accent">
-        <mat-label>{{config.placeholder}}</mat-label>
-        <input matInput [matDatepicker]="picker1" [formControlName]="config.name">
+        <input matInput [matDatepicker]="picker1" [formControlName]="config.name" [placeholder]="config.placeholder">
         <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
         <app-errors [errors]="config" [group]="group"></app-errors>
-      </mat-form-field>   
+      </mat-form-field>
 </div>

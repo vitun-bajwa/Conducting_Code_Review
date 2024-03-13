@@ -93,6 +93,8 @@ export class AddEditUserComponent {
     else {
       let data = {
         ...this.form.form.value,
+        status: this.currentUser.status,
+        createdBy: this.currentUser.id
       }
       this.apiService.edit('users/' + this.userId, data).subscribe((res: any) => {
         this.snackBar.open('User updated successfully.', '', {

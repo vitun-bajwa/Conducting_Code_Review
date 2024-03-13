@@ -31,12 +31,4 @@ export class EditorComponent {
       
     };  
   }
-
-  geteditorData(){
-    // debugger
-    // //this.test = new Adapter();
-    // this.test.fileData
-    // console.log(this.myCkeditor.elementRef.nativeElement.innerText);
-    // // return this.myCkeditor.innerHTML;
-  }
 }
