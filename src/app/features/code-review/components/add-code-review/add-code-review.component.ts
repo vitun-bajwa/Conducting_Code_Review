@@ -17,7 +17,7 @@ export class AddCodeReviewComponent {
   currentUser: any;
   userId: any;
 
-  constructor(private apiService: CommonService, private snackBar: MatSnackBar, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private apiService: CommonService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.paramMap.subscribe((param: any) => {
       this.userId = param.params.id;
     });
@@ -30,22 +30,21 @@ export class AddCodeReviewComponent {
   ngOnInit() {
     this.currentUser = sessionStorage.getItem('user');
     this.currentUser = JSON.parse(this.currentUser);
-
-    this.apiService.get('codeReview/', this.userId).subscribe((res: any) => {
-      debugger
-      res
-      this.form.form.patchValue({
-        moduleName: res?.moduleName,
-        startDate: res?.email,
-        endDate: res?.lastName,
-        textEditor: res?.textEditor,
-        codeReview: res?.codeReview,
-      })
-    });
+    if(this.userId){
+      this.apiService.get('codeReview/', this.userId).subscribe((res: any) => {
+        this.form.form.patchValue({
+          moduleName: res?.moduleName,
+          startDate: res?.startDate,
+          endDate: res?.endDate,
+          textEditor: res?.textEditor,
+          codeReview: res?.codeReview,
+        });
+      });
+    }
+    
   }
 
   addCodeReview() {
-    this.form.form
     if (this.form.form.invalid) {
       this.form.form.markAllAsTouched();
     }
@@ -55,15 +54,24 @@ export class AddCodeReviewComponent {
         userId: this.currentUser.id,
       }
       this.apiService.add('codeReview', data).subscribe((res: any) => {
-        this.snackBar.open('Code Review sent successfully.', '', {
-          duration: 1000
-        });
+        this.apiService.successMSG('Code Review sent successfully.')
         this.router.navigateByUrl('codeReview');
       })
     }
   }
 
   updateCodeReview() {
-    
+    if (this.form.form.invalid) {
+      this.form.form.markAllAsTouched();
+    }
+    else {
+      let data = {
+        ...this.form.form.value,
+      }
+      this.apiService.edit('codeReview/' + this.userId, data).subscribe((res: any) => {
+        this.apiService.successMSG('Code Review updated successfully.')
+        this.router.navigateByUrl('codeReview');
+      })
+    }
   }
 }
