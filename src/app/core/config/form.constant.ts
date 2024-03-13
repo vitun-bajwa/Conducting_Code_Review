@@ -43,7 +43,6 @@ export const loginForm = [
       placeholder: 'First Name',
       validation: [Validators.required, Validators.pattern(reg.name)],
       isRequired: true,
-      disabled: false,
       class: 'input',
       error: false,
     },
@@ -90,7 +89,6 @@ export const loginForm = [
       isRequired: true,
       class: 'input',
       error: false,
-      disabled: "disabled",
       options: [
         {id: '1', name:'candidate', value: 'candidate'},
         {id:'2', name: 'admin', value: 'admin'}
@@ -196,19 +194,18 @@ export const loginForm = [
   export const profileForm :any = [
     {
       type: 'input',
-      fieldType: 'firstname',
-      name: 'firstname',
+      fieldType: 'text',
+      name: 'firstName',
       value: '',
       placeholder: 'First Name',
       validation: [Validators.required, Validators.pattern(reg.name), Validators.minLength(9)],
       isRequired: true,
       class: 'input',
       error: false,
-      disabled: ""
     },
     {
       type: 'input',
-      fieldType: 'lastname',
+      fieldType: 'text',
       name: 'lastName',
       value: '',
       placeholder: 'Last Name',
@@ -216,7 +213,6 @@ export const loginForm = [
       isRequired: true,
       class: 'input',
       error: false,
-      disabled: ""
     },
     {
       type: 'input',
@@ -228,7 +224,6 @@ export const loginForm = [
       isRequired: true,
       class: 'input',
       error: false,
-      disabled: "disabled"
     },
     {
       type: 'button',

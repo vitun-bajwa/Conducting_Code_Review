@@ -4,6 +4,7 @@ import { FieldConfig } from 'src/app/core/models/field-config';
 import { UiModule } from 'src/app/ui/ui.module';
 import { DynamicFormModule } from '../../dynmic-form/dynamic-form.module';
 import { CommonService } from 'src/app/core/service/common.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -18,7 +19,7 @@ export class UserProfileComponent {
   currentUser: any;
   userConfig: any;
 
-  constructor(private commonService: CommonService) { }
+  constructor(private commonService: CommonService, private router: Router,) { }
 
   ngOnInit() {
     this.currentUser = sessionStorage.getItem('user');
@@ -34,7 +35,7 @@ export class UserProfileComponent {
       this.userConfig = res;
       let user = this.userConfig.find((x:any) => x.id == this.currentUser.id);
       this.form.form.patchValue({
-        firstname: user?.firstname,
+        firstName: user?.firstName,
         email: user?.email,
         lastName: user?.lastName,
       })
@@ -47,6 +48,8 @@ export class UserProfileComponent {
     }
     this.commonService.edit('users/'+ this.currentUser.id,data).subscribe((res:any) => {
       this.commonService.successMSG('Details updated successfully');
+      this.currentUser = sessionStorage.setItem('user',JSON.stringify(res));
+      this.router.navigateByUrl('admin');
     })
   }
 

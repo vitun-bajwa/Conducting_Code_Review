@@ -19,11 +19,11 @@ export class AddEditUserComponent {
     class: 'button',
     name: 'Back',
   }
-  constructor(private apiService: CommonService, private snackBar: MatSnackBar, private router: Router, private activatedRoute: ActivatedRoute){
+  constructor(private apiService: CommonService, private snackBar: MatSnackBar, private router: Router, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.paramMap.subscribe((param: any) => {
       this.userId = param.params.id;
     });
-    if(this.userId) {
+    if (this.userId) {
       this.config.filter(item => {
         if (item.fieldType === 'email') {
           item.disabled = true;
@@ -34,14 +34,14 @@ export class AddEditUserComponent {
 
     // delete this.config.SignUp
   }
-  
-  ngOnInit(){
+
+  ngOnInit() {
     this.currentUser = sessionStorage.getItem('user');
     this.currentUser = JSON.parse(this.currentUser)
-    if(this.userId) {
+    if (this.userId) {
       let index = this.config.findIndex((x: any) => x.fieldType == 'password')
-      if(index != -1) this.config.splice(index, 1);
-     
+      if (index != -1) this.config.splice(index, 1);
+
     }
     this.apiService.get('users/', this.userId).subscribe((res: any) => {
       this.form.form.patchValue({
@@ -51,61 +51,61 @@ export class AddEditUserComponent {
         userRole: res?.userRole,
       })
     });
-  
+
   }
 
-  addUser(){
-    if (this.form.form.invalid) {
-      this.form.form.markAllAsTouched();
-    }
-    else {
-      let data = {
-        ...this.form.form.value,
-        status: 'Active',
-        createdBy: this.currentUser.firstName
-      }
-      this.apiService.add('users', data).subscribe((res: any) => {
-        this.snackBar.open('User added successfully.','',{
-          duration: 1000
-        });
-        this.router.navigateByUrl('admin');
-      })
-    }
-  }
-
-  // addUser() {
-  //   this.trimFormValues();
+  // addUser(){
   //   if (this.form.form.invalid) {
   //     this.form.form.markAllAsTouched();
-  //   } else {
-  //     const email = this.form.form.value.email;
-  //     this.apiService.get('users').subscribe
-  //     (
-  //       (response: any) => {
-  //       const existingUser = response.find((user:any) => user.email === email);
-  //       if (existingUser) {
-  //         this.apiService.warningMSG('This email is already registered. Please use a different email address.');
-  //         // this.form.form.reset();
-  //       }  else {
-  //             let data = {
-  //               ...this.form.form.value,
-  //               status: 'Active',
-  //               createdBy: this.currentUser.id
-  //             }
-  //         delete data.SignUp;
-  //         this.apiService.add('users', data).subscribe((res: any) => {
-  //                 this.snackBar.open('User added successfully.','',{
-  //                   duration: 1000
-  //                 });
-  //                 this.router.navigateByUrl('admin');
-  //               })
-  //         this.form.form.reset();
-  //       }
-  //     });
+  //   }
+  //   else {
+  //     let data = {
+  //       ...this.form.form.value,
+  //       status: 'Active',
+  //       createdBy: this.currentUser.firstName
+  //     }
+  //     this.apiService.add('users', data).subscribe((res: any) => {
+  //       this.snackBar.open('User added successfully.','',{
+  //         duration: 1000
+  //       });
+  //       this.router.navigateByUrl('admin');
+  //     })
   //   }
   // }
 
-  updateUser(){
+  addUser() {
+    this.trimFormValues();
+    if (this.form.form.invalid) {
+      this.form.form.markAllAsTouched();
+    } else {
+      const email = this.form.form.value.email;
+      this.apiService.get('users').subscribe
+        (
+          (response: any) => {
+            const existingUser = response.find((user: any) => user.email === email);
+            if (existingUser) {
+              this.apiService.warningMSG('This email is already registered. Please use a different email address.');
+              // this.form.form.reset();
+            } else {
+              let data = {
+                ...this.form.form.value,
+                status: 'Active',
+                createdBy: this.currentUser.firstName
+              }
+              delete data.SignUp;
+              this.apiService.add('users', data).subscribe((res: any) => {
+                this.snackBar.open('User added successfully.', '', {
+                  duration: 1000
+                });
+                this.router.navigateByUrl('admin');
+              })
+              this.form.form.reset();
+            }
+          });
+    }
+  }
+
+  updateUser() {
     if (this.form.form.invalid) {
       this.form.form.markAllAsTouched();
     }
@@ -113,8 +113,8 @@ export class AddEditUserComponent {
       let data = {
         ...this.form.form.value,
       }
-      this.apiService.edit('users/'+ this.userId,data).subscribe((res: any) => {
-        this.snackBar.open('User updated successfully.','',{
+      this.apiService.edit('users/' + this.userId, data).subscribe((res: any) => {
+        this.snackBar.open('User updated successfully.', '', {
           duration: 1000
         });
         this.router.navigateByUrl('admin');
