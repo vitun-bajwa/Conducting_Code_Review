@@ -88,6 +88,7 @@ export class ForgotPasswordComponent {
   }
 
   resetPassword() {
+    this.trimFormValues();
     if (this.form.form.invalid) {
       this.form.form.markAllAsTouched()
     }
@@ -103,5 +104,14 @@ export class ForgotPasswordComponent {
       );
       this.form.form.reset()
     }
+  }
+
+  trimFormValues() {
+    Object.keys(this.form.form.controls).forEach(controlName => {
+      const control = this.form.form.get(controlName);
+      if (typeof control?.value === 'string') {
+        control.setValue(control.value.trim());
+      }
+    });
   }
 }

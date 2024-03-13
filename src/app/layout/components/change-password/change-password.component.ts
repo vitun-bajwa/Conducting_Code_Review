@@ -24,6 +24,7 @@ export class ChangePasswordComponent {
   ) { }
 
   changePassword() { 
+    this.trimFormValues();
     let user  = JSON.parse(sessionStorage.getItem('user') || '');
     if (this.form.form.invalid) {
       this.form.form.markAllAsTouched();
@@ -43,5 +44,14 @@ export class ChangePasswordComponent {
       this.apiService.successMSG('Old Password Does Not Match');
       this.form.form.reset();
     }
+  }
+
+  trimFormValues() {
+    Object.keys(this.form.form.controls).forEach(controlName => {
+      const control = this.form.form.get(controlName);
+      if (typeof control?.value === 'string') {
+        control.setValue(control.value.trim());
+      }
+    });
   }
 }

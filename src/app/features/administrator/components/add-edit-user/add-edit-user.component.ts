@@ -23,16 +23,26 @@ export class AddEditUserComponent {
     this.activatedRoute.paramMap.subscribe((param: any) => {
       this.userId = param.params.id;
     });
+    if(this.userId) {
+      this.config.filter(item => {
+        if (item.fieldType === 'email') {
+          item.disabled = true;
+        }
+        return item
+      })
+    }
+
+    // delete this.config.SignUp
   }
   
   ngOnInit(){
     this.currentUser = sessionStorage.getItem('user');
     this.currentUser = JSON.parse(this.currentUser)
     if(this.userId) {
-      this.config.splice(this.config.findIndex((x: any) => x.fieldType == 'password'), 1);
-     let test =  this.config.find((x:any) => { x.type == 'button'})
+      let index = this.config.findIndex((x: any) => x.fieldType == 'password')
+      if(index != -1) this.config.splice(index, 1);
+     
     }
-
     this.apiService.get('users/', this.userId).subscribe((res: any) => {
       this.form.form.patchValue({
         firstName: res?.firstName,
@@ -52,7 +62,7 @@ export class AddEditUserComponent {
       let data = {
         ...this.form.form.value,
         status: 'Active',
-        createdBy: this.currentUser.id
+        createdBy: this.currentUser.firstName
       }
       this.apiService.add('users', data).subscribe((res: any) => {
         this.snackBar.open('User added successfully.','',{
@@ -62,6 +72,38 @@ export class AddEditUserComponent {
       })
     }
   }
+
+  // addUser() {
+  //   this.trimFormValues();
+  //   if (this.form.form.invalid) {
+  //     this.form.form.markAllAsTouched();
+  //   } else {
+  //     const email = this.form.form.value.email;
+  //     this.apiService.get('users').subscribe
+  //     (
+  //       (response: any) => {
+  //       const existingUser = response.find((user:any) => user.email === email);
+  //       if (existingUser) {
+  //         this.apiService.warningMSG('This email is already registered. Please use a different email address.');
+  //         // this.form.form.reset();
+  //       }  else {
+  //             let data = {
+  //               ...this.form.form.value,
+  //               status: 'Active',
+  //               createdBy: this.currentUser.id
+  //             }
+  //         delete data.SignUp;
+  //         this.apiService.add('users', data).subscribe((res: any) => {
+  //                 this.snackBar.open('User added successfully.','',{
+  //                   duration: 1000
+  //                 });
+  //                 this.router.navigateByUrl('admin');
+  //               })
+  //         this.form.form.reset();
+  //       }
+  //     });
+  //   }
+  // }
 
   updateUser(){
     if (this.form.form.invalid) {
@@ -79,6 +121,15 @@ export class AddEditUserComponent {
       })
     }
 
+  }
+
+  trimFormValues() {
+    Object.keys(this.form.form.controls).forEach(controlName => {
+      const control = this.form.form.get(controlName);
+      if (typeof control?.value === 'string') {
+        control.setValue(control.value.trim());
+      }
+    });
   }
 
 }

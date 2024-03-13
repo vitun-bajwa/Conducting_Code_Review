@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';
@@ -19,7 +19,7 @@ export class TableComponent {
   @Output() userDeleteInfo = new EventEmitter();
   @ViewChild(MatPaginator) paginator!:  MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  constructor(public dialog: MatDialog, private apiService: CommonService){
+  constructor(public dialog: MatDialog, private apiService: CommonService, public cdr: ChangeDetectorRef){
 
   }
 
@@ -35,34 +35,23 @@ export class TableComponent {
 
   createTableData(){
     if(this.tableConfig) {
+      if(!this.tableConfig?.tableHeaders.includes('sr No')) this.tableConfig?.tableHeaders.unshift('sr No');
       this.tableConfiguration = {
         tableHeaders: this.tableConfig?.tableHeaders,
         tableData: this.tableConfig?.tableData
+        
       }
       this.tableData = new MatTableDataSource<any>(this.tableConfiguration.tableData);
       this.tableData.paginator = this.paginator;
       this.tableData.sort = this.sort;
     }
+    // this.cdr.detectChanges();
   }
-  // createTableData() {
-  //   if (this.tableConfig) {
-  //     this.tableConfiguration = {
-  //       tableHeaders: ['SrNo', ...this.tableConfig.tableHeaders], 
-  //       tableData: this.tableConfig.tableData
-  //     };
-  //     this.tableData = new MatTableDataSource<any>(this.tableConfiguration.tableData);
-  //     this.tableData.paginator = this.paginator;
-  //     this.tableData.sort = this.sort;
-  //   }
-  // }
 
-  getDisplayedIndex(i: number): number {
-    return i + 1 + (this.paginator.pageIndex * this.paginator.pageSize);
-  }
   applyFilter(event: any) {
     const filterValue = event?.target?.value;
     this.tableData.filter = filterValue.trim().toLowerCase();
-  }
+}
   updateStatus(event: any){
     this.userInfo.emit(event);
   }

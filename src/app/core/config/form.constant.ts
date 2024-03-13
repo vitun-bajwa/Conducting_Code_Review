@@ -43,6 +43,7 @@ export const loginForm = [
       placeholder: 'First Name',
       validation: [Validators.required, Validators.pattern(reg.name)],
       isRequired: true,
+      disabled: false,
       class: 'input',
       error: false,
     },
@@ -89,6 +90,7 @@ export const loginForm = [
       isRequired: true,
       class: 'input',
       error: false,
+      disabled: "disabled",
       options: [
         {id: '1', name:'candidate', value: 'candidate'},
         {id:'2', name: 'admin', value: 'admin'}

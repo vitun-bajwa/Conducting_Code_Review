@@ -37,11 +37,14 @@ export class SignUpComponent {
 
   
   signUpUser() {
+    this.trimFormValues();
     if (this.form.form.invalid) {
       this.form.form.markAllAsTouched();
     } else {
       const email = this.form.form.get('email').value;
-      this.apiService.get('users').subscribe((response: any) => {
+      this.apiService.get('users').subscribe
+      (
+        (response: any) => {
         const existingUser = response.find((user:any) => user.email === email);
         if (existingUser) {
           this.apiService.successMSG('This email is already registered. Please use a different email address.');
@@ -60,5 +63,23 @@ export class SignUpComponent {
         }
       });
     }
+  }
+
+  // trimFormValues() {
+  //   const controlNames = Object.keys(this.form.form.controls);
+  //   controlNames.forEach(controlName => {
+  //     const control = this.form.form.get(controlName);
+  //     if (control && control.value && typeof control.value === 'string') {
+  //       control.setValue(control.value.trim());
+  //     }
+  //   });
+  // }
+  trimFormValues() {
+    Object.keys(this.form.form.controls).forEach(controlName => {
+      const control = this.form.form.get(controlName);
+      if (typeof control?.value === 'string') {
+        control.setValue(control.value.trim());
+      }
+    });
   }
 }
