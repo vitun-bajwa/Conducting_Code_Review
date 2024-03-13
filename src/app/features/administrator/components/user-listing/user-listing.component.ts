@@ -43,7 +43,7 @@ export class UserListingComponent {
       }
       if(this.usersConfig?.length > 0) {
         this.tableColumns = Object?.keys(this.usersConfig[0])?.filter((x:any, i) => {
-          if(x != 'password' && x != 'AddUser' && x != 'id' && x != 'Sign-Up'){
+          if(x != 'password' && x != 'AddUser' && x != 'id' && x != 'SignUp'){
             return x;
           }
         });
