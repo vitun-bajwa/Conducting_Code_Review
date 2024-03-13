@@ -39,7 +39,7 @@ export class UserListingComponent {
       if (this.currentUser.userRole === 'superAdmin') {
         this.usersConfig = this.usersConfig?.filter((user: any) => user.userRole !== 'superAdmin' && user.id !== this.currentUser.id);
       } else if (this.currentUser.userRole === 'admin') {
-        this.usersConfig = this.usersConfig?.filter((user: any) => user.createdBy === this.currentUser.id);
+        this.usersConfig = this.usersConfig?.filter((user: any) => user?.createdBy === this.currentUser.id);
       }
       if(this.usersConfig?.length > 0) {
         this.tableColumns = Object?.keys(this.usersConfig[0])?.filter((x:any, i) => {
@@ -67,8 +67,6 @@ export class UserListingComponent {
   deleteUser(event: any){
     this.commonService.delete('users/'+ event).subscribe((res: any) => {
       this.getUserData();
-    })
-
-    //this.router.navigateByUrl(`admin/edit/${event.id}`);
+    });
   }
 }

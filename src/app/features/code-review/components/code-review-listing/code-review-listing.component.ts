@@ -11,34 +11,44 @@ export class CodeReviewListingComponent implements OnInit {
   tableConfig: any;
   tableHeaders: any = [];
   tableColumns: any[] = [];
-  usersConfig: any;
+  reviewConfig: any;
   currentUser: any;
   constructor(private commonService: CommonService,
     private router: Router) {
-    this.getUserData();
+    this.getReviewData();
   }
   addBtn = {
     class: 'button',
-    name: 'Add Code'
+    name: 'Add Code Review'
   }
   ngOnInit() {
     this.currentUser = sessionStorage.getItem('user');
     this.currentUser = JSON.parse(this.currentUser)
   }
-  getUserData() {
+  getReviewData() {
     this.commonService.get('codeReview', '').subscribe((res: any) => {
-      this.usersConfig = res;
-      let index = this.usersConfig.findIndex((x: any) => x.id == this.currentUser.id);
-      this.usersConfig.splice(index, 1);
-      this.tableColumns = Object.keys(this.usersConfig[0]).filter((x: any) => x != 'textEditor');
+      this.reviewConfig = res;
+      let index = this.reviewConfig.findIndex((x: any) => x.id == this.currentUser.id);
+      this.reviewConfig.splice(index, 1);
+      this.tableColumns = Object?.keys(this.reviewConfig[0])?.filter((x:any, i) => {
+        if(x != 'textEditor' && x != 'AddReviewRequest' && x != 'id'){
+          return x;
+        }
+      });
+      
       this.tableColumns.push('action')
-      this.tableConfig = { tableHeaders: this.tableColumns, tableData: this.usersConfig }
+      this.tableConfig = { tableHeaders: this.tableColumns, tableData: this.reviewConfig }
     });
   }
-  
+
   editReview(event: any){
      this.router.navigateByUrl(`codeReview/edit/${event.id}`);
   }
 
-  
+  deleteReview(event: any){
+    this.commonService.delete('codeReview/'+ event).subscribe((res: any) => {
+      this.getReviewData();
+    })
+
+  }
 }
