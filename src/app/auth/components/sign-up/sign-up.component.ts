@@ -13,10 +13,10 @@ export class SignUpComponent {
   @ViewChild('form') form: any;
   config: FieldConfig[] = signUpForm
 
-  constructor(private apiService: CommonService,  private router: Router) { }
+  constructor(private apiService: CommonService, private router: Router) { }
 
-  ngOnInit() {}
-  
+  ngOnInit() { }
+
   // signUpUser() {
   //   if (this.form.form.invalid) {
   //     this.form.form.markAllAsTouched();
@@ -35,7 +35,7 @@ export class SignUpComponent {
   //   }
   // }
 
-  
+
   signUpUser() {
     this.trimFormValues();
     if (this.form.form.invalid) {
@@ -43,37 +43,29 @@ export class SignUpComponent {
     } else {
       const email = this.form.form.get('email').value;
       this.apiService.get('users').subscribe
-      (
-        (response: any) => {
-        const existingUser = response.find((user:any) => user.email === email);
-        if (existingUser) {
-          this.apiService.successMSG('This email is already registered. Please use a different email address.');
-          this.form.form.reset();
-        } else {
-          const data = {
-            ...this.form.form.value,
-            status: 'Inactive'
-          };
-          delete data.SignUp;
-          this.apiService.add('users', data).subscribe((res: any) => {
-            this.router.navigateByUrl('/auth/login');
-            this.apiService.successMSG('Sign-up successful');
+        (
+          (response: any) => {
+            const existingUser = response.find((user: any) => user.email === email);
+            if (existingUser) {
+              this.apiService.errorMSG('This email is already registered. Please use a different email address.');
+              this.form.form.reset();
+            } else {
+              const data = {
+                ...this.form.form.value,
+                status: 'Inactive'
+              };
+              delete data.SignUp;
+              delete data.AddUser;
+              this.apiService.add('users', data).subscribe((res: any) => {
+                this.router.navigateByUrl('/auth/login');
+                this.apiService.successMSG('Sign-up successful');
+              });
+              this.form.form.reset();
+            }
           });
-          this.form.form.reset();
-        }
-      });
     }
   }
 
-  // trimFormValues() {
-  //   const controlNames = Object.keys(this.form.form.controls);
-  //   controlNames.forEach(controlName => {
-  //     const control = this.form.form.get(controlName);
-  //     if (control && control.value && typeof control.value === 'string') {
-  //       control.setValue(control.value.trim());
-  //     }
-  //   });
-  // }
   trimFormValues() {
     Object.keys(this.form.form.controls).forEach(controlName => {
       const control = this.form.form.get(controlName);

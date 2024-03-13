@@ -39,11 +39,11 @@ export class UserListingComponent {
       if (this.currentUser.userRole === 'superAdmin') {
         this.usersConfig = this.usersConfig?.filter((user: any) => user.userRole !== 'superAdmin' && user.id !== this.currentUser.id);
       } else if (this.currentUser.userRole === 'admin') {
-        this.usersConfig = this.usersConfig?.filter((user: any) => user.createdBy === this.currentUser.firstName);
+        this.usersConfig = this.usersConfig?.filter((user: any) => user.createdBy === this.currentUser.id);
       }
       if(this.usersConfig?.length > 0) {
         this.tableColumns = Object?.keys(this.usersConfig[0])?.filter((x:any, i) => {
-          if(x != 'password' && x != 'Add User' && x != 'id'){
+          if(x != 'password' && x != 'AddUser' && x != 'id' && x != 'Sign-Up'){
             return x;
           }
         });

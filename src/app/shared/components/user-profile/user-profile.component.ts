@@ -43,14 +43,16 @@ export class UserProfileComponent {
   }
 
   updateUserInfo(){
-    let data = {
-      ...this.form.form.value,
-    }
-    this.commonService.edit('users/'+ this.currentUser.id,data).subscribe((res:any) => {
-      this.commonService.successMSG('Details updated successfully');
-      this.currentUser = sessionStorage.setItem('user',JSON.stringify(res));
-      this.router.navigateByUrl('admin');
-    })
+    this.commonService.get('users/'+ this.currentUser.id).subscribe((res: any) => {
+      const updatedUser = {
+        ...res, 
+        ...this.form.form.value, 
+      };
+      this.commonService.edit('users/'+ this.currentUser.id, updatedUser).subscribe((updateRes:any) => {
+        this.commonService.successMSG('Details updated successfully');
+        this.currentUser = sessionStorage.setItem('user', JSON.stringify(updateRes));
+        this.router.navigateByUrl('admin');
+      });
+    });
   }
-
 }

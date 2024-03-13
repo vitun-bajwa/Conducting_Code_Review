@@ -84,13 +84,13 @@ export class AddEditUserComponent {
           (response: any) => {
             const existingUser = response.find((user: any) => user.email === email);
             if (existingUser) {
-              this.apiService.warningMSG('This email is already registered. Please use a different email address.');
+              this.apiService.errorMSG('This email is already registered. Please use a different email address.');
               // this.form.form.reset();
             } else {
               let data = {
                 ...this.form.form.value,
                 status: 'Active',
-                createdBy: this.currentUser.firstName
+                createdBy: this.currentUser.id
               }
               delete data.SignUp;
               this.apiService.add('users', data).subscribe((res: any) => {

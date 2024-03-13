@@ -96,7 +96,7 @@ export const loginForm = [
     },
     {
       type: 'button',
-      name: token ? 'Add User' : 'Sign-Up',
+      name: token ? 'AddUser' : 'SignUp',
       class: 'button',
     },
   ];
