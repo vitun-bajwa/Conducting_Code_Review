@@ -22,6 +22,24 @@ body
     width: 1140px
     margin: 0 auto
 
+mat-spinner.mat-mdc-progress-spinner
+    width: 70px !important
+    height: 70px !important
+    .mdc-circular-progress__indeterminate-circle-graphic
+        stroke: $background-dark
+
+.snackbar-success.mat-mdc-snack-bar-container .mdc-snackbar__surface
+    background-color: $success
+
+.snackbar-error.mat-mdc-snack-bar-container .mdc-snackbar__surface
+    background-color: $danger
+
+.snackbar-warning.mat-mdc-snack-bar-container .mdc-snackbar__surface
+    background-color: $warning
+    .mdc-snackbar__label
+        color: $text-black
+
+
 /* Preset Css End */
 
 /* Scroll Css */
@@ -209,6 +227,20 @@ app-errors
         color: $text-white
 
 /* Sidebar Css End */
+
+/* Forgot password Css */
+
+.content
+    .card
+        border: none
+        ng-otp-input
+            input
+                width: 45px !important
+                height: 45px !important
+        button
+            background: $background-dark
+
+/* Forgot password Css End */
 
 /* Page not found Css */
 
