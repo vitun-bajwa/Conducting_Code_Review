@@ -13,7 +13,6 @@ export class CommonFilterComponent implements OnInit{
    this.tableData =  new MatTableDataSource<any>(this.tableData)
   }
   applyFilter(event: any) {
-    debugger
     const filterValue = event?.target?.value;
     this.tableData.filter = filterValue.trim().toLowerCase();
     this.filterData.emit(this.tableData)

@@ -29,23 +29,23 @@ export class UserListingComponent {
   }
 
 
-  ngOnInit(){
+  ngOnInit() {
     this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
     // this.currentUser = JSON.parse(this.currentUser)
   }
 
-  getUserData() { 
+  getUserData() {
     this.commonService.get('users', '').subscribe((res: any) => {
-    this.userData = res
-    this.createData();
+      this.userData = res
+      this.createData();
     });
   }
 
-  filter(event:any) {
+  filter(event: any) {
     // this.tableData = event.filteredData.length;
   }
 
-  createData(param?:MatTabChangeEvent) {
+  createData(param?: MatTabChangeEvent) {
     let userData = [...this.userData]
     if (userData.length > 0) {
       this.tableColumns = Object?.keys(userData[0])?.filter((x: any) => {
@@ -57,23 +57,23 @@ export class UserListingComponent {
     }
     userData = userData.filter((user: any, i) => {
       user['statusBtn'] = {
-        name: user.status == 'Active' ? 'Active' : user.status == 'Inactive' ? 'Inactive' : 'Pending', 
+        name: user.status == 'Active' ? 'Active' : user.status == 'Inactive' ? 'Inactive' : 'Pending',
         class: 'statusBtn'
       }
       return user;
     });
     userData.filter((user: any, i) => {
-      if(user.userRole == 'superAdmin') {
-        userData.splice(i,1);
+      if (user.userRole == 'superAdmin') {
+        userData.splice(i, 1);
       }
-      if(this.currentUser.userRole == 'admin' && user.id == this.currentUser.id) {
-        userData.splice(i,1);
+      if (this.currentUser.userRole == 'admin' && user.id == this.currentUser.id) {
+        userData.splice(i, 1);
       }
     });
-    if(this.currentUser.userRole == 'admin') userData = userData.filter((user: any) => user?.createdBy === this.currentUser.id);
+    if (this.currentUser.userRole == 'admin') userData = userData.filter((user: any) => user?.createdBy !== this.currentUser.id);
     let pendingUserData = [...userData]
-    userData = userData.filter((x: any) => x.status != 'pending');
-    pendingUserData = pendingUserData.filter((x: any) => x.status == 'pending');
+    userData = userData.filter((x: any) => x.status != 'Pending');
+    pendingUserData = pendingUserData.filter((x: any) => x.status == 'Pending');
 
     this.tableConfig = { tableHeaders: this.tableColumns, tableData: userData }
     this.pendingTableConfig = { tableHeaders: this.tableColumns, tableData: pendingUserData }
@@ -81,10 +81,11 @@ export class UserListingComponent {
 
   updateUserInfo(event: any) {
     let userData = this.userData.find((x: any) => x.id == event.id);
-    userData['status'] = userData['status'] == 'Active' ? 'Inactive' : userData['status'] == 'pending' ? 'Active' : 'Active';
+    userData['status'] = userData['status'] == 'Active' ? 'Inactive' : userData['status'] == 'Pending' ? 'Active' : 'Active';
     userData.statusBtn.name = userData['status']
-    
+
     this.commonService.edit('users/' + userData.id, userData).subscribe((res: any) => {
+      
     })
   }
 
