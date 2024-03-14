@@ -4,6 +4,8 @@ import { CommonService } from 'src/app/core/service/common.service';
 import { currentUser } from 'src/app/core/models/common-config';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { commonEnum } from 'src/app/core/enums/common.enum';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-user-listing',
@@ -17,17 +19,18 @@ export class UserListingComponent {
   usersConfig: any = [];
   pendingTableConfig: any;
   currentUser!: currentUser;
+  formHeading: commonEnum = commonEnum.userModule;
   addBtn = {
     class: 'button',
     name: 'Add User'
   }
   userData: any;
   tableColumns: any[] = [];
+  searchVal: Subject<boolean> = new Subject();
 
   constructor(private commonService: CommonService, private router: Router, public dialog: MatDialog) {
     this.getUserData();
   }
-
 
   ngOnInit() {
     this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
@@ -41,11 +44,7 @@ export class UserListingComponent {
     });
   }
 
-  filter(event: any) {
-    // this.tableData = event.filteredData.length;
-  }
-
-  createData(param?: MatTabChangeEvent) {
+  createData() {
     let userData = [...this.userData]
     if (userData.length > 0) {
       this.tableColumns = Object?.keys(userData[0])?.filter((x: any) => {
@@ -98,4 +97,9 @@ export class UserListingComponent {
       this.getUserData();
     });
   }
+
+  applyFilter(event: any) {
+    this.searchVal.next(event?.target?.value);
+  }
+
 }

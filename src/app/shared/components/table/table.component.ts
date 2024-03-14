@@ -31,6 +31,10 @@ export class TableComponent {
   }
   ngAfterViewInit() {
     this.createTableData();
+    this.search?.subscribe((val:string) => {
+      const filterValue = val;
+      this.tableData.filter = filterValue.trim().toLowerCase();
+    });
   }
 
   createTableData() {
