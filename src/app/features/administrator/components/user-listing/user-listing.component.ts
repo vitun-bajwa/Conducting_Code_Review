@@ -5,6 +5,7 @@ import { CommonService } from 'src/app/core/service/common.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UiModule } from 'src/app/ui/ui.module';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { currentUser } from 'src/app/core/models/common-config';
 
 @Component({
   selector: 'app-user-listing',
@@ -16,11 +17,13 @@ export class UserListingComponent {
   tableConfig : any;
   tableHeaders: any = [];
   usersConfig: any=[];
-  currentUser: any;
+  currentUser!: currentUser;
+
   addBtn = {
     class: 'button',
     name: 'Add User'
   }
+  tableData: any;
 
   constructor(private commonService: CommonService, private router: Router, public dialog: MatDialog){
     this.getUserData();
@@ -29,8 +32,8 @@ export class UserListingComponent {
 
 
   ngOnInit(){
-    this.currentUser = sessionStorage.getItem('user');
-    this.currentUser = JSON.parse(this.currentUser)
+    this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
+    // this.currentUser = JSON.parse(this.currentUser)
   }
 
   getUserData(){
@@ -60,7 +63,10 @@ export class UserListingComponent {
       }
     });
   }
-   
+  filter(event:any) {
+    debugger
+      this.tableData = event.filteredData.length;
+  }
   updateUserInfo(event: any){
     let userData = this.usersConfig.find((x:any) => x.id == event.id);
     userData['status'] = userData['status'] == 'Active' ? 'Inactive' : 'Active';

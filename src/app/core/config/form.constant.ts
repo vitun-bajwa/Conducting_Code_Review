@@ -2,8 +2,6 @@ import { Validators } from "@angular/forms";
 import { reg } from "../regex/reg";
 import { passwordvalidaator } from "../regex/passwordvalidaator";
 
-const token = sessionStorage.getItem('token');
-
 export const loginForm = [
     {
       type: 'input',
@@ -96,7 +94,7 @@ export const loginForm = [
     },
     {
       type: 'button',
-      name: token ? 'AddUser' : 'SignUp',
+      name: 'SignUp',
       class: 'button',
     },
   ];

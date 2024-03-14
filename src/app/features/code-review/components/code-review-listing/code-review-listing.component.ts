@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { currentUser } from 'src/app/core/models/common-config';
 import { CommonService } from 'src/app/core/service/common.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class CodeReviewListingComponent implements OnInit {
   tableHeaders: any = [];
   tableColumns: any[] = [];
   reviewConfig: any;
-  currentUser: any;
+  currentUser!: currentUser;
   constructor(private commonService: CommonService,
     private router: Router) {
     this.getReviewData();
@@ -22,8 +23,8 @@ export class CodeReviewListingComponent implements OnInit {
     name: 'Add Code Review'
   }
   ngOnInit() {
-    this.currentUser = sessionStorage.getItem('user');
-    this.currentUser = JSON.parse(this.currentUser)
+    this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
+    // this.currentUser = JSON.parse(this.currentUser)
   }
   getReviewData() {
     this.commonService.get('codeReview', '').subscribe((res: any) => {

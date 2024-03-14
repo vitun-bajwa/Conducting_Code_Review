@@ -1,8 +1,8 @@
-<mat-form-field class="searchBox">
+<app-common-filter (filterData)="filter($event)" [tableData]="tableData"></app-common-filter>
+<!-- <mat-form-field class="searchBox">
   <input matInput (keyup)="applyFilter($event)" placeholder="Search">
-</mat-form-field>
+</mat-form-field> -->
 <table mat-table [dataSource]="tableData" matSort="true" class="mat-elevation-z8">
- 
   <ng-container [matColumnDef]="column" *ngFor="let column of tableConfiguration?.tableHeaders;">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column | titlecase}} </th>
     <ng-container *matCellDef="let element;  let index = index">
@@ -10,7 +10,6 @@
       <td mat-cell *ngIf="column != 'status' && column != 'action' && column != 'sr No'">{{element[column]}} </td>
       <td mat-cell *ngIf="column == 'status'">
         <app-button-field [config]="element['statusBtn']" [class.active]="element['statusBtn'].name==='Active'"></app-button-field>
-        <!-- <button class="status" mat-raised-button color="primary" [color]="element[column] === 'Active' ? 'primary' : 'warn'"  (click)="updateStatus(element)">{{element[column]}}</button> -->
       </td>
       <td mat-cdell *ngIf="column == 'action'">
           <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
@@ -28,9 +27,10 @@
   <tr mat-header-row *matHeaderRowDef="tableConfiguration?.tableHeaders"></tr>
   <tr mat-row *matRowDef="let row; columns: tableConfiguration?.tableHeaders;"></tr>
   <tr class="mat-row" *matNoDataRow>
-    <td class="mat-cell" [attr.colspan]="tableData.length">
+    <td class="mat-cell" [attr.colspan]="tableConfiguration?.tableHeaders.length">
       No records found...
     </td>
   </tr>
 </table>
 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons #paginatorRef></mat-paginator>
+<!-- common table me mujhe table hmesha show krwana hai chahe usme record ho chahe na ho toh kaise dikhayu -->
