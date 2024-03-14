@@ -49,10 +49,9 @@ export class UserListingComponent {
         });
         this.tableColumns.push('action')
         this.usersConfig = this.usersConfig.map((item: any) => {
-          if(item.status == 'Active') {
-            item['statusBtn'] = {name: 'Active', class: 'statusBtn'}
-          }else {
-            item['statusBtn'] = {name: 'Inactive', class: 'statusBtn'}
+          item['statusBtn'] = {
+            name: item.status == 'Active' ? 'Active' : item.status == 'Inactive' ? 'Inactive' : 'Pending', 
+            class: 'statusBtn'
           }
           return item;
         })

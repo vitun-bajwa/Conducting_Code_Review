@@ -9,8 +9,7 @@
       <td mat-cell *ngIf="column == 'sr No'">{{(paginatorRef.pageIndex * paginatorRef.pageSize) + (index + 1)}}</td>
       <td mat-cell *ngIf="column != 'status' && column != 'action' && column != 'sr No'">{{element[column]}} </td>
       <td mat-cell *ngIf="column == 'status'">
-        <app-button-field [config]="element['statusBtn']" [class.active]="element['statusBtn'].name==='Active'"></app-button-field>
-        <!-- <button class="status" mat-raised-button color="primary" [color]="element[column] === 'Active' ? 'primary' : 'warn'"  (click)="updateStatus(element)">{{element[column]}}</button> -->
+        <app-button-field *ngIf="element['statusBtn']" [config]="element['statusBtn']" [ngClass]="(element['statusBtn'].name==='Active') ? 'active' : (element['statusBtn'].name==='Pending') ? 'pending' : ''"></app-button-field>
       </td>
       <td mat-cdell *ngIf="column == 'action'">
           <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
