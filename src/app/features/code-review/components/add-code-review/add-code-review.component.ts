@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { codeReviewForm } from 'src/app/core/config/form.constant';
+import { codeReviewForm, codeReviewRequestForm } from 'src/app/core/config/form.constant';
 import { commonEnum } from 'src/app/core/enums/common.enum';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
@@ -13,8 +12,10 @@ import { EditorComponent } from 'src/app/shared/dynmic-form/component/editor/edi
 })
 export class AddCodeReviewComponent {
   @ViewChild('form') form: any;
+  @ViewChild('review') review: any;
   @ViewChild(EditorComponent) editor: any;
-  config: FieldConfig[] = codeReviewForm
+  configRequest: FieldConfig[] = codeReviewRequestForm
+  configReview: FieldConfig[] = codeReviewForm
   currentUser: any;
   userId: any;
   formHeading!: string;
@@ -25,9 +26,13 @@ export class AddCodeReviewComponent {
     });
     this.formHeading = this.userId ? commonEnum.editCodeReview : commonEnum.addCodeReview;
   }
-  addBtn = {
+  backBtn = {
     class: 'button',
     name: 'Back',
+  }
+  addBtn = {
+    class: 'button',
+    name: 'Save',
   }
 
   ngOnInit() {
@@ -44,22 +49,35 @@ export class AddCodeReviewComponent {
         });
       });
     }
-
   }
 
   addCodeReview() {
-    if (this.form.form.invalid) {
-      this.form.form.markAllAsTouched();
-    }
-    else {
-      let data = {
-        ...this.form.form.value,
-        userId: this.currentUser.id,
+    if(this.currentUser.userRole == 'candidate') {
+      if (this.form.form.invalid) {
+        this.form.form.markAllAsTouched();
+      }else {
+        let data = {
+          ...this.form.form.value,
+          userId: this.currentUser.id,
+        }
+        this.apiService.add('codeReview', data).subscribe((res: any) => {
+          this.apiService.successMSG('Code Review sent successfully.')
+          this.router.navigateByUrl('codeReview');
+        })
       }
-      this.apiService.add('codeReview', data).subscribe((res: any) => {
-        this.apiService.successMSG('Code Review sent successfully.')
-        this.router.navigateByUrl('codeReview');
-      })
+    }else {
+      if (this.form.form.invalid && this.review.form.invalid) {
+        this.form.form.markAllAsTouched();
+      }else {
+        let data = {
+          ...this.form.form.value,
+          userId: this.currentUser.id,
+        }
+        this.apiService.add('codeReview', data).subscribe((res: any) => {
+          this.apiService.successMSG('Code Review sent successfully.')
+          this.router.navigateByUrl('codeReview');
+        })
+      }
     }
   }
 
