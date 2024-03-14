@@ -58,7 +58,19 @@ mat-spinner.mat-mdc-progress-spinner
 ::-webkit-scrollbar-thumb:hover 
   background: $background-dark
 
-/* Scroll Css End*/
+/* Scroll Css End */
+
+/* Common Css */
+
+.hdr
+    @include d_c_sb
+    margin-bottom: 30px
+    color: $secondary
+    h2
+        font-size: 26px
+        margin: 0px
+
+/* Common Css End */
 
 /* Form Css */
 
@@ -83,7 +95,7 @@ mat-spinner.mat-mdc-progress-spinner
     border-radius: 20px
     margin-top: 10px
 
-.hrdBtn
+.btnBx
     .button
         width: auto
     &.lft
@@ -264,7 +276,7 @@ app-errors
         margin-right: 5px
         .mdc-tab__text-label
             color: $text-black
-    .mat-mdc-tab.mdc-tab--active, .mat-mdc-tab.mdc-tab--active:focus 
+    .mat-mdc-tab.mdc-tab--active, .mat-mdc-tab.mdc-tab--active:focus, .mat-mdc-tab.mdc-tab--active:hover
         background: $background-dark
         .mdc-tab__text-label
             color: $primary

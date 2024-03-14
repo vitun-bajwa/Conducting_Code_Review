@@ -15,6 +15,7 @@ import { FieldConfig } from 'src/app/core/models/field-config';
 export class TableComponent {
 
   @Input() tableConfig: any;
+  @Input() search: any;
   @Output() userInfo = new EventEmitter();
   @Output() editInfo = new EventEmitter();
   @Output() deleteInfo = new EventEmitter();
@@ -53,6 +54,7 @@ export class TableComponent {
     const filterValue = event?.target?.value;
     this.tableData.filter = filterValue.trim().toLowerCase();
   }
+
   updateStatus(event: any) {
     this.userInfo.emit(event);
   }
