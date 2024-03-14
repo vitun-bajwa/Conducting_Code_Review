@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { signUpForm } from 'src/app/core/config/form.constant';
+import { commonEnum } from 'src/app/core/enums/common.enum';
+import { currentUser } from 'src/app/core/models/common-config';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
 
@@ -13,12 +15,13 @@ import { CommonService } from 'src/app/core/service/common.service';
 export class AddEditUserComponent {
   @ViewChild('form') form: any;
   config: FieldConfig[] = signUpForm
-  userId: any;
-  currentUser: any;
+  userId!: string;
+  currentUser!: currentUser;
   addBtn = {
     class: 'button',
     name: 'Back',
   }
+  formHeading!: string;
   constructor(private apiService: CommonService, private snackBar: MatSnackBar, private router: Router, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.paramMap.subscribe((param: any) => {
       this.userId = param.params.id;
@@ -31,13 +34,12 @@ export class AddEditUserComponent {
         return item
       })
     }
-
-    // delete this.config.SignUp
+    this.formHeading = this.userId ? commonEnum.editUser : commonEnum.addUser;
   }
 
   ngOnInit() {
-    this.currentUser = sessionStorage.getItem('user');
-    this.currentUser = JSON.parse(this.currentUser)
+    this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
+    // this.currentUser = JSON.parse(this.currentUser)
     if (this.userId) {
       let index = this.config.findIndex((x: any) => x.fieldType == 'password')
       if (index != -1) this.config.splice(index, 1);
@@ -66,12 +68,12 @@ export class AddEditUserComponent {
             const existingUser = response.find((user: any) => user.email === email);
             if (existingUser) {
               this.apiService.errorMSG('This email is already registered. Please use a different email address.');
-              // this.form.form.reset();
             } else {
               let data = {
                 ...this.form.form.value,
                 status: 'Active',
-                createdBy: this.currentUser.id
+                createdBy: this.currentUser.id,
+                password: btoa(this.form.form.value.password),
               }
               delete data.SignUp;
               this.apiService.add('users', data).subscribe((res: any) => {
@@ -94,7 +96,7 @@ export class AddEditUserComponent {
       let data = {
         ...this.form.form.value,
         status: this.currentUser.status,
-        createdBy: this.currentUser.id
+        createdBy: this.currentUser.id,
       }
       this.apiService.edit('users/' + this.userId, data).subscribe((res: any) => {
         this.snackBar.open('User updated successfully.', '', {

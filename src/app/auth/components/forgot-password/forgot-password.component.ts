@@ -95,7 +95,7 @@ export class ForgotPasswordComponent {
     else {
       let data: any = {
         ...this.matchdata,
-        password: this.form.form.value.password,
+        password: btoa(this.form.form.value.password),
       }
       this.apiService.edit('users/'+this.matchdata.id, data).subscribe((data: any) => {
         this.router.navigateByUrl('/');

@@ -6,6 +6,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { CommonService } from 'src/app/core/service/common.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FieldConfig } from 'src/app/core/models/field-config';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -14,11 +15,13 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 export class TableComponent {
 
   @Input() tableConfig: any;
+  @Input() search: any;
   @Output() userInfo = new EventEmitter();
   @Output() editInfo = new EventEmitter();
   @Output() deleteInfo = new EventEmitter();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  
   tableData: any;
   tableConfiguration: any;
 
@@ -26,7 +29,6 @@ export class TableComponent {
 
   }
 
-  
   ngOnChanges() {
   
   }
@@ -40,8 +42,7 @@ export class TableComponent {
       this.tableConfiguration = {
         tableHeaders: this.tableConfig?.tableHeaders,
         tableData: this.tableConfig?.tableData
-        
-      }
+      }      
       this.tableData = new MatTableDataSource<any>(this.tableConfiguration.tableData);
       this.tableData.paginator = this.paginator;
       this.tableData.sort = this.sort;
@@ -53,6 +54,7 @@ export class TableComponent {
     const filterValue = event?.target?.value;
     this.tableData.filter = filterValue.trim().toLowerCase();
   }
+
   updateStatus(event: any) {
     this.userInfo.emit(event);
   }

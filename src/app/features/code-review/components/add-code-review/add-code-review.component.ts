@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { codeReviewForm } from 'src/app/core/config/form.constant';
+import { commonEnum } from 'src/app/core/enums/common.enum';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
 import { EditorComponent } from 'src/app/shared/dynmic-form/component/editor/editor.component';
@@ -16,11 +17,13 @@ export class AddCodeReviewComponent {
   config: FieldConfig[] = codeReviewForm
   currentUser: any;
   userId: any;
+  formHeading!: string;
 
   constructor(private apiService: CommonService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.paramMap.subscribe((param: any) => {
       this.userId = param.params.id;
     });
+    this.formHeading = this.userId ? commonEnum.editCodeReview : commonEnum.addCodeReview;
   }
   addBtn = {
     class: 'button',
@@ -30,7 +33,7 @@ export class AddCodeReviewComponent {
   ngOnInit() {
     this.currentUser = sessionStorage.getItem('user');
     this.currentUser = JSON.parse(this.currentUser);
-    if(this.userId){
+    if (this.userId) {
       this.apiService.get('codeReview/', this.userId).subscribe((res: any) => {
         this.form.form.patchValue({
           moduleName: res?.moduleName,
@@ -41,7 +44,7 @@ export class AddCodeReviewComponent {
         });
       });
     }
-    
+
   }
 
   addCodeReview() {

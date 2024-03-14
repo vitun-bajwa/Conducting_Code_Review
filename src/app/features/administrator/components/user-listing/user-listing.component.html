@@ -1,6 +1,6 @@
 <mat-tab-group (selectedTabChange)="createData($event)">
     <mat-tab label="User Listing">
-        <div class="hrdBtn rgt">
+        <div class="hdr">
             <app-button-field [config]="addBtn" routerLink="add"></app-button-field>
         </div>
         <app-table *ngIf="tableConfig" [tableConfig]="tableConfig" (userInfo)="updateUserInfo($event)"
