@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { signUpForm } from 'src/app/core/config/form.constant';
+import { commonEnum } from 'src/app/core/enums/common.enum';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
 
@@ -12,13 +13,14 @@ import { CommonService } from 'src/app/core/service/common.service';
 })
 export class AddEditUserComponent {
   @ViewChild('form') form: any;
-  config: FieldConfig[] = signUpForm
+  config: FieldConfig[] = signUpForm;
   userId: any;
   currentUser: any;
   addBtn = {
     class: 'button',
     name: 'Back',
   }
+  formHeading!: string;
   constructor(private apiService: CommonService, private snackBar: MatSnackBar, private router: Router, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.paramMap.subscribe((param: any) => {
       this.userId = param.params.id;
@@ -31,8 +33,7 @@ export class AddEditUserComponent {
         return item
       })
     }
-
-    // delete this.config.SignUp
+    this.formHeading = this.userId ? commonEnum.editUser : commonEnum.addUser;
   }
 
   ngOnInit() {
@@ -96,7 +97,6 @@ export class AddEditUserComponent {
         ...this.form.form.value,
         status: this.currentUser.status,
         createdBy: this.currentUser.id,
-        password: btoa(this.form.form.value.password),
       }
       this.apiService.edit('users/' + this.userId, data).subscribe((res: any) => {
         this.snackBar.open('User updated successfully.', '', {
