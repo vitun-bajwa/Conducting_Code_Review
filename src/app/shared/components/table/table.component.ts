@@ -15,6 +15,7 @@ import { FieldConfig } from 'src/app/core/models/field-config';
 export class TableComponent {
 
   @Input() tableConfig: any;
+  @Input() search: any;
   @Output() userInfo = new EventEmitter();
   @Output() editInfo = new EventEmitter();
   @Output() deleteInfo = new EventEmitter();
@@ -26,13 +27,7 @@ export class TableComponent {
   constructor(public dialog: MatDialog) {}
 
   ngOnChanges() {
-    // this.createTableData();
-    // this.filter(event);
-  }
   
-  filter(event:any) {
-    debugger
-      this.tableData = event.filteredData.length;
   }
   ngAfterViewInit() {
     this.createTableData();
@@ -49,11 +44,6 @@ export class TableComponent {
       this.tableData.sort = this.sort;
     }
   }
-  // applyFilter(event: any) {
-  //   debugger
-  //   const filterValue = event?.target?.value;
-  //   this.tableData.filter = filterValue.trim().toLowerCase();
-  // }
   updateStatus(event: any) {
     this.userInfo.emit(event);
   }

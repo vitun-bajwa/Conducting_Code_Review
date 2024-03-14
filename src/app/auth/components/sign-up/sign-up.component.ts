@@ -23,8 +23,7 @@ export class SignUpComponent {
       this.form.form.markAllAsTouched();
     } else {
       const email = this.form.form.get('email').value;
-      this.apiService.get('users').subscribe
-        (
+      this.apiService.get('users').subscribe(
           (response: any) => {
             const existingUser = response.find((user: any) => user.email === email);
             if (existingUser) {
@@ -33,7 +32,7 @@ export class SignUpComponent {
             } else {
               const data = {
                 ...this.form.form.value,
-                status: 'Inactive',
+                status: 'Pending',
                 password: btoa(this.form.form.value.password)
               };
               delete data.SignUp;

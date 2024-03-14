@@ -1,11 +1,12 @@
-<mat-tab-group>
+<mat-tab-group (selectedTabChange)="createData($event)">
     <mat-tab label="User Listing">
-        <div class="hrdBtn rgt">
+        <div class="hdr">
             <app-button-field [config]="addBtn" routerLink="add"></app-button-field>
         </div>
-        <!-- <app-common-filter (filterData)="filter($event)" ></app-common-filter> -->
-
-        <app-table *ngIf="tableConfig" [tableConfig]="tableConfig" (userInfo)="updateUserInfo($event)" (editInfo)="editUser($event)" (deleteInfo)="deleteUser($event)"></app-table>
+        <app-table *ngIf="tableConfig" [tableConfig]="tableConfig" (userInfo)="updateUserInfo($event)"
+            (editInfo)="editUser($event)" (deleteInfo)="deleteUser($event)"></app-table>
     </mat-tab>
-    <mat-tab label="User Request"> Content 2 </mat-tab>
+    <mat-tab label="User Request">
+        <app-table *ngIf="pendingTableConfig" [tableConfig]="pendingTableConfig" (userInfo)="updateUserInfo($event)"
+        (editInfo)="editUser($event)" (deleteInfo)="deleteUser($event)"></app-table></mat-tab>
 </mat-tab-group>
