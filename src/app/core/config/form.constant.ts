@@ -230,13 +230,13 @@ export const loginForm = [
     },
   ];
 
-  export const codeReviewForm:any = [
+  export const codeReviewRequestForm:any = [
     {
       type: 'input',
-      fieldType: 'Module Name',
-      name: 'moduleName',
+      fieldType: 'text',
+      name: 'title',
       value: '',
-      placeholder: 'Module Name',
+      placeholder: 'Title',
       validation: [Validators.required],
       isRequired: true,
       class: 'input',
@@ -251,7 +251,7 @@ export const loginForm = [
       placeholder: 'Start Date',
       validation: [Validators.required],
       isRequired: true,
-      class: 'input',  
+      class: 'date',
       error: false,
     },
     {
@@ -266,6 +266,17 @@ export const loginForm = [
       error: false,
     },
     {
+      type: 'textArea', 
+      fieldType: 'codeDetails', 
+      name: 'codeDescription', 
+      value: '',
+      placeholder: 'Code description..',
+      validation: [Validators.required],
+      isRequired: true,
+      class: 'textArea',
+      error: false,
+    },
+    {
       type: 'textEditor', 
       fieldType: 'textEditor', 
       name: 'textEditor', 
@@ -273,15 +284,18 @@ export const loginForm = [
       placeholder: '',
       validation: [Validators.required],
       isRequired: true,
-      class: 'input',  
+      class: 'textEditor',
       error: false,
     },
+  ];
+  
+  export const codeReviewForm:any = [
     {
       type: 'textArea', 
       fieldType: 'codeReview', 
       name: 'codeReview', 
       value: '',
-      placeholder: 'Write code review',
+      placeholder: 'code review..',
       validation: [Validators.required],
       isRequired: true,
       class: 'input',  
@@ -289,7 +303,7 @@ export const loginForm = [
     },
     {
       type: 'button',
-      name: 'Add Review Request',
+      name: 'Add more',
       class: 'button',
     },
   ];
