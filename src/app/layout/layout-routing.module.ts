@@ -10,8 +10,8 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'admin',
-        loadChildren: () => import('./../features/administrator/administrator.module').then((m) => m.AdministratorModule),
+        path: 'user',
+        loadChildren: () => import('./../features/user/user.module').then((m) => m.UserModule),
       },
       {
         path: 'codeReview',

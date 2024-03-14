@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { AdministratorRoutingModule } from './administrator-routing.module';
+import { UserRoutingModule } from './user-routing.module';
 import { UserListingComponent } from './components/user-listing/user-listing.component';
 import { UserViewComponent } from './components/user-view/user-view.component';
 import { AddEditUserComponent } from './components/add-edit-user/add-edit-user.component';
@@ -17,7 +17,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
   ],
   imports: [
     CommonModule,
-    AdministratorRoutingModule,
+    UserRoutingModule,
     UiModule,
     SharedModule
   ],
@@ -26,4 +26,4 @@ import { SharedModule } from 'src/app/shared/shared.module';
     SharedModule,
   ]
 })
-export class AdministratorModule { }
+export class UserModule { }
