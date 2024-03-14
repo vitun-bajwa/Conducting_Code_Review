@@ -71,7 +71,8 @@ export class AddEditUserComponent {
               let data = {
                 ...this.form.form.value,
                 status: 'Active',
-                createdBy: this.currentUser.id
+                createdBy: this.currentUser.id,
+                password: btoa(this.form.form.value.password),
               }
               delete data.SignUp;
               this.apiService.add('users', data).subscribe((res: any) => {
@@ -94,7 +95,8 @@ export class AddEditUserComponent {
       let data = {
         ...this.form.form.value,
         status: this.currentUser.status,
-        createdBy: this.currentUser.id
+        createdBy: this.currentUser.id,
+        password: btoa(this.form.form.value.password),
       }
       this.apiService.edit('users/' + this.userId, data).subscribe((res: any) => {
         this.snackBar.open('User updated successfully.', '', {
