@@ -64,10 +64,12 @@ mat-spinner.mat-mdc-progress-spinner
 
 .hdr
     @include f_c_sb
-    margin-bottom: 30px
+    margin: 20px 0px
     color: $secondary
     h2
         font-size: 26px
+        margin: 0px
+    mat-form-field .mdc-text-field--filled:not(.mdc-text-field--disabled)
         margin: 0px
 
 /* Common Css End */
@@ -105,7 +107,6 @@ mat-spinner.mat-mdc-progress-spinner
     height: 35px
     color: $secondary
     font-size: 20px
-    
 
 .btnBx
     .button
@@ -360,6 +361,11 @@ app-button-field
             border: solid 2px $warning
             background: $warning
             color: $text-black
+
+.noDataTable
+    padding: 20px
+    text-align: center
+    font-size: 16px
 
 /* Table css End */
 

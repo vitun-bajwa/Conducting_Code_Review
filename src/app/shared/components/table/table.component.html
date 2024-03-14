@@ -26,7 +26,7 @@
   <tr mat-header-row *matHeaderRowDef="tableConfiguration?.tableHeaders"></tr>
   <tr mat-row *matRowDef="let row; columns: tableConfiguration?.tableHeaders;"></tr>
   <tr class="mat-row" *matNoDataRow>
-    <td class="mat-cell" [attr.colspan]="tableConfiguration?.tableHeaders.length">
+    <td class="mat-cell noDataTable" [attr.colspan]="tableConfiguration?.tableHeaders.length">
       No records found...
     </td>
   </tr>

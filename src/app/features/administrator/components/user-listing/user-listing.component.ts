@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { commonEnum } from 'src/app/core/enums/common.enum';
 import { Subject } from 'rxjs';
+import { FieldConfig } from 'src/app/core/models/field-config';
+import { searchFeild } from 'src/app/core/config/form.constant';
 
 @Component({
   selector: 'app-user-listing',
@@ -20,13 +22,15 @@ export class UserListingComponent {
   pendingTableConfig: any;
   currentUser!: currentUser;
   formHeading: commonEnum = commonEnum.userModule;
+  searchInput: FieldConfig = searchFeild
   addBtn = {
     class: 'button',
     name: 'Add User'
   }
   userData: any;
   tableColumns: any[] = [];
-  searchVal: Subject<boolean> = new Subject();
+  searchList: Subject<boolean> = new Subject();
+  searchRequest: Subject<boolean> = new Subject();
 
   constructor(private commonService: CommonService, private router: Router, public dialog: MatDialog) {
     this.getUserData();
@@ -34,7 +38,6 @@ export class UserListingComponent {
 
   ngOnInit() {
     this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
-    // this.currentUser = JSON.parse(this.currentUser)
   }
 
   getUserData() {
@@ -73,7 +76,6 @@ export class UserListingComponent {
     let pendingUserData = [...userData]
     userData = userData.filter((x: any) => x.status != 'Pending');
     pendingUserData = pendingUserData.filter((x: any) => x.status == 'Pending');
-
     this.tableConfig = { tableHeaders: this.tableColumns, tableData: userData }
     this.pendingTableConfig = { tableHeaders: this.tableColumns, tableData: pendingUserData }
   }
@@ -82,9 +84,10 @@ export class UserListingComponent {
     let userData = this.userData.find((x: any) => x.id == event.id);
     userData['status'] = userData['status'] == 'Active' ? 'Inactive' : userData['status'] == 'Pending' ? 'Active' : 'Active';
     userData.statusBtn.name = userData['status']
-
     this.commonService.edit('users/' + userData.id, userData).subscribe((res: any) => {
-      
+      if(res) {
+        this.commonService.successMSG('Status updated successfully')
+      }
     })
   }
 
@@ -98,8 +101,8 @@ export class UserListingComponent {
     });
   }
 
-  applyFilter(event: any) {
-    this.searchVal.next(event?.target?.value);
+  applyFilter(event: any, type?:string) {
+    type == 'list' ? this.searchList.next(event?.target?.value) : this.searchRequest.next(event?.target?.value)
   }
 
 }

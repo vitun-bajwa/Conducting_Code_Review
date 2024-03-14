@@ -4,13 +4,16 @@
 <mat-tab-group>
     <mat-tab label="User Listing">
         <div class="hdr">
-            <input matInput (keyup)="applyFilter($event)" placeholder="Search">
+            <app-input-field [config]="searchInput" (keyup)="applyFilter($event, 'list')"></app-input-field>
             <app-button-field [config]="addBtn" routerLink="add"></app-button-field>
         </div>
-        <app-table *ngIf="tableConfig" [search]="searchVal" [tableConfig]="tableConfig" (userInfo)="updateUserInfo($event)"
+        <app-table *ngIf="tableConfig" [search]="searchList" [tableConfig]="tableConfig" (userInfo)="updateUserInfo($event)"
             (editInfo)="editUser($event)" (deleteInfo)="deleteUser($event)"></app-table>
     </mat-tab>
     <mat-tab label="User Request">
-        <app-table *ngIf="pendingTableConfig" [tableConfig]="pendingTableConfig" (userInfo)="updateUserInfo($event)"
+        <div class="hdr">
+            <app-input-field [config]="searchInput" (keyup)="applyFilter($event, 'request')"></app-input-field>
+        </div>
+        <app-table *ngIf="pendingTableConfig" [search]="searchRequest" [tableConfig]="pendingTableConfig" (userInfo)="updateUserInfo($event)"
         (editInfo)="editUser($event)" (deleteInfo)="deleteUser($event)"></app-table></mat-tab>
 </mat-tab-group>

@@ -2,6 +2,15 @@ import { Validators } from "@angular/forms";
 import { reg } from "../regex/reg";
 import { passwordvalidaator } from "../regex/passwordvalidaator";
 
+export const searchFeild = {
+    type: 'input',
+    fieldType: 'text',
+    name: 'searchFilter',
+    value: '',
+    placeholder: 'Search',
+    class: 'input',
+  }
+
 export const loginForm = [
     {
       type: 'input',
