@@ -73,6 +73,7 @@ mat-spinner.mat-mdc-progress-spinner
         margin-top: 10px
 
 .button 
+    width: 100%
     padding: 8px 15px
     color: $primary
     font-size: 14px
@@ -147,8 +148,6 @@ app-errors
         color: $primary
 
 .code_review_form
-    
-
 
 /* Form Css End */
 
@@ -293,6 +292,18 @@ app-table
     .mdc-text-field--filled:not(.mdc-text-field--disabled)
         padding: 7px 15px
         border-radius: 20px
+
+app-button-field
+    .statusBtn
+        border: solid 2px $danger
+        background: $danger
+        color: $text-white
+        font-size: 14px
+    &.active
+        .statusBtn
+            border: solid 2px $success
+            background: $success
+            color: $text-white
 
 /* Table css End */
 
