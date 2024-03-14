@@ -6,6 +6,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { CommonService } from 'src/app/core/service/common.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FieldConfig } from 'src/app/core/models/field-config';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -19,12 +20,14 @@ export class TableComponent {
   @Output() deleteInfo = new EventEmitter();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  
+  tableData: any;
+  tableConfiguration: any;
+
   constructor(public dialog: MatDialog, private apiService: CommonService) {
 
   }
 
-  tableData: any;
-  tableConfiguration: any;
   ngOnChanges() {
     // this.createTableData();
   }
@@ -38,8 +41,7 @@ export class TableComponent {
       this.tableConfiguration = {
         tableHeaders: this.tableConfig?.tableHeaders,
         tableData: this.tableConfig?.tableData
-        
-      }
+      }      
       this.tableData = new MatTableDataSource<any>(this.tableConfiguration.tableData);
       this.tableData.paginator = this.paginator;
       this.tableData.sort = this.sort;

@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { signUpForm } from 'src/app/core/config/form.constant';
 import { commonEnum } from 'src/app/core/enums/common.enum';
+import { currentUser } from 'src/app/core/models/common-config';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
 
@@ -13,9 +14,9 @@ import { CommonService } from 'src/app/core/service/common.service';
 })
 export class AddEditUserComponent {
   @ViewChild('form') form: any;
-  config: FieldConfig[] = signUpForm;
-  userId: any;
-  currentUser: any;
+  config: FieldConfig[] = signUpForm
+  userId!: string;
+  currentUser!: currentUser;
   addBtn = {
     class: 'button',
     name: 'Back',
@@ -37,8 +38,8 @@ export class AddEditUserComponent {
   }
 
   ngOnInit() {
-    this.currentUser = sessionStorage.getItem('user');
-    this.currentUser = JSON.parse(this.currentUser)
+    this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
+    // this.currentUser = JSON.parse(this.currentUser)
     if (this.userId) {
       let index = this.config.findIndex((x: any) => x.fieldType == 'password')
       if (index != -1) this.config.splice(index, 1);
@@ -67,7 +68,6 @@ export class AddEditUserComponent {
             const existingUser = response.find((user: any) => user.email === email);
             if (existingUser) {
               this.apiService.errorMSG('This email is already registered. Please use a different email address.');
-              // this.form.form.reset();
             } else {
               let data = {
                 ...this.form.form.value,

@@ -8,8 +8,9 @@
     <ng-container *matCellDef="let element;  let index = index">
       <td mat-cell *ngIf="column == 'sr No'">{{(paginatorRef.pageIndex * paginatorRef.pageSize) + (index + 1)}}</td>
       <td mat-cell *ngIf="column != 'status' && column != 'action' && column != 'sr No'">{{element[column]}} </td>
-      <td mat-cell *ngIf="column == 'status'" [ngClass]="{'active-status': element[column] === 'Active', 'inactive-status': element[column] === 'Inactive'}">
-        <button class="status" mat-raised-button color="primary" [color]="element[column] === 'Active' ? 'primary' : 'warn'"  (click)="updateStatus(element)">{{element[column]}}</button>
+      <td mat-cell *ngIf="column == 'status'">
+        <app-button-field [config]="element['statusBtn']" [class.active]="element['statusBtn'].name==='Active'"></app-button-field>
+        <!-- <button class="status" mat-raised-button color="primary" [color]="element[column] === 'Active' ? 'primary' : 'warn'"  (click)="updateStatus(element)">{{element[column]}}</button> -->
       </td>
       <td mat-cdell *ngIf="column == 'action'">
           <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
@@ -23,8 +24,6 @@
       </td>
     </ng-container>
   </ng-container>
-
-  
   
   <tr mat-header-row *matHeaderRowDef="tableConfiguration?.tableHeaders"></tr>
   <tr mat-row *matRowDef="let row; columns: tableConfiguration?.tableHeaders;"></tr>

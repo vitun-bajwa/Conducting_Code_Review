@@ -48,7 +48,15 @@ export class UserListingComponent {
           }
         });
         this.tableColumns.push('action')
-        this.tableConfig = { tableHeaders: this.tableColumns, tableData: this.usersConfig}
+        this.usersConfig = this.usersConfig.map((item: any) => {
+          if(item.status == 'Active') {
+            item['statusBtn'] = {name: 'Active', class: 'statusBtn'}
+          }else {
+            item['statusBtn'] = {name: 'Inactive', class: 'statusBtn'}
+          }
+          return item;
+        })
+        this.tableConfig = { tableHeaders: this.tableColumns, tableData: this.usersConfig, type:'userTable'}
       }
     });
   }
