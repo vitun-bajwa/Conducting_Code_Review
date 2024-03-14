@@ -1,6 +1,6 @@
-<mat-form-field class="searchBox">
+<!-- <mat-form-field class="searchBox">
   <input matInput (keyup)="applyFilter($event)" placeholder="Search">
-</mat-form-field>
+</mat-form-field> -->
 <table mat-table [dataSource]="tableData" matSort="true" class="mat-elevation-z8">
  
   <ng-container [matColumnDef]="column" *ngFor="let column of tableConfiguration?.tableHeaders;">

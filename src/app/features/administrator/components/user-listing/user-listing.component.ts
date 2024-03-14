@@ -6,6 +6,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { UiModule } from 'src/app/ui/ui.module';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { commonEnum } from 'src/app/core/enums/common.enum';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-user-listing',
@@ -19,17 +21,18 @@ export class UserListingComponent {
   usersConfig: any = [];
   pendingTableConfig: any;
   currentUser: any;
+  formHeading: commonEnum = commonEnum.userModule;
   addBtn = {
     class: 'button',
     name: 'Add User'
   }
   userData: any;
   tableColumns: any[] = [];
+  searchVal: Subject<boolean> = new Subject();
 
   constructor(private commonService: CommonService, private router: Router, public dialog: MatDialog) {
     this.getUserData();
   }
-
 
   ngOnInit() {
     this.currentUser = sessionStorage.getItem('user');
@@ -43,7 +46,7 @@ export class UserListingComponent {
     });
   }
 
-  createData(param?:MatTabChangeEvent) {
+  createData() {
     let userData = [...this.userData]
     if (userData.length > 0) {
       this.tableColumns = Object?.keys(userData[0])?.filter((x: any) => {
@@ -95,4 +98,9 @@ export class UserListingComponent {
       this.getUserData();
     });
   }
+
+  applyFilter(event: any) {
+    this.searchVal.next(event?.target?.value);
+  }
+
 }

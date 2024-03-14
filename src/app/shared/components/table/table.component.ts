@@ -35,6 +35,10 @@ export class TableComponent {
 
   ngAfterViewInit() {
     this.createTableData();
+    this.search?.subscribe((val:string) => {
+      const filterValue = val;
+      this.tableData.filter = filterValue.trim().toLowerCase();
+    });
   }
 
   createTableData() {
@@ -48,11 +52,6 @@ export class TableComponent {
       this.tableData.sort = this.sort;
     }
     // this.cdr.detectChanges();
-  }
-
-  applyFilter(event: any) {
-    const filterValue = event?.target?.value;
-    this.tableData.filter = filterValue.trim().toLowerCase();
   }
 
   updateStatus(event: any) {
