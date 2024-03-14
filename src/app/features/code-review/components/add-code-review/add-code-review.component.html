@@ -3,10 +3,10 @@
     <app-button-field [config]="backBtn" routerLink="/codeReview"></app-button-field>
 </div>
 <div class="code_review">
-    <div class="lft" [class.full]="currentUser.userRole != 'admin'">
+    <div class="lft" [class.full]="currentUser.userRole == 'candidate'">
         <app-dynamic-form [config]="configRequest" #form="dynamicForm"></app-dynamic-form>
     </div>
-    <div class="rgt" *ngIf="currentUser.userRole == 'admin'">
+    <div class="rgt" *ngIf="currentUser.userRole != 'candidate'">
         <app-dynamic-form [config]="configReview" #review="dynamicForm"></app-dynamic-form>
     </div>
 </div>
