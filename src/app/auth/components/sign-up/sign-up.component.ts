@@ -17,33 +17,13 @@ export class SignUpComponent {
 
   ngOnInit() { }
 
-  // signUpUser() {
-  //   if (this.form.form.invalid) {
-  //     this.form.form.markAllAsTouched();
-  //   }
-  //   else {
-  //     let data = {
-  //       ...this.form.form.value,
-  //       status: 'Inactive'
-  //     }
-  //     delete data.SignUp
-  //     this.apiService.add('users', data).subscribe((res: any) => {
-  //       this.router.navigateByUrl('/auth/login');
-  //       this.apiService.successMSG('sign-up successfully');
-  //     });
-  //     this.form.form.reset();
-  //   }
-  // }
-
-
   signUpUser() {
     this.trimFormValues();
     if (this.form.form.invalid) {
       this.form.form.markAllAsTouched();
     } else {
       const email = this.form.form.get('email').value;
-      this.apiService.get('users').subscribe
-        (
+      this.apiService.get('users').subscribe(
           (response: any) => {
             const existingUser = response.find((user: any) => user.email === email);
             if (existingUser) {
@@ -52,7 +32,7 @@ export class SignUpComponent {
             } else {
               const data = {
                 ...this.form.form.value,
-                status: 'Inactive'
+                status: 'Pending'
               };
               delete data.SignUp;
               delete data.AddUser;

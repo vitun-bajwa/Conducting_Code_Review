@@ -90,8 +90,8 @@ export const loginForm = [
       class: 'input',
       error: false,
       options: [
-        {id: '1', name:'candidate', value: 'candidate'},
-        {id:'2', name: 'admin', value: 'admin'}
+        {id: '1', name:'Candidate', value: 'Candidate'},
+        {id:'2', name: 'Admin', value: 'Admin'}
       ]
     },
     {

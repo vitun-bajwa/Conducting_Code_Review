@@ -19,14 +19,16 @@ export class TableComponent {
   @Output() deleteInfo = new EventEmitter();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  tableData: any;
+  tableConfiguration: any;
+
   constructor(public dialog: MatDialog, private apiService: CommonService) {
 
   }
 
-  tableData: any;
-  tableConfiguration: any;
+  
   ngOnChanges() {
-    // this.createTableData();
+  
   }
 
   ngAfterViewInit() {
