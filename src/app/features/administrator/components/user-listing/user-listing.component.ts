@@ -45,28 +45,30 @@ export class UserListingComponent {
 
   createData(param?:MatTabChangeEvent) {
     let userData = [...this.userData]
-    userData = userData.filter((user: any, i) => {
-      if(user.userRole == 'superAdmin') {
-        userData.splice(i,1)
-      }
-      if(this.currentUser.userRole == 'admin' && user.id == this.currentUser.id) {
-        userData.splice(i,1)
-      }
-      user['statusBtn'] = {
-        name: user.status == 'Active' ? 'Active' : user.status == 'Inactive' ? 'Inactive' : 'Pending', 
-        class: 'statusBtn'
-      }
-      return user
-    });
-    if(this.currentUser.userRole == 'admin') userData = userData.filter((user: any) => user?.createdBy === this.currentUser.id);
     if (userData.length > 0) {
       this.tableColumns = Object?.keys(userData[0])?.filter((x: any) => {
-        if (x != 'password' && x != 'AddUser' && x != 'id' && x != 'Sign-Up') {
+        if (x != 'password' && x != 'AddUser' && x != 'id' && x != 'Sign-Up' && x != 'statusBtn') {
           return x;
         }
       });
       this.tableColumns.push('action')
     }
+    userData = userData.filter((user: any, i) => {
+      user['statusBtn'] = {
+        name: user.status == 'Active' ? 'Active' : user.status == 'Inactive' ? 'Inactive' : 'Pending', 
+        class: 'statusBtn'
+      }
+      return user;
+    });
+    userData.filter((user: any, i) => {
+      if(user.userRole == 'superAdmin') {
+        userData.splice(i,1);
+      }
+      if(this.currentUser.userRole == 'admin' && user.id == this.currentUser.id) {
+        userData.splice(i,1);
+      }
+    });
+    if(this.currentUser.userRole == 'admin') userData = userData.filter((user: any) => user?.createdBy === this.currentUser.id);
     let pendingUserData = [...userData]
     userData = userData.filter((x: any) => x.status != 'pending');
     pendingUserData = pendingUserData.filter((x: any) => x.status == 'pending');
@@ -77,7 +79,9 @@ export class UserListingComponent {
 
   updateUserInfo(event: any) {
     let userData = this.userData.find((x: any) => x.id == event.id);
-    userData['status'] = userData['status'] == 'Active' ? 'Inactive' : 'Active';
+    userData['status'] = userData['status'] == 'Active' ? 'Inactive' : userData['status'] == 'pending' ? 'Active' : 'Active';
+    userData.statusBtn.name = userData['status']
+    
     this.commonService.edit('users/' + userData.id, userData).subscribe((res: any) => {
     })
   }
