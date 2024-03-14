@@ -29,10 +29,10 @@ export class ChangePasswordComponent {
     if (this.form.form.invalid) {
       this.form.form.markAllAsTouched();
     }
-    else if(user.password === this.form.form.value.oldPassword) {
+    else if(atob(user.password) === this.form.form.value.oldPassword) {
       let data: any = {
         ...user,
-        password: this.form.form.value.password,
+        password: btoa(this.form.form.value.password),
       }
       this.apiService.edit('users/' + user.id, data).subscribe((data: any) => {
         sessionStorage.setItem('user', JSON.stringify(data));

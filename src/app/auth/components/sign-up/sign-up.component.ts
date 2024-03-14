@@ -17,25 +17,6 @@ export class SignUpComponent {
 
   ngOnInit() { }
 
-  // signUpUser() {
-  //   if (this.form.form.invalid) {
-  //     this.form.form.markAllAsTouched();
-  //   }
-  //   else {
-  //     let data = {
-  //       ...this.form.form.value,
-  //       status: 'Inactive'
-  //     }
-  //     delete data.SignUp
-  //     this.apiService.add('users', data).subscribe((res: any) => {
-  //       this.router.navigateByUrl('/auth/login');
-  //       this.apiService.successMSG('sign-up successfully');
-  //     });
-  //     this.form.form.reset();
-  //   }
-  // }
-
-
   signUpUser() {
     this.trimFormValues();
     if (this.form.form.invalid) {
@@ -52,7 +33,8 @@ export class SignUpComponent {
             } else {
               const data = {
                 ...this.form.form.value,
-                status: 'Inactive'
+                status: 'Inactive',
+                password: btoa(this.form.form.value.password)
               };
               delete data.SignUp;
               delete data.AddUser;
