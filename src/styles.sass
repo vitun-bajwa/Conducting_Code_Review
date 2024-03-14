@@ -65,7 +65,7 @@ mat-spinner.mat-mdc-progress-spinner
 .feild_50
     form
         @include d_c_sb
-    app-input-field, app-dropdown
+    app-input-field, app-dropdown, app-date-picker
         width: 48%
     app-button-field 
         width: 100%
@@ -92,7 +92,7 @@ mat-spinner.mat-mdc-progress-spinner
 
 app-dynamic-form 
     width: 100%
-    app-input-field, app-dropdown
+    app-input-field, app-dropdown, app-date-picker
         position: relative
         display: block
 
@@ -146,6 +146,10 @@ app-errors
         background: $background-dark
         color: $primary
 
+.code_review_form
+    
+
+
 /* Form Css End */
 
 /* Auth Css */
@@ -158,12 +162,13 @@ app-errors
     .innerPage
         @include d_s_c
         width: 50%
-        height: 70%
+        height: auto
+        min-height: 70%
+        max-height: 85%
         border-radius: 15px
         overflow: hidden
     .lft 
         width: 50%
-        height: 100%
         padding: 50px
         background-color: $background
         background-image: url('assets/images/bg.jpg')
@@ -173,7 +178,6 @@ app-errors
     .rgt
         @include d_c_c
         width: 50%
-        height: 100%
         padding: 50px
         background: $background-white
         overflow: auto
