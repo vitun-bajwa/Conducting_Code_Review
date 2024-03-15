@@ -39,7 +39,6 @@ export class DynamicFormComponent {
   }
 
   ngAfterViewInit() {
-    console.log('config', this.config);
 
   }
 

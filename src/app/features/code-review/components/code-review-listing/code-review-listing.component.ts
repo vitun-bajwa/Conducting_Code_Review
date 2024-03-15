@@ -55,7 +55,7 @@ export class CodeReviewListingComponent implements OnInit {
       });
       this.tableColumns.push('action')
     }
-    if (this.currentUser.userRole == tableEnum.Admin) userData = userData.filter((user: any) => user?.createdBy !== this.currentUser.id);
+    if (this.currentUser.userRole == commonEnum.Admin) userData = userData.filter((user: any) => user?.createdBy !== this.currentUser.id);
     let pendingUserData = [...userData]
     userData = userData.filter((x: any) => x.status != tableEnum.Pending);
     pendingUserData = pendingUserData.filter((x: any) => x.status == tableEnum.Pending);
@@ -80,7 +80,14 @@ export class CodeReviewListingComponent implements OnInit {
   }
 
   applyFilter(event: any, type?:string) {
-    type == 'Code Review Listing' ? this.searchList.next(event?.target?.value) : this.searchRequest.next(event?.target?.value)
+    switch (type) {
+      case 'Code Review Listing':
+        event == '' ? this.searchList.next(event) : this.searchList.next(event?.target?.value)
+      break;
+      default : 
+        event == '' ? this.searchRequest.next(event) : this.searchRequest.next(event?.target?.value)
+      break;
+    }
   }
   
 }

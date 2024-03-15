@@ -3,7 +3,7 @@ import { FieldConfig } from 'src/app/core/models/field-config';
 import { loginForm } from '../../../core/config/form.constant';
 import { CommonService } from 'src/app/core/service/common.service';
 import { Router } from '@angular/router';
-import { apiEndPoints, errorMessage, setItem, succssMessage, tableEnum } from 'src/app/core/enums/common.enum';
+import { apiEndPoints, commonEnum, errorMessage, setItem, succssMessage, tableEnum } from 'src/app/core/enums/common.enum';
 
 
 @Component({
@@ -46,7 +46,7 @@ export class LoginComponent {
       let token = Math.random().toString(36).slice(2);
       sessionStorage.setItem(setItem.token, token);
       sessionStorage.setItem(setItem.user, JSON.stringify(user));
-      let url = (user.userRole == tableEnum.Admin || user.userRole == tableEnum.superAdmin) ? apiEndPoints.user : apiEndPoints.codeReview;
+      let url = (user.userRole == commonEnum.Admin || user.userRole == commonEnum.superAdmin) ? apiEndPoints.user : apiEndPoints.codeReview;
       this.router.navigateByUrl(url);
       this.commonService.successMSG(succssMessage.login);
       this.form.form.reset();

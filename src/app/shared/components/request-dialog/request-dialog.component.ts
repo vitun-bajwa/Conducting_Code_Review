@@ -11,10 +11,18 @@ import { FieldConfig } from 'src/app/core/models/field-config';
 export class RequestDialogComponent {
   @ViewChild('review') review: any;
   @ViewChild('adminList') adminList: any;
+  cancelBtn = {
+    class: 'button',
+    name: 'Cancel'
+  }
+  saveBtn = {
+    class: 'button',
+    name: 'Save'
+  }
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<RequestDialogComponent>
+    public dialogRef: MatDialogRef<RequestDialogComponent>
   ){
   }
 

@@ -5,9 +5,9 @@
       <td mat-cell *ngIf="column == 'sr No'">{{(paginatorRef.pageIndex * paginatorRef.pageSize) + (index + 1)}}</td>
       <td mat-cell *ngIf="column != 'status' && column != 'action' && column != 'sr No'">{{element[column]}} </td>
       <td mat-cell *ngIf="column == 'status'">
-        <app-button-field (btnClickEvent)="updateStatus(element)" *ngIf="element['statusBtn']" [config]="element['statusBtn']" [ngClass]="(element['statusBtn'].name==='Active') ? 'active' : (element['statusBtn'].name==='Pending') ? 'pending' : ''"></app-button-field>
+        <app-button-field (btnClickEvent)="updateStatus(element)" *ngIf="element['statusBtn']" [config]="element['statusBtn']" [ngClass]="(element['statusBtn'].name===enum.Active) ? enum.Active : (element['statusBtn'].name===enum.Pending) ? enum.Pending : ''"></app-button-field>
       </td>
-      <td mat-cdell *ngIf="column == 'action' && element.status != 'Pending' && element.status !== 'Rejected'">
+      <td mat-cdell *ngIf="column == 'action' && element.status != enum.Pending && element.status !== enum.Rejected">
           <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
             color="primary" (click)="editUser(element)">
             <mat-icon>edit</mat-icon>
@@ -17,7 +17,7 @@
                 <mat-icon>delete</mat-icon>
           </button>
       </td>
-      <td mat-cdell *ngIf="column == 'action' && (element.status === 'Pending' || element.status === 'Rejected')">
+      <td mat-cdell *ngIf="column == 'action' && (element.status === enum.Pending || element.status === enum.Rejected)">
           <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
             color="primary" (click)="editRequest(element)">
             <mat-icon>check</mat-icon>
@@ -40,4 +40,3 @@
   </tr>
 </table>
 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons #paginatorRef></mat-paginator>
-<!-- agar mujhe jab status rejected toh buttons mujhe pending vale hi dikhane hai -->

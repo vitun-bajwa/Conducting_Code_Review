@@ -1,11 +1,9 @@
-<h1 mat-dialog-title> {{data.heading}} </h1>
-<div mat-dialog-content>
-  {{data.title}}
-</div>
-<div class="rgt">
-    <app-dynamic-form [config]="data.config" #review="dynamicForm"></app-dynamic-form>
-</div >
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
-  <button mat-button mat-dialog-close cdkFocusInitial (click)="onConfirmClick()">Yes</button>
+<div class="model_otr">
+  <h1> {{data.heading}} </h1>
+  <p> {{data.title}} </p>
+  <app-dynamic-form [config]="data.config" #review="dynamicForm"></app-dynamic-form>
+  <div class="btnBx rgt">
+    <app-button-field [config]="cancelBtn" (btnClickEvent)="dialogRef.close()"></app-button-field>
+    <app-button-field [config]="saveBtn" (btnClickEvent)="onConfirmClick()"></app-button-field>
+  </div>
 </div>

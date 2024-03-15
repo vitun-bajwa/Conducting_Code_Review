@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -10,7 +10,7 @@ import { FieldConfig } from 'src/app/core/models/field-config';
 import { RequestDialogComponent } from '../request-dialog/request-dialog.component';
 import { Router } from '@angular/router';
 import { adminList, declineReason } from 'src/app/core/config/form.constant';
-import { commonEnum, modalData } from 'src/app/core/enums/common.enum';
+import { commonEnum, modalData, tableEnum } from 'src/app/core/enums/common.enum';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -32,18 +32,24 @@ export class TableComponent {
   userId!: string;
   adminListConfig: FieldConfig[] = adminList;
   configReview: FieldConfig[] = declineReason;
+  enum: typeof tableEnum = tableEnum;
 
-  constructor(public dialog: MatDialog, public commonService: CommonService, private router: Router,) { }
+  constructor(public dialog: MatDialog, public commonService: CommonService, private router: Router) { }
 
   ngOnChanges() {
     this.createTableData();
   }
   
   ngAfterViewInit() {
+    if(this.tableConfig) {
+      this.tableConfig.tableData.map((item:any) => {
+        item.status = item.status.toLowerCase();
+      })
+    } 
     this.createTableData();
     this.search?.subscribe((val: string) => {
       const filterValue = val;
-      this.tableData.filter = filterValue.trim().toLowerCase();
+      this.tableData.filter = filterValue?.trim().toLowerCase();
     });
   }
 
@@ -96,7 +102,6 @@ export class TableComponent {
       });
       dialogRef.afterClosed().subscribe((res: any) => {
         if (res) {
-          userData['type'] = 'Request';
           userData['assignTo'] = res.assignTo;
           let i = this.tableConfig.tableData.findIndex((res: any) => res.id === userData.id);
           this.tableConfig.tableData.splice(i, 1);
@@ -105,6 +110,8 @@ export class TableComponent {
         }
       });
     } else if (userData.userRole === commonEnum.Admin) {
+      let i = this.tableConfig.tableData.findIndex((res: any) => res.id === userData.id);
+      this.tableConfig.tableData.splice(i, 1);
       this.updateRequest.emit(userData);
     }
   }

@@ -12,12 +12,10 @@ export class Adapter {
   
   public async upload(): Promise<any> {
     const value = await this.loader.file;
-    //console.log(value);
         return this.read( value);
       }
   
     read(file: any) {
-      //console.log(file);
       this.fileData = file;
       return new Promise((resolve, reject) => {
         const reader = new FileReader();

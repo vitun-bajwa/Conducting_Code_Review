@@ -11,6 +11,6 @@
     </div>
 </div>
 <div class="btnBx rgt">
-    <app-button-field [config]="addBtn" (click)="userId ? updateCodeReview() : addCodeReview()"></app-button-field>
+    <app-button-field [config]="addBtn" (btnClickEvent)="userId ? updateCodeReview() : addCodeReview()"></app-button-field>
 </div>
 
