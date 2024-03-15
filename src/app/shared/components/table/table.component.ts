@@ -21,20 +21,20 @@ export class TableComponent {
   @Output() deleteInfo = new EventEmitter();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  
   tableData: any;
   tableConfiguration: any;
 
-  constructor(public dialog: MatDialog, private apiService: CommonService) {
-
-  }
+  constructor(public dialog: MatDialog) {}
 
   ngOnChanges() {
   
   }
-
   ngAfterViewInit() {
     this.createTableData();
+    this.search?.subscribe((val:string) => {
+      const filterValue = val;
+      this.tableData.filter = filterValue.trim().toLowerCase();
+    });
   }
 
   createTableData() {
@@ -42,19 +42,12 @@ export class TableComponent {
       this.tableConfiguration = {
         tableHeaders: this.tableConfig?.tableHeaders,
         tableData: this.tableConfig?.tableData
-      }      
+      }
       this.tableData = new MatTableDataSource<any>(this.tableConfiguration.tableData);
       this.tableData.paginator = this.paginator;
       this.tableData.sort = this.sort;
     }
-    // this.cdr.detectChanges();
   }
-
-  applyFilter(event: any) {
-    const filterValue = event?.target?.value;
-    this.tableData.filter = filterValue.trim().toLowerCase();
-  }
-
   updateStatus(event: any) {
     this.userInfo.emit(event);
   }
@@ -69,15 +62,14 @@ export class TableComponent {
         id: userData.id,
       },
     })
-    
+
     dialogRef.afterClosed().subscribe((res: boolean) => {
-      if(res){
+      if (res) {
         this.deleteInfo.emit(userData.id);
-      let i = this.tableConfig.tableData.findIndex((res: any) => res.id === userData.id);
-      this.tableConfig.tableData.splice(i, 1);
-      this.createTableData()
+        let i = this.tableConfig.tableData.findIndex((res: any) => res.id === userData.id);
+        this.tableConfig.tableData.splice(i, 1);
+        this.createTableData()
       }
-      
     })
   }
 }

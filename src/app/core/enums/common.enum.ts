@@ -3,5 +3,6 @@ export enum commonEnum {
     editUser = "Update User Form",
     addCodeReview = "Add Code Review",
     editCodeReview = "Edit Code Review",
-    userModule = "User Module"
+    userModule = "User Module",
+    codeModule = "Code Review Module"
   }

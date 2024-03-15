@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { currentUser } from 'src/app/core/models/common-config';
 
 @Component({
   selector: 'app-header',
@@ -7,13 +8,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.sass']
 })
 export class HeaderComponent {
-  currentUser:any;
+  currentUser!: currentUser;
 
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.currentUser = sessionStorage.getItem('user');
-    this.currentUser = JSON.parse(this.currentUser)
+    this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
+    // this.currentUser = JSON.parse(this.currentUser)
+
   }
 
   logOut() {

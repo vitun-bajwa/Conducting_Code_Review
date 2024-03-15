@@ -2,7 +2,14 @@ import { Validators } from "@angular/forms";
 import { reg } from "../regex/reg";
 import { passwordvalidaator } from "../regex/passwordvalidaator";
 
-const token = sessionStorage.getItem('token');
+export const searchFeild = {
+    type: 'input',
+    fieldType: 'text',
+    name: 'searchFilter',
+    value: '',
+    placeholder: 'Search',
+    class: 'input',
+  }
 
 export const loginForm = [
     {
@@ -96,7 +103,7 @@ export const loginForm = [
     },
     {
       type: 'button',
-      name: token ? 'AddUser' : 'SignUp',
+      name: 'SignUp',
       class: 'button',
     },
   ];

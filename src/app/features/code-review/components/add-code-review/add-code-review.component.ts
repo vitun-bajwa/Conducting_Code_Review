@@ -18,9 +18,9 @@ export class AddCodeReviewComponent {
   reviewForm!: FormGroup;
   @ViewChild(EditorComponent) editor: any;
   configRequest: FieldConfig[] = codeReviewRequestForm
-  configReview = codeReviewForm
+  configReview: FieldConfig[] = codeReviewForm
   currentUser!: currentUser;
-  userId!: string;
+  userId: any;
   formHeading!: string;
   
 

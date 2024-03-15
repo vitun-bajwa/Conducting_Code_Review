@@ -37,7 +37,7 @@ export class ChangePasswordComponent {
       this.apiService.edit('users/' + user.id, data).subscribe((data: any) => {
         sessionStorage.setItem('user', JSON.stringify(data));
         this.apiService.successMSG('Your Password Changed Successfully');
-        this.router.navigateByUrl('/admin');
+        this.router.navigateByUrl('/user');
       });
     }
     else{

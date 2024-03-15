@@ -1,4 +1,4 @@
-<mat-form-field [formGroup]="group" [class]="config.fieldType === 'password' ? 'withIcon':'' ">
+<mat-form-field *ngIf="config.name != 'searchFilter'" [formGroup]="group" [class]="config.fieldType === 'password' ? 'withIcon':'' ">
     <input matInput [readonly]="config.disabled" [id]="config.name" [class]="config.class"
         [type]="(hide) ? 'text' : config.fieldType!" [formControlName]="config.name"
         [placeholder]="config.placeholder!" />
@@ -6,4 +6,9 @@
     <i class="fa" [ngClass]="hide ? 'fa-eye': 'fa-eye-slash'" *ngIf="config.fieldType === 'password'"
         (click)="toggleVisibility()"></i>
 </mat-form-field>
-<app-errors [errors]="config" [group]="group"></app-errors>
+<app-errors *ngIf="config.name != 'searchFilter'" [errors]="config" [group]="group"></app-errors>
+<mat-form-field *ngIf="config.name == 'searchFilter'">
+    <input matInput [id]="config.name" [class]="config.class"
+        [type]="config.fieldType!" [placeholder]="config.placeholder!" />
+    <mat-hint *ngIf="config.fieldType === 'password'">{{config.hint}}</mat-hint>
+</mat-form-field>

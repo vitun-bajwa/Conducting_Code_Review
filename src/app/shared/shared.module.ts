@@ -6,13 +6,15 @@ import { TableComponent } from './components/table/table.component';
 import { ButtonFieldComponent } from './dynmic-form/component/button-field/button-field.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { EditorComponent } from './dynmic-form/component/editor/editor.component';
+import { CommonFilterComponent } from './components/common-filter/common-filter.component';
 
 
 @NgModule({
   declarations: [
     TableComponent,
     ConfirmDialogComponent,
-    EditorComponent
+    EditorComponent,
+    CommonFilterComponent
     
   ],
   imports: [
@@ -26,7 +28,8 @@ import { EditorComponent } from './dynmic-form/component/editor/editor.component
     UiModule,
     TableComponent,
     ButtonFieldComponent,
-    EditorComponent
+    EditorComponent,
+    CommonFilterComponent
   ]
 })
 export class SharedModule { }

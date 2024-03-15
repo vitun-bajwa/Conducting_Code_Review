@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { currentUser } from 'src/app/core/models/common-config';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,13 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./sidebar.component.sass']
 })
 export class SidebarComponent {
-currentUser: any;
+  currentUser!: currentUser;
 
 constructor() {}
 
 ngOnInit() {
-  this.currentUser = sessionStorage.getItem('user');
-  this.currentUser = JSON.parse(this.currentUser).userRole
+  this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
+  // this.currentUser = JSON.parse(this.currentUser).userRole
 }
 
 

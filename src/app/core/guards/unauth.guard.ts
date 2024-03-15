@@ -7,7 +7,7 @@ export const unauthGuard: CanActivateFn = (route, state) => {
   const router = inject(Router)
    let authenticated = sessionStorage.getItem('token')
       if (authenticated) {
-        router.navigate(['/admin']);
+        router.navigate(['/user']);
         return false;
       }else {
         return true;

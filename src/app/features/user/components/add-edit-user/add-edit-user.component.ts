@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { signUpForm } from 'src/app/core/config/form.constant';
 import { commonEnum } from 'src/app/core/enums/common.enum';
@@ -14,7 +13,7 @@ import { CommonService } from 'src/app/core/service/common.service';
 })
 export class AddEditUserComponent {
   @ViewChild('form') form: any;
-  config: FieldConfig[] = signUpForm
+  config: FieldConfig[] = signUpForm;
   userId!: string;
   currentUser!: currentUser;
   addBtn = {
@@ -22,7 +21,8 @@ export class AddEditUserComponent {
     name: 'Back',
   }
   formHeading!: string;
-  constructor(private apiService: CommonService, private snackBar: MatSnackBar, private router: Router, private activatedRoute: ActivatedRoute) {
+  buttonLabel: string = 'Add User';
+  constructor(private apiService: CommonService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.paramMap.subscribe((param: any) => {
       this.userId = param.params.id;
     });
@@ -77,9 +77,7 @@ export class AddEditUserComponent {
               }
               delete data.SignUp;
               this.apiService.add('users', data).subscribe((res: any) => {
-                this.snackBar.open('User added successfully.', '', {
-                  duration: 1000
-                });
+                this.apiService.successMSG('User added successfully')
                 this.router.navigateByUrl('admin');
               })
               this.form.form.reset();
@@ -87,6 +85,7 @@ export class AddEditUserComponent {
           });
     }
   }
+  // mujhe yaha pe jab koi user add krna chahe toh waha button pe add user likha aaye or jab edit krna hai user toh waha update user aaye button me toh conditionally kaise handle kru
 
   updateUser() {
     if (this.form.form.invalid) {
@@ -99,13 +98,10 @@ export class AddEditUserComponent {
         createdBy: this.currentUser.id,
       }
       this.apiService.edit('users/' + this.userId, data).subscribe((res: any) => {
-        this.snackBar.open('User updated successfully.', '', {
-          duration: 1000
-        });
+        this.apiService.successMSG('User updated successfully')
         this.router.navigateByUrl('admin');
       })
     }
-
   }
 
   trimFormValues() {
@@ -116,5 +112,4 @@ export class AddEditUserComponent {
       }
     });
   }
-
 }
