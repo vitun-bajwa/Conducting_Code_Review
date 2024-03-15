@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { searchFeild } from 'src/app/core/config/form.constant';
+import { commonEnum } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
@@ -19,6 +20,7 @@ export class CodeReviewListingComponent implements OnInit {
   reviewData: any;
   currentUser!: currentUser;
   searchInput: FieldConfig = searchFeild
+  formHeading: commonEnum = commonEnum.codeModule;
   searchList: Subject<boolean> = new Subject();
   searchRequest: Subject<boolean> = new Subject();
   addBtn = {
@@ -33,12 +35,12 @@ export class CodeReviewListingComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
-    // this.currentUser = JSON.parse(this.currentUser)
   }
 
   getReviewData() {
-    this.commonService.get('codeReview', '').subscribe((res: any) => {
+    this.commonService.get('codeReview').subscribe((res: any) => {
       this.reviewData = res;
+      
       // let index = this.reviewConfig.findIndex((x: any) => x.id == this.currentUser.id);
       // this.reviewConfig.splice(index, 1);
       // this.tableColumns = Object?.keys(this.reviewConfig[0])?.filter((x:any, i) => {
@@ -48,6 +50,7 @@ export class CodeReviewListingComponent implements OnInit {
       // });
       // this.tableColumns.push('action')
       // this.tableConfig = { tableHeaders: this.tableColumns, tableData: this.reviewConfig }
+
       this.createData();
     });
   }
@@ -56,27 +59,12 @@ export class CodeReviewListingComponent implements OnInit {
     let userData = [...this.reviewData]
     if (userData.length > 0) {
       this.tableColumns = Object?.keys(userData[0])?.filter((x: any) => {
-        if (x != 'textEditor' && x != 'AddReviewRequest' && x != 'id' && x != 'statusBtn') {
+        if (x != 'textEditor' && x != 'AddReviewRequest' && x != 'id') {
           return x;
         }
       });
       this.tableColumns.push('action')
     }
-    userData = userData.filter((user: any, i) => {
-      user['statusBtn'] = {
-        name: user.status == 'Active' ? 'Active' : user.status == 'Inactive' ? 'Inactive' : 'Pending',
-        class: 'statusBtn'
-      }
-      return user;
-    });
-    userData.filter((user: any, i) => {
-      if (user.userRole == 'superAdmin') {
-        userData.splice(i, 1);
-      }
-      if (this.currentUser.userRole == 'admin' && user.id == this.currentUser.id) {
-        userData.splice(i, 1);
-      }
-    });
     if (this.currentUser.userRole == 'admin') userData = userData.filter((user: any) => user?.createdBy !== this.currentUser.id);
     let pendingUserData = [...userData]
     userData = userData.filter((x: any) => x.status != 'Pending');

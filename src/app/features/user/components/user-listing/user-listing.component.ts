@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { CommonService } from 'src/app/core/service/common.service';
 import { currentUser } from 'src/app/core/models/common-config';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTabChangeEvent } from '@angular/material/tabs';
 import { commonEnum } from 'src/app/core/enums/common.enum';
 import { Subject } from 'rxjs';
 import { FieldConfig } from 'src/app/core/models/field-config';
@@ -17,8 +16,7 @@ import { searchFeild } from 'src/app/core/config/form.constant';
 export class UserListingComponent {
   // tableConfig!: MatTableDataSource<any>;
   tableConfig: any;
-  tableHeaders: any = [];
-  usersConfig: any = [];
+  tableHeaders: Array<object> = [];
   pendingTableConfig: any;
   currentUser!: currentUser;
   formHeading: commonEnum = commonEnum.userModule;
@@ -41,7 +39,7 @@ export class UserListingComponent {
   }
 
   getUserData() {
-    this.commonService.get('users', '').subscribe((res: any) => {
+    this.commonService.get('users').subscribe((res: any) => {
       this.userData = res
       this.createData();
     });
