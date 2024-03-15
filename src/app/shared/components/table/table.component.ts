@@ -7,6 +7,10 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 import { CommonService } from 'src/app/core/service/common.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FieldConfig } from 'src/app/core/models/field-config';
+import { RequestDialogComponent } from '../request-dialog/request-dialog.component';
+import { Router } from '@angular/router';
+import { adminList, declineReason } from 'src/app/core/config/form.constant';
+import { commonEnum, modalData } from 'src/app/core/enums/common.enum';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -19,19 +23,25 @@ export class TableComponent {
   @Output() userInfo = new EventEmitter();
   @Output() editInfo = new EventEmitter();
   @Output() deleteInfo = new EventEmitter();
+  @Output() updateRequest = new EventEmitter();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild('form') form: any;
   tableData: any;
   tableConfiguration: any;
+  userId!: string;
+  adminListConfig: FieldConfig[] = adminList;
+  configReview: FieldConfig[] = declineReason;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, public commonService: CommonService, private router: Router,) { }
 
   ngOnChanges() {
-  
+    this.createTableData();
   }
+  
   ngAfterViewInit() {
     this.createTableData();
-    this.search?.subscribe((val:string) => {
+    this.search?.subscribe((val: string) => {
       const filterValue = val;
       this.tableData.filter = filterValue.trim().toLowerCase();
     });
@@ -69,6 +79,50 @@ export class TableComponent {
         let i = this.tableConfig.tableData.findIndex((res: any) => res.id === userData.id);
         this.tableConfig.tableData.splice(i, 1);
         this.createTableData()
+      }
+    })
+  }
+
+  editRequest(userData: any) {
+    if (userData.userRole === commonEnum.Candidate) {
+      this.adminListConfig[0].options = this.tableConfig?.activeAdmin;
+      const dialogRef = this.dialog.open(RequestDialogComponent, {
+        data: {
+          id: userData.id,
+          heading: modalData.approveRequest,
+          title: modalData.selectAdmin,
+          config: this.adminListConfig
+        },
+      });
+      dialogRef.afterClosed().subscribe((res: any) => {
+        if (res) {
+          userData['type'] = 'Request';
+          userData['assignTo'] = res.assignTo;
+          let i = this.tableConfig.tableData.findIndex((res: any) => res.id === userData.id);
+          this.tableConfig.tableData.splice(i, 1);
+          this.updateRequest.emit(userData);
+          this.createTableData();
+        }
+      });
+    } else if (userData.userRole === commonEnum.Admin) {
+      this.updateRequest.emit(userData);
+    }
+  }
+
+  deleteRequest(userData: any) {
+    const dialogRef = this.dialog.open(RequestDialogComponent, {
+      data: {
+        id: userData.id,
+        heading: modalData.declineRequest,
+        title: modalData.declineTitle,
+        config: this.configReview
+      },
+    })
+    dialogRef.afterClosed().subscribe((res: any) => {
+      if (res) {
+        userData['declinedReason'] = res.codeReview
+        this.updateRequest.emit(userData);
+        this.createTableData();
       }
     })
   }

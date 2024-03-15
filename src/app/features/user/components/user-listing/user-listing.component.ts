@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { CommonService } from 'src/app/core/service/common.service';
 import { currentUser } from 'src/app/core/models/common-config';
 import { MatDialog } from '@angular/material/dialog';
-import { commonEnum } from 'src/app/core/enums/common.enum';
+import { commonEnum, apiEndPoints, setItem, succssMessage, tableEnum, getItem } from 'src/app/core/enums/common.enum';
 import { Subject } from 'rxjs';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { searchFeild } from 'src/app/core/config/form.constant';
@@ -35,11 +35,11 @@ export class UserListingComponent {
   }
 
   ngOnInit() {
-    this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
+    this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
   }
 
   getUserData() {
-    this.commonService.get('users').subscribe((res: any) => {
+    this.commonService.get(apiEndPoints.users).subscribe((res: any) => {
       this.userData = res
       this.createData();
     });
@@ -49,7 +49,7 @@ export class UserListingComponent {
     let userData = [...this.userData]
     if (userData.length > 0) {
       this.tableColumns = Object?.keys(userData[0])?.filter((x: any) => {
-        if (x != 'password' && x != 'AddUser' && x != 'id' && x != 'Sign-Up' && x != 'statusBtn') {
+        if (x != tableEnum.password && x != tableEnum.addUser && x != tableEnum.Id && x != tableEnum.signUp && x != tableEnum.statusBtn && x != tableEnum.assignTo) {
           return x;
         }
       });
@@ -57,34 +57,41 @@ export class UserListingComponent {
     }
     userData = userData.filter((user: any, i) => {
       user['statusBtn'] = {
-        name: user.status == 'Active' ? 'Active' : user.status == 'Inactive' ? 'Inactive' : 'Pending',
+        name: user.status == tableEnum.Active ? tableEnum.Active : user.status == tableEnum.Inactive ? tableEnum.Inactive : user.status === tableEnum.Rejected ? tableEnum.Rejected : tableEnum.Pending,
         class: 'statusBtn'
       }
       return user;
     });
     userData.filter((user: any, i) => {
-      if (user.userRole == 'superAdmin') {
+      if (user.userRole == tableEnum.superAdmin) {
         userData.splice(i, 1);
       }
-      if (this.currentUser.userRole == 'admin' && user.id == this.currentUser.id) {
+      if (this.currentUser.userRole == tableEnum.Admin && user.id == this.currentUser.id) {
         userData.splice(i, 1);
       }
     });
-    if (this.currentUser.userRole == 'admin') userData = userData.filter((user: any) => user?.createdBy !== this.currentUser.id);
+    let existingUser = userData.filter((user: any) => {
+      if (user.userRole === tableEnum.Admin && user.status === tableEnum.Active) {
+        user['name'] = user.firstName + ' ' + user.lastName
+        return user
+      }
+    });
+    if (this.currentUser.userRole == tableEnum.Admin) userData = userData.filter((user: any) => user?.createdBy !== this.currentUser.id);
     let pendingUserData = [...userData]
-    userData = userData.filter((x: any) => x.status != 'Pending');
-    pendingUserData = pendingUserData.filter((x: any) => x.status == 'Pending');
+    userData = userData.filter((x: any) => x.status != tableEnum.Pending && x.status != tableEnum.Rejected);
+    pendingUserData = pendingUserData.filter((x: any) => x.status == tableEnum.Pending || x.status == tableEnum.Rejected);
+
     this.tableConfig = { tableHeaders: this.tableColumns, tableData: userData }
-    this.pendingTableConfig = { tableHeaders: this.tableColumns, tableData: pendingUserData }
+    this.pendingTableConfig = { tableHeaders: this.tableColumns, tableData: pendingUserData, activeAdmin: existingUser }
   }
 
   updateUserInfo(event: any) {
     let userData = this.userData.find((x: any) => x.id == event.id);
-    userData['status'] = userData['status'] == 'Active' ? 'Inactive' : userData['status'] == 'Pending' ? 'Active' : 'Active';
+    userData['status'] = userData['status'] == tableEnum.Active ? tableEnum.Inactive : userData['status'] == tableEnum.Pending ? tableEnum.Active : tableEnum.Active;
     userData.statusBtn.name = userData['status']
-    this.commonService.edit('users/' + userData.id, userData).subscribe((res: any) => {
+    this.commonService.edit(apiEndPoints.user + userData.id, userData).subscribe((res: any) => {
       if(res) {
-        this.commonService.successMSG('Status updated successfully')
+        this.commonService.successMSG(succssMessage.statusUpdated)
       }
     })
   }
@@ -93,8 +100,25 @@ export class UserListingComponent {
     this.router.navigateByUrl( 'user/edit'+'/'+ event.id);
   }
 
+  editRequest(userData: any) {
+    let data: any = {
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      email: userData.email,
+      password: userData.password,
+      userRole: userData.userRole,
+      id: userData.id,
+    }
+    if(userData.declinedReason) data['declinedReason'] = userData.declinedReason;
+    data.status = userData.type == tableEnum.Request ? tableEnum.Active : tableEnum.Rejected
+    this.commonService.edit(apiEndPoints.user + userData.id, data).subscribe((res: any) => {
+      this.getUserData();
+      this.commonService.successMSG(succssMessage.Updated)
+    });
+  }
+
   deleteUser(event: any) {
-    this.commonService.delete('users/' + event).subscribe((res: any) => {
+    this.commonService.delete(apiEndPoints.user + event).subscribe((res: any) => {
       this.getUserData();
     });
   }

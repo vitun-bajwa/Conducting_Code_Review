@@ -7,6 +7,7 @@ import { ButtonFieldComponent } from './dynmic-form/component/button-field/butto
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { EditorComponent } from './dynmic-form/component/editor/editor.component';
 import { CommonFilterComponent } from './components/common-filter/common-filter.component';
+import { RequestDialogComponent } from './components/request-dialog/request-dialog.component';
 
 
 @NgModule({
@@ -14,8 +15,8 @@ import { CommonFilterComponent } from './components/common-filter/common-filter.
     TableComponent,
     ConfirmDialogComponent,
     EditorComponent,
-    CommonFilterComponent
-    
+    CommonFilterComponent,
+    RequestDialogComponent
   ],
   imports: [
     CommonModule,

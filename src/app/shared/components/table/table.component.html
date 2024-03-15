@@ -1,6 +1,3 @@
-<!-- <mat-form-field class="searchBox">
-  <input matInput (keyup)="applyFilter($event)" placeholder="Search">
-</mat-form-field> -->
 <table mat-table [dataSource]="tableData" matSort="true" class="mat-elevation-z8">
   <ng-container [matColumnDef]="column" *ngFor="let column of tableConfiguration?.tableHeaders;">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column | titlecase}} </th>
@@ -10,7 +7,7 @@
       <td mat-cell *ngIf="column == 'status'">
         <app-button-field (btnClickEvent)="updateStatus(element)" *ngIf="element['statusBtn']" [config]="element['statusBtn']" [ngClass]="(element['statusBtn'].name==='Active') ? 'active' : (element['statusBtn'].name==='Pending') ? 'pending' : ''"></app-button-field>
       </td>
-      <td mat-cdell *ngIf="column == 'action'">
+      <td mat-cdell *ngIf="column == 'action' && element.status != 'Pending' && element.status !== 'Rejected'">
           <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
             color="primary" (click)="editUser(element)">
             <mat-icon>edit</mat-icon>
@@ -18,8 +15,19 @@
           <button mat-icon-button matTooltip="Click to Delete" class="iconbutton"
                 (click)="deleteUser(element)" color="warn">
                 <mat-icon>delete</mat-icon>
-              </button>
+          </button>
       </td>
+      <td mat-cdell *ngIf="column == 'action' && (element.status === 'Pending' || element.status === 'Rejected')">
+          <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
+            color="primary" (click)="editRequest(element)">
+            <mat-icon>check</mat-icon>
+          </button> 
+          <button mat-icon-button matTooltip="Click to Delete" class="iconbutton"
+                (click)="deleteRequest(element)" color="warn">
+                <mat-icon>close</mat-icon>
+          </button>
+      </td>
+      
     </ng-container>
   </ng-container>
   
@@ -32,4 +40,4 @@
   </tr>
 </table>
 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons #paginatorRef></mat-paginator>
-<!-- common table me mujhe table hmesha show krwana hai chahe usme record ho chahe na ho toh kaise dikhayu -->
+<!-- agar mujhe jab status rejected toh buttons mujhe pending vale hi dikhane hai -->

@@ -3,6 +3,7 @@ import { signUpForm } from '../../../core/config/form.constant';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
 import { Router } from '@angular/router';
+import { apiEndPoints, errorMessage, succssMessage } from 'src/app/core/enums/common.enum';
 
 @Component({
   selector: 'app-sign-up',
@@ -23,27 +24,32 @@ export class SignUpComponent {
       this.form.form.markAllAsTouched();
     } else {
       const email = this.form.form.get('email').value;
-      this.apiService.get('users').subscribe(
-          (response: any) => {
-            const existingUser = response.find((user: any) => user.email === email);
-            if (existingUser) {
-              this.apiService.errorMSG('This email is already registered. Please use a different email address.');
-              this.form.form.reset();
-            } else {
-              const data = {
-                ...this.form.form.value,
-                status: 'Pending',
-                password: btoa(this.form.form.value.password)
-              };
-              delete data.SignUp;
-              delete data.AddUser;
-              this.apiService.add('users', data).subscribe((res: any) => {
-                this.router.navigateByUrl('/auth/login');
-                this.apiService.successMSG('Sign-up successful');
-              });
-              this.form.form.reset();
-            }
-          });
+      this.apiService.get(apiEndPoints.users).subscribe(
+        (response: any) => {
+          const existingUser = response.find((user: any) => user.email === email);
+          if (existingUser) {
+            this.apiService.errorMSG(errorMessage.alreadyRegistered);
+            this.form.form.reset();
+          } else {
+            const data = {
+              firstName: this.form.form.value.firstName,
+              lastName: this.form.form.value.lastName,
+              email: this.form.form.value.email,
+              password: btoa(this.form.form.value.password),
+              userRole: this.form.form.value.userRole,
+              status: 'Pending',
+              assignTo: null,
+              createdBy: 'self',
+            };
+            // delete data.SignUp;
+            // delete data.AddUser;
+            this.apiService.add(apiEndPoints.users, data).subscribe((res: any) => {
+              this.router.navigateByUrl('/auth/login');
+              this.apiService.successMSG(succssMessage.signUp);
+            });
+            this.form.form.reset();
+          }
+        });
     }
   }
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { searchFeild } from 'src/app/core/config/form.constant';
-import { commonEnum } from 'src/app/core/enums/common.enum';
+import { commonEnum, apiEndPoints, setItem, tableEnum, getItem } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
@@ -35,11 +35,11 @@ export class CodeReviewListingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
+    this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
   }
 
   getReviewData() {
-    this.commonService.get('codeReview').subscribe((res: any) => {
+    this.commonService.get(apiEndPoints.codeReview).subscribe((res: any) => {
       this.reviewData = res;
       this.createData();
     });
@@ -49,16 +49,16 @@ export class CodeReviewListingComponent implements OnInit {
     let userData = [...this.reviewData]
     if (userData.length > 0) {
       this.tableColumns = Object?.keys(userData[0])?.filter((x: any) => {
-        if (x != 'textEditor' && x != 'AddReviewRequest' && x != 'id') {
+        if (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id) {
           return x;
         }
       });
       this.tableColumns.push('action')
     }
-    if (this.currentUser.userRole == 'admin') userData = userData.filter((user: any) => user?.createdBy !== this.currentUser.id);
+    if (this.currentUser.userRole == tableEnum.Admin) userData = userData.filter((user: any) => user?.createdBy !== this.currentUser.id);
     let pendingUserData = [...userData]
-    userData = userData.filter((x: any) => x.status != 'Pending');
-    pendingUserData = pendingUserData.filter((x: any) => x.status == 'Pending');
+    userData = userData.filter((x: any) => x.status != tableEnum.Pending);
+    pendingUserData = pendingUserData.filter((x: any) => x.status == tableEnum.Pending);
     this.tableConfig = { tableHeaders: this.tableColumns, tableData: userData }
     this.pendingTableConfig = { tableHeaders: this.tableColumns, tableData: pendingUserData }
   }
@@ -68,7 +68,7 @@ export class CodeReviewListingComponent implements OnInit {
   }
 
   deleteReview(event: any){
-    this.commonService.delete('codeReview/'+ event).subscribe((res: any) => {
+    this.commonService.delete(apiEndPoints.codeReview + event).subscribe((res: any) => {
       this.getReviewData();
     })
   }

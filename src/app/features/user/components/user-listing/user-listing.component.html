@@ -12,7 +12,8 @@
                 (editInfo)="editUser($event)" (deleteInfo)="deleteUser($event)"></app-table>
         </mat-tab>
         <mat-tab label="User Request">
-            <app-table *ngIf="pendingTableConfig" [search]="searchRequest" [tableConfig]="pendingTableConfig" (userInfo)="updateUserInfo($event)"
-            (editInfo)="editUser($event)" (deleteInfo)="deleteUser($event)"></app-table></mat-tab>
+            <app-table *ngIf="pendingTableConfig" [tableConfig]="pendingTableConfig" (userInfo)="updateUserInfo($event)"
+            (editInfo)="editUser($event)" (updateRequest)="editRequest($event)"></app-table>
+        </mat-tab>
     </mat-tab-group>
 </div>
