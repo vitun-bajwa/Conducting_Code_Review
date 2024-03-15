@@ -37,12 +37,6 @@ export class DynamicFormComponent {
     // });
     // return group;
   }
-
-  ngAfterViewInit() {
-    console.log('config', this.config);
-
-  }
-
   
   handleSubmit(e:any) {
     

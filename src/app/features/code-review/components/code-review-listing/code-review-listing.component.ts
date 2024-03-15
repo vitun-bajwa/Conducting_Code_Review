@@ -29,7 +29,6 @@ export class CodeReviewListingComponent implements OnInit {
     this.commonService.get('codeReview', '').subscribe((res: any) => {
       this.reviewConfig = res;
       let index = this.reviewConfig.findIndex((x: any) => x.id == this.currentUser.id);
-      this.reviewConfig.splice(index, 1);
       this.tableColumns = Object?.keys(this.reviewConfig[0])?.filter((x:any, i) => {
         if(x != 'textEditor' && x != 'AddReviewRequest' && x != 'id'){
           return x;
@@ -49,6 +48,5 @@ export class CodeReviewListingComponent implements OnInit {
     this.commonService.delete('codeReview/'+ event).subscribe((res: any) => {
       this.getReviewData();
     })
-
   }
 }

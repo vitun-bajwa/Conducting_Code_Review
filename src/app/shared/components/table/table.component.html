@@ -7,7 +7,8 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column | titlecase}} </th>
     <ng-container *matCellDef="let element;  let index = index">
       <td mat-cell *ngIf="column == 'sr No'">{{(paginatorRef.pageIndex * paginatorRef.pageSize) + (index + 1)}}</td>
-      <td mat-cell *ngIf="column != 'status' && column != 'action' && column != 'sr No'">{{element[column]}} </td>
+      <td mat-cell *ngIf="column != 'status' && column != 'action' && column != 'sr No' && column != 'startDate' && column != 'endDate'">{{element[column]}} </td>
+      <td mat-cell *ngIf="column == 'startDate' || column == 'endDate'">{{element[column] | date : 'MM/dd/yyyy' }} </td>
       <td mat-cell *ngIf="column == 'status'">
         <app-button-field (btnClickEvent)="updateStatus(element)" *ngIf="element['statusBtn']" [config]="element['statusBtn']" [ngClass]="(element['statusBtn'].name==='Active') ? 'active' : (element['statusBtn'].name==='Pending') ? 'pending' : ''"></app-button-field>
       </td>

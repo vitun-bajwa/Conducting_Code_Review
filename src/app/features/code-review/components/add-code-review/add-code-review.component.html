@@ -6,11 +6,23 @@
     <div class="lft" [class.full]="currentUser.userRole == 'candidate'">
         <app-dynamic-form [config]="configRequest" #form="dynamicForm"></app-dynamic-form>
     </div>
-    <div class="rgt" *ngIf="currentUser.userRole != 'candidate'">
-        <app-dynamic-form [config]="configReview" #review="dynamicForm"></app-dynamic-form>
-    </div>
+    <!-- <div class="rgt" *ngIf="currentUser.userRole != 'candidate'" [formGroup]="reviewForm">
+        <div formArrayName="codeReview">
+            <mat-form-field>
+                <textarea matInput formControlName="codeReview"></textarea>
+            </mat-form-field>
+            <div class="input-wrapper" *ngFor="let user of users.controls; let i = index">
+                <mat-form-field>
+                    <textarea matInput formControlName="{{i}}"></textarea>
+                </mat-form-field>
+                <span class="remove" (click)="removeUser(i)">x</span>
+            </div>
+        </div>
+        <button (click)="addCodeReviewControl()">Add More</button> -->
+
+        <!-- <app-dynamic-form [config]="configReview" #review="dynamicForm" (submitted)="addReview()"></app-dynamic-form> -->
+    <!-- </div> -->
 </div>
 <div class="btnBx rgt">
     <app-button-field [config]="addBtn" (click)="userId ? updateCodeReview() : addCodeReview()"></app-button-field>
 </div>
-

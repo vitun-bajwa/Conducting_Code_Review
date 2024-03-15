@@ -289,6 +289,22 @@ export const loginForm = [
       class: 'textEditor',
       error: false,
     },
+    {
+      type: 'textArea', 
+      fieldType: 'codeReview', 
+      name: 'codeReview', 
+      value: '',
+      placeholder: 'code review..',
+      validation: [Validators.required],
+      isRequired: true,
+      class: 'input',  
+      error: false,
+    },
+    // {
+    //   type: 'button',
+    //   name: 'Add more',
+    //   class: 'button',
+    // },
   ];
   
   export const codeReviewForm:any = [

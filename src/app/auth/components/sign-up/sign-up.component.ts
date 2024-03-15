@@ -32,7 +32,7 @@ export class SignUpComponent {
             } else {
               const data = {
                 ...this.form.form.value,
-                status: 'Pending',
+                status: 'pending',
                 password: btoa(this.form.form.value.password)
               };
               delete data.SignUp;

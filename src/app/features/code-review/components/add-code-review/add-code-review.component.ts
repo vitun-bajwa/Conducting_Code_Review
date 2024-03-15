@@ -1,7 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { codeReviewForm, codeReviewRequestForm } from 'src/app/core/config/form.constant';
 import { commonEnum } from 'src/app/core/enums/common.enum';
+import { currentUser } from 'src/app/core/models/common-config';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
 import { EditorComponent } from 'src/app/shared/dynmic-form/component/editor/editor.component';
@@ -13,14 +15,17 @@ import { EditorComponent } from 'src/app/shared/dynmic-form/component/editor/edi
 export class AddCodeReviewComponent {
   @ViewChild('form') form: any;
   @ViewChild('review') review: any;
+  reviewForm!: FormGroup;
   @ViewChild(EditorComponent) editor: any;
   configRequest: FieldConfig[] = codeReviewRequestForm
-  configReview: FieldConfig[] = codeReviewForm
-  currentUser: any;
-  userId: any;
+  configReview = codeReviewForm
+  currentUser!: currentUser;
+  userId!: string;
   formHeading!: string;
+  
 
-  constructor(private apiService: CommonService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private apiService: CommonService, private router: Router, 
+    private activatedRoute: ActivatedRoute, private fb: FormBuilder) {
     this.activatedRoute.paramMap.subscribe((param: any) => {
       this.userId = param.params.id;
     });
@@ -36,14 +41,14 @@ export class AddCodeReviewComponent {
   }
 
   ngOnInit() {
-    this.currentUser = sessionStorage.getItem('user');
-    this.currentUser = JSON.parse(this.currentUser);
+    this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
     if (this.userId) {
       this.apiService.get('codeReview/', this.userId).subscribe((res: any) => {
         this.form.form.patchValue({
-          moduleName: res?.moduleName,
+          title: res?.title,
           startDate: res?.startDate,
           endDate: res?.endDate,
+          codeDescription: res?.codeDescription,
           textEditor: res?.textEditor,
           codeReview: res?.codeReview,
         });
@@ -65,7 +70,7 @@ export class AddCodeReviewComponent {
           this.router.navigateByUrl('codeReview');
         })
       }
-    }else {
+    } else {
       if (this.form.form.invalid && this.review.form.invalid) {
         this.form.form.markAllAsTouched();
       }else {
