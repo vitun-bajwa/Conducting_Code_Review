@@ -26,6 +26,7 @@ export class AddEditUserComponent {
     this.activatedRoute.paramMap.subscribe((param: any) => {
       this.userId = param.params.id;
     });
+    this.config[this.config.length - 1].name = 'Save'
     if (this.userId) {
       this.config.filter(item => {
         if (item.fieldType === 'email') {

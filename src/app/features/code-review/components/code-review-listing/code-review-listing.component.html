@@ -4,7 +4,7 @@
 <div class="innr_page">
     <div class="hdr">
         <app-input-field class="searchFilter" [config]="searchInput" (keyup)="applyFilter($event, activeTab)"></app-input-field>
-        <app-button-field *ngIf="activeTab == 'User Listing'" [config]="addBtn" routerLink="add"></app-button-field>
+        <app-button-field *ngIf="activeTab == 'Code Review Listing'" [config]="addBtn" routerLink="add"></app-button-field>
     </div>
     <mat-tab-group animationDuration="0" (selectedTabChange)="tabChange($event)">
         <mat-tab label="Code Review Listing">

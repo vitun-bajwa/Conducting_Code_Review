@@ -103,7 +103,7 @@ export const loginForm = [
     },
     {
       type: 'button',
-      name: 'SignUp',
+      name: 'Sign Up',
       class: 'button',
     },
   ];
@@ -234,7 +234,7 @@ export const loginForm = [
     },
     {
       type: 'button',
-      name: 'Update Profile',
+      name: 'Save',
       class: 'button',
     },
   ];
