@@ -90,7 +90,7 @@ export class UserListingComponent {
   }
 
   editUser(event: any) {
-    this.router.navigateByUrl(`admin/edit/${event.id}`);
+    this.router.navigateByUrl( 'user/edit'+'/'+ event.id);
   }
 
   deleteUser(event: any) {
