@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { searchFeild } from 'src/app/core/config/form.constant';
+import { commonEnum, apiEndPoints, setItem, tableEnum, getItem } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
+import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
 
 @Component({
@@ -12,33 +16,51 @@ export class CodeReviewListingComponent implements OnInit {
   tableConfig: any;
   tableHeaders: any = [];
   tableColumns: any[] = [];
-  reviewConfig: any;
+  pendingTableConfig: any;
+  reviewData: any;
   currentUser!: currentUser;
-  constructor(private commonService: CommonService,
-    private router: Router) {
-    this.getReviewData();
-  }
+  searchInput: FieldConfig = searchFeild;
+  formHeading: commonEnum = commonEnum.codeModule;
+  searchList: Subject<boolean> = new Subject();
+  searchRequest: Subject<boolean> = new Subject();
+  activeTab: string = 'Code Review Listing';
   addBtn = {
     class: 'button',
     name: 'Add Code Review'
   }
-  ngOnInit() {
-    this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
+
+  constructor(private commonService: CommonService,
+    private router: Router) {
+    this.getReviewData();
   }
+
+  ngOnInit() {
+    this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
+  }
+
   getReviewData() {
-    this.commonService.get('codeReview', '').subscribe((res: any) => {
-      this.reviewConfig = res;
-      let index = this.reviewConfig.findIndex((x: any) => x.id == this.currentUser.id);
-      this.reviewConfig.splice(index, 1);
-      this.tableColumns = Object?.keys(this.reviewConfig[0])?.filter((x:any, i) => {
-        if(x != 'textEditor' && x != 'AddReviewRequest' && x != 'id'){
+    this.commonService.get(apiEndPoints.codeReview).subscribe((res: any) => {
+      this.reviewData = res;
+      this.createData();
+    });
+  }
+
+  createData() {
+    let userData = [...this.reviewData]
+    if (userData.length > 0) {
+      this.tableColumns = Object?.keys(userData[0])?.filter((x: any) => {
+        if (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id) {
           return x;
         }
       });
-      
       this.tableColumns.push('action')
-      this.tableConfig = { tableHeaders: this.tableColumns, tableData: this.reviewConfig }
-    });
+    }
+    if (this.currentUser.userRole == tableEnum.Admin) userData = userData.filter((user: any) => user?.createdBy !== this.currentUser.id);
+    let pendingUserData = [...userData]
+    userData = userData.filter((x: any) => x.status != tableEnum.Pending);
+    pendingUserData = pendingUserData.filter((x: any) => x.status == tableEnum.Pending);
+    this.tableConfig = { tableHeaders: this.tableColumns, tableData: userData }
+    this.pendingTableConfig = { tableHeaders: this.tableColumns, tableData: pendingUserData }
   }
 
   editReview(event: any){
@@ -46,9 +68,19 @@ export class CodeReviewListingComponent implements OnInit {
   }
 
   deleteReview(event: any){
-    this.commonService.delete('codeReview/'+ event).subscribe((res: any) => {
+    this.commonService.delete(apiEndPoints.codeReview + event).subscribe((res: any) => {
       this.getReviewData();
     })
-
   }
+
+  tabChange(e:any) {
+    this.activeTab = e.tab.textLabel
+    this.applyFilter('', this.activeTab)
+    this.searchInput.value = ''
+  }
+
+  applyFilter(event: any, type?:string) {
+    type == 'Code Review Listing' ? this.searchList.next(event?.target?.value) : this.searchRequest.next(event?.target?.value)
+  }
+  
 }

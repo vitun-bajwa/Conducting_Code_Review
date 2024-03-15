@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import { CommonService } from 'src/app/core/service/common.service';
 import { currentUser } from 'src/app/core/models/common-config';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTabChangeEvent } from '@angular/material/tabs';
-import { commonEnum, succssMessage, tableEnum } from 'src/app/core/enums/common.enum';
+import { commonEnum, apiEndPoints, setItem, succssMessage, tableEnum, getItem } from 'src/app/core/enums/common.enum';
 import { Subject } from 'rxjs';
+import { FieldConfig } from 'src/app/core/models/field-config';
+import { searchFeild } from 'src/app/core/config/form.constant';
 
 @Component({
   selector: 'app-user-listing',
@@ -14,29 +15,31 @@ import { Subject } from 'rxjs';
 })
 export class UserListingComponent {
   tableConfig: any;
-  tableHeaders: any = [];
-  usersConfig: any = [];
+  tableHeaders: Array<object> = [];
   pendingTableConfig: any;
   currentUser!: currentUser;
   formHeading: commonEnum = commonEnum.userModule;
+  searchInput: FieldConfig = searchFeild;
   addBtn = {
     class: 'button',
     name: 'Add User'
   }
   userData: any;
+  activeTab: string = 'User Listing';
   tableColumns: any[] = [];
-  searchVal: Subject<boolean> = new Subject();
+  searchList: Subject<boolean> = new Subject();
+  searchRequest: Subject<boolean> = new Subject();
 
   constructor(private commonService: CommonService, private router: Router, public dialog: MatDialog) {
     this.getUserData();
   }
 
   ngOnInit() {
-    this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
+    this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
   }
 
   getUserData() {
-    this.commonService.get('users', '').subscribe((res: any) => {
+    this.commonService.get(apiEndPoints.users).subscribe((res: any) => {
       this.userData = res
       this.createData();
     });
@@ -86,9 +89,10 @@ export class UserListingComponent {
     let userData = this.userData.find((x: any) => x.id == event.id);
     userData['status'] = userData['status'] == tableEnum.Active ? tableEnum.Inactive : userData['status'] == tableEnum.Pending ? tableEnum.Active : tableEnum.Active;
     userData.statusBtn.name = userData['status']
-
-    this.commonService.edit('users/' + userData.id, userData).subscribe((res: any) => {
-
+    this.commonService.edit(apiEndPoints.user + userData.id, userData).subscribe((res: any) => {
+      if(res) {
+        this.commonService.successMSG(succssMessage.statusUpdated)
+      }
     })
   }
 
@@ -104,22 +108,36 @@ export class UserListingComponent {
       password: userData.password,
       userRole: userData.userRole,
       id: userData.id,
-      declinedReason: userData.declinedReason,
     }
+    if(userData.declinedReason) data['declinedReason'] = userData.declinedReason;
     data.status = userData.type == tableEnum.Request ? tableEnum.Active : tableEnum.Rejected
-    this.commonService.edit('users/' + userData.id, data).subscribe((res: any) => {
+    this.commonService.edit(apiEndPoints.user + userData.id, data).subscribe((res: any) => {
+      this.getUserData();
       this.commonService.successMSG(succssMessage.Updated)
     });
   }
 
   deleteUser(event: any) {
-    this.commonService.delete('users/' + event).subscribe((res: any) => {
+    this.commonService.delete(apiEndPoints.user + event).subscribe((res: any) => {
       this.getUserData();
     });
   }
 
-  applyFilter(event: any) {
-    this.searchVal.next(event?.target?.value);
+  tabChange(e:any) {
+    this.activeTab = e.tab.textLabel
+    this.applyFilter('', this.activeTab)
+    this.searchInput.value = ''
+  }
+
+  applyFilter(event: any, type?:string) {
+    switch (type) {
+      case 'User Listing':
+        event == '' ? this.searchList.next(event) : this.searchList.next(event?.target?.value)
+      break;
+      default : 
+        event == '' ? this.searchRequest.next(event) : this.searchRequest.next(event?.target?.value)
+      break;
+    }
   }
 
 }

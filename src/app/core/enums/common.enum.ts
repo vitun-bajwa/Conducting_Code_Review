@@ -6,6 +6,7 @@ export enum commonEnum {
     userModule = "User Module",
     Admin = "Admin",
     Candidate = "Candidate",
+    codeModule = "Code Review Module"
   }
 
 export enum modalData {
@@ -29,6 +30,8 @@ export enum tableEnum {
   Admin = "Admin",
   Request = "Request",
   Id = "id",
+  textEditor = "textEditor",
+  addReviewRequest = "AddReviewRequest"
 }
 
 export enum succssMessage { 
@@ -41,7 +44,9 @@ export enum succssMessage {
   userAdded = "User added successfully",
   codeReview = "Code Review sent successfully.",
   changePassword = "Your Password Changed Successfully",
-  detailsUpdated = "Details updated successfully"
+  detailsUpdated = "Details updated successfully",
+  statusUpdated = "Status updated successfully",
+  codeReviewUpdated = "Code Review updated successfully."
 }
 
 export enum errorMessage { 
@@ -52,10 +57,28 @@ export enum errorMessage {
   oldPassword = "Old Password Does Not Match"
 } 
 
-export enum endPoints {
-  users = "users/"
+export enum apiEndPoints {
+  users = "users",
+  user = "users/",
+  codeReviews = "codeReview",
+  codeReview = "codeReview/",
 }
 
-export enum setUser { 
-  user = "user"
+export enum routes {
+  user = "user",
+  edit = "/edit",
+  view = "/view",
+  codeReviews = "codeReview"
 }
+
+export enum setItem { 
+  user = "user",
+  token = "token"
+}
+
+export enum getItem { 
+  user = "user",
+  token = "token"
+}
+
+

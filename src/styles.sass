@@ -64,11 +64,27 @@ mat-spinner.mat-mdc-progress-spinner
 
 .hdr
     @include f_c_sb
-    margin-bottom: 30px
+    margin: 20px 0px
     color: $secondary
     h2
         font-size: 26px
         margin: 0px
+    mat-form-field .mdc-text-field--filled:not(.mdc-text-field--disabled)
+        margin: 0px
+
+.innr_page
+    position: relative
+    .hdr
+        margin: 0px
+        position: absolute
+        top: 0px
+        right: 0px
+        z-index: 2
+        app-input-field
+            margin-right: 15px
+        button
+            margin: 0px
+        
 
 /* Common Css End */
 
@@ -83,6 +99,8 @@ mat-spinner.mat-mdc-progress-spinner
         width: 100%
         text-align: right
         margin-top: 10px
+    .button 
+        width: auto
 
 .button 
     width: 100%
@@ -105,7 +123,6 @@ mat-spinner.mat-mdc-progress-spinner
     height: 35px
     color: $secondary
     font-size: 20px
-    
 
 .btnBx
     .button
@@ -127,7 +144,7 @@ mat-form-field
         background-color: $background
         margin: 10px 0px 20px
         padding: 0px
-        border-radius: 0px
+        border-radius: 50px
         .mat-mdc-form-field-infix
             padding: 0px !important
             min-height: unset
@@ -138,12 +155,12 @@ mat-form-field
             width: 100%
             border: 0px
             background: $background
-            padding: 10px
+            padding: 10px 20px
             margin: 0px
             font-size: 14px
             color: $secondary
             &::placeholder
-                color: $placeholder
+                color: $placeholder !important
             &:focus-visible
                 outline: 0px
         textarea
@@ -158,12 +175,21 @@ mat-form-field
         display: none
 
 mat-form-field.withIcon 
-    @include f_c_sb
+    .mat-mdc-form-field-infix
+        @include f_c_sb
     .mdc-text-field--filled:not(.mdc-text-field--disabled) .input
         width: 85%
-    i 
+    mat-icon 
         width: 15%
         text-align: center
+        cursor: pointer
+
+app-input-field.searchFilter
+    width: 230px
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) .input
+        width: 70%
+    mat-icon 
+        width: 30%
 
 app-errors 
     position: absolute
@@ -172,6 +198,7 @@ app-errors
     font-size: 12px
     font-weight: 500
     color: red
+    @include f_c_sb
 
 .dropdown-menu.show
     background: $background
@@ -250,6 +277,7 @@ app-errors
             font-weight: bold
             color: $secondary
             text-align: center
+            cursor: pointer
 
 /* Auth Css End */
 
@@ -306,13 +334,25 @@ app-errors
         height: 100%
         object-fit: contain
 
+/* Page not found Css End */
+
+/* Mat tab css */
+    
+mat-tab-group
+    .mat-mdc-tab-body-wrapper
+        padding: 15px
+
 .mat-mdc-tab-labels
+    border-radius: 50px
+    overflow: hidden
+    width: max-content
+    background: $background
+    padding: 5px
     .mat-mdc-tab
         width: max-content
-        flex-grow: unset !important
-        background: $background
-        border-radius: 15px 0px 15px 0px
-        margin-right: 5px
+        border-radius: 50px
+        padding: 10px 15px
+        height: 100% !important
         .mdc-tab__text-label
             color: $text-black
     .mat-mdc-tab.mdc-tab--active, .mat-mdc-tab.mdc-tab--active:focus, .mat-mdc-tab.mdc-tab--active:hover
@@ -322,14 +362,16 @@ app-errors
         .mdc-tab-indicator__content--underline
             border: 0px solid $background
 
-/* Page not found Css End */
+/* Mat tab css End */
 
 /* Table css */
 
 app-table
     table.mdc-data-table__table
-        border: 1px solid #e4e4e4
         margin: 10px 0px
+        border-radius: 5px
+        overflow: hidden
+        box-shadow: 0px 0px 16px #00000042
         thead
             tr
                 background: $background-dark
@@ -350,6 +392,8 @@ app-button-field
         background: $danger
         color: $text-white
         font-size: 14px
+        width: 100px
+        border-radius: 50px
     &.active
         .statusBtn
             border: solid 2px $success
@@ -360,6 +404,11 @@ app-button-field
             border: solid 2px $warning
             background: $warning
             color: $text-black
+
+.noDataTable
+    padding: 20px
+    text-align: center
+    font-size: 16px
 
 /* Table css End */
 

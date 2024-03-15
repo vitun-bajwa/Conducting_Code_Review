@@ -36,8 +36,9 @@ export class TableComponent {
   constructor(public dialog: MatDialog, public commonService: CommonService, private router: Router,) { }
 
   ngOnChanges() {
-
+    this.createTableData();
   }
+  
   ngAfterViewInit() {
     this.createTableData();
     this.search?.subscribe((val: string) => {

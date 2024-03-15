@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { codeReviewForm, codeReviewRequestForm } from 'src/app/core/config/form.constant';
-import { commonEnum, succssMessage } from 'src/app/core/enums/common.enum';
+import { commonEnum, apiEndPoints, setItem, succssMessage, getItem } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
@@ -37,9 +37,9 @@ export class AddCodeReviewComponent {
   }
 
   ngOnInit() {
-    this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
+    this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
     if (this.userId) {
-      this.apiService.get('codeReview/', this.userId).subscribe((res: any) => {
+      this.apiService.get(apiEndPoints.codeReview, this.userId).subscribe((res: any) => {
         this.form.form.patchValue({
           moduleName: res?.moduleName,
           startDate: res?.startDate,
@@ -89,8 +89,8 @@ export class AddCodeReviewComponent {
       let data = {
         ...this.form.form.value,
       }
-      this.apiService.edit('codeReview/' + this.userId, data).subscribe((res: any) => {
-        this.apiService.successMSG('Code Review updated successfully.')
+      this.apiService.edit(apiEndPoints.codeReview + this.userId, data).subscribe((res: any) => {
+        this.apiService.successMSG(succssMessage.codeReviewUpdated)
         this.router.navigateByUrl('codeReview');
       })
     }

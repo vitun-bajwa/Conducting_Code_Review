@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { getItem } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
 
 @Component({
@@ -13,13 +14,13 @@ export class HeaderComponent {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
+    this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
     // this.currentUser = JSON.parse(this.currentUser)
 
   }
 
   logOut() {
-    let token = sessionStorage.getItem('token');
+    let token = sessionStorage.getItem(getItem.token);
     if(token) {
       sessionStorage.clear();
       this.router.navigateByUrl('/auth/login')

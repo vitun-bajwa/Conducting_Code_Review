@@ -3,7 +3,7 @@ import { signUpForm } from '../../../core/config/form.constant';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
 import { Router } from '@angular/router';
-import { errorMessage, succssMessage } from 'src/app/core/enums/common.enum';
+import { apiEndPoints, errorMessage, succssMessage } from 'src/app/core/enums/common.enum';
 
 @Component({
   selector: 'app-sign-up',
@@ -24,7 +24,7 @@ export class SignUpComponent {
       this.form.form.markAllAsTouched();
     } else {
       const email = this.form.form.get('email').value;
-      this.apiService.get('users').subscribe(
+      this.apiService.get(apiEndPoints.users).subscribe(
         (response: any) => {
           const existingUser = response.find((user: any) => user.email === email);
           if (existingUser) {
@@ -43,7 +43,7 @@ export class SignUpComponent {
             };
             // delete data.SignUp;
             // delete data.AddUser;
-            this.apiService.add('users', data).subscribe((res: any) => {
+            this.apiService.add(apiEndPoints.users, data).subscribe((res: any) => {
               this.router.navigateByUrl('/auth/login');
               this.apiService.successMSG(succssMessage.signUp);
             });

@@ -6,7 +6,7 @@ import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
 import { UiModule } from 'src/app/ui/ui.module';
 import { DynamicFormModule } from '../../../shared/dynmic-form/dynamic-form.module';
-import { errorMessage, succssMessage } from 'src/app/core/enums/common.enum';
+import { errorMessage, getItem, succssMessage } from 'src/app/core/enums/common.enum';
 
 @Component({
   selector: 'app-change-password',
@@ -26,7 +26,7 @@ export class ChangePasswordComponent {
 
   changePassword() { 
     this.trimFormValues();
-    let user  = JSON.parse(sessionStorage.getItem('user') || '');
+    let user  = JSON.parse(sessionStorage.getItem(getItem.user) || '');
     if (this.form.form.invalid) {
       this.form.form.markAllAsTouched();
     }
@@ -38,7 +38,7 @@ export class ChangePasswordComponent {
       this.apiService.edit('users/' + user.id, data).subscribe((data: any) => {
         sessionStorage.setItem('user', JSON.stringify(data));
         this.apiService.successMSG(succssMessage.changePassword);
-        this.router.navigateByUrl('/admin');
+        this.router.navigateByUrl('/user');
       });
     }
     else{

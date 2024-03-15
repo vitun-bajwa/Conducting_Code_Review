@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { signUpForm } from 'src/app/core/config/form.constant';
-import { commonEnum, errorMessage, succssMessage, tableEnum } from 'src/app/core/enums/common.enum';
+import { apiEndPoints, commonEnum, errorMessage, getItem, setItem, succssMessage, tableEnum } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
@@ -38,13 +38,13 @@ export class AddEditUserComponent {
   }
 
   ngOnInit() {
-    this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
+    this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
     if (this.userId) {
       let index = this.config.findIndex((x: any) => x.fieldType == tableEnum.password)
       if (index != -1) this.config.splice(index, 1);
 
     }
-    this.apiService.get('users/', this.userId).subscribe((res: any) => {
+    this.apiService.get(apiEndPoints.user, this.userId).subscribe((res: any) => {
       this.form.form.patchValue({
         firstName: res?.firstName,
         email: res?.email,
@@ -61,7 +61,7 @@ export class AddEditUserComponent {
       this.form.form.markAllAsTouched();
     } else {
       const email = this.form.form.value.email;
-      this.apiService.get('users').subscribe
+      this.apiService.get(apiEndPoints.users).subscribe
         (
           (response: any) => {
             const existingUser = response.find((user: any) => user.email === email);
@@ -78,7 +78,7 @@ export class AddEditUserComponent {
                 assignTo : this.currentUser.id,
                 createdBy : this.currentUser.id,
               }
-              this.apiService.add('users', data).subscribe((res: any) => {
+              this.apiService.add(apiEndPoints.users, data).subscribe((res: any) => {
                 this.apiService.successMSG(succssMessage.userAdded)
                 this.router.navigateByUrl('admin');
               })
