@@ -14,18 +14,18 @@ import { searchFeild } from 'src/app/core/config/form.constant';
   styleUrls: ['./user-listing.component.sass'],
 })
 export class UserListingComponent {
-  // tableConfig!: MatTableDataSource<any>;
   tableConfig: any;
   tableHeaders: Array<object> = [];
   pendingTableConfig: any;
   currentUser!: currentUser;
   formHeading: commonEnum = commonEnum.userModule;
-  searchInput: FieldConfig = searchFeild
+  searchInput: FieldConfig = searchFeild;
   addBtn = {
     class: 'button',
     name: 'Add User'
   }
   userData: any;
+  activeTab: string = 'User Listing';
   tableColumns: any[] = [];
   searchList: Subject<boolean> = new Subject();
   searchRequest: Subject<boolean> = new Subject();
@@ -99,8 +99,21 @@ export class UserListingComponent {
     });
   }
 
+  tabChange(e:any) {
+    this.activeTab = e.tab.textLabel
+    this.applyFilter('', this.activeTab)
+    this.searchInput.value = ''
+  }
+
   applyFilter(event: any, type?:string) {
-    type == 'list' ? this.searchList.next(event?.target?.value) : this.searchRequest.next(event?.target?.value)
+    switch (type) {
+      case 'User Listing':
+        event == '' ? this.searchList.next(event) : this.searchList.next(event?.target?.value)
+      break;
+      default : 
+        event == '' ? this.searchRequest.next(event) : this.searchRequest.next(event?.target?.value)
+      break;
+    }
   }
 
 }

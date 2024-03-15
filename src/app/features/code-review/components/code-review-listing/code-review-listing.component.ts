@@ -19,10 +19,11 @@ export class CodeReviewListingComponent implements OnInit {
   pendingTableConfig: any;
   reviewData: any;
   currentUser!: currentUser;
-  searchInput: FieldConfig = searchFeild
+  searchInput: FieldConfig = searchFeild;
   formHeading: commonEnum = commonEnum.codeModule;
   searchList: Subject<boolean> = new Subject();
   searchRequest: Subject<boolean> = new Subject();
+  activeTab: string = 'Code Review Listing';
   addBtn = {
     class: 'button',
     name: 'Add Code Review'
@@ -40,17 +41,6 @@ export class CodeReviewListingComponent implements OnInit {
   getReviewData() {
     this.commonService.get('codeReview').subscribe((res: any) => {
       this.reviewData = res;
-      
-      // let index = this.reviewConfig.findIndex((x: any) => x.id == this.currentUser.id);
-      // this.reviewConfig.splice(index, 1);
-      // this.tableColumns = Object?.keys(this.reviewConfig[0])?.filter((x:any, i) => {
-      //   if(x != 'textEditor' && x != 'AddReviewRequest' && x != 'id'){
-      //     return x;
-      //   }
-      // });
-      // this.tableColumns.push('action')
-      // this.tableConfig = { tableHeaders: this.tableColumns, tableData: this.reviewConfig }
-
       this.createData();
     });
   }
@@ -83,8 +73,14 @@ export class CodeReviewListingComponent implements OnInit {
     })
   }
 
+  tabChange(e:any) {
+    this.activeTab = e.tab.textLabel
+    this.applyFilter('', this.activeTab)
+    this.searchInput.value = ''
+  }
+
   applyFilter(event: any, type?:string) {
-    type == 'list' ? this.searchList.next(event?.target?.value) : this.searchRequest.next(event?.target?.value)
+    type == 'Code Review Listing' ? this.searchList.next(event?.target?.value) : this.searchRequest.next(event?.target?.value)
   }
   
 }

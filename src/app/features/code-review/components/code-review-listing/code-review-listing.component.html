@@ -1,15 +1,17 @@
 <div class="hdr">
     <h2>{{formHeading}}</h2>
 </div>
-<mat-tab-group>
-    <mat-tab label="Code Review Listing">
-        <div class="hdr">
-            <app-input-field [config]="searchInput" (keyup)="applyFilter($event, 'list')"></app-input-field>
-            <app-button-field [config]="addBtn" routerLink="add"></app-button-field>
-        </div>
-        <app-table *ngIf="tableConfig" [search]="searchList" [tableConfig]="tableConfig" (editInfo)="editReview($event)" (deleteInfo)="deleteReview($event)"></app-table>
-    </mat-tab>
-    <mat-tab label="Code Review Request"> 
-        <app-table *ngIf="pendingTableConfig" [search]="searchList" [tableConfig]="pendingTableConfig" (editInfo)="editReview($event)" (deleteInfo)="deleteReview($event)"></app-table>
-     </mat-tab>
-</mat-tab-group>
+<div class="innr_page">
+    <div class="hdr">
+        <app-input-field class="searchFilter" [config]="searchInput" (keyup)="applyFilter($event, activeTab)"></app-input-field>
+        <app-button-field *ngIf="activeTab == 'User Listing'" [config]="addBtn" routerLink="add"></app-button-field>
+    </div>
+    <mat-tab-group animationDuration="0" (selectedTabChange)="tabChange($event)">
+        <mat-tab label="Code Review Listing">
+            <app-table *ngIf="tableConfig" [search]="searchList" [tableConfig]="tableConfig" (editInfo)="editReview($event)" (deleteInfo)="deleteReview($event)"></app-table>
+        </mat-tab>
+        <mat-tab label="Code Review Request"> 
+            <app-table *ngIf="pendingTableConfig" [search]="searchList" [tableConfig]="pendingTableConfig" (editInfo)="editReview($event)" (deleteInfo)="deleteReview($event)"></app-table>
+        </mat-tab>
+    </mat-tab-group>
+</div>
