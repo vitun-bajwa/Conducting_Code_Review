@@ -24,7 +24,6 @@ export class CodeReviewListingComponent implements OnInit {
   }
   ngOnInit() {
     this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
-    // this.currentUser = JSON.parse(this.currentUser)
   }
   getReviewData() {
     this.commonService.get('codeReview', '').subscribe((res: any) => {

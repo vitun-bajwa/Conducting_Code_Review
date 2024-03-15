@@ -307,3 +307,32 @@ export const loginForm = [
       class: 'button',
     },
   ];
+
+  export const declineReason:any = [
+    {
+      type: 'textArea', 
+      fieldType: 'codeReview', 
+      name: 'codeReview', 
+      value: '',
+      placeholder: 'Decline reason',
+      validation: [Validators.required],
+      isRequired: true,
+      class: 'input',  
+      error: false,
+    }
+  ];
+  export const adminList:any = [
+  {
+    type: 'select',
+    fieldType: 'text',
+    name: 'assignTo',
+    value: '',
+    placeholder: 'Select Admin',
+    validation: [Validators.required],
+    isRequired: true,
+    class: 'input',
+    error: false,
+    options: [
+    ]
+  },
+]

@@ -4,6 +4,7 @@ import { forgotForm, resetPasswordForm } from '../../../core/config/form.constan
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/core/service/common.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { succssMessage } from 'src/app/core/enums/common.enum';
 
 @Component({
   selector: 'app-forgot-password',
@@ -54,7 +55,7 @@ export class ForgotPasswordComponent {
         this.loader = true;
         this.logindata = data;
         this.matchdata = this.logindata.find((data: any) => data.email === alluseremail.email);
-        this.snackBar.open(this.matchdata ? 'email verified successfully' : 'please enter valid email','',{
+        this.snackBar.open(this.matchdata ? succssMessage.emailVerified : succssMessage.enterValidEmail,'',{
           duration: 1800
         });
         if (this.matchdata) {
@@ -99,7 +100,7 @@ export class ForgotPasswordComponent {
       }
       this.apiService.edit('users/'+this.matchdata.id, data).subscribe((data: any) => {
         this.router.navigateByUrl('/');
-        this.apiService.successMSG('Your password has been updated successfully');
+        this.apiService.successMSG(succssMessage.passwordUpdated);
       }
       );
       this.form.form.reset()

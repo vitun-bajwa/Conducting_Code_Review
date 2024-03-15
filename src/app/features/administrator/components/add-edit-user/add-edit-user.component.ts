@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { signUpForm } from 'src/app/core/config/form.constant';
-import { commonEnum } from 'src/app/core/enums/common.enum';
+import { commonEnum, errorMessage, succssMessage, tableEnum } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
@@ -39,9 +39,8 @@ export class AddEditUserComponent {
 
   ngOnInit() {
     this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
-    // this.currentUser = JSON.parse(this.currentUser)
     if (this.userId) {
-      let index = this.config.findIndex((x: any) => x.fieldType == 'password')
+      let index = this.config.findIndex((x: any) => x.fieldType == tableEnum.password)
       if (index != -1) this.config.splice(index, 1);
 
     }
@@ -67,17 +66,20 @@ export class AddEditUserComponent {
           (response: any) => {
             const existingUser = response.find((user: any) => user.email === email);
             if (existingUser) {
-              this.apiService.errorMSG('This email is already registered. Please use a different email address.');
+              this.apiService.errorMSG(errorMessage.alreadyEmailRegistered);
             } else {
               let data = {
-                ...this.form.form.value,
-                status: 'Active',
-                createdBy: this.currentUser.id,
+                firstName : this.form.form.value.firstName,
+                lastName : this.form.form.value.lastName,
+                email : this.form.form.value.email,
                 password: btoa(this.form.form.value.password),
+                userRole : this.form.form.value.userRole,
+                status: 'Active',
+                assignTo : this.currentUser.id,
+                createdBy : this.currentUser.id,
               }
-              delete data.SignUp;
               this.apiService.add('users', data).subscribe((res: any) => {
-                this.apiService.successMSG('User added successfully')
+                this.apiService.successMSG(succssMessage.userAdded)
                 this.router.navigateByUrl('admin');
               })
               this.form.form.reset();
@@ -85,7 +87,6 @@ export class AddEditUserComponent {
           });
     }
   }
-  // mujhe yaha pe jab koi user add krna chahe toh waha button pe add user likha aaye or jab edit krna hai user toh waha update user aaye button me toh conditionally kaise handle kru
 
   updateUser() {
     if (this.form.form.invalid) {
@@ -98,7 +99,7 @@ export class AddEditUserComponent {
         createdBy: this.currentUser.id,
       }
       this.apiService.edit('users/' + this.userId, data).subscribe((res: any) => {
-        this.apiService.successMSG('User updated successfully')
+        this.apiService.successMSG(succssMessage.Updated)
         this.router.navigateByUrl('admin');
       })
     }
