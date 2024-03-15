@@ -47,12 +47,12 @@ export class UserProfileComponent {
     this.commonService.get('users/'+ this.currentUser.id).subscribe((res: any) => {
       const updatedUser = {
         ...res, 
-        ...this.form.form.value, 
+        ...this.form.form.value,
       };
       this.commonService.edit('users/'+ this.currentUser.id, updatedUser).subscribe((updateRes:any) => {
         this.commonService.successMSG('Details updated successfully');
         sessionStorage.setItem('user', JSON.stringify(updateRes));
-        this.router.navigateByUrl('admin');
+        this.router.navigateByUrl('user');
       });
     });
   }

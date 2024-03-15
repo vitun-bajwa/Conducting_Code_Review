@@ -22,14 +22,19 @@ export class AddCodeReviewComponent {
   currentUser!: currentUser;
   userId: any;
   formHeading!: string;
-  
+  notView: boolean = false;
+  codeReviewData: any;
 
-  constructor(private apiService: CommonService, private router: Router, 
+
+  constructor(private apiService: CommonService, private router: Router,
     private activatedRoute: ActivatedRoute, private fb: FormBuilder) {
     this.activatedRoute.paramMap.subscribe((param: any) => {
+      this.notView = this.router.url.includes('edit') || this.router.url.includes('add');
       this.userId = param.params.id;
     });
-    this.formHeading = this.userId ? commonEnum.editCodeReview : commonEnum.addCodeReview;
+
+
+    this.formHeading = this.userId ? !this.notView ? commonEnum.viewCodeReview : commonEnum.editCodeReview : commonEnum.addCodeReview;
   }
   backBtn = {
     class: 'button',
@@ -41,29 +46,38 @@ export class AddCodeReviewComponent {
   }
 
   ngOnInit() {
+
     this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
     if (this.userId) {
       this.apiService.get('codeReview/', this.userId).subscribe((res: any) => {
+        this.codeReviewData = res
         this.form.form.patchValue({
           title: res?.title,
           startDate: res?.startDate,
           endDate: res?.endDate,
           codeDescription: res?.codeDescription,
           textEditor: res?.textEditor,
-          codeReview: res?.codeReview,
         });
+        this.review?.form.patchValue({
+          codeReview: res?.codeReview,
+        })
       });
     }
   }
 
   addCodeReview() {
-    if(this.currentUser.userRole == 'candidate') {
+    if (this.currentUser.userRole == 'Candidate') {
       if (this.form.form.invalid) {
         this.form.form.markAllAsTouched();
-      }else {
+      } else {
         let data = {
-          ...this.form.form.value,
+          title: this.form.form.value.title,
+          startDate: this.form.form.value.startDate,
+          endDate: this.form.form.value.endDate,
+          codeDescription: this.form.form.value.codeDescription,
+          textEditor: this.form.form.value.textEditor,
           userId: this.currentUser.id,
+          status: 'Pending'
         }
         this.apiService.add('codeReview', data).subscribe((res: any) => {
           this.apiService.successMSG('Code Review sent successfully.')
@@ -73,10 +87,16 @@ export class AddCodeReviewComponent {
     } else {
       if (this.form.form.invalid && this.review.form.invalid) {
         this.form.form.markAllAsTouched();
-      }else {
+      } else {
         let data = {
-          ...this.form.form.value,
+          title: this.form.form.value.title,
+          startDate: this.form.form.value.startDate,
+          endDate: this.form.form.value.endDate,
+          codeDescription: this.form.form.value.codeDescription,
+          textEditor: this.form.form.value.textEditor,
+          codeReview: this.review.form.value.codeReview,
           userId: this.currentUser.id,
+          status: 'Pending'
         }
         this.apiService.add('codeReview', data).subscribe((res: any) => {
           this.apiService.successMSG('Code Review sent successfully.')
@@ -92,12 +112,28 @@ export class AddCodeReviewComponent {
     }
     else {
       let data = {
-        ...this.form.form.value,
+        title: this.form.form.value.title,
+        startDate: this.form.form.value.startDate,
+        endDate: this.form.form.value.endDate,
+        codeDescription: this.form.form.value.codeDescription,
+        textEditor: this.form?.form.value.textEditor,
+        codeReview: this.review?.form.value.codeReview,
+        userId: this.currentUser.id,
+        status: 'Reviewed'
       }
       this.apiService.edit('codeReview/' + this.userId, data).subscribe((res: any) => {
         this.apiService.successMSG('Code Review updated successfully.')
         this.router.navigateByUrl('codeReview');
       })
+    }
+  }
+
+  ngAfterViewInit(){
+    if (!this.notView) {
+      this.configRequest.map((item:any) => {
+        item.disabled = true
+      })
+    
     }
   }
 }

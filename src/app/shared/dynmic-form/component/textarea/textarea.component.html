@@ -1,4 +1,4 @@
 <mat-form-field [formGroup]="group" [class]="config.class">
-    <textarea matInput [formControlName]="config.name" [placeholder]="config.placeholder"></textarea>
+    <textarea matInput [formControlName]="config.name" [placeholder]="config.placeholder" [readonly]="config?.disabled"></textarea>
 </mat-form-field>
 <app-errors [errors]="config" [group]="group"></app-errors>

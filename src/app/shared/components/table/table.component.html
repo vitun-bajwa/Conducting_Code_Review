@@ -6,24 +6,43 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column | titlecase}} </th>
     <ng-container *matCellDef="let element;  let index = index">
       <td mat-cell *ngIf="column == 'sr No'">{{(paginatorRef.pageIndex * paginatorRef.pageSize) + (index + 1)}}</td>
-      <td mat-cell *ngIf="column != 'status' && column != 'action' && column != 'sr No' && column != 'startDate' && column != 'endDate'">{{element[column]}} </td>
+      <td mat-cell
+        *ngIf="column != 'status' && column != 'action' && column != 'sr No' && column != 'startDate' && column != 'endDate'">
+        {{element[column]}} </td>
       <td mat-cell *ngIf="column == 'startDate' || column == 'endDate'">{{element[column] | date : 'MM/dd/yyyy' }} </td>
       <td mat-cell *ngIf="column == 'status'">
-        <app-button-field (btnClickEvent)="updateStatus(element)" *ngIf="element['statusBtn']" [config]="element['statusBtn']" [ngClass]="(element['statusBtn'].name==='Active') ? 'active' : (element['statusBtn'].name==='Pending') ? 'pending' : ''"></app-button-field>
+        <ng-container *ngIf="currentUser.userRole == 'Admin' || currentUser.userRole == 'superAdmin'">
+          <app-button-field (btnClickEvent)="updateStatus(element)" *ngIf="element['statusBtn']"
+            [config]="element['statusBtn']"
+            [ngClass]="(element['statusBtn'].name==='Active') ? 'active' : (element['statusBtn'].name==='Pending') ? 'pending' : ''"></app-button-field>
+        </ng-container>
+        <ng-container *ngIf="currentUser.userRole == 'Candidate'">
+          {{element[column]}}
+        </ng-container>
       </td>
+
+
+
       <td mat-cdell *ngIf="column == 'action'">
-          <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
-            color="primary" (click)="editUser(element)">
+        <ng-container *ngIf="(currentUser.userRole == 'Admin'|| currentUser.userRole == 'superAdmin')">
+          <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary"
+            (click)="editUser(element)">
             <mat-icon>edit</mat-icon>
-          </button> 
-          <button mat-icon-button matTooltip="Click to Delete" class="iconbutton"
-                (click)="deleteUser(element)" color="warn">
-                <mat-icon>delete</mat-icon>
-              </button>
+          </button>
+          <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" (click)="deleteUser(element)"
+            color="warn">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="currentUser.userRole == 'Candidate'">
+          <mat-icon (click)="viewReview(element)">visibility</mat-icon>
+        </ng-container>
+
+
       </td>
     </ng-container>
   </ng-container>
-  
+
   <tr mat-header-row *matHeaderRowDef="tableConfiguration?.tableHeaders"></tr>
   <tr mat-row *matRowDef="let row; columns: tableConfiguration?.tableHeaders;"></tr>
   <tr class="mat-row" *matNoDataRow>

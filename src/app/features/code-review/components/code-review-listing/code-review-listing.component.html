@@ -5,9 +5,9 @@
     <mat-tab label="Code Review Listing">
         <div class="hdr">
             <app-input-field [config]="searchInput" (keyup)="applyFilter($event, 'list')"></app-input-field>
-            <app-button-field [config]="addBtn" routerLink="add"></app-button-field>
+            <app-button-field *ngIf="currentUser.userRole == 'Candidate'" [config]="addBtn" routerLink="add"></app-button-field>
         </div>
-        <app-table *ngIf="tableConfig" [search]="searchList" [tableConfig]="tableConfig" (editInfo)="editReview($event)" (deleteInfo)="deleteReview($event)"></app-table>
+        <app-table *ngIf="tableConfig" [search]="searchList" [tableConfig]="tableConfig" (editInfo)="editReview($event)" (deleteInfo)="deleteReview($event)" (viewCodeReview)="viewCodeReview($event)"></app-table>
     </mat-tab>
     <mat-tab label="Code Review Request"> 
         <app-table *ngIf="pendingTableConfig" [search]="searchList" [tableConfig]="pendingTableConfig" (editInfo)="editReview($event)" (deleteInfo)="deleteReview($event)"></app-table>

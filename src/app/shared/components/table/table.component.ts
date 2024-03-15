@@ -19,17 +19,22 @@ export class TableComponent {
   @Output() userInfo = new EventEmitter();
   @Output() editInfo = new EventEmitter();
   @Output() deleteInfo = new EventEmitter();
+  @Output() viewCodeReview = new EventEmitter();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   tableData: any;
   tableConfiguration: any;
+  currentUser: any;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) {
+    this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
+  }
 
   ngOnChanges() {
   
   }
   ngAfterViewInit() {
+    
     this.createTableData();
     this.search?.subscribe((val:string) => {
       const filterValue = val;
@@ -71,5 +76,9 @@ export class TableComponent {
         this.createTableData()
       }
     })
+  }
+
+  viewReview(data: any){
+    this.viewCodeReview.emit(data);
   }
 }

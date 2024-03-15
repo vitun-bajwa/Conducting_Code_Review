@@ -40,17 +40,6 @@ export class CodeReviewListingComponent implements OnInit {
   getReviewData() {
     this.commonService.get('codeReview').subscribe((res: any) => {
       this.reviewData = res;
-      
-      // let index = this.reviewConfig.findIndex((x: any) => x.id == this.currentUser.id);
-      // this.reviewConfig.splice(index, 1);
-      // this.tableColumns = Object?.keys(this.reviewConfig[0])?.filter((x:any, i) => {
-      //   if(x != 'textEditor' && x != 'AddReviewRequest' && x != 'id'){
-      //     return x;
-      //   }
-      // });
-      // this.tableColumns.push('action')
-      // this.tableConfig = { tableHeaders: this.tableColumns, tableData: this.reviewConfig }
-
       this.createData();
     });
   }
@@ -67,7 +56,7 @@ export class CodeReviewListingComponent implements OnInit {
     }
     if (this.currentUser.userRole == 'admin') userData = userData.filter((user: any) => user?.createdBy !== this.currentUser.id);
     let pendingUserData = [...userData]
-    userData = userData.filter((x: any) => x.status != 'Pending');
+    userData = userData.filter((x: any) => x.status == 'Reviewed');
     pendingUserData = pendingUserData.filter((x: any) => x.status == 'Pending');
     this.tableConfig = { tableHeaders: this.tableColumns, tableData: userData }
     this.pendingTableConfig = { tableHeaders: this.tableColumns, tableData: pendingUserData }
@@ -86,5 +75,8 @@ export class CodeReviewListingComponent implements OnInit {
   applyFilter(event: any, type?:string) {
     type == 'list' ? this.searchList.next(event?.target?.value) : this.searchRequest.next(event?.target?.value)
   }
-  
+
+  viewCodeReview(event: any){
+    this.router.navigateByUrl(`codeReview/view/${event.id}`);
+  }
 }
