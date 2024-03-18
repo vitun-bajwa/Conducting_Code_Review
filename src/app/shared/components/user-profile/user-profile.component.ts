@@ -6,7 +6,7 @@ import { DynamicFormModule } from '../../dynmic-form/dynamic-form.module';
 import { CommonService } from 'src/app/core/service/common.service';
 import { Router } from '@angular/router';
 import { currentUser } from 'src/app/core/models/common-config';
-import { apiEndPoints, getItem, setItem, succssMessage } from 'src/app/core/enums/common.enum';
+import { apiEndPoints, getItem, routes, setItem, succssMessage } from 'src/app/core/enums/common.enum';
 
 @Component({
   selector: 'app-user-profile',
@@ -47,12 +47,12 @@ export class UserProfileComponent {
     this.commonService.get(apiEndPoints.user+ this.currentUser.id).subscribe((res: any) => {
       const updatedUser = {
         ...res, 
-        ...this.form.form.value, 
+        ...this.form.form.value,
       };
       this.commonService.edit(apiEndPoints.user+ this.currentUser.id, updatedUser).subscribe((updateRes:any) => {
         this.commonService.successMSG(succssMessage.detailsUpdated);
         sessionStorage.setItem(setItem.user, JSON.stringify(updateRes));
-        this.router.navigateByUrl('admin');
+        this.router.navigateByUrl(routes.user);
       });
     });
   }

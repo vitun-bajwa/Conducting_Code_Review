@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { CommonService } from 'src/app/core/service/common.service';
 import { currentUser } from 'src/app/core/models/common-config';
 import { MatDialog } from '@angular/material/dialog';
-import { commonEnum, apiEndPoints, setItem, succssMessage, tableEnum, getItem } from 'src/app/core/enums/common.enum';
+import { commonEnum, apiEndPoints, succssMessage, tableEnum, getItem, routes } from 'src/app/core/enums/common.enum';
 import { Subject } from 'rxjs';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { searchFeild } from 'src/app/core/config/form.constant';
@@ -57,7 +57,6 @@ export class UserListingComponent {
       this.tableColumns.push('action')
     }
     userData = userData.filter((user: any) => this.currentUser.userRole == commonEnum.superAdmin? user.id != this.currentUser.id : user.id != this.currentUser.id  && (user.assignTo == this.currentUser.id || user.createdBy == this.currentUser.id));
-    
     userData.filter((user: any) => {
       user['statusBtn'] = {
         name: user.status == tableEnum.Active ? tableEnum.Active : user.status == tableEnum.Inactive ? tableEnum.Inactive : user.status === tableEnum.Rejected ? tableEnum.Rejected : tableEnum.Pending,
@@ -92,7 +91,7 @@ export class UserListingComponent {
   }
 
   editUser(event: any) {
-    this.router.navigateByUrl( 'user/edit'+'/'+ event.id);
+    this.router.navigateByUrl( routes.user+routes.edit+ event.id);
   }
 
   editRequest(userData: any) {

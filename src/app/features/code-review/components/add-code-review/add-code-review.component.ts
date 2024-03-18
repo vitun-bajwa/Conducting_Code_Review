@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { codeReviewForm, codeReviewRequestForm } from 'src/app/core/config/form.constant';
 import { commonEnum, apiEndPoints, setItem, succssMessage, getItem } from 'src/app/core/enums/common.enum';
@@ -14,18 +15,26 @@ import { EditorComponent } from 'src/app/shared/dynmic-form/component/editor/edi
 export class AddCodeReviewComponent {
   @ViewChild('form') form: any;
   @ViewChild('review') review: any;
+  reviewForm!: FormGroup;
   @ViewChild(EditorComponent) editor: any;
   configRequest: FieldConfig[] = codeReviewRequestForm
   configReview: FieldConfig[] = codeReviewForm
   currentUser!: currentUser;
   userId: any;
   formHeading!: string;
+  notView: boolean = false;
+  codeReviewData: any;
 
-  constructor(private apiService: CommonService, private router: Router, private activatedRoute: ActivatedRoute) {
+
+  constructor(private apiService: CommonService, private router: Router,
+    private activatedRoute: ActivatedRoute, private fb: FormBuilder) {
     this.activatedRoute.paramMap.subscribe((param: any) => {
+      this.notView = this.router.url.includes('edit') || this.router.url.includes('add');
       this.userId = param.params.id;
     });
-    this.formHeading = this.userId ? commonEnum.editCodeReview : commonEnum.addCodeReview;
+
+
+    this.formHeading = this.userId ? !this.notView ? commonEnum.viewCodeReview : commonEnum.editCodeReview : commonEnum.addCodeReview;
   }
   backBtn = {
     class: 'button',
@@ -40,13 +49,17 @@ export class AddCodeReviewComponent {
     this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
     if (this.userId) {
       this.apiService.get(apiEndPoints.codeReview, this.userId).subscribe((res: any) => {
+        this.codeReviewData = res
         this.form.form.patchValue({
-          moduleName: res?.moduleName,
+          title: res?.title,
           startDate: res?.startDate,
           endDate: res?.endDate,
+          codeDescription: res?.codeDescription,
           textEditor: res?.textEditor,
-          codeReview: res?.codeReview,
         });
+        this.review?.form.patchValue({
+          codeReview: res?.codeReview,
+        })
       });
     }
   }
@@ -55,23 +68,34 @@ export class AddCodeReviewComponent {
     if(this.currentUser.userRole == commonEnum.Candidate) {
       if (this.form.form.invalid) {
         this.form.form.markAllAsTouched();
-      }else {
+      } else {
         let data = {
-          ...this.form.form.value,
+          title: this.form.form.value.title,
+          startDate: this.form.form.value.startDate,
+          endDate: this.form.form.value.endDate,
+          codeDescription: this.form.form.value.codeDescription,
+          textEditor: this.form.form.value.textEditor,
           userId: this.currentUser.id,
+          status: 'Pending'
         }
         this.apiService.add('codeReview', data).subscribe((res: any) => {
           this.apiService.successMSG(succssMessage.codeReview)
           this.router.navigateByUrl('codeReview');
         })
       }
-    }else {
+    } else {
       if (this.form.form.invalid && this.review.form.invalid) {
         this.form.form.markAllAsTouched();
-      }else {
+      } else {
         let data = {
-          ...this.form.form.value,
+          title: this.form.form.value.title,
+          startDate: this.form.form.value.startDate,
+          endDate: this.form.form.value.endDate,
+          codeDescription: this.form.form.value.codeDescription,
+          textEditor: this.form.form.value.textEditor,
+          codeReview: this.review.form.value.codeReview,
           userId: this.currentUser.id,
+          status: 'Pending'
         }
         this.apiService.add('codeReview', data).subscribe((res: any) => {
           this.apiService.successMSG(succssMessage.codeReview)
@@ -87,12 +111,28 @@ export class AddCodeReviewComponent {
     }
     else {
       let data = {
-        ...this.form.form.value,
+        title: this.form.form.value.title,
+        startDate: this.form.form.value.startDate,
+        endDate: this.form.form.value.endDate,
+        codeDescription: this.form.form.value.codeDescription,
+        textEditor: this.form?.form.value.textEditor,
+        codeReview: this.review?.form.value.codeReview,
+        userId: this.currentUser.id,
+        status: 'Reviewed'
       }
       this.apiService.edit(apiEndPoints.codeReview + this.userId, data).subscribe((res: any) => {
         this.apiService.successMSG(succssMessage.codeReviewUpdated)
         this.router.navigateByUrl('codeReview');
       })
+    }
+  }
+
+  ngAfterViewInit(){
+    if (!this.notView) {
+      this.configRequest.map((item:any) => {
+        item.disabled = true
+      })
+    
     }
   }
 }

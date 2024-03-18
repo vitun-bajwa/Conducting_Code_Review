@@ -3,6 +3,7 @@ export enum commonEnum {
     editUser = "Update User Form",
     addCodeReview = "Add Code Review",
     editCodeReview = "Edit Code Review",
+    viewCodeReview = "View Code Review",
     userModule = "User Module",
     superAdmin = "superAdmin",
     Admin = "Admin",
@@ -22,15 +23,19 @@ export enum tableEnum {
   addUser = "AddUser",
   signUp = "Sign-Up",
   statusBtn = "statusBtn",
+  status = "status",
   assignTo = "assignTo",
   createdBy = "createdBy",
+  userId = "userId",
   Active = "active",
   Inactive = "inactive",
   Rejected = "rejected",
   Pending = "pending",
+  Reviewed = "reviewed",
   Request = "request",
   Id = "id",
   textEditor = "textEditor",
+  codeReview = "codeReview",
   addReviewRequest = "AddReviewRequest"
 }
 
@@ -74,8 +79,8 @@ export enum apiEndPoints {
 
 export enum routes {
   user = "user",
-  edit = "/edit",
-  view = "/view",
+  edit = "/edit/",
+  view = "/view/",
   codeReviews = "codeReview"
 }
 

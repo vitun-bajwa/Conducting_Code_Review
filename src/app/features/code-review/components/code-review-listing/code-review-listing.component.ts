@@ -15,7 +15,6 @@ import { CommonService } from 'src/app/core/service/common.service';
 export class CodeReviewListingComponent implements OnInit {
   tableConfig: any;
   tableHeaders: any = [];
-  tableColumns: any[] = [];
   pendingTableConfig: any;
   reviewData: any;
   currentUser!: currentUser;
@@ -47,22 +46,29 @@ export class CodeReviewListingComponent implements OnInit {
 
   createData() {
     let reviewData = [...this.reviewData]
+    let tableColumns
+    let pendingTableColumns
     if (reviewData.length > 0) {
-      this.tableColumns = Object?.keys(reviewData[0])?.filter((x: any) => (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.createdBy && x != tableEnum.assignTo));
-      this.tableColumns.push('action')
+      tableColumns = Object?.keys(reviewData[0])?.filter((x: any) => (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.assignTo));
+      tableColumns.push('action')
+      pendingTableColumns = Object?.keys(reviewData[0])?.filter((x: any) => (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.assignTo && x != tableEnum.codeReview));
+      if(this.currentUser.userRole != commonEnum.Candidate) pendingTableColumns.push('action');
     }
-    
     if(this.currentUser.userRole != commonEnum.superAdmin) {
-      reviewData = reviewData.filter((item: any) => this.currentUser.userRole != commonEnum.Candidate? item.assignTo == this.currentUser.id : item.createdBy == this.currentUser.id);
-    } 
-    
-    // if (this.currentUser.userRole == commonEnum.Admin) reviewData = reviewData.filter((user: any) => user?.createdBy !== this.currentUser.id);
-
+      reviewData = reviewData.filter((item: any) => this.currentUser.userRole != commonEnum.Candidate? item.assignTo == this.currentUser.id : item.userId == this.currentUser.id);
+    }
+    reviewData.filter((item: any) => {
+      item['statusBtn'] = {
+        name: item.status.toLowerCase() == tableEnum.Active ? tableEnum.Active : item.status == tableEnum.Inactive ? tableEnum.Inactive : item.status === tableEnum.Rejected ? tableEnum.Rejected : tableEnum.Pending,
+        class: item.status.toLowerCase() == tableEnum.Pending ? 'statusBtn statusBtnNonClick' : 'statusBtn'
+      }
+    });
     let pendingreviewData = [...reviewData]
-    reviewData = reviewData.filter((x: any) => x.status != tableEnum.Pending);
-    pendingreviewData = pendingreviewData.filter((x: any) => x.status == tableEnum.Pending);
-    this.tableConfig = { tableHeaders: this.tableColumns, tableData: reviewData }
-    this.pendingTableConfig = { tableHeaders: this.tableColumns, tableData: pendingreviewData }
+    // userData = userData.filter((x: any) => x.status == 'Reviewed');
+    reviewData = reviewData.filter((x: any) => x.status.toLowerCase() == tableEnum.Reviewed);
+    pendingreviewData = pendingreviewData.filter((x: any) => x.status.toLowerCase() == tableEnum.Pending);
+    this.tableConfig = { tableHeaders: tableColumns, tableData: reviewData }
+    this.pendingTableConfig = { tableHeaders: pendingTableColumns, tableData: pendingreviewData }
   }
 
   editReview(event: any){
@@ -91,5 +97,8 @@ export class CodeReviewListingComponent implements OnInit {
       break;
     }
   }
-  
+
+  viewCodeReview(event: any){
+    this.router.navigateByUrl(`codeReview/view/${event.id}`);
+  }
 }

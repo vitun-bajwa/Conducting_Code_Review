@@ -273,6 +273,7 @@ export const loginForm = [
       isRequired: true,
       class: 'date',
       error: false,
+      disabled: false
     },
     {
       type: 'daterange', 
@@ -284,6 +285,7 @@ export const loginForm = [
       isRequired: true,
       class: 'input',
       error: false,
+      disabled: false
     },
     {
       type: 'textArea', 
@@ -295,6 +297,7 @@ export const loginForm = [
       isRequired: true,
       class: 'textArea',
       error: false,
+      disabled: false
     },
     {
       type: 'textEditor', 
@@ -306,7 +309,24 @@ export const loginForm = [
       isRequired: true,
       class: 'textEditor',
       error: false,
+      disabled: false
     },
+    // {
+    //   type: 'textArea', 
+    //   fieldType: 'codeReview', 
+    //   name: 'codeReview', 
+    //   value: '',
+    //   placeholder: 'code review..',
+    //   validation: [Validators.required],
+    //   isRequired: true,
+    //   class: 'input',  
+    //   error: false,
+    // },
+    // {
+    //   type: 'button',
+    //   name: 'Add more',
+    //   class: 'button',
+    // },
   ];
   
   export const codeReviewForm:any = [
@@ -320,11 +340,6 @@ export const loginForm = [
       isRequired: true,
       class: 'input',  
       error: false,
-    },
-    {
-      type: 'button',
-      name: 'Add more',
-      class: 'button',
     },
   ];
 

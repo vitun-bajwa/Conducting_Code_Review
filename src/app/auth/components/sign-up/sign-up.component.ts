@@ -41,8 +41,6 @@ export class SignUpComponent {
               assignTo: null,
               createdBy: 'self',
             };
-            // delete data.SignUp;
-            // delete data.AddUser;
             this.apiService.add(apiEndPoints.users, data).subscribe((res: any) => {
               this.router.navigateByUrl('/auth/login');
               this.apiService.successMSG(succssMessage.signUp);

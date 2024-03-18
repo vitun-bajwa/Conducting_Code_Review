@@ -11,6 +11,7 @@ import { RequestDialogComponent } from '../request-dialog/request-dialog.compone
 import { Router } from '@angular/router';
 import { adminList, declineReason } from 'src/app/core/config/form.constant';
 import { commonEnum, modalData, tableEnum } from 'src/app/core/enums/common.enum';
+import { currentUser } from 'src/app/core/models/common-config';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -24,6 +25,7 @@ export class TableComponent {
   @Output() editInfo = new EventEmitter();
   @Output() deleteInfo = new EventEmitter();
   @Output() updateRequest = new EventEmitter();
+  @Output() viewCodeReview = new EventEmitter();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('form') form: any;
@@ -32,9 +34,12 @@ export class TableComponent {
   userId!: string;
   adminListConfig: FieldConfig[] = adminList;
   configReview: FieldConfig[] = declineReason;
+  currentUser: currentUser;
   enum: typeof tableEnum = tableEnum;
 
-  constructor(public dialog: MatDialog, public commonService: CommonService, private router: Router) { }
+  constructor(public dialog: MatDialog, public commonService: CommonService, private router: Router) {
+    this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
+   }
 
   ngOnChanges() {
     this.createTableData();
@@ -133,4 +138,9 @@ export class TableComponent {
       }
     })
   }
+
+  viewReview(data: any){
+    this.viewCodeReview.emit(data);
+  }
+  
 }
