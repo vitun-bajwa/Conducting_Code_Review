@@ -26,7 +26,6 @@ export class UserListingComponent {
   }
   userData: any;
   activeTab: string = 'User Listing';
-  tableColumns: any[] = [];
   searchList: Subject<boolean> = new Subject();
   searchRequest: Subject<boolean> = new Subject();
 
@@ -52,9 +51,10 @@ export class UserListingComponent {
 
   createData() {
     let userData = [...this.userData]
+    let tableColumns
     if (userData.length > 0) {
-      this.tableColumns = Object?.keys(userData[0])?.filter((x: any) => (x != tableEnum.password && x != tableEnum.addUser && x != tableEnum.Id && x != tableEnum.statusBtn && x != tableEnum.assignTo && x != tableEnum.createdBy));
-      this.tableColumns.push('action')
+      tableColumns = Object?.keys(userData[0])?.filter((x: any) => (x != tableEnum.password && x != tableEnum.addUser && x != tableEnum.Id && x != tableEnum.statusBtn && x != tableEnum.assignTo && x != tableEnum.createdBy));
+      tableColumns.push('action')
     }
     userData = userData.filter((user: any) => this.currentUser.userRole == commonEnum.superAdmin? user.id != this.currentUser.id : user.id != this.currentUser.id  && (user.assignTo == this.currentUser.id || user.createdBy == this.currentUser.id));
     userData.filter((user: any) => {
@@ -73,8 +73,8 @@ export class UserListingComponent {
     userData = userData.filter((x: any) => x.status != tableEnum.Pending && x.status != tableEnum.Rejected);
     pendingUserData = pendingUserData.filter((x: any) => x.status == tableEnum.Pending || x.status == tableEnum.Rejected);
 
-    this.tableConfig = { tableHeaders: this.tableColumns, tableData: userData }
-    this.pendingTableConfig = { tableHeaders: this.tableColumns, tableData: pendingUserData, activeAdmin: existingUser }
+    this.tableConfig = { tableHeaders: tableColumns, tableData: userData }
+    this.pendingTableConfig = { tableHeaders: tableColumns, tableData: pendingUserData, activeAdmin: existingUser }
   }
 
   updateUserInfo(event: any) {
@@ -101,9 +101,17 @@ export class UserListingComponent {
       email: userData.email,
       password: userData.password,
       userRole: userData.userRole,
+      createdBy: userData.createdBy,
       id: userData.id,
     }
-    if(userData.declinedReason) data['declinedReason'] = userData.declinedReason;
+    if(userData.declinedReason) {
+      data['declinedReason'] = userData.declinedReason;
+    }else {
+      data['assignTo'] = {
+        id: userData.assignTo.id,
+        name: userData.assignTo.name,
+      }
+    }
     data['status'] = userData.declinedReason ? tableEnum.Rejected : tableEnum.Active
     this.commonService.edit(apiEndPoints.user + userData.id, data).subscribe((res: any) => {
       this.getUserData();

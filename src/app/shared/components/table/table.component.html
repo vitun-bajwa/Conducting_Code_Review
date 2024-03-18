@@ -5,9 +5,11 @@
       <td mat-cell *ngIf="column == 'sr No'">{{(paginatorRef.pageIndex * paginatorRef.pageSize) + (index + 1)}}</td>
 
       <td mat-cell *ngIf="column == 'startDate' || column == 'endDate'">{{element[column] | date}}</td>
-      <td mat-cell *ngIf="column != 'status' && column != 'action' && column != 'sr No' && column != 'startDate' && column != 'endDate'">{{element[column]}} </td>
+      <td mat-cell *ngIf="column != 'status' && column != 'action' && column != 'sr No' && column != 'startDate' && column != 'endDate' && column != 'assignTo' && column != commonEnum.reviewedBy">{{element[column]}} </td>
+      <td mat-cell *ngIf="column == 'assignTo'">{{element[column].name}}</td>
+      <td mat-cell *ngIf="column == commonEnum.reviewedBy">{{(element[column]?.name) ? element[column]?.name : '--'}}</td>
       <td mat-cell *ngIf="column == 'status'">
-        <app-button-field *ngIf="element['statusBtn'] && currentUser.userRole == 'Admin' || currentUser.userRole == 'superAdmin'" (btnClickEvent)="updateStatus(element)" [config]="element['statusBtn']" [ngClass]="(element['statusBtn'].name===enum.Active) ? enum.Active : (element['statusBtn'].name===enum.Pending) ? enum.Pending : ''"></app-button-field>
+        <app-button-field *ngIf="element['statusBtn'] && currentUser.userRole == 'Admin' || currentUser.userRole == 'superAdmin'" (btnClickEvent)="updateStatus(element)" [config]="element['statusBtn']" [ngClass]="(element['statusBtn'].name===enum.Active) ? enum.Active : (element['statusBtn'].name===enum.Pending) ? enum.Pending : element['statusBtn'].name===enum.Reviewed ? enum.Active : ''"></app-button-field>
         <ng-container *ngIf="currentUser.userRole == 'Candidate' && element['statusBtn']">
           <app-button-field [config]="element['statusBtn']" [ngClass]="(element['statusBtn'].name===enum.Active) ? enum.Active : (element['statusBtn'].name===enum.Pending) ? enum.Pending : ''">
           </app-button-field>
