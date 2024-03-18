@@ -21,8 +21,6 @@ export class EditorComponent {
 
 
   ngOnInit(){
-    //this.geteditorData();
-    
   }
 
   onReady(editor: any) {

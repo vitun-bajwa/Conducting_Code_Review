@@ -4,7 +4,6 @@ import { FieldConfig } from 'src/app/core/models/field-config';
 
 @Component({
   selector: 'app-input-field',
-  // standalone: true,
   templateUrl: './input-field.component.html',
   styleUrls: ['./input-field.component.sass'],
 })

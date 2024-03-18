@@ -46,7 +46,7 @@ export class LoginComponent {
       let token = Math.random().toString(36).slice(2);
       sessionStorage.setItem(setItem.token, token);
       sessionStorage.setItem(setItem.user, JSON.stringify(user));
-      let url = (user.userRole == commonEnum.Admin || user.userRole == commonEnum.superAdmin) ? routes.user : routes.codeReviews;
+      let url = (user.userRole == commonEnum.Admin || user.userRole == commonEnum.superAdmin) ? routes.user : routes.codeReview;
       this.router.navigateByUrl(url);
       this.commonService.successMSG(succssMessage.login);
       this.form.form.reset();

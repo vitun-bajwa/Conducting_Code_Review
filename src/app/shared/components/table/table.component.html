@@ -16,7 +16,7 @@
         </ng-container>
       </td>
       <td mat-cdell *ngIf="column == 'action' && element.status != enum.Pending && element.status !== enum.Rejected">
-        <ng-container *ngIf="(currentUser.userRole == 'Admin'|| currentUser.userRole == 'superAdmin')">
+        <ng-container *ngIf="(currentUser.userRole == enum.Admin|| currentUser.userRole == enum.superAdmin)">
           <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
             color="primary" (click)="editUser(element)">
             <mat-icon>edit</mat-icon>

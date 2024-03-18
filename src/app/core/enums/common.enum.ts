@@ -37,7 +37,12 @@ export enum tableEnum {
   Id = "id",
   textEditor = "textEditor",
   codeReview = "codeReview",
-  addReviewRequest = "AddReviewRequest"
+  addReviewRequest = "AddReviewRequest",
+  action = "action",
+  codeReviewListing = "Code Review Listing",
+  Admin = "Admin",
+  superAdmin = "superAdmin",
+  userListing = "User Listing"
 }
 
 export enum succssMessage { 
@@ -82,7 +87,7 @@ export enum routes {
   user = "user",
   edit = "/edit/",
   view = "/view/",
-  codeReviews = "codeReview"
+  codeReview = "codeReview",
 }
 
 export enum setItem { 

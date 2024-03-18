@@ -15,8 +15,6 @@ export class HeaderComponent {
 
   ngOnInit() {
     this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
-    // this.currentUser = JSON.parse(this.currentUser)
-
   }
 
   logOut() {

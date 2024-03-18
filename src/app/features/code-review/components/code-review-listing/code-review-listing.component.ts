@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { searchFeild } from 'src/app/core/config/form.constant';
-import { commonEnum, apiEndPoints, setItem, tableEnum, getItem } from 'src/app/core/enums/common.enum';
+import { commonEnum, apiEndPoints, setItem, tableEnum, getItem, routes } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
@@ -53,13 +53,13 @@ export class CodeReviewListingComponent implements OnInit {
       this.currentUser.userRole != commonEnum.superAdmin ? 
       (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.assignTo) : 
       (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId));
-      tableColumns.push('action')
+      tableColumns.push(tableEnum.action)
       pendingTableColumns = Object?.keys(reviewData[0])?.filter((x: any) => 
       this.currentUser.userRole != commonEnum.superAdmin ? 
       (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.assignTo && x != tableEnum.codeReview) :
       (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.codeReview)
       );
-      if(this.currentUser.userRole != commonEnum.Candidate) pendingTableColumns.push('action');
+      if(this.currentUser.userRole != commonEnum.Candidate) pendingTableColumns.push(tableEnum.action);
     }
     if(this.currentUser.userRole != commonEnum.superAdmin) {
       reviewData = reviewData.filter((item: any) => this.currentUser.userRole != commonEnum.Candidate? item.assignTo.id == this.currentUser.id : item.userId == this.currentUser.id);
@@ -71,15 +71,14 @@ export class CodeReviewListingComponent implements OnInit {
       }
     });
     let pendingreviewData = [...reviewData]
-    // userData = userData.filter((x: any) => x.status == 'Reviewed');
     reviewData = reviewData.filter((x: any) => x.status.toLowerCase() == tableEnum.Reviewed);
     pendingreviewData = pendingreviewData.filter((x: any) => x.status.toLowerCase() == tableEnum.Pending);
     this.tableConfig = { tableHeaders: tableColumns, tableData: reviewData }
     this.pendingTableConfig = { tableHeaders: pendingTableColumns, tableData: pendingreviewData }
   }
 
-  editReview(event: any) {
-     this.router.navigateByUrl(`codeReview/edit/${event.id}`);
+  editReview(event: any){
+     this.router.navigateByUrl(routes.codeReview + routes.edit + event.id);
   }
 
   deleteReview(event: any){
@@ -96,7 +95,7 @@ export class CodeReviewListingComponent implements OnInit {
 
   applyFilter(event: any, type?:string) {
     switch (type) {
-      case 'Code Review Listing':
+      case tableEnum.codeReviewListing:
         event == '' ? this.searchList.next(event) : this.searchList.next(event?.target?.value)
       break;
       default : 
@@ -106,6 +105,6 @@ export class CodeReviewListingComponent implements OnInit {
   }
 
   viewCodeReview(event: any){
-    this.router.navigateByUrl(`codeReview/view/${event.id}`);
+    this.router.navigateByUrl(routes.codeReview + routes.view + event.id);
   }
 }

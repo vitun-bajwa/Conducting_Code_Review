@@ -54,7 +54,7 @@ export class UserListingComponent {
     let tableColumns
     if (userData.length > 0) {
       tableColumns = Object?.keys(userData[0])?.filter((x: any) => (x != tableEnum.password && x != tableEnum.addUser && x != tableEnum.Id && x != tableEnum.statusBtn && x != tableEnum.assignTo && x != tableEnum.createdBy));
-      tableColumns.push('action')
+      tableColumns.push(tableEnum.action)
     }
     userData = userData.filter((user: any) => this.currentUser.userRole == commonEnum.superAdmin? user.id != this.currentUser.id : user.id != this.currentUser.id  && (user.assignTo == this.currentUser.id || user.createdBy == this.currentUser.id));
     userData.filter((user: any) => {
@@ -133,7 +133,7 @@ export class UserListingComponent {
 
   applyFilter(event: any, type?:string) {
     switch (type) {
-      case 'User Listing':
+      case tableEnum.userListing:
         event == '' ? this.searchList.next(event) : this.searchList.next(event?.target?.value)
       break;
       default : 
