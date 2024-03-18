@@ -48,12 +48,12 @@ export class CodeReviewListingComponent implements OnInit {
   createData() {
     let reviewData = [...this.reviewData]
     if (reviewData.length > 0) {
-      this.tableColumns = Object?.keys(reviewData[0])?.filter((x: any) => (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id));
+      this.tableColumns = Object?.keys(reviewData[0])?.filter((x: any) => (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.createdBy && x != tableEnum.assignTo));
       this.tableColumns.push('action')
     }
     
     if(this.currentUser.userRole != commonEnum.superAdmin) {
-      reviewData = reviewData.filter((user: any) => this.currentUser.userRole != commonEnum.Candidate? user.assignTo == this.currentUser.id : user.createdBy == this.currentUser.id);
+      reviewData = reviewData.filter((item: any) => this.currentUser.userRole != commonEnum.Candidate? item.assignTo == this.currentUser.id : item.createdBy == this.currentUser.id);
     } 
     
     // if (this.currentUser.userRole == commonEnum.Admin) reviewData = reviewData.filter((user: any) => user?.createdBy !== this.currentUser.id);
