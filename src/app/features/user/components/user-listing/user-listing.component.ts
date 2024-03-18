@@ -40,11 +40,11 @@ export class UserListingComponent {
   getUserData() {
     this.commonService.get(apiEndPoints.users).subscribe((res: any) => {
       this.userData = res
-      if(this.userData) {
-        this.userData.map((item:any) => {
+      if (this.userData) {
+        this.userData.map((item: any) => {
           item.status = item.status.toLowerCase();
         })
-      } 
+      }
       this.createData();
     });
   }
@@ -56,7 +56,7 @@ export class UserListingComponent {
       tableColumns = Object?.keys(userData[0])?.filter((x: any) => (x != tableEnum.password && x != tableEnum.addUser && x != tableEnum.Id && x != tableEnum.statusBtn && x != tableEnum.assignTo && x != tableEnum.createdBy));
       tableColumns.push(tableEnum.action)
     }
-    userData = userData.filter((user: any) => this.currentUser.userRole == commonEnum.superAdmin? user.id != this.currentUser.id : user.id != this.currentUser.id  && (user.assignTo == this.currentUser.id || user.createdBy == this.currentUser.id));
+    userData = userData.filter((user: any) => this.currentUser.userRole == commonEnum.superAdmin ? user.id != this.currentUser.id : user.id != this.currentUser.id && (user.assignTo == this.currentUser.id || user.createdBy == this.currentUser.id));
     userData.filter((user: any) => {
       user['statusBtn'] = {
         name: user.status == tableEnum.Active ? tableEnum.Active : user.status == tableEnum.Inactive ? tableEnum.Inactive : user.status === tableEnum.Rejected ? tableEnum.Rejected : tableEnum.Pending,
@@ -79,11 +79,11 @@ export class UserListingComponent {
 
   updateUserInfo(event: any) {
     let userData = this.userData.find((x: any) => x.id == event.id);
-    if(userData['status'] != tableEnum.Pending) {
+    if (userData['status'] != tableEnum.Pending) {
       userData['status'] = userData['status'] == tableEnum.Active ? tableEnum.Inactive : tableEnum.Active;
       userData.statusBtn.name = userData['status']
       this.commonService.edit(apiEndPoints.user + userData.id, userData).subscribe((res: any) => {
-        if(res) {
+        if (res) {
           this.commonService.successMSG(succssMessage.statusUpdated)
         }
       })
@@ -91,7 +91,7 @@ export class UserListingComponent {
   }
 
   editUser(event: any) {
-    this.router.navigateByUrl( routes.user+routes.edit+ event.id);
+    this.router.navigateByUrl(routes.user + routes.edit + event.id);
   }
 
   editRequest(userData: any) {
@@ -104,9 +104,9 @@ export class UserListingComponent {
       createdBy: userData.createdBy,
       id: userData.id,
     }
-    if(userData.declinedReason) {
+    if (userData.declinedReason) {
       data['declinedReason'] = userData.declinedReason;
-    }else {
+    } else {
       data['assignTo'] = {
         id: userData.assignTo.id,
         name: userData.assignTo.name,
@@ -125,20 +125,20 @@ export class UserListingComponent {
     });
   }
 
-  tabChange(e:any) {
+  tabChange(e: any) {
     this.activeTab = e.tab.textLabel
     this.applyFilter('', this.activeTab)
     this.searchInput.value = ''
   }
 
-  applyFilter(event: any, type?:string) {
+  applyFilter(event: any, type?: string) {
     switch (type) {
       case tableEnum.userListing:
         event == '' ? this.searchList.next(event) : this.searchList.next(event?.target?.value)
-      break;
-      default : 
+        break;
+      default:
         event == '' ? this.searchRequest.next(event) : this.searchRequest.next(event?.target?.value)
-      break;
+        break;
     }
   }
 
