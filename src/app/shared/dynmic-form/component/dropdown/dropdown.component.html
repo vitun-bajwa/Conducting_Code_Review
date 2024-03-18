@@ -1,7 +1,7 @@
 <div class="" [formGroup]="group" >
   <mat-form-field>
       <mat-select [placeholder]="config.placeholder"  [formControlName]="config.name">
-        <mat-option (click)="checkValue()" *ngFor="let option of config.options" [value]="option.name">
+        <mat-option (click)="checkValue()" *ngFor="let option of config.options" [value]="(config.name == 'assignTo') ? option : option.name">
           {{option.name}}
         </mat-option>
       </mat-select>

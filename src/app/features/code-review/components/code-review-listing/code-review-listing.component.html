@@ -1,10 +1,10 @@
 <div class="hdr">
-    <h2>{{formHeading}}</h2>
+    <h2>{{enum.codeModule}}</h2>
 </div>
 <div class="innr_page">
     <div class="hdr">
         <app-input-field class="searchFilter" [config]="searchInput" (keyup)="applyFilter($event, activeTab)"></app-input-field>
-        <app-button-field *ngIf="activeTab == 'Code Review Listing'" [config]="addBtn" routerLink="add"></app-button-field>
+        <app-button-field *ngIf="activeTab == 'Code Review Listing' && currentUser.userRole != enum.Admin" [config]="addBtn" routerLink="add"></app-button-field>
     </div>
     <mat-tab-group animationDuration="0" (selectedTabChange)="tabChange($event)">
         <mat-tab label="Code Review Listing">

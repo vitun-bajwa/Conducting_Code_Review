@@ -8,7 +8,8 @@ export enum commonEnum {
     superAdmin = "superAdmin",
     Admin = "Admin",
     Candidate = "Candidate",
-    codeModule = "Code Review Module"
+    codeModule = "Code Review Module",
+    reviewedBy = "reviewedBy",
   }
 
 export enum modalData {

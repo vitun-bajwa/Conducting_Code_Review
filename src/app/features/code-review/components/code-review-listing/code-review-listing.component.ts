@@ -19,7 +19,7 @@ export class CodeReviewListingComponent implements OnInit {
   reviewData: any;
   currentUser!: currentUser;
   searchInput: FieldConfig = searchFeild;
-  formHeading: commonEnum = commonEnum.codeModule;
+  enum: typeof commonEnum = commonEnum;
   searchList: Subject<boolean> = new Subject();
   searchRequest: Subject<boolean> = new Subject();
   activeTab: string = 'Code Review Listing';
@@ -49,18 +49,25 @@ export class CodeReviewListingComponent implements OnInit {
     let tableColumns
     let pendingTableColumns
     if (reviewData.length > 0) {
-      tableColumns = Object?.keys(reviewData[0])?.filter((x: any) => (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.assignTo));
+      tableColumns = Object?.keys(reviewData[0])?.filter((x: any) => 
+      this.currentUser.userRole != commonEnum.superAdmin ? 
+      (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.assignTo) : 
+      (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId));
       tableColumns.push('action')
-      pendingTableColumns = Object?.keys(reviewData[0])?.filter((x: any) => (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.assignTo && x != tableEnum.codeReview));
+      pendingTableColumns = Object?.keys(reviewData[0])?.filter((x: any) => 
+      this.currentUser.userRole != commonEnum.superAdmin ? 
+      (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.assignTo && x != tableEnum.codeReview) :
+      (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.codeReview)
+      );
       if(this.currentUser.userRole != commonEnum.Candidate) pendingTableColumns.push('action');
     }
     if(this.currentUser.userRole != commonEnum.superAdmin) {
-      reviewData = reviewData.filter((item: any) => this.currentUser.userRole != commonEnum.Candidate? item.assignTo == this.currentUser.id : item.userId == this.currentUser.id);
+      reviewData = reviewData.filter((item: any) => this.currentUser.userRole != commonEnum.Candidate? item.assignTo.id == this.currentUser.id : item.userId == this.currentUser.id);
     }
     reviewData.filter((item: any) => {
       item['statusBtn'] = {
-        name: item.status.toLowerCase() == tableEnum.Active ? tableEnum.Active : item.status == tableEnum.Inactive ? tableEnum.Inactive : item.status === tableEnum.Rejected ? tableEnum.Rejected : tableEnum.Pending,
-        class: item.status.toLowerCase() == tableEnum.Pending ? 'statusBtn statusBtnNonClick' : 'statusBtn'
+        name: item.status.toLowerCase() == tableEnum.Active ? tableEnum.Active : item.status.toLowerCase() == tableEnum.Inactive ? tableEnum.Inactive : item.status.toLowerCase() === tableEnum.Rejected ? tableEnum.Rejected : item.status.toLowerCase() === tableEnum.Reviewed ? tableEnum.Reviewed : tableEnum.Pending,
+        class: (item.status.toLowerCase() == tableEnum.Pending || item.status.toLowerCase() == tableEnum.Reviewed || item.status.toLowerCase() == tableEnum.Rejected ) ? 'statusBtn statusBtnNonClick' : 'statusBtn'
       }
     });
     let pendingreviewData = [...reviewData]
@@ -71,7 +78,7 @@ export class CodeReviewListingComponent implements OnInit {
     this.pendingTableConfig = { tableHeaders: pendingTableColumns, tableData: pendingreviewData }
   }
 
-  editReview(event: any){
+  editReview(event: any) {
      this.router.navigateByUrl(`codeReview/edit/${event.id}`);
   }
 

@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { codeReviewForm, codeReviewRequestForm } from 'src/app/core/config/form.constant';
-import { commonEnum, apiEndPoints, setItem, succssMessage, getItem } from 'src/app/core/enums/common.enum';
+import { commonEnum, apiEndPoints, succssMessage, getItem } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
@@ -24,6 +24,7 @@ export class AddCodeReviewComponent {
   formHeading!: string;
   notView: boolean = false;
   codeReviewData: any;
+  enum: typeof commonEnum = commonEnum;
 
 
   constructor(private apiService: CommonService, private router: Router,
@@ -50,7 +51,7 @@ export class AddCodeReviewComponent {
     if (this.userId) {
       this.apiService.get(apiEndPoints.codeReview, this.userId).subscribe((res: any) => {
         this.codeReviewData = res
-        this.form.form.patchValue({
+        this.form?.form.patchValue({
           title: res?.title,
           startDate: res?.startDate,
           endDate: res?.endDate,

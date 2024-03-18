@@ -35,6 +35,7 @@ export class TableComponent {
   adminListConfig: FieldConfig[] = adminList;
   configReview: FieldConfig[] = declineReason;
   currentUser: currentUser;
+  commonEnum: typeof commonEnum = commonEnum;
   enum: typeof tableEnum = tableEnum;
 
   constructor(public dialog: MatDialog, public commonService: CommonService, private router: Router) {

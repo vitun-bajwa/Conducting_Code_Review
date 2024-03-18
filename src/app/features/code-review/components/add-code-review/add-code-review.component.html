@@ -6,7 +6,8 @@
     <div class="lft" [class.full]="currentUser.userRole == 'Candidate'">
         <app-dynamic-form [config]="configRequest" #form="dynamicForm"></app-dynamic-form>
     </div>
-    <div class="rgt" *ngIf="currentUser.userRole != 'Candidate' || review?.form.value.codeReview" [formGroup]="reviewForm">
+    <div class="rgt" *ngIf="currentUser.userRole != 'Candidate' || review?.form.value.codeReview">
+        <p class="reviewdBy" *ngIf="codeReviewData?.reviewedBy"> {{enum.reviewedBy}} :- {{codeReviewData.reviewedBy.name}} </p>
         <app-dynamic-form [config]="configReview" #review="dynamicForm" ></app-dynamic-form>
     </div>
 </div>
