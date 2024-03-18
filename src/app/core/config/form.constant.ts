@@ -20,6 +20,7 @@ export const loginForm = [
       placeholder: 'Email',
       validation: [Validators.required, Validators.pattern(reg.email)],
       isRequired: true,
+      hint: false,
       class: 'input',
       error: false,
     },
@@ -31,6 +32,7 @@ export const loginForm = [
       placeholder: 'Password',
       validation: [Validators.required, Validators.pattern(reg.password)],
       isRequired: true,
+      hint: false,
       class: 'input',
       error: false
     },
@@ -72,6 +74,7 @@ export const loginForm = [
       placeholder: 'Email',
       validation: [Validators.required, Validators.pattern(reg.email)],
       isRequired: true,
+      hint: true,
       class: 'input',
       error: false,
     },
@@ -83,6 +86,7 @@ export const loginForm = [
       placeholder: 'Password',
       validation: [Validators.required, Validators.pattern(reg.password)],
       isRequired: true,
+      hint: true,
       class: 'input',
       error: false
     },
@@ -117,6 +121,7 @@ export const loginForm = [
       placeholder: 'Email',
       validation: [Validators.required, Validators.pattern(reg.email)],
       isRequired: true,
+      hint: false,
       class: 'input',
       error: false,
     },
@@ -137,6 +142,7 @@ export const loginForm = [
       placeholder: 'New Password',
       validation: [Validators.required, Validators.pattern(reg.password)],
       isRequired: true,
+      hint: true,
       class: 'input',
       error: false
     },
@@ -148,6 +154,7 @@ export const loginForm = [
       placeholder: 'Confirm Password',
       validation: [Validators.required, Validators.pattern(reg.password), passwordvalidaator()],
       isRequired: true,
+      hint: true,
       class: 'input',
       error: false
     },
@@ -167,6 +174,7 @@ export const loginForm = [
       placeholder: 'Old Password',
       validation: [Validators.required, Validators.pattern(reg.password)],
       isRequired: true,
+      hint: false,
       class: 'input',
       error: false
     },
@@ -178,6 +186,7 @@ export const loginForm = [
       placeholder: 'New Password',
       validation: [Validators.required, Validators.pattern(reg.password)],
       isRequired: true,
+      hint: true,
       class: 'input',
       error: false
     },
@@ -189,6 +198,7 @@ export const loginForm = [
       placeholder: 'Confirm Password',
       validation: [Validators.required, Validators.pattern(reg.password), passwordvalidaator()],
       isRequired: true,
+      hint: true,
       class: 'input',
       error: false
     },
@@ -229,6 +239,7 @@ export const loginForm = [
       placeholder: 'Email',
       validation: [Validators.required, Validators.pattern(reg.email)],
       isRequired: true,
+      hint: false,
       class: 'input',
       error: false,
     },

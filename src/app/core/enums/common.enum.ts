@@ -23,6 +23,7 @@ export enum tableEnum {
   signUp = "Sign-Up",
   statusBtn = "statusBtn",
   assignTo = "assignTo",
+  createdBy = "createdBy",
   Active = "active",
   Inactive = "inactive",
   Rejected = "rejected",
@@ -53,7 +54,15 @@ export enum errorMessage {
   Invalid = "Invalid email or password",
   inActive = "Your profile is inactive. Please contact the administrator",
   alreadyEmailRegistered = "This email is already registered. Please use a different email address.",
-  oldPassword = "Old Password Does Not Match"
+  oldPassword = "Old Password Does Not Match",
+} 
+
+export enum validation {
+  requiredFeild = "This feild is required",
+  invalidInput = "Invalid input",
+  passwordHint = "Hint :- 8+ chars, mix: upper, lower, num, special.",
+  emailHint = "Hint :- abc@gmail.com",
+  passwordMismatched = "Password mis-matched",
 } 
 
 export enum apiEndPoints {

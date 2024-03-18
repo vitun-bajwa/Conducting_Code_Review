@@ -39,28 +39,30 @@ export class CodeReviewListingComponent implements OnInit {
   }
 
   getReviewData() {
-    this.commonService.get(apiEndPoints.codeReview).subscribe((res: any) => {
+    this.commonService.get(apiEndPoints.codeReviews).subscribe((res: any) => {
       this.reviewData = res;
       this.createData();
     });
   }
 
   createData() {
-    let userData = [...this.reviewData]
-    if (userData.length > 0) {
-      this.tableColumns = Object?.keys(userData[0])?.filter((x: any) => {
-        if (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id) {
-          return x;
-        }
-      });
+    let reviewData = [...this.reviewData]
+    if (reviewData.length > 0) {
+      this.tableColumns = Object?.keys(reviewData[0])?.filter((x: any) => (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id));
       this.tableColumns.push('action')
     }
-    if (this.currentUser.userRole == commonEnum.Admin) userData = userData.filter((user: any) => user?.createdBy !== this.currentUser.id);
-    let pendingUserData = [...userData]
-    userData = userData.filter((x: any) => x.status != tableEnum.Pending);
-    pendingUserData = pendingUserData.filter((x: any) => x.status == tableEnum.Pending);
-    this.tableConfig = { tableHeaders: this.tableColumns, tableData: userData }
-    this.pendingTableConfig = { tableHeaders: this.tableColumns, tableData: pendingUserData }
+    
+    if(this.currentUser.userRole != commonEnum.superAdmin) {
+      reviewData = reviewData.filter((user: any) => this.currentUser.userRole != commonEnum.Candidate? user.assignTo == this.currentUser.id : user.createdBy == this.currentUser.id);
+    } 
+    
+    // if (this.currentUser.userRole == commonEnum.Admin) reviewData = reviewData.filter((user: any) => user?.createdBy !== this.currentUser.id);
+
+    let pendingreviewData = [...reviewData]
+    reviewData = reviewData.filter((x: any) => x.status != tableEnum.Pending);
+    pendingreviewData = pendingreviewData.filter((x: any) => x.status == tableEnum.Pending);
+    this.tableConfig = { tableHeaders: this.tableColumns, tableData: reviewData }
+    this.pendingTableConfig = { tableHeaders: this.tableColumns, tableData: pendingreviewData }
   }
 
   editReview(event: any){

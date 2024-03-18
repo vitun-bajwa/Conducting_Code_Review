@@ -1,11 +1,9 @@
-<mat-error *ngIf="group.controls[errors.name].errors?.['required'] && group.controls[errors.name].touched">This feild is required</mat-error>
-<mat-error *ngIf="errors?.fieldType === 'password' && group.controls[errors.name].touched && group.controls[errors.name].errors?.['pattern'] && group.value[errors.name]">
-    Hint :- Min 8 characters, include uppercase, lower letters, special character and number.
-  </mat-error>
-  <mat-error *ngIf="errors?.fieldType === 'email' && group.controls[errors.name].touched && group.controls[errors.name].errors?.['pattern'] && group.value[errors.name]">
-    Hint :- abc@gmail.com
-  </mat-error>
-  <mat-error *ngIf="group.controls[errors.name].errors?.['matched'] && group.controls[errors.name].touched">Password mis-matched</mat-error>
-  <mat-error *ngIf="group.controls[errors.name].touched && group.controls[errors.name].errors?.['pattern'] && group.value[errors.name]">
-    Invalid input
-  </mat-error>
+<mat-error *ngIf="group.controls[errors.name].errors?.['required'] && group.controls[errors.name].touched"> {{enum.requiredFeild}} </mat-error>
+<mat-error *ngIf="errors?.fieldType === 'password' && group.controls[errors.name].touched && group.controls[errors.name].errors?.['pattern'] && group.value[errors.name] && errors?.hint">
+  {{enum.passwordHint}}
+</mat-error>
+<mat-error *ngIf="errors?.fieldType === 'email' && group.controls[errors.name].touched && group.controls[errors.name].errors?.['pattern'] && group.value[errors.name] && errors?.hint">
+  {{enum.emailHint}}
+</mat-error>
+<mat-error *ngIf="group.controls[errors.name].errors?.['matched'] && group.controls[errors.name].touched"> {{enum.passwordMismatched}} </mat-error>
+<mat-error *ngIf="group.controls[errors.name].touched && group.controls[errors.name].errors?.['pattern'] && group.value[errors.name]"> {{enum.invalidInput}} </mat-error>

@@ -53,27 +53,15 @@ export class UserListingComponent {
   createData() {
     let userData = [...this.userData]
     if (userData.length > 0) {
-      this.tableColumns = Object?.keys(userData[0])?.filter((x: any) => {
-        if (x != tableEnum.password && x != tableEnum.addUser && x != tableEnum.Id && x != tableEnum.signUp && x != tableEnum.statusBtn && x != tableEnum.assignTo) {
-          return x;
-        }
-      });
+      this.tableColumns = Object?.keys(userData[0])?.filter((x: any) => (x != tableEnum.password && x != tableEnum.addUser && x != tableEnum.Id && x != tableEnum.statusBtn && x != tableEnum.assignTo && x != tableEnum.createdBy));
       this.tableColumns.push('action')
     }
-    userData = userData.filter((user: any, i) => {
+    userData = userData.filter((user: any) => this.currentUser.userRole == commonEnum.superAdmin? user.id != this.currentUser.id : user.id != this.currentUser.id  && (user.assignTo == this.currentUser.id || user.createdBy == this.currentUser.id));
+    
+    userData.filter((user: any) => {
       user['statusBtn'] = {
         name: user.status == tableEnum.Active ? tableEnum.Active : user.status == tableEnum.Inactive ? tableEnum.Inactive : user.status === tableEnum.Rejected ? tableEnum.Rejected : tableEnum.Pending,
         class: 'statusBtn'
-      }
-      user.status = user.status;
-      return user;
-    });
-    userData.filter((user: any, i) => {
-      if (user.userRole == commonEnum.superAdmin) {
-        userData.splice(i, 1);
-      }
-      if (this.currentUser.userRole == commonEnum.Admin && user.id == this.currentUser.id) {
-        userData.splice(i, 1);
       }
     });
     let existingUser = userData.filter((user: any) => {
@@ -82,7 +70,6 @@ export class UserListingComponent {
         return user
       }
     });
-    if (this.currentUser.userRole == commonEnum.Admin) userData = userData.filter((user: any) => user?.createdBy !== this.currentUser.id);
     let pendingUserData = [...userData]
     userData = userData.filter((x: any) => x.status != tableEnum.Pending && x.status != tableEnum.Rejected);
     pendingUserData = pendingUserData.filter((x: any) => x.status == tableEnum.Pending || x.status == tableEnum.Rejected);
