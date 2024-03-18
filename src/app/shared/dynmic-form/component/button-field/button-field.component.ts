@@ -13,7 +13,6 @@ export class ButtonFieldComponent {
   @Input() config!: FieldConfig;
   group!: FormGroup;
   @Output() btnClickEvent = new EventEmitter<string>();
-
   constructor() {}
 
   onButtonClicked() {

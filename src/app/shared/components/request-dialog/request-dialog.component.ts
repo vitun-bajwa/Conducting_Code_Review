@@ -11,13 +11,15 @@ import { FieldConfig } from 'src/app/core/models/field-config';
 export class RequestDialogComponent {
   @ViewChild('review') review: any;
   @ViewChild('adminList') adminList: any;
+  isConfirmDisabled: boolean = false; 
   cancelBtn = {
     class: 'button',
     name: 'Cancel'
   }
   saveBtn = {
     class: 'button',
-    name: 'Save'
+    name: 'Save',
+    disabled: true
   }
 
   constructor(
@@ -29,5 +31,4 @@ export class RequestDialogComponent {
   onConfirmClick(): void {
     this.dialogRef.close(this.review.form.value);
   }
-
 }
