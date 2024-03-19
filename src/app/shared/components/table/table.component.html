@@ -2,20 +2,20 @@
   <ng-container [matColumnDef]="column" *ngFor="let column of tableConfiguration?.tableHeaders;">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column | titlecase}} </th>
     <ng-container *matCellDef="let element;  let index = index">
-      <td mat-cell *ngIf="column == 'sr No'">{{(paginatorRef.pageIndex * paginatorRef.pageSize) + (index + 1)}}</td>
+      <td mat-cell *ngIf="column == enum.srNo">{{(paginatorRef.pageIndex * paginatorRef.pageSize) + (index + 1)}}</td>
 
-      <td mat-cell *ngIf="column == 'startDate' || column == 'endDate'">{{element[column] | date}}</td>
-      <td mat-cell *ngIf="column != 'status' && column != 'action' && column != 'sr No' && column != 'startDate' && column != 'endDate' && column != 'assignTo' && column != commonEnum.reviewedBy">{{element[column]}} </td>
-      <td mat-cell *ngIf="column == 'assignTo'">{{element[column].name}}</td>
+      <td mat-cell *ngIf="column == enum.startDate || column == enum.endDate">{{element[column] | date}}</td>
+      <td mat-cell *ngIf="column != enum.status && column != enum.action && column != enum.srNo && column != enum.startDate && column != enum.endDate && column != enum.assignTo && column != commonEnum.reviewedBy">{{element[column]}} </td>
+      <td mat-cell *ngIf="column == enum.assignTo">{{element[column].name}}</td>
       <td mat-cell *ngIf="column == commonEnum.reviewedBy">{{(element[column]?.name) ? element[column]?.name : '--'}}</td>
-      <td mat-cell *ngIf="column == 'status'">
-        <app-button-field *ngIf="element['statusBtn'] && currentUser.userRole == 'Admin' || currentUser.userRole == 'superAdmin'" (btnClickEvent)="updateStatus(element)" [config]="element['statusBtn']" [ngClass]="(element['statusBtn'].name===enum.Active) ? enum.Active : (element['statusBtn'].name===enum.Pending) ? enum.Pending : element['statusBtn'].name===enum.Reviewed ? enum.Active : ''"></app-button-field>
-        <ng-container *ngIf="currentUser.userRole == 'Candidate' && element['statusBtn']">
+      <td mat-cell *ngIf="column == enum.status">
+        <app-button-field *ngIf="element['statusBtn'] && currentUser.userRole == enum.Admin || currentUser.userRole == enum.superAdmin" (btnClickEvent)="updateStatus(element)" [config]="element['statusBtn']" [ngClass]="(element['statusBtn'].name===enum.Active) ? enum.Active : (element['statusBtn'].name===enum.Pending) ? enum.Pending : element['statusBtn'].name===enum.Reviewed ? enum.Active : ''"></app-button-field>
+        <ng-container *ngIf="currentUser.userRole == enum.Candidate && element['statusBtn']">
           <app-button-field [config]="element['statusBtn']" [ngClass]="(element['statusBtn'].name===enum.Active) ? enum.Active : (element['statusBtn'].name===enum.Pending) ? enum.Pending : ''">
           </app-button-field>
         </ng-container>
       </td>
-      <td mat-cdell *ngIf="column == 'action' && element.status != enum.Pending && element.status !== enum.Rejected">
+      <td mat-cdell *ngIf="column == enum.action && element.status != enum.Pending && element.status !== enum.Rejected">
         <ng-container *ngIf="(currentUser.userRole == enum.Admin|| currentUser.userRole == enum.superAdmin)">
           <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
             color="primary" (click)="editUser(element)">
@@ -30,7 +30,7 @@
           <mat-icon (click)="viewReview(element)">visibility</mat-icon>
         </ng-container>
       </td>
-      <td mat-cdell *ngIf="column == 'action' && (element.status === enum.Pending || element.status === enum.Rejected)">
+      <td mat-cdell *ngIf="column == enum.action && (element.status === enum.Pending || element.status === enum.Rejected)">
           <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary" (click)="editRequest(element)">
             <mat-icon>check</mat-icon>
           </button> 

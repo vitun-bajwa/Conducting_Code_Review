@@ -42,7 +42,11 @@ export enum tableEnum {
   codeReviewListing = "Code Review Listing",
   Admin = "Admin",
   superAdmin = "superAdmin",
-  userListing = "User Listing"
+  userListing = "User Listing",
+  endDate = "endDate",
+  startDate = "startDate",
+  srNo = "sr No",
+  Candidate = "Candidate",
 }
 
 export enum succssMessage { 
