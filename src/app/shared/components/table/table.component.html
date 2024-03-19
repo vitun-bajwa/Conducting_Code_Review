@@ -34,12 +34,18 @@
         </ng-container>
       </td>
 
-      <td mat-cdell *ngIf="column == 'action' && (element.status === tableEnum.Pending || element.status === tableEnum.Rejected)">
+      <td mat-cdell *ngIf="column == 'action' && element.status === tableEnum.Pending">
           <button mat-icon-button matTooltip="Accept" class="iconbutton" color="primary" (click)="editRequest(element)">
             <mat-icon>check</mat-icon>
           </button> 
           <button mat-icon-button matTooltip="Decline" class="iconbutton" (click)="declineRequest(element)" color="warn">
               <mat-icon>close</mat-icon>
+          </button>
+      </td>
+      
+      <td mat-cdell *ngIf="column == 'action' && element.status === tableEnum.Rejected">
+          <button mat-icon-button matTooltip="Accept" class="iconbutton" color="primary" (click)="declineReason(element)">
+            <mat-icon>info</mat-icon>
           </button>
       </td>
       

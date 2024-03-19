@@ -15,6 +15,8 @@ export enum commonEnum {
 export enum modalData {
   declineRequest = "Decline Request",
   declineTitle = "Add reasons to decline request",
+  declinedRequest = "Declined Request",
+  declinedTitle = "Reason for request is declined",
   approveRequest = "Approve Request",
   selectAdmin = "Please select an admin to assign this candidate"
 }

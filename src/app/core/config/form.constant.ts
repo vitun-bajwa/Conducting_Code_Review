@@ -324,6 +324,7 @@ export const loginForm = [
       isRequired: true,
       class: 'input',  
       error: false,
+      disabled: false,
     },
   ];
 
@@ -338,6 +339,7 @@ export const loginForm = [
       isRequired: true,
       class: 'input',  
       error: false,
+      disabled: false,
     }
   ];
   export const adminList:any = [
@@ -351,6 +353,7 @@ export const loginForm = [
     isRequired: true,
     class: 'input',
     error: false,
+    disabled: false,
     options: [
     ]
   },

@@ -10,7 +10,6 @@ import { FieldConfig } from 'src/app/core/models/field-config';
 })
 export class RequestDialogComponent {
   @ViewChild('review') review: any;
-  @ViewChild('adminList') adminList: any;
   isConfirmDisabled: boolean = false; 
   cancelBtn = {
     class: 'button',
@@ -32,6 +31,11 @@ export class RequestDialogComponent {
       this.saveBtn.disabled = true
       this.review.form.controls[this.data.config[0].name].valueChanges.subscribe((res:any) => {
         this.saveBtn.disabled = false;
+      })
+    }
+    if(this.data.declinedReason) {
+      this.review.form.patchValue({
+        [this.data.config[0].name] : this.data.declinedReason.declinedReason
       })
     }
   }

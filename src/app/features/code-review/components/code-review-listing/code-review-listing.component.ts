@@ -70,8 +70,8 @@ export class CodeReviewListingComponent implements OnInit {
       }
     });
     let pendingreviewData = [...reviewData]
-    reviewData = reviewData.filter((x: any) => x.status.toLowerCase() == tableEnum.Reviewed);
-    pendingreviewData = pendingreviewData.filter((x: any) => x.status.toLowerCase() == tableEnum.Pending);
+    reviewData = reviewData.filter((x: any) => x.status.toLowerCase() == tableEnum.Reviewed && x.status != tableEnum.Rejected);
+    pendingreviewData = pendingreviewData.filter((x: any) => x.status.toLowerCase() == tableEnum.Pending || x.status == tableEnum.Rejected);
     this.tableConfig = { tableHeaders: tableColumns, tableData: reviewData, page: routes.codeReview }
     this.pendingTableConfig = { tableHeaders: pendingTableColumns, tableData: pendingreviewData, page: routes.codeReview }
   }
@@ -92,9 +92,11 @@ export class CodeReviewListingComponent implements OnInit {
         reviewedBy: codeReviewData.reviewedBy,
       }
       data['status'] = codeReviewData.declinedReason ? tableEnum.Rejected : tableEnum.Active
+      if(codeReviewData.declinedReason) data['declinedReason'] = codeReviewData.declinedReason
       this.commonService.edit(apiEndPoints.codeReview + codeReviewData.id, data).subscribe((res: any) => {
         this.commonService.successMSG(succssMessage.codeReviewUpdated)
       })
+      this.getReviewData();
     }else {
       this.router.navigateByUrl(routes.codeReview + routes.edit + codeReviewData.id);
     }

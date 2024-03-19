@@ -132,24 +132,22 @@
       "id": "e397"
     },
     {
+      "id": "3bf7",
+      "userId": "4c91",
       "title": "Date select in HTML",
       "startDate": "2024-03-16T18:30:00.000Z",
       "endDate": "2024-03-17T18:30:00.000Z",
       "codeDescription": "This is the demo of HTML input type=\"date\".",
       "textEditor": "<p>&lt;label for=\"birthday\"&gt;Birthday:&lt;/label&gt;<br>&lt;input type=\"date\" id=\"birthday\" name=\"birthday\"&gt;</p>",
-      "userId": "4c91",
+      "codeReview": null,
       "assignTo": {
         "id": "fa6f",
         "name": "john dee"
       },
       "createdBy": "candidate two",
-      "reviewedBy": {
-        "id": "9907",
-        "name": "Super Admin"
-      },
-      "status": "reviewed",
-      "codeReview": "I think its fine",
-      "id": "3bf7"
+      "reviewedBy": null,
+      "status": "rejected",
+      "declinedReason": "Already existing"
     },
     {
       "id": "809f",

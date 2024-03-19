@@ -121,6 +121,18 @@ export class TableComponent {
     }
   }
 
+  declineReason(data: any) {
+    this.configReview[0].disabled = true;
+    const dialogRef = this.dialog.open(RequestDialogComponent, {
+      data: {
+        declinedReason: data,
+        heading: modalData.declinedRequest,
+        title: modalData.declinedTitle,
+        config: this.configReview
+      },
+    });
+  }
+
   updateData(data: any) {
     let i = this.tableConfig.tableData.findIndex((res: any) => res.id === data.id);
     this.tableConfig.tableData.splice(i, 1);
