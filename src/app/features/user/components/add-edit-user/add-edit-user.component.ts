@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { signUpForm } from 'src/app/core/config/form.constant';
-import { apiEndPoints, commonEnum, errorMessage, getItem, setItem, succssMessage, tableEnum } from 'src/app/core/enums/common.enum';
+import { apiEndPoints, commonEnum, errorMessage, getItem, routes, succssMessage, tableEnum } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
@@ -16,6 +16,8 @@ export class AddEditUserComponent {
   config: FieldConfig[] = signUpForm;
   userId!: string;
   currentUser!: currentUser;
+  userList: any;
+  userData: any;
   addBtn = {
     class: 'button',
     name: 'Back',
@@ -43,9 +45,12 @@ export class AddEditUserComponent {
     if (this.userId) {
       let index = this.config.findIndex((x: any) => x.fieldType == tableEnum.password)
       if (index != -1) this.config.splice(index, 1);
-
     }
+    this.apiService.get(apiEndPoints.users).subscribe((res: any) => {
+      this.userList = res
+    });
     this.apiService.get(apiEndPoints.user, this.userId).subscribe((res: any) => {
+      this.userData = res;
       this.form.form.patchValue({
         firstName: res?.firstName,
         email: res?.email,
@@ -56,53 +61,39 @@ export class AddEditUserComponent {
 
   }
 
-  addUser() {
+  userModify(type: string) {
     this.trimFormValues();
     if (this.form.form.invalid) {
       this.form.form.markAllAsTouched();
     } else {
-      const email = this.form.form.value.email;
-      this.apiService.get(apiEndPoints.users).subscribe
-        (
-          (response: any) => {
-            const existingUser = response.find((user: any) => user.email === email);
-            if (existingUser) {
-              this.apiService.errorMSG(errorMessage.alreadyEmailRegistered);
-            } else {
-              let data = {
-                firstName : this.form.form.value.firstName,
-                lastName : this.form.form.value.lastName,
-                email : this.form.form.value.email,
-                password: btoa(this.form.form.value.password),
-                userRole : this.form.form.value.userRole,
-                status: 'Active',
-                assignTo : this.currentUser.id,
-                createdBy : this.currentUser.id,
-              }
-              this.apiService.add(apiEndPoints.users, data).subscribe((res: any) => {
-                this.apiService.successMSG(succssMessage.userAdded)
-                this.router.navigateByUrl('admin');
-              })
-              this.form.form.reset();
-            }
-          });
-    }
-  }
-
-  updateUser() {
-    if (this.form.form.invalid) {
-      this.form.form.markAllAsTouched();
-    }
-    else {
-      let data = {
-        ...this.form.form.value,
-        status: this.currentUser.status,
-        createdBy: this.currentUser.id,
+      const existingUser = this.userList.find((user: any) => user.email === this.form.form.value.email);
+      if (existingUser) {
+        this.apiService.errorMSG(errorMessage.alreadyEmailRegistered);
+      } else {
+        let data: any = {
+          firstName : this.form.form.value.firstName,
+          lastName : this.form.form.value.lastName,
+          email : this.form.form.value.email,
+          password: btoa(this.form.form.value.password),
+          userRole : this.form.form.value.userRole,
+          status: tableEnum.Active,
+          assignTo : this.currentUser.id,
+          createdBy : this.currentUser.id,
+        }
+        if(type == 'update') {
+          data.status = this.userData.status,
+          data.createdBy = this.userData.id,
+          this.apiService.edit(apiEndPoints.user + this.userId, data).subscribe((res: any) => {
+            this.apiService.successMSG(succssMessage.Updated)
+            this.router.navigateByUrl(routes.user);
+          })
+        }else {
+          this.apiService.add(apiEndPoints.users, data).subscribe((res: any) => {
+            this.apiService.successMSG(succssMessage.userAdded)
+            this.router.navigateByUrl(routes.user);
+          })
+        }
       }
-      this.apiService.edit('users/' + this.userId, data).subscribe((res: any) => {
-        this.apiService.successMSG(succssMessage.Updated)
-        this.router.navigateByUrl('admin');
-      })
     }
   }
 

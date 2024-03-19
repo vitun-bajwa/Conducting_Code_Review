@@ -19,14 +19,23 @@ export class RequestDialogComponent {
   saveBtn = {
     class: 'button',
     name: 'Save',
-    disabled: true
+    disabled: false
   }
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<RequestDialogComponent>
-  ){
+  ){}
+
+  ngAfterViewInit() {
+    if(this.data.config[0].name == 'assignTo' && this.review) {
+      this.saveBtn.disabled = true
+      this.review.form.controls[this.data.config[0].name].valueChanges.subscribe((res:any) => {
+        this.saveBtn.disabled = false;
+      })
+    }
   }
+
 
   onConfirmClick(): void {
     this.dialogRef.close(this.review.form.value);

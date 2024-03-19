@@ -5,23 +5,24 @@
       <td mat-cell *ngIf="column == 'sr No'">{{(paginatorRef.pageIndex * paginatorRef.pageSize) + (index + 1)}}</td>
 
       <td mat-cell *ngIf="column == 'startDate' || column == 'endDate'">{{element[column] | date}}</td>
-      <td mat-cell *ngIf="column != 'status' && column != 'action' && column != 'sr No' && column != 'startDate' && column != 'endDate' && column != 'assignTo' && column != commonEnum.reviewedBy">{{element[column]}} </td>
+
+      <td mat-cell *ngIf="column != 'status' && column != 'action' && column != 'sr No' && column != 'startDate' && column != 'endDate' && column != 'assignTo' && column != tableEnum.reviewedBy">{{element[column]}} </td>
+
       <td mat-cell *ngIf="column == 'assignTo'">{{element[column].name}}</td>
-      <td mat-cell *ngIf="column == commonEnum.reviewedBy">{{(element[column]?.name) ? element[column]?.name : '--'}}</td>
+
+      <td mat-cell *ngIf="column == tableEnum.reviewedBy">{{(element[column]?.name) ? element[column]?.name : '--'}}</td>
+
       <td mat-cell *ngIf="column == 'status'">
-        <app-button-field *ngIf="element['statusBtn'] && currentUser.userRole == 'Admin' || currentUser.userRole == 'superAdmin'" (btnClickEvent)="updateStatus(element)" [config]="element['statusBtn']" [ngClass]="(element['statusBtn'].name===enum.Active) ? enum.Active : (element['statusBtn'].name===enum.Pending) ? enum.Pending : element['statusBtn'].name===enum.Reviewed ? enum.Active : ''"></app-button-field>
-        <ng-container *ngIf="currentUser.userRole == 'Candidate' && element['statusBtn']">
-          <app-button-field [config]="element['statusBtn']" [ngClass]="(element['statusBtn'].name===enum.Active) ? enum.Active : (element['statusBtn'].name===enum.Pending) ? enum.Pending : ''">
-          </app-button-field>
-        </ng-container>
+        <app-button-field *ngIf="element['statusBtn']" (btnClickEvent)="currentUser.userRole == 'Candidate' ? '' : updateStatus(element)" [config]="element['statusBtn']" [ngClass]="(element['statusBtn'].name===tableEnum.Active) ? tableEnum.Active : (element['statusBtn'].name===tableEnum.Pending) ? tableEnum.Pending : element['statusBtn'].name===tableEnum.Reviewed ? tableEnum.Active : ''"></app-button-field>
       </td>
-      <td mat-cdell *ngIf="column == 'action' && element.status != enum.Pending && element.status !== enum.Rejected">
-        <ng-container *ngIf="(currentUser.userRole == enum.Admin|| currentUser.userRole == enum.superAdmin)">
-          <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
+
+      <td mat-cdell *ngIf="column == 'action' && element.status != tableEnum.Pending && element.status !== tableEnum.Rejected">
+        <ng-container *ngIf="(currentUser.userRole == tableEnum.Admin|| currentUser.userRole == tableEnum.superAdmin)">
+          <button mat-icon-button matTooltip="Edit" class="iconbutton"
             color="primary" (click)="editUser(element)">
             <mat-icon>edit</mat-icon>
           </button> 
-          <button mat-icon-button matTooltip="Click to Delete" class="iconbutton"
+          <button mat-icon-button matTooltip="Delete" class="iconbutton"
                 (click)="deleteUser(element)" color="warn">
                 <mat-icon>delete</mat-icon>
           </button>
@@ -32,14 +33,16 @@
           </button>
         </ng-container>
       </td>
-      <td mat-cdell *ngIf="column == 'action' && (element.status === enum.Pending || element.status === enum.Rejected)">
-          <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary" (click)="editRequest(element)">
+
+      <td mat-cdell *ngIf="column == 'action' && (element.status === tableEnum.Pending || element.status === tableEnum.Rejected)">
+          <button mat-icon-button matTooltip="Accept" class="iconbutton" color="primary" (click)="editRequest(element)">
             <mat-icon>check</mat-icon>
           </button> 
-          <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" (click)="deleteRequest(element)" color="warn">
+          <button mat-icon-button matTooltip="Decline" class="iconbutton" (click)="declineRequest(element)" color="warn">
               <mat-icon>close</mat-icon>
           </button>
       </td>
+      
     </ng-container>
   </ng-container>
 

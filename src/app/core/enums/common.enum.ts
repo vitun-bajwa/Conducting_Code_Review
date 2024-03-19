@@ -9,7 +9,7 @@ export enum commonEnum {
     Admin = "Admin",
     Candidate = "Candidate",
     codeModule = "Code Review Module",
-    reviewedBy = "reviewedBy",
+    reviewedBy = "Reviewed By",
   }
 
 export enum modalData {
@@ -42,7 +42,8 @@ export enum tableEnum {
   codeReviewListing = "Code Review Listing",
   Admin = "Admin",
   superAdmin = "superAdmin",
-  userListing = "User Listing"
+  userListing = "User Listing",
+  reviewedBy = "reviewedBy",
 }
 
 export enum succssMessage { 

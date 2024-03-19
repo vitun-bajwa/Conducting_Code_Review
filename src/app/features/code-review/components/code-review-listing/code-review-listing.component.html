@@ -11,7 +11,7 @@
             <app-table *ngIf="tableConfig" [search]="searchList" [tableConfig]="tableConfig" (editInfo)="editReview($event)" (viewCodeReview)="viewCodeReview($event)" (deleteInfo)="deleteReview($event)"></app-table>
         </mat-tab>
         <mat-tab label="Code Review Request"> 
-            <app-table *ngIf="pendingTableConfig" [search]="searchRequest" [tableConfig]="pendingTableConfig" (editInfo)="editReview($event)" (deleteInfo)="deleteReview($event)"></app-table>
+            <app-table *ngIf="pendingTableConfig" [search]="searchRequest" [tableConfig]="pendingTableConfig" (updateRequest)="editReview($event)"></app-table>
         </mat-tab>
     </mat-tab-group>
 </div>

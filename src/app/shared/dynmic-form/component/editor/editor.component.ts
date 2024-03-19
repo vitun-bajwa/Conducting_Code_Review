@@ -12,21 +12,22 @@ export class EditorComponent {
   @Input() config: any;
   @ViewChild('myCkeditor') myCkeditor: any
   group!: FormGroup;
-
   test: any
-
   public Editor = ClassicEditor;
   ckconfig: any;
   retrieveddata!: string;
 
-
-  ngOnInit(){
-  }
+  ngOnInit(){}
 
   onReady(editor: any) {
     editor.plugins.get('FileRepository').createUploadAdapter = (loader: any) => {
     return new Adapter(loader, editor.config);
-      
-    };  
+    };
   }
+
+  ngAfterViewInit() {
+    if(this.config.disabled) this.group.controls[this.config.name].disable();
+  }
+
+
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { searchFeild } from 'src/app/core/config/form.constant';
-import { commonEnum, apiEndPoints, setItem, tableEnum, getItem, routes } from 'src/app/core/enums/common.enum';
+import { commonEnum, apiEndPoints, setItem, tableEnum, getItem, routes, succssMessage } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
@@ -50,8 +50,8 @@ export class CodeReviewListingComponent implements OnInit {
     if (reviewData.length > 0) {
       tableColumns = Object?.keys(reviewData[0])?.filter((x: any) => 
       this.currentUser.userRole != commonEnum.superAdmin ? 
-      (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.assignTo) : 
-      (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId));
+      (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.assignTo && x != tableEnum.codeReview) : 
+      (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.codeReview));
       tableColumns.push(tableEnum.action)
       pendingTableColumns = Object?.keys(reviewData[0])?.filter((x: any) => 
       this.currentUser.userRole != commonEnum.superAdmin ? 
@@ -72,12 +72,32 @@ export class CodeReviewListingComponent implements OnInit {
     let pendingreviewData = [...reviewData]
     reviewData = reviewData.filter((x: any) => x.status.toLowerCase() == tableEnum.Reviewed);
     pendingreviewData = pendingreviewData.filter((x: any) => x.status.toLowerCase() == tableEnum.Pending);
-    this.tableConfig = { tableHeaders: tableColumns, tableData: reviewData }
-    this.pendingTableConfig = { tableHeaders: pendingTableColumns, tableData: pendingreviewData }
+    this.tableConfig = { tableHeaders: tableColumns, tableData: reviewData, page: routes.codeReview }
+    this.pendingTableConfig = { tableHeaders: pendingTableColumns, tableData: pendingreviewData, page: routes.codeReview }
   }
 
-  editReview(event: any){
-     this.router.navigateByUrl(routes.codeReview + routes.edit + event.id);
+  editReview(codeReviewData: any){
+    if (codeReviewData.declinedReason) {
+      let data: any = {
+        id: codeReviewData.id,
+        userId: codeReviewData.userId,
+        title: codeReviewData.title,
+        startDate: codeReviewData.startDate,
+        endDate: codeReviewData.endDate,
+        codeDescription: codeReviewData.codeDescription,
+        textEditor: codeReviewData.textEditor,
+        codeReview: codeReviewData.codeReview,
+        assignTo: codeReviewData.assignTo,
+        createdBy: codeReviewData.createdBy,
+        reviewedBy: codeReviewData.reviewedBy,
+      }
+      data['status'] = codeReviewData.declinedReason ? tableEnum.Rejected : tableEnum.Active
+      this.commonService.edit(apiEndPoints.codeReview + codeReviewData.id, data).subscribe((res: any) => {
+        this.commonService.successMSG(succssMessage.codeReviewUpdated)
+      })
+    }else {
+      this.router.navigateByUrl(routes.codeReview + routes.edit + codeReviewData.id);
+    }
   }
 
   deleteReview(event: any){
@@ -85,6 +105,29 @@ export class CodeReviewListingComponent implements OnInit {
       this.getReviewData();
     })
   }
+
+  // editRequest(codeReviewData: any) {
+  //   let data: any = {
+  //     id: codeReviewData.id,
+  //     userId: codeReviewData.userId,
+  //     title: codeReviewData.title,
+  //     startDate: codeReviewData.startDate,
+  //     endDate: codeReviewData.endDate,
+  //     codeDescription: codeReviewData.codeDescription,
+  //     textEditor: codeReviewData.textEditor,
+  //     codeReview: codeReviewData.codeReview,
+  //     assignTo: codeReviewData.assignTo,
+  //     createdBy: codeReviewData.createdBy,
+  //     reviewedBy: codeReviewData.reviewedBy,
+  //   }
+  //   if (codeReviewData.declinedReason) {
+  //     data['declinedReason'] = codeReviewData.declinedReason;
+  //   }
+  //   data['status'] = codeReviewData.declinedReason ? tableEnum.Rejected : tableEnum.Active
+  //   this.commonService.edit(apiEndPoints.codeReview + codeReviewData.id, data).subscribe((res: any) => {
+  //     this.commonService.successMSG(succssMessage.codeReviewUpdated)
+  //   })
+  // }
 
   tabChange(e:any) {
     this.activeTab = e.tab.textLabel
