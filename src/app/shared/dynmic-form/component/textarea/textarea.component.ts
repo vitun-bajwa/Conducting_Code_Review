@@ -11,4 +11,8 @@ export class TextareaComponent {
   @Input() config: any;
   group!: FormGroup;
 
+  ngAfterViewInit() {
+    if(this.config.disabled) this.group.controls[this.config.name].disable();
+  }
+
 }

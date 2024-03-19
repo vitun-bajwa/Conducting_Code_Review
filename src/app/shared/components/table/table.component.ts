@@ -10,7 +10,7 @@ import { FieldConfig } from 'src/app/core/models/field-config';
 import { RequestDialogComponent } from '../request-dialog/request-dialog.component';
 import { Router } from '@angular/router';
 import { adminList, declineReason } from 'src/app/core/config/form.constant';
-import { commonEnum, getItem, modalData, tableEnum } from 'src/app/core/enums/common.enum';
+import { commonEnum, getItem, modalData, routes, tableEnum } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
 @Component({
   selector: 'app-table',
@@ -36,7 +36,7 @@ export class TableComponent {
   configReview: FieldConfig[] = declineReason;
   currentUser: currentUser;
   commonEnum: typeof commonEnum = commonEnum;
-  enum: typeof tableEnum = tableEnum;
+  tableEnum: typeof tableEnum = tableEnum;
 
   constructor(public dialog: MatDialog, public commonService: CommonService, private router: Router) {
     this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
@@ -84,48 +84,65 @@ export class TableComponent {
         id: userData.id,
       },
     })
-
     dialogRef.afterClosed().subscribe((res: boolean) => {
       if (res) {
+        this.updateData(userData);
         this.deleteInfo.emit(userData.id);
-        let i = this.tableConfig.tableData.findIndex((res: any) => res.id === userData.id);
-        this.tableConfig.tableData.splice(i, 1);
-        this.createTableData()
       }
     })
   }
 
-  editRequest(userData: any) {
-    if (userData.userRole === commonEnum.Candidate) {
-      this.adminListConfig[0].options = this.tableConfig?.activeAdmin;
-      const dialogRef = this.dialog.open(RequestDialogComponent, {
-        data: {
-          id: userData.id,
-          heading: modalData.approveRequest,
-          title: modalData.selectAdmin,
-          config: this.adminListConfig
-        },
-      });
-      dialogRef.afterClosed().subscribe((res: any) => {
-        if (res) {
-          userData['assignTo'] = res.assignTo;
-          let i = this.tableConfig.tableData.findIndex((res: any) => res.id === userData.id);
-          this.tableConfig.tableData.splice(i, 1);
-          this.updateRequest.emit(userData);
-          this.createTableData();
-        }
-      });
-    } else if (userData.userRole === commonEnum.Admin) {
-      let i = this.tableConfig.tableData.findIndex((res: any) => res.id === userData.id);
-      this.tableConfig.tableData.splice(i, 1);
-      this.updateRequest.emit(userData);
+  editRequest(data: any) {
+    if(this.tableConfig.page == routes.user) {
+      if (data.userRole === commonEnum.Candidate) {
+        this.adminListConfig[0].options = this.tableConfig?.activeAdmin;
+        const dialogRef = this.dialog.open(RequestDialogComponent, {
+          data: {
+            id: data.id,
+            heading: modalData.approveRequest,
+            title: modalData.selectAdmin,
+            config: this.adminListConfig
+          },
+        });
+        dialogRef.afterClosed().subscribe((res: any) => {
+          if (res) {
+            data['assignTo'] = res.assignTo;
+            this.updateData(data);
+            this.updateRequest.emit(data);
+          }
+        });
+      } else if (data.userRole === commonEnum.Admin) {
+        this.updateData(data);
+        this.updateRequest.emit(data);
+      }
+    }else {
+      this.updateData(data);
+      this.updateRequest.emit(data);
     }
   }
 
-  deleteRequest(userData: any) {
+  declineReason(data: any) {
+    this.configReview[0].disabled = true;
     const dialogRef = this.dialog.open(RequestDialogComponent, {
       data: {
-        id: userData.id,
+        declinedReason: data,
+        heading: modalData.declinedRequest,
+        title: modalData.declinedTitle,
+        config: this.configReview
+      },
+    });
+  }
+
+  updateData(data: any) {
+    let i = this.tableConfig.tableData.findIndex((res: any) => res.id === data.id);
+    this.tableConfig.tableData.splice(i, 1);
+    this.createTableData();
+  }
+
+  declineRequest(data: any) {
+    const dialogRef = this.dialog.open(RequestDialogComponent, {
+      data: {
+        id: data.id,
         heading: modalData.declineRequest,
         title: modalData.declineTitle,
         config: this.configReview
@@ -133,8 +150,8 @@ export class TableComponent {
     })
     dialogRef.afterClosed().subscribe((res: any) => {
       if (res) {
-        userData['declinedReason'] = res.codeReview
-        this.updateRequest.emit(userData);
+        data['declinedReason'] = res.codeReview
+        this.updateRequest.emit(data);
         this.createTableData();
       }
     })

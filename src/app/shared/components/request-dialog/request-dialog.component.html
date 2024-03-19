@@ -2,7 +2,7 @@
   <h1> {{data.heading}} </h1>
   <p> {{data.title}} </p>
   <app-dynamic-form [config]="data.config" #review="dynamicForm"></app-dynamic-form>
-  <div class="btnBx rgt">
+  <div class="btnBx rgt" *ngIf="!data.declinedReason">
     <app-button-field [config]="cancelBtn" (btnClickEvent)="dialogRef.close()"></app-button-field>
     <app-button-field [config]="saveBtn" (btnClickEvent)="onConfirmClick()"></app-button-field>
   </div>

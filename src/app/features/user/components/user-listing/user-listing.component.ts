@@ -73,8 +73,8 @@ export class UserListingComponent {
     userData = userData.filter((x: any) => x.status != tableEnum.Pending && x.status != tableEnum.Rejected);
     pendingUserData = pendingUserData.filter((x: any) => x.status == tableEnum.Pending || x.status == tableEnum.Rejected);
 
-    this.tableConfig = { tableHeaders: tableColumns, tableData: userData }
-    this.pendingTableConfig = { tableHeaders: tableColumns, tableData: pendingUserData, activeAdmin: existingUser }
+    this.tableConfig = { tableHeaders: tableColumns, tableData: userData, page: routes.user }
+    this.pendingTableConfig = { tableHeaders: tableColumns, tableData: pendingUserData, activeAdmin: existingUser, page: routes.user }
   }
 
   updateUserInfo(event: any) {

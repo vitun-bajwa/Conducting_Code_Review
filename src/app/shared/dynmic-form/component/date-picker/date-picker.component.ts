@@ -11,7 +11,9 @@ export class DatePickerComponent {
   group!: FormGroup
 
   constructor() { }
-
-  ngOnInit() {
+  ngOnInit() {}
+  ngAfterViewInit() {
+    if(this.config.disabled) this.group.controls[this.config.name].disable();
   }
+
 }

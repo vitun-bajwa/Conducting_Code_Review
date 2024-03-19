@@ -21,4 +21,9 @@ export class InputFieldComponent {
   toggleVisibility(): void {
     this.hide = !this.hide;
   }
+
+  ngAfterViewInit() {
+    if(this.config.disabled) this.group.controls[this.config.name].disable();
+  }
+  
 }

@@ -5,7 +5,21 @@ export interface currentUser {
     email?: string,
     password?: string,
     userRole?: string,
-    AddUser?: Array<object>,
     status?: string,
-    createdBy?: string
+    createdBy?: string,
+    assignTo?: Array<object>,
+    name?: string,
+}
+export interface codeReview {
+    title?: string,
+    startDate?: string,
+    endDate?: string,
+    codeDescription?: string,
+    textEditor?: string,
+    userId?: string,
+    assignTo?: object,
+    createdBy?: string,
+    reviewedBy?: object,
+    status?: string,
+    codeReview?: string,
 }
