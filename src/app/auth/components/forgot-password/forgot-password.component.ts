@@ -98,7 +98,7 @@ export class ForgotPasswordComponent {
         ...this.matchdata,
         password: btoa(this.form.form.value.password),
       }
-      this.apiService.edit(apiEndPoints.users + this.matchdata.id, data).subscribe((data: any) => {
+      this.apiService.edit(apiEndPoints.user + this.matchdata.id, data).subscribe((data: any) => {
         this.router.navigateByUrl('/');
         this.apiService.successMSG(succssMessage.passwordUpdated);
       }

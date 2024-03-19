@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { getItem } from 'src/app/core/enums/common.enum';
+import { getItem, routes } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
 
 @Component({
@@ -21,7 +21,7 @@ export class HeaderComponent {
     let token = sessionStorage.getItem(getItem.token);
     if(token) {
       sessionStorage.clear();
-      this.router.navigateByUrl('/auth/login')
+      this.router.navigateByUrl(routes.auth + routes.login);
     }
   }
   changePassword() {

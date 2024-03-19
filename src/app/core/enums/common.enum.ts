@@ -9,7 +9,7 @@ export enum commonEnum {
     Admin = "Admin",
     Candidate = "Candidate",
     codeModule = "Code Review Module",
-    reviewedBy = "reviewedBy",
+    reviewedBy = "reviewedBy"
   }
 
 export enum modalData {
@@ -89,9 +89,13 @@ export enum apiEndPoints {
 
 export enum routes {
   user = "user",
+  users = "/user",
   edit = "/edit/",
   view = "/view/",
   codeReview = "codeReview",
+  admin = "admin",
+  auth = "/auth",
+  login = "/login"
 }
 
 export enum setItem { 

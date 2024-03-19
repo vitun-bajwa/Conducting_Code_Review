@@ -10,7 +10,7 @@ import { FieldConfig } from 'src/app/core/models/field-config';
 import { RequestDialogComponent } from '../request-dialog/request-dialog.component';
 import { Router } from '@angular/router';
 import { adminList, declineReason } from 'src/app/core/config/form.constant';
-import { commonEnum, modalData, tableEnum } from 'src/app/core/enums/common.enum';
+import { commonEnum, getItem, modalData, tableEnum } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
 @Component({
   selector: 'app-table',
@@ -39,7 +39,7 @@ export class TableComponent {
   enum: typeof tableEnum = tableEnum;
 
   constructor(public dialog: MatDialog, public commonService: CommonService, private router: Router) {
-    this.currentUser = JSON.parse(sessionStorage.getItem('user')!);
+    this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
    }
 
   ngOnChanges() {
