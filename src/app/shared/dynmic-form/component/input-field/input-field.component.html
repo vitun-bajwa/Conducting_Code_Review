@@ -1,5 +1,5 @@
 <mat-form-field *ngIf="config.name != 'searchFilter'" [formGroup]="group" [class]="config.fieldType === 'password' ? 'withIcon':'' ">
-    <input matInput [readonly]="config.disabled" [id]="config.name" [class]="config.class"
+    <input matInput [id]="config.name" [class]="config.class"
         [type]="(hide) ? 'text' : config.fieldType!" [formControlName]="config.name"
         [placeholder]="config.placeholder!" />
     <mat-hint *ngIf="config.fieldType === 'password'">{{config.hint}}</mat-hint>

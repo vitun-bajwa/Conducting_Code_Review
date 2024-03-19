@@ -27,7 +27,9 @@
           </button>
         </ng-container>
         <ng-container *ngIf="currentUser.userRole == 'Candidate'">
-          <mat-icon (click)="viewReview(element)">visibility</mat-icon>
+          <button mat-icon-button matTooltip="View" class="iconbutton" (click)="viewReview(element)">
+            <mat-icon >visibility</mat-icon>
+          </button>
         </ng-container>
       </td>
       <td mat-cdell *ngIf="column == 'action' && (element.status === enum.Pending || element.status === enum.Rejected)">

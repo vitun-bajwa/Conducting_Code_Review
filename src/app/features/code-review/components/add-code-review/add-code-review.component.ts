@@ -25,7 +25,14 @@ export class AddCodeReviewComponent {
   notView: boolean = false;
   codeReviewData: any;
   enum: typeof commonEnum = commonEnum;
-
+  backBtn: FieldConfig = {
+    class: 'button',
+    name: 'Back',
+  }
+  addBtn: FieldConfig = {
+    class: 'button',
+    name: 'Save',
+  }
 
   constructor(private apiService: CommonService, private router: Router,
     private activatedRoute: ActivatedRoute, private fb: FormBuilder) {
@@ -33,17 +40,12 @@ export class AddCodeReviewComponent {
       this.notView = this.router.url.includes('edit') || this.router.url.includes('add');
       this.userId = param.params.id;
     });
-
-
     this.formHeading = this.userId ? !this.notView ? commonEnum.viewCodeReview : commonEnum.editCodeReview : commonEnum.addCodeReview;
-  }
-  backBtn = {
-    class: 'button',
-    name: 'Back',
-  }
-  addBtn = {
-    class: 'button',
-    name: 'Save',
+    if (!this.notView) {
+      this.configRequest.map((item:any) => {
+        item.disabled = true
+      })
+    }
   }
 
   ngOnInit() {
@@ -128,12 +130,5 @@ export class AddCodeReviewComponent {
     }
   }
 
-  ngAfterViewInit(){
-    if (!this.notView) {
-      this.configRequest.map((item:any) => {
-        item.disabled = true
-      })
-    
-    }
-  }
+  ngAfterViewInit() {}
 }

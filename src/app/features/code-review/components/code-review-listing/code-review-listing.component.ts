@@ -28,8 +28,7 @@ export class CodeReviewListingComponent implements OnInit {
     name: 'Add Code Review'
   }
 
-  constructor(private commonService: CommonService,
-    private router: Router) {
+  constructor(private commonService: CommonService, private router: Router) {
     this.getReviewData();
   }
 
