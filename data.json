@@ -98,7 +98,29 @@
       "status": "active",
       "assignTo": "fa6f",
       "createdBy": "fa6f"
-    }
+    },
+    {
+      "firstName": "nhvjb",
+      "lastName": "sdgvzx",
+      "email": "bbvnvnb@gmail.com",
+      "password": "dW5kZWZpbmVk",
+      "userRole": "Candidate",
+      "createdBy": "0de9",
+      "id": "0de9",
+      "declinedReason": "asdfg",
+      "status": "rejected"
+    },
+    {
+      "firstName": "vitun",
+      "lastName": "bajwa",
+      "email": "vitun@gmail.com",
+      "password": "Vml0dW5AMTIz",
+      "userRole": "Candidate",
+      "createdBy": "self",
+      "id": "029d",
+      "assignTo": {},
+      "status": "active"
+    }  
   ],
   "roles": [
     {
@@ -194,6 +216,20 @@
         "name": "john dee"
       },
       "createdBy": "candidate two",
+      "reviewedBy": {},
+      "status": "pending",
+      "codeReview": ""
+    },
+    {
+      "id": "16cb",
+      "title": "test",
+      "startDate": "2024-03-05T18:30:00.000Z",
+      "endDate": "2024-03-11T18:30:00.000Z",
+      "codeDescription": "testing code",
+      "textEditor": "<p>fdghngfdsafdgbvdsc</p>",
+      "userId": "029d",
+      "assignTo": {},
+      "createdBy": "vitun bajwa",
       "reviewedBy": {},
       "status": "pending",
       "codeReview": ""
