@@ -39,8 +39,6 @@ export class SignUpComponent {
               password: btoa(this.form.form.value.password),
               userRole: this.form.form.value.userRole,
               status: 'Pending',
-              assignTo: this.currentUser.assignTo,
-              createdBy: this.currentUser.firstName +' '+ this.currentUser.lastName,
             };
             this.apiService.add(apiEndPoints.users, data).subscribe((res: any) => {
               this.router.navigateByUrl(routes.auth + routes.login);

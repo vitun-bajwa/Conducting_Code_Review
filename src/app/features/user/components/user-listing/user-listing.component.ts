@@ -101,7 +101,7 @@ export class UserListingComponent {
       email: userData.email,
       password: userData.password,
       userRole: userData.userRole,
-      createdBy: userData.createdBy,
+      createdBy: userData.createdBy ? userData.createdBy : 'self',
       id: userData.id,
     }
     if (userData.declinedReason) {
