@@ -46,19 +46,12 @@ export class CodeReviewListingComponent implements OnInit {
   createData() {
     let reviewData = [...this.reviewData]
     let tableColumns
-    let pendingTableColumns
     if (reviewData.length > 0) {
       tableColumns = Object?.keys(reviewData[0])?.filter((x: any) => 
       this.currentUser.userRole != commonEnum.superAdmin ? 
       (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.assignTo && x != tableEnum.codeReview) : 
       (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.codeReview));
       tableColumns.push(tableEnum.action)
-      pendingTableColumns = Object?.keys(reviewData[0])?.filter((x: any) => 
-      this.currentUser.userRole != commonEnum.superAdmin ? 
-      (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.assignTo && x != tableEnum.codeReview) :
-      (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.codeReview)
-      );
-      if(this.currentUser.userRole != commonEnum.Candidate) pendingTableColumns.push(tableEnum.action);
     }
     if(this.currentUser.userRole != commonEnum.superAdmin) {
       reviewData = reviewData.filter((item: any) => this.currentUser.userRole != commonEnum.Candidate? item.assignTo.id == this.currentUser.id : item.userId == this.currentUser.id);
@@ -73,7 +66,7 @@ export class CodeReviewListingComponent implements OnInit {
     reviewData = reviewData.filter((x: any) => x.status.toLowerCase() == tableEnum.Reviewed && x.status != tableEnum.Rejected);
     pendingreviewData = pendingreviewData.filter((x: any) => x.status.toLowerCase() == tableEnum.Pending || x.status == tableEnum.Rejected);
     this.tableConfig = { tableHeaders: tableColumns, tableData: reviewData, page: routes.codeReview }
-    this.pendingTableConfig = { tableHeaders: pendingTableColumns, tableData: pendingreviewData, page: routes.codeReview }
+    this.pendingTableConfig = { tableHeaders: tableColumns, tableData: pendingreviewData, page: routes.codeReview }
   }
 
   editReview(codeReviewData: any){
