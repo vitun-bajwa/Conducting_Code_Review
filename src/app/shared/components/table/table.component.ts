@@ -16,8 +16,7 @@ import { currentUser } from 'src/app/core/models/common-config';
   styleUrls: ['./table.component.sass']
 })
 export class TableComponent {
-
-
+  
   @Input() tableConfig: any;
   @Input() search: any;
   @Output() userInfo = new EventEmitter();
