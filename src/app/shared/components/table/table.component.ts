@@ -1,13 +1,11 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
-// import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
 import { CommonService } from 'src/app/core/service/common.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonDialogComponent } from '../common-dialog/common-dialog.component';
-import { Router } from '@angular/router';
 import { adminList, declineReason } from 'src/app/core/config/form.constant';
 import { commonEnum, getItem, modalData, routes, tableEnum } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
@@ -17,7 +15,7 @@ import { currentUser } from 'src/app/core/models/common-config';
   styleUrls: ['./table.component.sass']
 })
 export class TableComponent {
-
+  
   @Input() tableConfig: any;
   @Input() search: any;
   @Output() userInfo = new EventEmitter();
@@ -37,7 +35,7 @@ export class TableComponent {
   commonEnum: typeof commonEnum = commonEnum;
   tableEnum: typeof tableEnum = tableEnum;
 
-  constructor(public dialog: MatDialog, public commonService: CommonService, private router: Router) {
+  constructor(public dialog: MatDialog, public commonService: CommonService) {
     this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
    }
 
