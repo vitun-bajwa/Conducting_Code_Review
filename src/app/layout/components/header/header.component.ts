@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { getItem, routes } from 'src/app/core/enums/common.enum';
+import { currentUser } from 'src/app/core/models/common-config';
 
 @Component({
   selector: 'app-header',
@@ -7,17 +9,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.sass']
 })
 export class HeaderComponent {
+  currentUser!: currentUser;
 
   constructor(private router: Router) {}
 
-  ngOnInit() {}
-
-  logOut() {
-    let token = sessionStorage.getItem('token');
-    if(token) {
-      sessionStorage.clear();
-      this.router.navigateByUrl('/')
-    }
+  ngOnInit() {
+    this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
   }
 
+  logOut() {
+    let token = sessionStorage.getItem(getItem.token);
+    if(token) {
+      sessionStorage.clear();
+      this.router.navigateByUrl(routes.auth + routes.login);
+    }
+  }
+  changePassword() {
+    
+  }
 }

@@ -2,7 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { signUpForm } from '../../../core/config/form.constant';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { apiEndPoints, commonEnum, errorMessage, routes, succssMessage } from 'src/app/core/enums/common.enum';
+import { currentUser, signUp } from 'src/app/core/models/common-config';
 
 @Component({
   selector: 'app-sign-up',
@@ -12,25 +14,50 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class SignUpComponent {
   @ViewChild('form') form: any;
   config: FieldConfig[] = signUpForm
+  currentUser!: currentUser;
+  constructor(private apiService: CommonService, private router: Router) { }
 
-  constructor(private apiService: CommonService, private snackBar: MatSnackBar) { }
+  ngOnInit() { }
 
-  ngOnInit() {}
-  
   signUpUser() {
+    this.trimFormValues();
     if (this.form.form.invalid) {
       this.form.form.markAllAsTouched();
-    }
-    else {
-      let data = {
-        ...this.form.form.value,
-        status: 'Inactive'
-      }
-      this.apiService.add('user', data).subscribe((res: any) => {
-        this.snackBar.open('sign-up successfully','',{
-          duration: 1000
+    } else {
+      const email = this.form.form.get('email').value;
+      this.apiService.get(apiEndPoints.users).subscribe(
+        (response: any) => {
+          const existingUser = response.find((user: any) => user.email === email);
+          if (existingUser) {
+            this.apiService.errorMSG(errorMessage.alreadyRegistered);
+            this.form.form.reset();
+          } else {
+            const data : signUp = {
+              firstName: this.form.form.value.firstName,
+              lastName: this.form.form.value.lastName,
+              email: this.form.form.value.email,
+              password: btoa(this.form.form.value.password),
+              userRole: this.form.form.value.userRole,
+              status: 'Pending',
+              assignTo: this.currentUser.assignTo,
+              createdBy: this.currentUser.firstName +' '+ this.currentUser.lastName,
+            };
+            this.apiService.add(apiEndPoints.users, data).subscribe((res: any) => {
+              this.router.navigateByUrl(routes.auth + routes.login);
+              this.apiService.successMSG(succssMessage.signUp);
+            });
+            this.form.form.reset();
+          }
         });
-      })
     }
+  }
+
+  trimFormValues() {
+    Object.keys(this.form.form.controls).forEach(controlName => {
+      const control = this.form.form.get(controlName);
+      if (typeof control?.value === commonEnum.string) {
+        control.setValue(control.value.trim());
+      }
+    });
   }
 }

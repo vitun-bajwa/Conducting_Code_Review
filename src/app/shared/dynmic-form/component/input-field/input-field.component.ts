@@ -4,7 +4,6 @@ import { FieldConfig } from 'src/app/core/models/field-config';
 
 @Component({
   selector: 'app-input-field',
-  // standalone: true,
   templateUrl: './input-field.component.html',
   styleUrls: ['./input-field.component.sass'],
 })
@@ -17,11 +16,14 @@ export class InputFieldComponent {
   hide = false;
   constructor() { }
 
-  onButtonClicked() {
-  }
-  ngOnInit() {
-  }
+  ngOnInit() {}
+
   toggleVisibility(): void {
     this.hide = !this.hide;
   }
+
+  ngAfterViewInit() {
+    if(this.config.disabled) this.group.controls[this.config.name].disable();
+  }
+  
 }

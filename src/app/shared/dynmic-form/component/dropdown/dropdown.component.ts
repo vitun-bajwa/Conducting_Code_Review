@@ -16,7 +16,7 @@ export class DropdownComponent {
   }
 
   checkValue() {
-      this.group.controls
+    this.group.controls
   }
 
 }

@@ -3,13 +3,19 @@
         <div class="logo">
             <img src="assets/images/logo.png" alt="">
         </div>
+        <div class="text">
+            <h5> Conducting </h5>
+            <h5> Code </h5>
+            <h5> Review </h5>
+        </div>
     </div>
     <div class="rgt">
         <div class="dropdown">
+                <span>{{currentUser.firstName}} {{currentUser.lastName}}</span>
             <img src="assets/images/profilepic.png" alt="" data-bs-toggle="dropdown">
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" routerLink=""> Profile </a></li>
-              <li><a class="dropdown-item" routerLink=""> Change Password </a></li>
+              <li><a class="dropdown-item" routerLink="user-profile"> Profile </a></li>
+              <li><a class="dropdown-item" routerLink="changePassword"> Change Password </a></li>
               <li><a class="dropdown-item" (click)="logOut()"> Logout </a></li>
             </ul>
         </div>

@@ -1,9 +1,13 @@
 @import assets/sass/mixin
 @import assets/sass/variables
 @import ~@angular/material/prebuilt-themes/indigo-pink.css
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')
+
+/* Preset Css */
 
 * 
     box-sizing: border-box
+    font-family: "Montserrat", sans-serif
 
 html, body, p, ul, li
     margin: 0px
@@ -20,51 +24,152 @@ body
     width: 1140px
     margin: 0 auto
 
+mat-spinner.mat-mdc-progress-spinner
+    width: 70px !important
+    height: 70px !important
+    .mdc-circular-progress__indeterminate-circle-graphic
+        stroke: $background-dark
+
+.snackbar-success.mat-mdc-snack-bar-container .mdc-snackbar__surface
+    background-color: $success
+
+.snackbar-error.mat-mdc-snack-bar-container .mdc-snackbar__surface
+    background-color: $danger
+
+.snackbar-warning.mat-mdc-snack-bar-container .mdc-snackbar__surface
+    background-color: $warning
+    .mdc-snackbar__label
+        color: $text-black
+
+
+/* Preset Css End */
+
+/* Scroll Css */
+
+::-webkit-scrollbar 
+  width: 5px
+
+::-webkit-scrollbar-track 
+  box-shadow: inset 0 0 5px grey
+  border-radius: 10px
+ 
+::-webkit-scrollbar-thumb 
+  background: $background
+  border-radius: 10px
+
+::-webkit-scrollbar-thumb:hover 
+  background: $background-dark
+
+/* Scroll Css End */
+
+/* Common Css */
+
+.hdr
+    @include f_c_sb
+    margin: 20px 0px
+    color: $secondary
+    h2
+        font-size: 26px
+        margin: 0px
+    mat-form-field .mdc-text-field--filled:not(.mdc-text-field--disabled)
+        margin: 0px
+
+.innr_page
+    position: relative
+    .hdr
+        margin: 0px
+        position: absolute
+        top: 0px
+        right: 0px
+        z-index: 2
+        app-input-field
+            margin-right: 15px
+        button
+            margin: 0px
+        
+
+/* Common Css End */
+
+/* Form Css */
+
 .feild_50
     form
-        @include d_c_sb
-    app-input-field, app-dropdown
+        @include f_c_sb
+    app-input-field, app-dropdown, app-date-picker, app-textarea
         width: 48%
-        position: relative
     app-button-field 
         width: 100%
         text-align: right
         margin-top: 10px
+    .button 
+        width: auto
 
 .button 
-    padding: 8px 15px
+    width: 100%
+    padding: 9px 15px
     color: $primary
     font-size: 14px
-    font-weight: bold
+    font-weight: 500
     border: none
     background: $background-dark
-    border-radius: 2px
-    cursor: pointer
+    border-radius: 5px
+    margin-top: 10px
 
-.main 
-    width: 100%
-    height: 100%
-    @include d_c_c
-    background-size: cover
-    background-position: center
+.button.danger
+    background: $danger
+
+.button.icon
+    @include f_c_c
+    background: transparent
+    border: 2px solid $secondary
+    border-radius: 5px
+    padding: 0px
+    width: 35px
+    height: 35px
+    color: $secondary
+    font-size: 20px
+
+.btnBx
+    .button
+        width: auto
+        margin-left: 15px
+    &.lft
+        text-align: left
+    &.rgt
+        text-align: right
 
 app-dynamic-form 
     width: 100%
+    app-input-field, app-dropdown, app-date-picker, app-textarea
+        position: relative
+        display: block
 
 mat-form-field
     width: 100%
-    .mdc-text-field--filled:not(.mdc-text-field--disabled)
+    .mdc-text-field--filled:not(.mdc-text-field--disabled), .mdc-text-field--filled.mdc-text-field--disabled
         background-color: $background
         margin: 10px 0px 20px
         padding: 0px
-        border-radius: 0px
+        border-radius: 5px
         .mat-mdc-form-field-infix
             padding: 0px !important
             min-height: unset
         mat-select
-            padding: 10px
+            padding: 8px
             font-size: 14px
-        .input
+        input
+            width: 100%
+            border: 0px
+            background: $background
+            padding: 8px 20px
+            margin: 0px
+            font-size: 14px
+            color: $secondary
+            &::placeholder
+                color: $placeholder !important
+            &:focus-visible
+                outline: 0px
+        textarea
             width: 100%
             border: 0px
             background: $background
@@ -72,19 +177,27 @@ mat-form-field
             margin: 0px
             font-size: 14px
             color: $secondary
-            &::placeholder
-                color: $placeholder
-            &:focus-visible
-                outline: 0px
+        .mdc-text-field__input
+            color: $text-black
     .mdc-line-ripple, .mat-mdc-form-field-subscript-wrapper
         display: none
 
 mat-form-field.withIcon 
-    @include d_c_sb
+    .mat-mdc-form-field-infix
+        @include f_c_sb
     .mdc-text-field--filled:not(.mdc-text-field--disabled) .input
-        width: 90%
-    i 
-        width: 10%
+        width: 85%
+    mat-icon 
+        width: 15%
+        text-align: center
+        cursor: pointer
+
+app-input-field.searchFilter
+    width: 230px
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) .input
+        width: 70%
+    mat-icon 
+        width: 30%
 
 app-errors 
     position: absolute
@@ -93,6 +206,7 @@ app-errors
     font-size: 12px
     font-weight: 500
     color: red
+    @include f_c_sb
 
 .dropdown-menu.show
     background: $background
@@ -100,40 +214,84 @@ app-errors
         background: $background-dark
         color: $primary
 
+.code_review
+    .lft
+        width: 60%
+        display: inline-block
+    .full
+        width: 100%
+    .rgt
+        width: 35%
+        display: inline-block
+        position: sticky
+        top: 0
+        margin-left: 5%
+        app-button-field
+            margin-left: auto
+        .reviewdBy
+            font-size: 12px
+    app-dynamic-form form
+        @include f_c_sb
+        app-input-field, app-textarea, app-editor
+            width: 100%
+        app-date-picker
+            width: 48%
+
+/* Form Css End */
+
+/* Auth Css */
+
 .authPage
-    @include d_s_c
-    border: 2px solid $primary
+    @include f_c_c
+    background: $background-gradient
     overflow: hidden
     height: 100vh
+    .innerPage
+        @include f_s_c
+        width: 50%
+        height: auto
+        min-height: 70%
+        max-height: 85%
+        border-radius: 15px
+        overflow: hidden
     .lft 
-        width: 70%
+        width: 50%
         padding: 50px
         background-color: $background
-        background-image: url('assets/images/bg.svg')
-        background-position: center
+        background-image: url('assets/images/bg.jpg')
+        background-position: right
         background-repeat: no-repeat
+        background-size: cover 
     .rgt
-        @include d_c_c
-        width: 30%
+        @include f_c_c
+        width: 50%
         padding: 50px
+        background: $background-white
+        overflow: auto
         h1 
-            font-size: 35px
+            font-size: 26px
             font-weight: bold
             color: $secondary
         h5 
+            width: 100%
+            text-align: center
             font-size: 14px
             font-weight: bold
             color: $secondary
             padding-top: 20px
             a 
             color: $secondary
-        .buttonBox
-            width: 100%
-            @include d_c_sb
-            a
+        .forgotBtn
+            width: auto
             font-size: 14px
             font-weight: bold
             color: $secondary
+            text-align: center
+            cursor: pointer
+
+/* Auth Css End */
+
+/* Sidebar Css */
 
 .sideBarPage
     ul 
@@ -146,7 +304,7 @@ app-errors
         padding: 6px 10px
         border-radius: 5px
         margin-bottom: 15px
-        @include d_c_fs
+        @include f_c_fs
         &:hover 
             background: $secondary
             color: $text-white
@@ -159,6 +317,24 @@ app-errors
         background: $secondary
         color: $text-white
 
+/* Sidebar Css End */
+
+/* Forgot password Css */
+
+.content
+    .card
+        border: none
+        ng-otp-input
+            input
+                width: 45px !important
+                height: 45px !important
+        button
+            background: $background-dark
+
+/* Forgot password Css End */
+
+/* Page not found Css */
+
 .pageNotFound 
     width: 100%
     height: 100%
@@ -167,3 +343,120 @@ app-errors
         width: 100%
         height: 100%
         object-fit: contain
+
+/* Page not found Css End */
+
+/* Mat tab css */
+    
+mat-tab-group
+    .mat-mdc-tab-body-wrapper
+        padding: 15px
+
+.mat-mdc-tab-labels
+    border-radius: 5px
+    overflow: hidden
+    width: max-content
+    background: $background
+    padding: 5px
+    .mat-mdc-tab
+        width: max-content
+        border-radius: 5px
+        padding: 10px 15px
+        height: 100% !important
+        .mdc-tab__text-label
+            color: $text-black
+    .mat-mdc-tab.mdc-tab--active, .mat-mdc-tab.mdc-tab--active:focus, .mat-mdc-tab.mdc-tab--active:hover
+        background: $background-dark
+        .mdc-tab__text-label
+            color: $primary
+        .mdc-tab-indicator__content--underline
+            border: 0px solid $background
+
+/* Mat tab css End */
+
+/* Table css */
+
+app-table
+    table.mdc-data-table__table
+        margin: 10px 0px
+        border-radius: 5px
+        overflow: hidden
+        box-shadow: $box-shadow-table
+        thead
+            tr
+                background: $background-dark
+                color: $primary
+        tbody
+            tr
+                color: $text-black
+                font-weight: 500
+            tr:nth-child(2n)
+                background: $background
+
+.searchBox
+    width: auto
+    .mdc-text-field--filled:not(.mdc-text-field--disabled)
+        padding: 7px 15px
+        border-radius: 20px
+
+app-button-field
+    .statusBtn
+        border: solid 2px $danger
+        background: $danger
+        color: $text-white
+        font-size: 14px
+        width: 100px
+        border-radius: 5px
+        text-transform: capitalize
+    &.active
+        .statusBtn
+            border: solid 2px $success
+            background: $success
+            color: $text-white
+    &.pending
+        .statusBtn
+            border: solid 2px $warning
+            background: $warning
+            color: $text-black
+    .statusBtnNonClick
+        cursor: default
+
+.noDataTable
+    padding: 20px
+    text-align: center
+    font-size: 16px
+
+/* Table css End */
+
+/* Model css */
+
+.model_otr
+    padding: 20px
+    h1
+        padding: 0px 0px 10px
+        margin: 0px
+        font-size: 22px
+    p
+        padding: 0px 0px 10px
+        font-size: 14px
+
+/* Model css End */
+
+.ck-editor__editable_inline 
+    min-height: 500px
+
+ckeditor
+    width: 100%
+    height: 100%
+    display: block
+
+
+/* Responsive Css */
+
+@media (max-width: 1600px) 
+    .authPage .rgt 
+        padding: 30px
+        h1
+            font-size: 24px
+
+/* Responsive Css End */

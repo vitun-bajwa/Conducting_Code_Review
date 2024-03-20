@@ -5,15 +5,20 @@ import { CodeReviewRoutingModule } from './code-review-routing.module';
 import { CodeReviewListingComponent } from './components/code-review-listing/code-review-listing.component';
 import { AddCodeReviewComponent } from './components/add-code-review/add-code-review.component';
 
+import { UiModule } from 'src/app/ui/ui.module';
+import { SharedModule } from 'src/app/shared/shared.module';
+
 
 @NgModule({
   declarations: [
     CodeReviewListingComponent,
-    AddCodeReviewComponent
+    AddCodeReviewComponent,
   ],
   imports: [
     CommonModule,
-    CodeReviewRoutingModule
+    CodeReviewRoutingModule,
+    UiModule,
+    SharedModule
   ]
 })
 export class CodeReviewModule { }

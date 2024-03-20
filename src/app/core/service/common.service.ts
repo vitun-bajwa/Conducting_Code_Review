@@ -1,15 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
+
 export class CommonService {
   baseUrl = environment.baseURL;
   users: any = []
   httpClient: any;
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient, private snackBar: MatSnackBar) { }
 
   get(url: string, param?:string) {
     return this.http.get(this.baseUrl + url + (param ? param : ''));
@@ -27,8 +30,26 @@ export class CommonService {
     return this.http.delete(this.baseUrl + url);
   }
   
-  patchdata(url:any,data:any){
-    return this.http.patch(this.baseUrl + url, data);
+  successMSG(msg:string) {
+    this.snackBar.open(msg,'',{
+      duration: 3000, panelClass: ['snackbar-success']
+    });
   }
-  
-}
+  errorMSG(msg:string) { 
+    this.snackBar.open(msg,'',{
+      duration: 3000, panelClass: ['snackbar-error']
+    });
+  }
+
+  warningMSG(msg:string) {
+    this.snackBar.open(msg,'',{
+      duration: 3000, panelClass: ['snackbar-warning']
+    });
+  }
+
+  uploadImage(file: File) {
+    const formData = new FormData();
+    formData.append('image', file);
+    return this.http.post<any>('http://localhost:3000/images', formData);
+  }
+ }

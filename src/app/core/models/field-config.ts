@@ -6,7 +6,7 @@ export interface FieldConfig {
   options?: any[];
   option?: string[];
   placeholder?: string;
-  type: string;
+  type?: string;
   fieldType?: string;
   validation?: ValidatorFn[];
   value?: any;
@@ -28,4 +28,5 @@ export interface FieldConfig {
   hidden?: boolean;
   updateOn?: any;
   error?: boolean;
+  hint?: any;
 }

@@ -4,6 +4,7 @@ import { forgotForm, resetPasswordForm } from '../../../core/config/form.constan
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/core/service/common.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { apiEndPoints, commonEnum, routes, succssMessage } from 'src/app/core/enums/common.enum';
 
 @Component({
   selector: 'app-forgot-password',
@@ -25,17 +26,13 @@ export class ForgotPasswordComponent {
   hidepage: boolean = false;
   configs = {
     allowNumbersOnly: false,
-    length: 6,
+    length: 0,
     isPasswordInput: false,
     disableAutoFocus: false,
-    inputStyles: {
-      'width': '50px',
-      'height': '50px'
-    }
   }
 
   constructor(
-    private apiService: CommonService, 
+    private commonService: CommonService, 
     private router: Router, 
     private route: ActivatedRoute,
     private snackBar: MatSnackBar) { }
@@ -49,19 +46,18 @@ export class ForgotPasswordComponent {
     let alluseremail: any = {
       email: e.email,
     }
-    this.apiService.get('users').subscribe(
+    this.commonService.get(apiEndPoints.users).subscribe(
       (data: any) => {
         this.loader = true;
         this.logindata = data;
         this.matchdata = this.logindata.find((data: any) => data.email === alluseremail.email);
-        this.snackBar.open(this.matchdata ? 'email verified successfully' : 'please enter valid email','',{
-          duration: 1800
-        });
+        this.commonService.successMSG(this.matchdata ? succssMessage.emailVerified : succssMessage.enterValidEmail);
         if (this.matchdata) {
           setTimeout(() => {
             this.loader = false;
             this.showloginpage = false
             this.validOtp = Math.floor(Math.random() * 1000000);
+            this.configs.length = this.validOtp.toString().length
           }, 1500);
         } else {
           this.loader = false;
@@ -87,20 +83,30 @@ export class ForgotPasswordComponent {
   }
 
   resetPassword() {
+    this.trimFormValues();
     if (this.form.form.invalid) {
       this.form.form.markAllAsTouched()
     }
     else {
       let data: any = {
         ...this.matchdata,
-        password: this.form.form.value.password,
+        password: btoa(this.form.form.value.password),
       }
-      this.apiService.edit('users/'+this.matchdata.id, data).subscribe((data: any) => {
-        this.router.navigateByUrl('/')
+      this.commonService.edit(apiEndPoints.user + this.matchdata.id, data).subscribe((data: any) => {
+        this.router.navigateByUrl(routes.empty);
+        this.commonService.successMSG(succssMessage.passwordUpdated);
       }
       );
       this.form.form.reset()
-      // this.message.showSuccess("Password Reset Succesfull")
     }
+  }
+
+  trimFormValues() {
+    Object.keys(this.form.form.controls).forEach(controlName => {
+      const control = this.form.form.get(controlName);
+      if (typeof control?.value === commonEnum.string) {
+        control.setValue(control.value.trim());
+      }
+    });
   }
 }

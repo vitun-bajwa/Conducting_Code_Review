@@ -1,15 +1,68 @@
-<table mat-table [dataSource]="tableData" class="mat-elevation-z8">
-  <ng-container [matColumnDef]="column" *ngFor="let column of tableConfiguration?.tableHeaders">
-    <th mat-header-cell *matHeaderCellDef> {{column | titlecase}} </th>
-    <ng-container *matCellDef="let element">
-      <td mat-cell *ngIf="column != 'status'">{{element[column]}} </td>
-      <td mat-cell *ngIf="column == 'status'">
-        <!-- <mat-icon >{{element[column] == '1' ? 'check_circle' : 'highlight_off'}}</mat-icon> -->
-        <button class="status" (click)="updateStatus(element)">{{element[column]}}</button>
+<table mat-table [dataSource]="tableData" matSort="true" class="mat-elevation-z8">
+  <ng-container [matColumnDef]="column" *ngFor="let column of tableConfiguration?.tableHeaders;">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column | titlecase}} </th>
+    <ng-container *matCellDef="let element;  let index = index">
+      <td mat-cell *ngIf="column == tableEnum.srNo">{{(paginatorRef.pageIndex * paginatorRef.pageSize) + (index + 1)}}</td>
+
+      <td mat-cell *ngIf="column == tableEnum.startDate || column == tableEnum.endDate">{{element[column] | date}}</td>
+      <td mat-cell *ngIf="column != tableEnum.status && column != tableEnum.action && column != tableEnum.srNo && column != tableEnum.startDate && column != tableEnum.endDate && column != tableEnum.assignTo && column != commonEnum.reviewedBy">{{element[column]}} </td>
+      <td mat-cell *ngIf="column == tableEnum.assignTo">{{element[column].name}}</td>
+      <td mat-cell *ngIf="column == commonEnum.reviewedBy">{{(element[column]?.name) ? element[column]?.name : '--'}}</td>
+
+      <td mat-cell *ngIf="column == tableEnum.status">
+        <app-button-field 
+        *ngIf="element['statusBtn'] && currentUser.userRole == tableEnum.Admin || currentUser.userRole == tableEnum.superAdmin" 
+        (btnClickEvent)="updateStatus(element)" [config]="element['statusBtn']" 
+        [ngClass]="(element['statusBtn'].name===tableEnum.Active) ? tableEnum.Active : (element['statusBtn'].name===tableEnum.Pending) ? tableEnum.Pending : element['statusBtn'].name===tableEnum.Reviewed ? tableEnum.Active : ''"></app-button-field>
+
+        <ng-container *ngIf="currentUser.userRole == tableEnum.Candidate && element['statusBtn']">
+          <app-button-field [config]="element['statusBtn']" 
+          [ngClass]="(element['statusBtn'].name===tableEnum.Active) ? tableEnum.Active : (element['statusBtn'].name===tableEnum.Pending) ? tableEnum.Pending : element['statusBtn'].name===tableEnum.Reviewed ? tableEnum.Active : ''">
+          </app-button-field>
+        </ng-container>
       </td>
+
+      <td mat-cdell *ngIf="column == tableEnum.action && element.status != tableEnum.Pending && element.status !== tableEnum.Rejected">
+        <ng-container *ngIf="(currentUser.userRole == commonEnum.Admin|| currentUser.userRole == commonEnum.superAdmin)">
+          <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
+            color="primary" (click)="editUser(element)">
+            <mat-icon>edit</mat-icon>
+          </button> 
+          <button mat-icon-button matTooltip="Delete" class="iconbutton"
+                (click)="deleteUser(element)" color="warn">
+                <mat-icon>delete</mat-icon>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="currentUser.userRole == commonEnum.Candidate">
+          <button mat-icon-button matTooltip="View" class="iconbutton" (click)="viewReview(element)">
+            <mat-icon >visibility</mat-icon>
+          </button>
+        </ng-container>
+      </td>
+      <td mat-cdell *ngIf="column == tableEnum.action && element.status === tableEnum.Pending && currentUser.userRole != commonEnum.Candidate">
+          <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary" (click)="editRequest(element)">
+            <mat-icon>check</mat-icon>
+          </button> 
+          <button mat-icon-button matTooltip="Decline" class="iconbutton" (click)="declineRequest(element)" color="warn">
+              <mat-icon>close</mat-icon>
+          </button>
+      </td>
+      
+      <td mat-cdell *ngIf="column == 'action' && (currentUser.userRole == commonEnum.Candidate || element.status === tableEnum.Rejected)">
+          <button *ngIf="element.status === tableEnum.Rejected" mat-icon-button matTooltip="Accept" class="iconbutton" color="primary" (click)="declineReason(element)">
+            <mat-icon>info</mat-icon>
+          </button>
+      </td>
+      
     </ng-container>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="tableConfiguration?.tableHeaders"></tr>
   <tr mat-row *matRowDef="let row; columns: tableConfiguration?.tableHeaders;"></tr>
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell noDataTable" [attr.colspan]="tableConfiguration?.tableHeaders.length">
+      No records found...
+    </td>
+  </tr>
 </table>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons #paginatorRef></mat-paginator>

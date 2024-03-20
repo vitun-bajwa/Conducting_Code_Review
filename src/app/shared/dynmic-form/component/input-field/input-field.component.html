@@ -1,7 +1,14 @@
-<mat-form-field [formGroup]="group" [class]="config.fieldType === 'password' ? 'withIcon':'' ">
-    <input matInput [id]="config.name" [class]="config.class" 
-    [type]="(hide) ? 'text' : config.fieldType!" [formControlName]="config.name" [placeholder]="config.placeholder!" />
-    <i class="fa" [ngClass]="hide ? 'fa-eye': 'fa-eye-slash'" *ngIf="config.fieldType === 'password'"
-        (click)="toggleVisibility()"></i>
+<mat-form-field *ngIf="config.name != 'searchFilter'" [formGroup]="group" [class]="config.fieldType === 'password' ? 'withIcon':'' ">
+    <input matInput [id]="config.name" [class]="config.class"
+        [type]="(hide) ? 'text' : config.fieldType!" [formControlName]="config.name"
+        [placeholder]="config.placeholder!" />
+    <mat-hint *ngIf="config.fieldType === 'password'">{{config.hint}}</mat-hint>
+        <mat-icon *ngIf="config.fieldType === 'password'" (click)="toggleVisibility()">{{ hide ? 'visibility_off' : 'visibility'  }}</mat-icon>
 </mat-form-field>
-<app-errors [errors]="config" [group]="group"></app-errors>
+<app-errors *ngIf="config.name != 'searchFilter'" [errors]="config" [group]="group"></app-errors>
+
+<mat-form-field *ngIf="config.name == 'searchFilter'" class="withIcon">
+    <input matInput [id]="config.name" [(ngModel)]="config.value" [class]="config.class" [type]="config.fieldType!" [placeholder]="config.placeholder!" />
+    <mat-hint *ngIf="config.fieldType === 'password'">{{config.hint}}</mat-hint>
+    <mat-icon>search</mat-icon>
+</mat-form-field>

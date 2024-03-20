@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FieldConfig } from '../../core/models/field-config';
 
 @Component({
@@ -9,13 +9,12 @@ import { FieldConfig } from '../../core/models/field-config';
   exportAs: 'dynamicForm',
 })
 export class DynamicFormComponent {
-
   @Input()
   config: FieldConfig[] = [];
-
   form: FormGroup;
   field: any;
   @Output() submitted = new EventEmitter<any>();
+
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group(this.config);
   }
@@ -29,10 +28,8 @@ export class DynamicFormComponent {
     this.config.forEach(control => group.addControl(control.name, this.fb.control(control.value, control.validation)));
     return group;
   }
-  
-  handleSubmit(e:any) {
-    
-  }
 
+  ngAfterViewInit() {}
 
 }
+

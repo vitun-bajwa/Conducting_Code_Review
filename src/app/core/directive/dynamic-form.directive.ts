@@ -4,12 +4,17 @@ import { Field } from '../models/field';
 import { ButtonFieldComponent } from '../../shared/dynmic-form/component/button-field/button-field.component';
 import { InputFieldComponent } from '../../shared/dynmic-form/component/input-field/input-field.component';
 import { DropdownComponent } from '../../shared/dynmic-form/component/dropdown/dropdown.component';
+import { DatePickerComponent } from 'src/app/shared/dynmic-form/component/date-picker/date-picker.component';
+import { EditorComponent } from 'src/app/shared/dynmic-form/component/editor/editor.component';
+import { TextareaComponent } from 'src/app/shared/dynmic-form/component/textarea/textarea.component';
 
 const components: {[type: string]: Type<Field>} = {
   button: ButtonFieldComponent,
   input: InputFieldComponent,
   select: DropdownComponent,
-  // textArea: FormTextareaComponent,
+  daterange: DatePickerComponent,
+  textEditor: EditorComponent,
+  textArea: TextareaComponent,
   // checkbox: FormCheckboxComponent,
   // password: FormPasswordComponent,
   // option: FormOptionsComponent,
