@@ -3,11 +3,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 // import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { CommonService } from 'src/app/core/service/common.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FieldConfig } from 'src/app/core/models/field-config';
-import { RequestDialogComponent } from '../request-dialog/request-dialog.component';
+import { CommonDialogComponent } from '../common-dialog/common-dialog.component';
 import { Router } from '@angular/router';
 import { adminList, declineReason } from 'src/app/core/config/form.constant';
 import { commonEnum, getItem, modalData, routes, tableEnum } from 'src/app/core/enums/common.enum';
@@ -79,9 +78,11 @@ export class TableComponent {
   }
 
   deleteUser(userData: any) {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+    const dialogRef = this.dialog.open(CommonDialogComponent, {
       data: {
         id: userData.id,
+        heading: modalData.deleteUser,
+        title: modalData.deleteUserTitle,
       },
     })
     dialogRef.afterClosed().subscribe((res: boolean) => {
@@ -96,7 +97,7 @@ export class TableComponent {
     if(this.tableConfig.page == routes.user) {
       if (data.userRole === commonEnum.Candidate) {
         this.adminListConfig[0].options = this.tableConfig?.activeAdmin;
-        const dialogRef = this.dialog.open(RequestDialogComponent, {
+        const dialogRef = this.dialog.open(CommonDialogComponent, {
           data: {
             id: data.id,
             heading: modalData.approveRequest,
@@ -123,7 +124,7 @@ export class TableComponent {
 
   declineReason(data: any) {
     this.configReview[0].disabled = true;
-    const dialogRef = this.dialog.open(RequestDialogComponent, {
+    const dialogRef = this.dialog.open(CommonDialogComponent, {
       data: {
         declinedReason: data,
         heading: modalData.declinedRequest,
@@ -140,7 +141,7 @@ export class TableComponent {
   }
 
   declineRequest(data: any) {
-    const dialogRef = this.dialog.open(RequestDialogComponent, {
+    const dialogRef = this.dialog.open(CommonDialogComponent, {
       data: {
         id: data.id,
         heading: modalData.declineRequest,

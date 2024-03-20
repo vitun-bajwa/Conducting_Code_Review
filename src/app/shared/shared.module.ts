@@ -4,19 +4,17 @@ import { DynamicFormModule } from './dynmic-form/dynamic-form.module';
 import { UiModule } from '../ui/ui.module';
 import { TableComponent } from './components/table/table.component';
 import { ButtonFieldComponent } from './dynmic-form/component/button-field/button-field.component';
-import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { EditorComponent } from './dynmic-form/component/editor/editor.component';
 import { CommonFilterComponent } from './components/common-filter/common-filter.component';
-import { RequestDialogComponent } from './components/request-dialog/request-dialog.component';
+import { CommonDialogComponent } from './components/common-dialog/common-dialog.component';
 
 
 @NgModule({
   declarations: [
     TableComponent,
-    ConfirmDialogComponent,
     EditorComponent,
     CommonFilterComponent,
-    RequestDialogComponent
+    CommonDialogComponent
   ],
   imports: [
     CommonModule,

@@ -1,15 +1,13 @@
 import { Component, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { adminList, declineReason } from 'src/app/core/config/form.constant';
-import { commonEnum } from 'src/app/core/enums/common.enum';
-import { FieldConfig } from 'src/app/core/models/field-config';
+import { commonEnum, modalData } from 'src/app/core/enums/common.enum';
 
 @Component({
   selector: 'app-request-dialog',
-  templateUrl: './request-dialog.component.html',
-  styleUrls: ['./request-dialog.component.sass']
+  templateUrl: './common-dialog.component.html',
+  styleUrls: ['./common-dialog.component.sass']
 })
-export class RequestDialogComponent {
+export class CommonDialogComponent {
   @ViewChild('review') review: any;
   isConfirmDisabled: boolean = false; 
   cancelBtn = {
@@ -24,11 +22,11 @@ export class RequestDialogComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<RequestDialogComponent>
+    public dialogRef: MatDialogRef<CommonDialogComponent>
   ){}
 
   ngAfterViewInit() {
-    if(this.data.config[0].name == commonEnum.assignTo && this.review) {
+    if(this.data.config && this.data.config[0].name == commonEnum.assignTo && this.review) {
       this.saveBtn.disabled = true
       this.review.form.controls[this.data.config[0].name].valueChanges.subscribe((res:any) => {
         this.saveBtn.disabled = false;
@@ -38,6 +36,10 @@ export class RequestDialogComponent {
       this.review.form.patchValue({
         [this.data.config[0].name] : this.data.declinedReason.declinedReason
       })
+    }
+    if(this.data.heading == modalData.deleteUser) {
+      this.saveBtn.name = 'Delete'
+      this.saveBtn.class = 'button danger'
     }
   }
 

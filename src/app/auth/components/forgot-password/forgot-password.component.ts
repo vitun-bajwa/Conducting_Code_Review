@@ -32,7 +32,7 @@ export class ForgotPasswordComponent {
   }
 
   constructor(
-    private apiService: CommonService, 
+    private commonService: CommonService, 
     private router: Router, 
     private route: ActivatedRoute,
     private snackBar: MatSnackBar) { }
@@ -46,14 +46,12 @@ export class ForgotPasswordComponent {
     let alluseremail: any = {
       email: e.email,
     }
-    this.apiService.get(apiEndPoints.users).subscribe(
+    this.commonService.get(apiEndPoints.users).subscribe(
       (data: any) => {
         this.loader = true;
         this.logindata = data;
         this.matchdata = this.logindata.find((data: any) => data.email === alluseremail.email);
-        this.snackBar.open(this.matchdata ? succssMessage.emailVerified : succssMessage.enterValidEmail,'',{
-          duration: 1800
-        });
+        this.commonService.successMSG(this.matchdata ? succssMessage.emailVerified : succssMessage.enterValidEmail);
         if (this.matchdata) {
           setTimeout(() => {
             this.loader = false;
@@ -94,9 +92,9 @@ export class ForgotPasswordComponent {
         ...this.matchdata,
         password: btoa(this.form.form.value.password),
       }
-      this.apiService.edit(apiEndPoints.user + this.matchdata.id, data).subscribe((data: any) => {
+      this.commonService.edit(apiEndPoints.user + this.matchdata.id, data).subscribe((data: any) => {
         this.router.navigateByUrl(routes.empty);
-        this.apiService.successMSG(succssMessage.passwordUpdated);
+        this.commonService.successMSG(succssMessage.passwordUpdated);
       }
       );
       this.form.form.reset()

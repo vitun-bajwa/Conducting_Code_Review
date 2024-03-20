@@ -8,6 +8,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LayoutComponent } from './layout.component';
 import { SharedModule } from '../shared/shared.module';
 import { UiModule } from '../ui/ui.module';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { UiModule } from '../ui/ui.module';
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
-    LayoutComponent
+    LayoutComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,

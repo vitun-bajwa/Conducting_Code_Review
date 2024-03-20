@@ -22,7 +22,9 @@ export enum modalData {
   declinedRequest = "Declined Request",
   declinedTitle = "Reason for request is declined",
   approveRequest = "Approve Request",
-  selectAdmin = "Please select an admin to assign this candidate"
+  selectAdmin = "Please select an admin to assign this candidate",
+  deleteUser = 'Delete User',
+  deleteUserTitle = 'Are you sure you want to delete this user?'
 }
 
 export enum tableEnum {

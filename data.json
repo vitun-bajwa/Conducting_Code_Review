@@ -71,7 +71,11 @@
       "userRole": "Candidate",
       "createdBy": "fa6f",
       "assignTo": null,
-      "status": "Active"
+      "status": "active",
+      "statusBtn": {
+        "name": "active",
+        "class": "statusBtn"
+      }
     },
     {
       "id": "fa6f",
@@ -83,6 +87,17 @@
       "createdBy": "self",
       "assignTo": null,
       "status": "Active"
+    },
+    {
+      "id": "2c6c",
+      "firstName": "Admin",
+      "lastName": "Under",
+      "email": "adminunder@gmail.com",
+      "password": "VW5kZXJAMTI=",
+      "userRole": "Admin",
+      "status": "active",
+      "assignTo": "fa6f",
+      "createdBy": "fa6f"
     }
   ],
   "roles": [
@@ -165,6 +180,23 @@
       "reviewedBy": null,
       "status": "pending",
       "codeReview": null
+    },
+    {
+      "id": "11af",
+      "title": "HTML Structure",
+      "startDate": "2024-03-19T18:30:00.000Z",
+      "endDate": "2024-03-19T18:30:00.000Z",
+      "codeDescription": "HTML Base code structure",
+      "textEditor": "<p>&lt;!DOCTYPE html&gt;<br>&lt;html&gt;<br>&lt;head&gt;<br>&lt;/head&gt;<br>&lt;body&gt;</p><p>&lt;h1&gt;This is a Heading&lt;/h1&gt;<br>&lt;p&gt;This is a paragraph.&lt;/p&gt;</p><p>&lt;/body&gt;<br>&lt;/html&gt;</p>",
+      "userId": "4c91",
+      "assignTo": {
+        "id": "fa6f",
+        "name": "john dee"
+      },
+      "createdBy": "candidate two",
+      "reviewedBy": {},
+      "status": "pending",
+      "codeReview": ""
     }
   ]
 }

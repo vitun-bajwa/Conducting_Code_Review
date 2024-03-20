@@ -106,14 +106,17 @@ mat-spinner.mat-mdc-progress-spinner
 
 .button 
     width: 100%
-    padding: 8px 15px
+    padding: 9px 15px
     color: $primary
     font-size: 14px
     font-weight: 500
     border: none
     background: $background-dark
-    border-radius: 20px
+    border-radius: 5px
     margin-top: 10px
+
+.button.danger
+    background: $danger
 
 .button.icon
     @include f_c_c
@@ -147,18 +150,18 @@ mat-form-field
         background-color: $background
         margin: 10px 0px 20px
         padding: 0px
-        border-radius: 50px
+        border-radius: 5px
         .mat-mdc-form-field-infix
             padding: 0px !important
             min-height: unset
         mat-select
-            padding: 10px
+            padding: 8px
             font-size: 14px
         input
             width: 100%
             border: 0px
             background: $background
-            padding: 10px 20px
+            padding: 8px 20px
             margin: 0px
             font-size: 14px
             color: $secondary
@@ -350,14 +353,14 @@ mat-tab-group
         padding: 15px
 
 .mat-mdc-tab-labels
-    border-radius: 50px
+    border-radius: 5px
     overflow: hidden
     width: max-content
     background: $background
     padding: 5px
     .mat-mdc-tab
         width: max-content
-        border-radius: 50px
+        border-radius: 5px
         padding: 10px 15px
         height: 100% !important
         .mdc-tab__text-label
@@ -403,7 +406,8 @@ app-button-field
         color: $text-white
         font-size: 14px
         width: 100px
-        border-radius: 50px
+        border-radius: 5px
+        text-transform: capitalize
     &.active
         .statusBtn
             border: solid 2px $success

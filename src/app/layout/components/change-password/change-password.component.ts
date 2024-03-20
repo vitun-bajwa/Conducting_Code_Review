@@ -1,28 +1,31 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { changePasswordForm } from 'src/app/core/config/form.constant';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
 import { UiModule } from 'src/app/ui/ui.module';
 import { DynamicFormModule } from '../../../shared/dynmic-form/dynamic-form.module';
 import { apiEndPoints, commonEnum, errorMessage, getItem, routes, setItem, succssMessage } from 'src/app/core/enums/common.enum';
+import { currentUser } from 'src/app/core/models/common-config';
 
 @Component({
   selector: 'app-change-password',
-  standalone: true,
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.sass'],
-  imports: [UiModule, DynamicFormModule]
 })
 export class ChangePasswordComponent {
   @ViewChild('form') form: any;
   config: FieldConfig[] = changePasswordForm;
   user: any = [];
+  currentUser!: currentUser;
+  commonEnum: typeof commonEnum = commonEnum;
+  routes: typeof routes = routes;
   constructor(
     private apiService: CommonService,
     private router: Router,
-  ) { }
+  ) { 
+    this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
+  }
 
   changePassword() { 
     this.trimFormValues();
