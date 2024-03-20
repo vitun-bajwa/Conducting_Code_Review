@@ -1,6 +1,7 @@
 import { Component, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { adminList, declineReason } from 'src/app/core/config/form.constant';
+import { commonEnum } from 'src/app/core/enums/common.enum';
 import { FieldConfig } from 'src/app/core/models/field-config';
 
 @Component({
@@ -27,7 +28,7 @@ export class RequestDialogComponent {
   ){}
 
   ngAfterViewInit() {
-    if(this.data.config[0].name == 'assignTo' && this.review) {
+    if(this.data.config[0].name == commonEnum.assignTo && this.review) {
       this.saveBtn.disabled = true
       this.review.form.controls[this.data.config[0].name].valueChanges.subscribe((res:any) => {
         this.saveBtn.disabled = false;

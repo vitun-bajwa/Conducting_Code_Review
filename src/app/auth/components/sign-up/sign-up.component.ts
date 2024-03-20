@@ -3,7 +3,8 @@ import { signUpForm } from '../../../core/config/form.constant';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
 import { Router } from '@angular/router';
-import { apiEndPoints, errorMessage, succssMessage } from 'src/app/core/enums/common.enum';
+import { apiEndPoints, commonEnum, errorMessage, routes, succssMessage } from 'src/app/core/enums/common.enum';
+import { currentUser, signUp } from 'src/app/core/models/common-config';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,7 +14,7 @@ import { apiEndPoints, errorMessage, succssMessage } from 'src/app/core/enums/co
 export class SignUpComponent {
   @ViewChild('form') form: any;
   config: FieldConfig[] = signUpForm
-
+  currentUser!: currentUser;
   constructor(private apiService: CommonService, private router: Router) { }
 
   ngOnInit() { }
@@ -31,18 +32,18 @@ export class SignUpComponent {
             this.apiService.errorMSG(errorMessage.alreadyRegistered);
             this.form.form.reset();
           } else {
-            const data = {
+            const data : signUp = {
               firstName: this.form.form.value.firstName,
               lastName: this.form.form.value.lastName,
               email: this.form.form.value.email,
               password: btoa(this.form.form.value.password),
               userRole: this.form.form.value.userRole,
               status: 'Pending',
-              assignTo: null,
-              createdBy: 'self',
+              assignTo: this.currentUser.assignTo,
+              createdBy: this.currentUser.firstName +' '+ this.currentUser.lastName,
             };
             this.apiService.add(apiEndPoints.users, data).subscribe((res: any) => {
-              this.router.navigateByUrl('/auth/login');
+              this.router.navigateByUrl(routes.auth + routes.login);
               this.apiService.successMSG(succssMessage.signUp);
             });
             this.form.form.reset();
@@ -54,7 +55,7 @@ export class SignUpComponent {
   trimFormValues() {
     Object.keys(this.form.form.controls).forEach(controlName => {
       const control = this.form.form.get(controlName);
-      if (typeof control?.value === 'string') {
+      if (typeof control?.value === commonEnum.string) {
         control.setValue(control.value.trim());
       }
     });

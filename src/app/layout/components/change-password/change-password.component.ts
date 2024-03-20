@@ -6,7 +6,7 @@ import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
 import { UiModule } from 'src/app/ui/ui.module';
 import { DynamicFormModule } from '../../../shared/dynmic-form/dynamic-form.module';
-import { errorMessage, getItem, succssMessage } from 'src/app/core/enums/common.enum';
+import { apiEndPoints, commonEnum, errorMessage, getItem, routes, setItem, succssMessage } from 'src/app/core/enums/common.enum';
 
 @Component({
   selector: 'app-change-password',
@@ -35,10 +35,10 @@ export class ChangePasswordComponent {
         ...user,
         password: btoa(this.form.form.value.password),
       }
-      this.apiService.edit('users/' + user.id, data).subscribe((data: any) => {
-        sessionStorage.setItem('user', JSON.stringify(data));
+      this.apiService.edit(apiEndPoints.user + user.id, data).subscribe((data: any) => {
+        sessionStorage.setItem(setItem.user, JSON.stringify(data));
         this.apiService.successMSG(succssMessage.changePassword);
-        this.router.navigateByUrl('/user');
+        this.router.navigateByUrl(routes.users);
       });
     }
     else{
@@ -50,7 +50,7 @@ export class ChangePasswordComponent {
   trimFormValues() {
     Object.keys(this.form.form.controls).forEach(controlName => {
       const control = this.form.form.get(controlName);
-      if (typeof control?.value === 'string') {
+      if (typeof control?.value === commonEnum.string) {
         control.setValue(control.value.trim());
       }
     });

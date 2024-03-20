@@ -90,7 +90,7 @@ export class AddCodeReviewComponent {
       } else {
         data['codeReview'] = ''
       }
-      if(type == 'update') {
+      if(type == commonEnum.update) {
         if (this.review.form.invalid) {
           this.review.form.markAllAsTouched();
         } else {

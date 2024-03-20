@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { signUpForm } from 'src/app/core/config/form.constant';
 import { apiEndPoints, commonEnum, errorMessage, getItem, routes, succssMessage, tableEnum } from 'src/app/core/enums/common.enum';
-import { currentUser } from 'src/app/core/models/common-config';
+import { addUser, currentUser } from 'src/app/core/models/common-config';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
 
@@ -31,7 +31,7 @@ export class AddEditUserComponent {
     this.config[this.config.length - 1].name = 'Save'
     if (this.userId) {
       this.config.filter(item => {
-        if (item.fieldType === 'email') {
+        if (item.fieldType === commonEnum.email) {
           item.disabled = true;
         }
         return item
@@ -70,7 +70,7 @@ export class AddEditUserComponent {
       if (existingUser) {
         this.apiService.errorMSG(errorMessage.alreadyEmailRegistered);
       } else {
-        let data: any = {
+        let data: addUser = {
           firstName : this.form.form.value.firstName,
           lastName : this.form.form.value.lastName,
           email : this.form.form.value.email,
@@ -80,7 +80,7 @@ export class AddEditUserComponent {
           assignTo : this.currentUser.id,
           createdBy : this.currentUser.id,
         }
-        if(type == 'update') {
+        if(type == commonEnum.update) {
           data.status = this.userData.status,
           data.createdBy = this.userData.id,
           this.apiService.edit(apiEndPoints.user + this.userId, data).subscribe((res: any) => {
@@ -100,7 +100,7 @@ export class AddEditUserComponent {
   trimFormValues() {
     Object.keys(this.form.form.controls).forEach(controlName => {
       const control = this.form.form.get(controlName);
-      if (typeof control?.value === 'string') {
+      if (typeof control?.value === commonEnum.string) {
         control.setValue(control.value.trim());
       }
     });

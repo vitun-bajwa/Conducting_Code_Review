@@ -4,7 +4,7 @@ import { forgotForm, resetPasswordForm } from '../../../core/config/form.constan
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/core/service/common.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { apiEndPoints, succssMessage } from 'src/app/core/enums/common.enum';
+import { apiEndPoints, commonEnum, routes, succssMessage } from 'src/app/core/enums/common.enum';
 
 @Component({
   selector: 'app-forgot-password',
@@ -29,10 +29,6 @@ export class ForgotPasswordComponent {
     length: 0,
     isPasswordInput: false,
     disableAutoFocus: false,
-    inputStyles: {
-      'width': '50px',
-      'height': '50px'
-    }
   }
 
   constructor(
@@ -99,7 +95,7 @@ export class ForgotPasswordComponent {
         password: btoa(this.form.form.value.password),
       }
       this.apiService.edit(apiEndPoints.user + this.matchdata.id, data).subscribe((data: any) => {
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl(routes.empty);
         this.apiService.successMSG(succssMessage.passwordUpdated);
       }
       );
@@ -110,7 +106,7 @@ export class ForgotPasswordComponent {
   trimFormValues() {
     Object.keys(this.form.form.controls).forEach(controlName => {
       const control = this.form.form.get(controlName);
-      if (typeof control?.value === 'string') {
+      if (typeof control?.value === commonEnum.string) {
         control.setValue(control.value.trim());
       }
     });

@@ -73,8 +73,8 @@ export class UserListingComponent {
     userData = userData.filter((x: any) => x.status != tableEnum.Pending && x.status != tableEnum.Rejected);
     pendingUserData = pendingUserData.filter((x: any) => x.status == tableEnum.Pending || x.status == tableEnum.Rejected);
 
-    this.tableConfig = { tableHeaders: tableColumns, tableData: userData, page: routes.user }
-    this.pendingTableConfig = { tableHeaders: tableColumns, tableData: pendingUserData, activeAdmin: existingUser, page: routes.user }
+    this.tableConfig = { tableHeaders: tableColumns, tableData: userData }
+    this.pendingTableConfig = { tableHeaders: tableColumns, tableData: pendingUserData, activeAdmin: existingUser }
   }
 
   updateUserInfo(event: any) {
@@ -108,8 +108,8 @@ export class UserListingComponent {
       data['declinedReason'] = userData.declinedReason;
     } else {
       data['assignTo'] = {
-        id: userData.assignTo.id,
-        name: userData.assignTo.name,
+        id: userData?.assignTo?.id,
+        name: userData?.assignTo?.name,
       }
     }
     data['status'] = userData.declinedReason ? tableEnum.Rejected : tableEnum.Active

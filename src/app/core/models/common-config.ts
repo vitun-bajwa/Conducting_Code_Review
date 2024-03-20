@@ -23,3 +23,25 @@ export interface codeReview {
     status?: string,
     codeReview?: string,
 }
+
+export interface signUp {
+    firstName?: string,
+    lastName?: string,
+    email?: string,
+    password?: string,
+    userRole?: string,
+    status?: string,
+    assignTo?: object,
+    createdBy?: string,
+}
+
+export interface addUser {
+    firstName?: string
+    lastName?: string
+    email?: string
+    password?: string
+    userRole?: string
+    status?: string
+    assignTo?: string
+    createdBy?: string
+}
