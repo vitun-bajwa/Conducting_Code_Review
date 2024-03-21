@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { of } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { apiEndPoints, getItem, routes, tableEnum } from '../enums/common.enum';
+import { currentUser } from '../models/common-config';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +15,10 @@ export class CommonService {
   baseUrl = environment.baseURL;
   users: any = []
   httpClient: any;
-  constructor(public http: HttpClient, private snackBar: MatSnackBar) { }
+  currentUser!: currentUser;
+  constructor(public http: HttpClient, private snackBar: MatSnackBar, private router: Router) {
+    this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
+   }
 
   get(url: string, param?:string) {
     return this.http.get(this.baseUrl + url + (param ? param : ''));
@@ -47,9 +53,14 @@ export class CommonService {
     });
   }
 
-  uploadImage(file: File) {
-    const formData = new FormData();
-    formData.append('image', file);
-    return this.http.post<any>('http://localhost:3000/images', formData);
+  isActive() {
+    this.get(apiEndPoints.users).subscribe((res: any) => {
+      let currentUser = res.find((item: any) => this.currentUser.id === item.id)
+      if (currentUser.status != tableEnum.Active) {
+        sessionStorage.clear();
+        this.router.navigateByUrl(routes.auth + routes.login);
+      }
+    });
   }
+  
  }
