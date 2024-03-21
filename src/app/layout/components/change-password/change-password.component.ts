@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { changePasswordForm } from 'src/app/core/config/form.constant';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
-import { UiModule } from 'src/app/ui/ui.module';
-import { DynamicFormModule } from '../../../shared/dynmic-form/dynamic-form.module';
 import { apiEndPoints, commonEnum, errorMessage, getItem, routes, setItem, succssMessage } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
 
