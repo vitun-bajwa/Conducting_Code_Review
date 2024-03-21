@@ -358,3 +358,20 @@ export const loginForm = [
     ]
   },
 ]
+
+export const superAdminAssign:any = [
+  {
+    type: 'select',
+    fieldType: 'text',
+    name: 'assignTo',
+    value: '',
+    placeholder: 'Select Admin',
+    validation: [Validators.required],
+    isRequired: true,
+    class: 'input',
+    error: false,
+    disabled: false,
+    options: [
+    ]
+  },
+]

@@ -103,8 +103,11 @@
       "userRole": "Candidate",
       "createdBy": "0de9",
       "id": "0de9",
-      "declinedReason": "asdfg",
-      "status": "rejected"
+      "assignTo": {
+        "id": "af9d1",
+        "name": "Admin One"
+      },
+      "status": "active"
     },
     {
       "firstName": "vitun",
