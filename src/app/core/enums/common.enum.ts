@@ -1,9 +1,9 @@
 export enum commonEnum {
-  addUser = "Add User Form",
+  addUser = "Add User",
   editUser = "Update User Form",
-  addCodeReview = "Add Code Review",
-  editCodeReview = "Edit Code Review",
-  viewCodeReview = "View Code Review",
+  addCodeReview = "Add Code Review Request",
+  editCodeReview = "Edit Code Review Request",
+  viewCodeReview = "View Code Review Request",
   userModule = "User Module",
   superAdmin = "superAdmin",
   Admin = "Admin",
