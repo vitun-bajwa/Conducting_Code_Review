@@ -34,7 +34,7 @@ export class AddCodeReviewComponent {
   }
 
   constructor(private commonService: CommonService, private router: Router,
-    private activatedRoute: ActivatedRoute, private fb: FormBuilder) {
+    private activatedRoute: ActivatedRoute) {
     this.activatedRoute.paramMap.subscribe((param: any) => {
       this.notView = this.router.url.includes('edit') || this.router.url.includes('add');
       this.userId = param.params.id;
