@@ -159,5 +159,5 @@ export class TableComponent {
   viewReview(data: any){
     this.viewCodeReview.emit(data);
   }
-  
+
 }

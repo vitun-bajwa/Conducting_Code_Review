@@ -73,7 +73,7 @@ export class AddEditUserComponent {
         let data: addUser = {
           firstName : this.form.form.value.firstName,
           lastName : this.form.form.value.lastName,
-          email : this.form.form.value.email,
+          email : this.form.form.value.email ?  this.form.form.value.email : this.userData.email,
           password: btoa(this.form.form.value.password),
           userRole : this.form.form.value.userRole,
           status: tableEnum.Active,

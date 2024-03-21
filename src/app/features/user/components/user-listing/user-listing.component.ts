@@ -94,7 +94,7 @@ export class UserListingComponent {
     this.router.navigateByUrl(routes.user + routes.edit + event.id);
   }
 
-  editRequest(userData: any) {
+  updateRequest(userData: any) {
     let data: any = {
       firstName: userData.firstName,
       lastName: userData.lastName,
