@@ -24,7 +24,4 @@ export class HeaderComponent {
       this.router.navigateByUrl(routes.auth + routes.login);
     }
   }
-  changePassword() {
-    
-  }
 }

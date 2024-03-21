@@ -12,11 +12,7 @@ export class DropdownComponent {
 
   constructor() { }
 
-  ngOnInit() {
-  }
-
-  checkValue() {
-    this.group.controls
+  ngAfterViewInit() {
   }
 
 }

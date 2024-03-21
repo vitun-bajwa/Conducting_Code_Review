@@ -13,7 +13,8 @@ export enum commonEnum {
     email = "email",
     update = "update",
     string = "string",
-    assignTo = "assignTo"
+    assignTo = "assignTo",
+    userRole = 'userRole'
   }
 
 export enum modalData {

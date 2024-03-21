@@ -1,10 +1,10 @@
 <div class="" [formGroup]="group" >
   <mat-form-field>
       <mat-select [placeholder]="config.placeholder"  [formControlName]="config.name">
-        <mat-option (click)="checkValue()" *ngFor="let option of config.options" [value]="(config.name == 'assignTo') ? option : option.name">
+        <mat-option *ngFor="let option of config.options" [value]="(config.name == 'assignTo') ? option : option.name">
           {{option.name}}
         </mat-option>
       </mat-select>
   </mat-form-field>
-  <app-errors [errors]="config" [group]="group"></app-errors>
+  <app-errors *ngIf="config" [errors]="config" [group]="group"></app-errors>
 </div>

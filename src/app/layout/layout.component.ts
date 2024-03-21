@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonService } from '../core/service/common.service';
 
 @Component({
   selector: 'app-layout',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class LayoutComponent {
 
+  constructor(private commonService: CommonService) {
+    this.commonService.isActive();
+  }
+  
 }

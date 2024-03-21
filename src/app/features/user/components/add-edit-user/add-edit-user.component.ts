@@ -23,7 +23,6 @@ export class AddEditUserComponent {
     name: 'Back',
   }
   formHeading!: string;
-  buttonLabel: string = 'Add User';
   constructor(private apiService: CommonService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.paramMap.subscribe((param: any) => {
       this.userId = param.params.id;
