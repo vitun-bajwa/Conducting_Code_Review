@@ -12,16 +12,14 @@
       "status": "active"
     },
     {
-      "id": "af9d1",
       "firstName": "Admin",
-      "lastName": "One",
-      "email": "Adminone@gmail.com",
-      "password": "VXNlckAxMjM=",
+      "lastName": "z",
+      "password": "dW5kZWZpbmVk",
       "userRole": "Admin",
-      "status": "pending",
-      "createdBy": "9907",
-      "assignTo": null,
-      "name": "Admin One"
+      "status": "active",
+      "assignTo": "9907",
+      "createdBy": "af9d1",
+      "id": "af9d1"
     },
     {
       "id": "afd",
@@ -84,11 +82,7 @@
       "password": "VXNlckAxMjM=",
       "userRole": "Candidate",
       "createdBy": "self",
-      "id": "fa6f",
-      "assignTo": {
-        "id": "afd",
-        "name": "Admin Two"
-      },
+      "assignTo": null,
       "status": "active"
     },
     {
@@ -126,6 +120,27 @@
       "id": "029d",
       "assignTo": {},
       "status": "active"
+    },
+    {
+      "firstName": "jaspreet",
+      "lastName": "Singh",
+      "email": "jaspreet@gmail.com",
+      "password": "VXNlckAxMjM=",
+      "userRole": "Admin",
+      "createdBy": "self",
+      "id": "3f13",
+      "assignTo": {},
+      "status": "active"
+    },
+    {
+      "firstName": "Sam",
+      "lastName": "smith",
+      "email": "sam@gmail.com",
+      "password": "VXNlckAxMjM=",
+      "userRole": "Candidate",
+      "createdBy": "self",
+      "id": "5880",
+      "status": "pending"
     }
   ],
   "roles": [
@@ -140,7 +155,7 @@
   ],
   "codeReview": [
     {
-      "title": "Test Review",
+      "title": " ",
       "startDate": "2024-02-29T18:30:00.000Z",
       "endDate": "2024-03-23T18:30:00.000Z",
       "codeDescription": "sdjs jdsf skdfjsdfghj",
@@ -152,10 +167,10 @@
       },
       "createdBy": "candidate two",
       "reviewedBy": {
-        "id": "fa6f",
-        "name": "john dee"
+        "id": "9907",
+        "name": "Super Admin"
       },
-      "status": "Reviewed",
+      "status": "reviewed",
       "codeReview": "Code is fine",
       "id": "a77a"
     },
@@ -193,24 +208,21 @@
       "declinedReason": "Already existing"
     },
     {
+      "id": "809f",
+      "userId": "4c91",
       "title": "Review the code",
       "startDate": "2024-03-13T18:30:00.000Z",
       "endDate": "2024-03-15T18:30:00.000Z",
       "codeDescription": "This is the code for inline css",
       "textEditor": "<p>&lt;h1 style=\"color:blue;\"&gt;A Blue Heading&lt;/h1&gt;<br><br>&lt;p style=\"color:red;\"&gt;A red paragraph.&lt;/p&gt;</p>",
-      "userId": "4c91",
+      "codeReview": null,
       "assignTo": {
         "id": "fa6f",
         "name": "john dee"
       },
       "createdBy": "candidate two",
-      "reviewedBy": {
-        "id": "9907",
-        "name": "Super Admin"
-      },
-      "status": "reviewed",
-      "codeReview": "nb,jmn,nm,",
-      "id": "809f"
+      "reviewedBy": null,
+      "status": "pending"
     },
     {
       "id": "11af",
