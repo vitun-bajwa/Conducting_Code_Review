@@ -18,7 +18,7 @@
       "email": "Adminone@gmail.com",
       "password": "VXNlckAxMjM=",
       "userRole": "Admin",
-      "status": "active",
+      "status": "pending",
       "createdBy": "9907",
       "assignTo": null,
       "name": "Admin One"
@@ -46,7 +46,11 @@
         "id": "fa6f",
         "name": "john dee"
       },
-      "status": "active"
+      "status": "active",
+      "statusBtn": {
+        "name": "active",
+        "class": "statusBtn"
+      }
     },
     {
       "firstName": "candidate",
@@ -74,15 +78,18 @@
       "id": "b495"
     },
     {
-      "id": "fa6f",
       "firstName": "john",
       "lastName": "dee",
       "email": "johndee@gmail.com",
       "password": "VXNlckAxMjM=",
-      "userRole": "Admin",
+      "userRole": "Candidate",
       "createdBy": "self",
-      "assignTo": null,
-      "status": "Active"
+      "id": "fa6f",
+      "assignTo": {
+        "id": "afd",
+        "name": "Admin Two"
+      },
+      "status": "active"
     },
     {
       "id": "2c6c",
@@ -186,21 +193,24 @@
       "declinedReason": "Already existing"
     },
     {
-      "id": "809f",
       "title": "Review the code",
       "startDate": "2024-03-13T18:30:00.000Z",
       "endDate": "2024-03-15T18:30:00.000Z",
       "codeDescription": "This is the code for inline css",
       "textEditor": "<p>&lt;h1 style=\"color:blue;\"&gt;A Blue Heading&lt;/h1&gt;<br><br>&lt;p style=\"color:red;\"&gt;A red paragraph.&lt;/p&gt;</p>",
       "userId": "4c91",
-      "createdBy": "candidate two",
       "assignTo": {
         "id": "fa6f",
         "name": "john dee"
       },
-      "reviewedBy": null,
-      "status": "pending",
-      "codeReview": null
+      "createdBy": "candidate two",
+      "reviewedBy": {
+        "id": "9907",
+        "name": "Super Admin"
+      },
+      "status": "reviewed",
+      "codeReview": "nb,jmn,nm,",
+      "id": "809f"
     },
     {
       "id": "11af",
