@@ -56,7 +56,7 @@ export class UserListingComponent {
       tableColumns = Object?.keys(userData[0])?.filter((x: any) => (x != tableEnum.password && x != tableEnum.addUser && x != tableEnum.Id && x != tableEnum.statusBtn && x != tableEnum.assignTo && x != tableEnum.createdBy));
       tableColumns.push(tableEnum.action)
     }
-    userData = userData.filter((user: any) => this.currentUser.userRole == commonEnum.superAdmin ? user.id != this.currentUser.id : user.id != this.currentUser.id && (user.assignTo == this.currentUser.id || user.createdBy == this.currentUser.id));
+    userData = userData.filter((user: any) => this.currentUser.userRole == commonEnum.superAdmin ? user.id != this.currentUser.id : user.id != this.currentUser.id && (user.assignTo?.id == this.currentUser.id || user.createdBy == this.currentUser.id));
     userData.filter((user: any) => {
       user['statusBtn'] = {
         name: user.status == tableEnum.Active ? tableEnum.Active : user.status == tableEnum.Inactive ? tableEnum.Inactive : user.status === tableEnum.Rejected ? tableEnum.Rejected : tableEnum.Pending,
@@ -72,7 +72,6 @@ export class UserListingComponent {
     let pendingUserData = [...userData]
     userData = userData.filter((x: any) => x.status != tableEnum.Pending && x.status != tableEnum.Rejected);
     pendingUserData = pendingUserData.filter((x: any) => x.status == tableEnum.Pending || x.status == tableEnum.Rejected);
-
     this.tableConfig = { tableHeaders: tableColumns, tableData: userData, page: routes.user }
     this.pendingTableConfig = { tableHeaders: tableColumns, tableData: pendingUserData, activeAdmin: existingUser, page: routes.user }
   }
@@ -94,7 +93,7 @@ export class UserListingComponent {
     this.router.navigateByUrl(routes.user + routes.edit + event.id);
   }
 
-  editRequest(userData: any) {
+  updateRequest(userData: any) {
     let data: any = {
       firstName: userData.firstName,
       lastName: userData.lastName,

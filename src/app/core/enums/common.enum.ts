@@ -1,21 +1,21 @@
 export enum commonEnum {
-    addUser = "Add User Form",
-    editUser = "Update User Form",
-    addCodeReview = "Add Code Review",
-    editCodeReview = "Edit Code Review",
-    viewCodeReview = "View Code Review",
-    userModule = "User Module",
-    superAdmin = "superAdmin",
-    Admin = "Admin",
-    Candidate = "Candidate",
-    codeModule = "Code Review Module",
-    reviewedBy = "reviewedBy",
-    email = "email",
-    update = "update",
-    string = "string",
-    assignTo = "assignTo",
-    userRole = 'userRole'
-  }
+  addUser = "Add User Form",
+  editUser = "Update User Form",
+  addCodeReview = "Add Code Review",
+  editCodeReview = "Edit Code Review",
+  viewCodeReview = "View Code Review",
+  userModule = "User Module",
+  superAdmin = "superAdmin",
+  Admin = "Admin",
+  Candidate = "Candidate",
+  codeModule = "Code Review Module",
+  reviewedBy = "reviewedBy",
+  email = "email",
+  update = "update",
+  string = "string",
+  assignTo = "assignTo",
+  userRole = "userRole"
+}
 
 export enum modalData {
   declineRequest = "Decline Request",
@@ -25,7 +25,8 @@ export enum modalData {
   approveRequest = "Approve Request",
   selectAdmin = "Please select an admin to assign this candidate",
   deleteUser = 'Delete User',
-  deleteUserTitle = 'Are you sure you want to delete this user?'
+  deleteUserTitle = 'Are you sure you want to delete this user?',
+  assignAdmin = "Select Admin"
 }
 
 export enum tableEnum {

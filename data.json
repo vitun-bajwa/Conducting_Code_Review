@@ -44,7 +44,11 @@
         "id": "fa6f",
         "name": "john dee"
       },
-      "status": "active"
+      "status": "active",
+      "statusBtn": {
+        "name": "active",
+        "class": "statusBtn"
+      }
     },
     {
       "firstName": "candidate",
@@ -61,27 +65,22 @@
       "status": "active"
     },
     {
-      "id": "b495",
       "firstName": "candidate",
-      "lastName": "four",
+      "lastName": "fours",
       "email": "candidatefour@gmail.com",
-      "password": "VXNlckAxMjM=",
-      "userRole": "Candidate",
-      "createdBy": "fa6f",
-      "assignTo": null,
+      "password": "dW5kZWZpbmVk",
+      "userRole": "Admin",
       "status": "active",
-      "statusBtn": {
-        "name": "active",
-        "class": "statusBtn"
-      }
+      "assignTo": "9907",
+      "createdBy": "b495",
+      "id": "b495"
     },
     {
-      "id": "fa6f",
       "firstName": "john",
       "lastName": "dee",
       "email": "johndee@gmail.com",
       "password": "VXNlckAxMjM=",
-      "userRole": "Admin",
+      "userRole": "Candidate",
       "createdBy": "self",
       "assignTo": null,
       "status": "active"
@@ -105,8 +104,11 @@
       "userRole": "Candidate",
       "createdBy": "0de9",
       "id": "0de9",
-      "declinedReason": "asdfg",
-      "status": "rejected"
+      "assignTo": {
+        "id": "af9d1",
+        "name": "Admin One"
+      },
+      "status": "active"
     },
     {
       "firstName": "vitun",
