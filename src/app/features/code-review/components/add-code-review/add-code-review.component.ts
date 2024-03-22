@@ -70,6 +70,7 @@ export class AddCodeReviewComponent {
   }
 
   codeReview(type:string) {
+    this.trimFormValues();
     if (this.form.form.invalid) {
       this.form.form.markAllAsTouched();
     } else {
@@ -114,4 +115,12 @@ export class AddCodeReviewComponent {
   }
 
   ngAfterViewInit() {}
+  trimFormValues() {
+    Object.keys(this.form.form.controls).forEach(controlName => {
+      const control = this.form.form.get(controlName);
+      if (typeof control?.value === commonEnum.string) {
+        control.setValue(control.value.trim());
+      }
+    });
+  }
 }
