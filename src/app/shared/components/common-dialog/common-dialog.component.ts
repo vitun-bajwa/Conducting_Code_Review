@@ -45,6 +45,6 @@ export class CommonDialogComponent {
 
 
   onConfirmClick(): void {
-    this.dialogRef.close(this.review.form.value);
+    this.dialogRef.close(this.data.config ? this.review.form.value : true);
   }
 }
