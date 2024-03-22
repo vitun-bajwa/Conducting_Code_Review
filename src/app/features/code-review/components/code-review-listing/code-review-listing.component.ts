@@ -44,6 +44,8 @@ export class CodeReviewListingComponent implements OnInit {
   }
 
   createData() {
+    this.tableConfig = [],
+    this.pendingTableConfig = []
     let reviewData = [...this.reviewData]
     let tableColumns
     if (reviewData.length > 0) {
@@ -100,29 +102,6 @@ export class CodeReviewListingComponent implements OnInit {
       this.getReviewData();
     })
   }
-
-  // editRequest(codeReviewData: any) {
-  //   let data: any = {
-  //     id: codeReviewData.id,
-  //     userId: codeReviewData.userId,
-  //     title: codeReviewData.title,
-  //     startDate: codeReviewData.startDate,
-  //     endDate: codeReviewData.endDate,
-  //     codeDescription: codeReviewData.codeDescription,
-  //     textEditor: codeReviewData.textEditor,
-  //     codeReview: codeReviewData.codeReview,
-  //     assignTo: codeReviewData.assignTo,
-  //     createdBy: codeReviewData.createdBy,
-  //     reviewedBy: codeReviewData.reviewedBy,
-  //   }
-  //   if (codeReviewData.declinedReason) {
-  //     data['declinedReason'] = codeReviewData.declinedReason;
-  //   }
-  //   data['status'] = codeReviewData.declinedReason ? tableEnum.Rejected : tableEnum.Active
-  //   this.commonService.edit(apiEndPoints.codeReview + codeReviewData.id, data).subscribe((res: any) => {
-  //     this.commonService.successMSG(succssMessage.codeReviewUpdated)
-  //   })
-  // }
 
   tabChange(e:any) {
     this.activeTab = e.tab.textLabel
