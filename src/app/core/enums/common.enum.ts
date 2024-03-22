@@ -17,6 +17,20 @@ export enum commonEnum {
   userRole = "userRole"
 }
 
+export enum headingEnum {
+  addUser = "Add User",
+  editUser = "Update User Form",
+  addCodeReview = "Add Code Review Request",
+  editCodeReview = "Edit Code Review Request",
+  viewCodeReview = "View Code Review Request",
+  userModule = "User Module",
+  superAdmin = "superAdmin",
+  Admin = "Admin",
+  Candidate = "Candidate",
+  codeModule = "Code Review Module",
+  reviewedBy = "Reviewed By",
+}
+
 export enum modalData {
   declineRequest = "Decline Request",
   declineTitle = "Add reasons to decline request",
@@ -25,7 +39,8 @@ export enum modalData {
   approveRequest = "Approve Request",
   selectAdmin = "Please select an admin to assign this candidate",
   deleteUser = 'Delete User',
-  deleteUserTitle = 'Are you sure you want to delete this user?',
+  deleteCodereview = 'Delete CodeReview',
+  deleteTitle = 'Are you sure you want to delete this?',
   assignAdmin = "Select Admin"
 }
 

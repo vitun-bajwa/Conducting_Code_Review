@@ -71,16 +71,16 @@ export class TableComponent {
     this.userInfo.emit(event);
   }
 
-  editUser(userData: any) {
+  editRecord(userData: any) {
     this.editInfo.emit(userData);
   }
 
-  deleteUser(userData: any) {
+  deleteRecord(userData: any) {
     const dialogRef = this.dialog.open(CommonDialogComponent, {
       data: {
         id: userData.id,
-        heading: modalData.deleteUser,
-        title: modalData.deleteUserTitle,
+        heading: this.tableConfig.page === routes.user ? modalData.deleteUser : modalData.deleteCodereview,
+        title: modalData.deleteTitle,
       },
     })
     dialogRef.afterClosed().subscribe((res: boolean) => {
