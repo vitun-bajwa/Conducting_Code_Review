@@ -12,16 +12,6 @@
       "status": "active"
     },
     {
-      "firstName": "Admin",
-      "lastName": "z",
-      "password": "dW5kZWZpbmVk",
-      "userRole": "Admin",
-      "status": "active",
-      "assignTo": "9907",
-      "createdBy": "af9d1",
-      "id": "af9d1"
-    },
-    {
       "id": "afd",
       "firstName": "Admin",
       "lastName": "Two",
