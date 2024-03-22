@@ -50,6 +50,8 @@ export class UserListingComponent {
   }
 
   createData() {
+    this.tableConfig = [],
+    this.pendingTableConfig = []
     let userData = [...this.userData]
     let tableColumns
     if (userData.length > 0) {

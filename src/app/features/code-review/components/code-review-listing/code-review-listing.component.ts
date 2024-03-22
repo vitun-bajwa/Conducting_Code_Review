@@ -44,6 +44,8 @@ export class CodeReviewListingComponent implements OnInit {
   }
 
   createData() {
+    this.tableConfig = [],
+    this.pendingTableConfig = []
     let reviewData = [...this.reviewData]
     let tableColumns
     if (reviewData.length > 0) {
