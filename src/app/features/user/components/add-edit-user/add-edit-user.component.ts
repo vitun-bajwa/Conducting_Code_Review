@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { adminList, signUpForm } from 'src/app/core/config/form.constant';
-import { apiEndPoints, commonEnum, errorMessage, getItem, modalData, routes, succssMessage, tableEnum } from 'src/app/core/enums/common.enum';
+import { apiEndPoints, commonEnum, errorMessage, getItem, modalData, routes, succssMessage, tableEnum, warningMessage } from 'src/app/core/enums/common.enum';
 import { addUser, currentUser } from 'src/app/core/models/common-config';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
@@ -77,7 +77,7 @@ export class AddEditUserComponent {
     if (this.form.form.invalid) {
       this.form.form.markAllAsTouched();
     } else {
-      if (this.currentUser.userRole === commonEnum.superAdmin) {
+      if (this.currentUser.userRole === commonEnum.superAdmin && this.form.form.userRole == commonEnum.Candidate) {
         this.adminListConfig[0].options = this.activeAdmin;
         const dialogRef = this.dialog.open(CommonDialogComponent, {
           data: {
@@ -91,6 +91,8 @@ export class AddEditUserComponent {
             this.updateData(type);
           }
         });
+      }else {
+        this.updateData(type);
       }
     }
   }
@@ -111,12 +113,19 @@ export class AddEditUserComponent {
         createdBy: this.currentUser.id,
       }
       if (type == commonEnum.update) {
-        data.status = this.userData.status,
-          data.createdBy = this.userData.id,
-          this.apiService.edit(apiEndPoints.user + this.userId, data).subscribe((res: any) => {
-            this.apiService.successMSG(succssMessage.Updated)
-            this.router.navigateByUrl(routes.user);
-          })
+        let userData = {...this.userData}
+        delete userData.id
+          data.status = this.userData.status
+          // data.createdBy = this.userData.id
+          
+          if (JSON.stringify(data) !== JSON.stringify(userData)) {
+            this.apiService.edit(apiEndPoints.user + this.userId, data).subscribe((res: any) => {
+              this.apiService.successMSG(succssMessage.Updated)
+              this.router.navigateByUrl(routes.user);
+            })
+          }else {
+            this.apiService.warningMSG(warningMessage.nothingToUpdated)
+          }
       } else {
         this.apiService.add(apiEndPoints.users, data).subscribe((res: any) => {
           this.apiService.successMSG(succssMessage.userAdded)

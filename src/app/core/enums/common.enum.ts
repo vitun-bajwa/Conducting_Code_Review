@@ -97,6 +97,10 @@ export enum errorMessage {
   oldPassword = "Old Password Does Not Match",
 } 
 
+export enum warningMessage { 
+  nothingToUpdated = "There is nothing to update.",
+} 
+
 export enum validation {
   requiredFeild = "This feild is required",
   invalidInput = "Invalid input",
