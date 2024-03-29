@@ -25,11 +25,11 @@
       <td mat-cdell *ngIf="column == tableEnum.action && element.status != tableEnum.Pending && element.status !== tableEnum.Rejected">
         <ng-container *ngIf="(currentUser.userRole == commonEnum.Admin|| currentUser.userRole == commonEnum.superAdmin)">
           <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
-            color="primary" (click)="editUser(element)">
+            color="primary" (click)="editRecord(element)">
             <mat-icon>edit</mat-icon>
           </button> 
           <button mat-icon-button matTooltip="Delete" class="iconbutton"
-                (click)="deleteUser(element)" color="warn">
+                (click)="deleteRecord(element)" color="warn">
                 <mat-icon>delete</mat-icon>
           </button>
         </ng-container>

@@ -37,7 +37,7 @@ export class CommonDialogComponent {
         [this.data.config[0].name] : this.data.declinedReason.declinedReason
       })
     }
-    if(this.data.heading == modalData.deleteUser) {
+    if(this.data.heading == modalData.deleteUser || this.data.heading == modalData.deleteCodereview) {
       this.saveBtn.name = 'Delete'
       this.saveBtn.class = 'button danger'
     }
@@ -45,6 +45,6 @@ export class CommonDialogComponent {
 
 
   onConfirmClick(): void {
-    this.dialogRef.close(this.review.form.value);
+    this.dialogRef.close(this.data.config ? this.review.form.value : true);
   }
 }

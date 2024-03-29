@@ -7,7 +7,7 @@
         <app-dynamic-form [config]="configRequest" #form="dynamicForm"></app-dynamic-form>
     </div>
     <div class="rgt" [class.d-none]="currentUser.userRole == 'Candidate' && !codeReviewData && !codeReviewData?.reviewedBy">
-        <p class="reviewdBy" *ngIf="codeReviewData?.reviewedBy"> {{enum.reviewedBy}} :- {{codeReviewData.reviewedBy.name}} </p>
+        <p class="reviewdBy" *ngIf="codeReviewData?.reviewedBy && codeReviewData.reviewedBy.name"> {{enum.reviewedBy}} :- {{codeReviewData.reviewedBy.name}} </p>
         <app-dynamic-form [config]="configReview" #review="dynamicForm" ></app-dynamic-form>
     </div>
 </div>

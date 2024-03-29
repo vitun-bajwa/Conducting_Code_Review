@@ -15,8 +15,7 @@ import { CommonDialogComponent } from 'src/app/shared/components/common-dialog/c
 })
 export class AddEditUserComponent {
   @ViewChild('form') form: any;
-  config: FieldConfig[] = signUpForm;
-  configs: FieldConfig[] = adminList;
+  config: FieldConfig[] = [...signUpForm];
   userId!: string;
   currentUser!: currentUser;
   userList!: Array<object>;

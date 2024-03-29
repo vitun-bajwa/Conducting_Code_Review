@@ -319,7 +319,7 @@ export const loginForm = [
       fieldType: 'codeReview', 
       name: 'codeReview', 
       value: '',
-      placeholder: 'code review..',
+      placeholder: 'Add your review here..',
       validation: [Validators.required],
       isRequired: true,
       class: 'input',  

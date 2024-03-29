@@ -1,8 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { codeReviewForm, codeReviewRequestForm } from 'src/app/core/config/form.constant';
-import { commonEnum, apiEndPoints, succssMessage, getItem, routes, tableEnum } from 'src/app/core/enums/common.enum';
+import { commonEnum, apiEndPoints, succssMessage, getItem, routes, tableEnum, headingEnum } from 'src/app/core/enums/common.enum';
 import { codeReview, currentUser } from 'src/app/core/models/common-config';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
@@ -23,7 +22,7 @@ export class AddCodeReviewComponent {
   formHeading!: string;
   notView: boolean = false;
   codeReviewData: any;
-  enum: typeof commonEnum = commonEnum;
+  enum: typeof headingEnum = headingEnum;
   backBtn: FieldConfig = {
     class: 'button',
     name: 'Back',
