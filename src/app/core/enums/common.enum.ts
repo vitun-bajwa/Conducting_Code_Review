@@ -12,6 +12,7 @@ export enum commonEnum {
   reviewedBy = "reviewedBy",
   email = "email",
   update = "update",
+  save = "save",
   string = "string",
   assignTo = "assignTo",
   userRole = "userRole"
@@ -47,7 +48,7 @@ export enum modalData {
 export enum tableEnum {
   password = "password",
   addUser = "AddUser",
-  signUp = "Sign-Up",
+  signUp = "Sign Up",
   statusBtn = "statusBtn",
   status = "status",
   assignTo = "assignTo",

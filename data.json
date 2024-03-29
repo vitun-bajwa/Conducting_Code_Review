@@ -12,15 +12,15 @@
       "status": "active"
     },
     {
-      "id": "afd",
       "firstName": "Admin",
       "lastName": "Two",
       "email": "Admintwo@gmail.com",
-      "password": "VXNlckAxMjM=",
+      "password": "dW5kZWZpbmVk",
       "userRole": "Admin",
-      "createdBy": "9907",
-      "assignTo": null,
       "status": "active",
+      "assignTo": null,
+      "createdBy": "9907",
+      "id": "afd",
       "statusBtn": {
         "name": "active",
         "class": "statusBtn"
@@ -28,49 +28,16 @@
       "name": "Admin Two"
     },
     {
-      "id": "4c91",
-      "firstName": "candidate",
-      "lastName": "two",
-      "email": "candidatetwo@gmail.com",
-      "password": "VXNlckAxMjM=",
-      "userRole": "Candidate",
-      "createdBy": "self",
-      "assignTo": {
-        "id": "fa6f",
-        "name": "john dee"
-      },
-      "status": "active",
-      "statusBtn": {
-        "name": "active",
-        "class": "statusBtn"
-      }
-    },
-    {
-      "firstName": "candidate",
-      "lastName": "three",
-      "email": "candidatethree@gmail.com",
-      "password": "VXNlckAxMjM=",
-      "userRole": "Candidate",
-      "createdBy": "self",
-      "id": "4c98",
-      "assignTo": {
-        "id": "fa6f",
-        "name": "john dee"
-      },
-      "status": "active",
-      "statusBtn": {
-        "name": "active",
-        "class": "statusBtn"
-      }
-    },
-    {
       "firstName": "candidate",
       "lastName": "fours",
       "email": "candidatefour@gmail.com",
-      "password": "dW5kZWZpbmVk",
-      "userRole": "Admin",
+      "password": "VXNlckAxMjM=",
+      "userRole": "Candidate",
       "status": "active",
-      "assignTo": "9907",
+      "assignTo": {
+        "id": "fa6f",
+        "name": "john dee"
+      },
       "createdBy": "b495",
       "id": "b495"
     },
@@ -100,12 +67,15 @@
       "firstName": "vitun",
       "lastName": "bajwa",
       "email": "vitun@gmail.com",
-      "password": "Vml0dW5AMTIz",
+      "password": "dW5kZWZpbmVk",
       "userRole": "Candidate",
+      "status": "active",
+      "assignTo": {
+        "id": "afd",
+        "name": "Admin Two"
+      },
       "createdBy": "self",
-      "id": "029d",
-      "assignTo": {},
-      "status": "active"
+      "id": "029d"
     },
     {
       "firstName": "jaspreet",
@@ -115,7 +85,7 @@
       "userRole": "Admin",
       "createdBy": "self",
       "id": "3f13",
-      "assignTo": {},
+      "assignTo": null,
       "status": "active"
     },
     {
@@ -145,6 +115,126 @@
       "password": "IWFzZEBhQTEx",
       "userRole": "Candidate",
       "status": "Pending"
+    },
+    {
+      "id": "2eb2",
+      "firstName": "vitun",
+      "lastName": "bajwa",
+      "email": "vitun@mail.com",
+      "password": "QWJjQDEyMzQ1Ng==",
+      "userRole": "Candidate",
+      "status": "Pending"
+    },
+    {
+      "id": "f380",
+      "firstName": "jaspreet",
+      "lastName": "Singh",
+      "email": "test@h.com",
+      "password": "VGVzdCAjMzI0",
+      "userRole": "Candidate",
+      "status": "Pending"
+    },
+    {
+      "id": "3433",
+      "firstName": "Megha",
+      "lastName": "Sharma",
+      "email": "megha@gmail.com",
+      "password": "VGVzdEAxMjM=",
+      "userRole": "Admin",
+      "status": "active",
+      "assignTo": {
+        "id": "9907",
+        "name": "Super Admin"
+      },
+      "createdBy": "9907"
+    },
+    {
+      "id": "c156",
+      "firstName": "User",
+      "lastName": "one",
+      "email": "user1@gmail.com",
+      "password": "VXNlckAxMjM=",
+      "userRole": "Candidate",
+      "status": "active",
+      "assignTo": {
+        "id": "fa6f",
+        "name": "john dee"
+      },
+      "createdBy": "afd"
+    },
+    {
+      "id": "9bf5",
+      "firstName": "eew",
+      "lastName": "ew",
+      "email": "eew@gmail.com",
+      "password": "VXNlckAxMjM=",
+      "userRole": "Candidate",
+      "status": "active",
+      "assignTo": {
+        "id": "afd",
+        "name": "Admin Two"
+      },
+      "createdBy": "afd"
+    },
+    {
+      "id": "1d69",
+      "firstName": "Admin",
+      "lastName": "Two",
+      "email": "Admintwo@gmail.com",
+      "password": "dW5kZWZpbmVk",
+      "userRole": "Admin",
+      "status": "active",
+      "createdBy": "9907"
+    },
+    {
+      "id": "c451",
+      "firstName": "Admin",
+      "lastName": "Two",
+      "email": "Admintwo@gmail.com",
+      "password": "dW5kZWZpbmVk",
+      "userRole": "Admin",
+      "status": "active",
+      "createdBy": "9907"
+    },
+    {
+      "id": "9a69",
+      "firstName": "Admin",
+      "lastName": "Two",
+      "email": "Admintwo@gmail.com",
+      "password": "dW5kZWZpbmVk",
+      "userRole": "Admin",
+      "status": "active",
+      "createdBy": "9907"
+    },
+    {
+      "id": "6742",
+      "firstName": "Admin",
+      "lastName": "Two",
+      "email": "Admintwo@gmail.com",
+      "password": "dW5kZWZpbmVk",
+      "userRole": "Admin",
+      "status": "active",
+      "createdBy": "9907"
+    },
+    {
+      "id": "d324",
+      "firstName": "Admin",
+      "lastName": "Two",
+      "email": "Admintwo@gmail.com",
+      "password": "dW5kZWZpbmVk",
+      "userRole": "Admin",
+      "status": "active",
+      "createdBy": "9907"
+    },
+    {
+      "id": "9e4f",
+      "firstName": "Admin",
+      "lastName": "Two",
+      "email": "Admintwo@gmail.com",
+      "password": "dW5kZWZpbmVk",
+      "userRole": "Admin",
+      "status": "active",
+      "createdBy": "9907"
     }
   ],
   "roles": [
@@ -175,7 +265,7 @@
     },
     {
       "id": "3bf7",
-      "userId": "4c91",
+      "userId": null,
       "title": "Date select in HTML",
       "startDate": "2024-03-16T18:30:00.000Z",
       "endDate": "2024-03-17T18:30:00.000Z",
@@ -192,21 +282,24 @@
       "declinedReason": "Already existing"
     },
     {
-      "id": "809f",
-      "userId": "4c91",
       "title": "Review the code",
       "startDate": "2024-03-13T18:30:00.000Z",
       "endDate": "2024-03-15T18:30:00.000Z",
       "codeDescription": "This is the code for inline css",
-      "textEditor": "<p>&lt;h1 style=\"color:blue;\"&gt;A Blue Heading&lt;/h1&gt;<br><br>&lt;p style=\"color:red;\"&gt;A red paragraph.&lt;/p&gt;</p>",
-      "codeReview": null,
+      "textEditor": "<blockquote><p>&lt;h1 style=\"color:blue;\"&gt;A Blue Heading&lt;/h1&gt;<br><br>&lt;p style=\"color:red;\"&gt;A red <strong>paragraph</strong>.&lt;/p&gt;</p></blockquote>",
+      "userId": null,
       "assignTo": {
         "id": "fa6f",
         "name": "john dee"
       },
       "createdBy": "candidate two",
-      "reviewedBy": null,
-      "status": "pending"
+      "reviewedBy": {
+        "id": "9907",
+        "name": "Super Admin"
+      },
+      "status": "reviewed",
+      "codeReview": "test",
+      "id": "809f"
     },
     {
       "id": "11af",
@@ -215,7 +308,7 @@
       "endDate": "2024-03-19T18:30:00.000Z",
       "codeDescription": "HTML Base code structure",
       "textEditor": "<p>&lt;!DOCTYPE html&gt;<br>&lt;html&gt;<br>&lt;head&gt;<br>&lt;/head&gt;<br>&lt;body&gt;</p><p>&lt;h1&gt;This is a Heading&lt;/h1&gt;<br>&lt;p&gt;This is a paragraph.&lt;/p&gt;</p><p>&lt;/body&gt;<br>&lt;/html&gt;</p>",
-      "userId": "4c91",
+      "userId": null,
       "assignTo": {
         "id": "fa6f",
         "name": "john dee"
@@ -245,7 +338,7 @@
       "endDate": "2024-03-21T18:30:00.000Z",
       "codeDescription": "Check this code.........",
       "textEditor": "<p>&lt;html&gt;</p><p>&lt;head&gt;</p><p>&lt;title&gt;&lt;/title&gt;</p><p>&lt;head&gt;</p><p>&nbsp;</p><p>&lt;body&gt;</p><p>&lt;/body&gt;</p><p>&lt;/html&gt;</p>",
-      "userId": "4c98",
+      "userId": null,
       "assignTo": {
         "id": "fa6f",
         "name": "john dee"
@@ -256,8 +349,22 @@
         "name": "Super Admin"
       },
       "status": "reviewed",
-      "codeReview": "Code is fine",
+      "codeReview": " ",
       "id": "41c7"
+    },
+    {
+      "id": "bdab",
+      "title": "Code review",
+      "startDate": "2024-03-27T18:30:00.000Z",
+      "endDate": "2024-03-28T18:30:00.000Z",
+      "codeDescription": "This is my code",
+      "textEditor": "<p>code ………..</p><p>code ………..</p><p>code ………..code ………..</p>",
+      "userId": "b495",
+      "assignTo": null,
+      "createdBy": "candidate fours",
+      "reviewedBy": {},
+      "status": "pending",
+      "codeReview": ""
     }
   ]
 }

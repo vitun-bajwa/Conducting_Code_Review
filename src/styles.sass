@@ -116,6 +116,7 @@ mat-spinner.mat-mdc-progress-spinner
     background: $background-dark
     border-radius: 5px
     margin-top: 10px
+    text-transform: capitalize
 
 .button.danger
     background: $danger
@@ -142,6 +143,9 @@ mat-spinner.mat-mdc-progress-spinner
 
 app-dynamic-form 
     width: 100%
+    label
+        font-size: 14px
+        color: $secondary
     app-input-field, app-dropdown, app-date-picker, app-textarea
         position: relative
         display: block
@@ -159,6 +163,8 @@ mat-form-field
         mat-select
             padding: 8px
             font-size: 14px
+            .mat-mdc-select-placeholder
+                color: $placeholder !important
         input
             width: 100%
             border: 0px
@@ -196,10 +202,13 @@ mat-form-field.withIcon
 
 app-input-field.searchFilter
     width: 230px
+    .mat-mdc-form-field:hover .mat-mdc-form-field-focus-overlay
+        opacity: 0
     .mdc-text-field--filled:not(.mdc-text-field--disabled) .input
-        width: 70%
+        width: 75%
     mat-icon 
-        width: 30%
+        width: 25%
+        cursor: default
 
 app-errors 
     position: absolute

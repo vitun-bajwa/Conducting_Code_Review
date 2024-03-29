@@ -1,3 +1,4 @@
+<label *ngIf="config.label" for="">{{config.label}}</label>
 <mat-form-field *ngIf="config.name != 'searchFilter'" [formGroup]="group" [class]="config.fieldType === 'password' ? 'withIcon':'' ">
     <input matInput [id]="config.name" [class]="config.class"
         [type]="(hide) ? 'text' : config.fieldType!" [formControlName]="config.name"

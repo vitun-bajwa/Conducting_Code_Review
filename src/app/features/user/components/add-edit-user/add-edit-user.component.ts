@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { adminList, signUpForm } from 'src/app/core/config/form.constant';
+import { adminList, userForm } from 'src/app/core/config/form.constant';
 import { apiEndPoints, commonEnum, errorMessage, getItem, modalData, routes, succssMessage, tableEnum, warningMessage } from 'src/app/core/enums/common.enum';
 import { addUser, currentUser } from 'src/app/core/models/common-config';
 import { FieldConfig } from 'src/app/core/models/field-config';
@@ -16,7 +16,7 @@ import { CommonDialogComponent } from 'src/app/shared/components/common-dialog/c
 })
 export class AddEditUserComponent {
   @ViewChild('form') form: any;
-  config: FieldConfig[] = [...signUpForm];
+  config: FieldConfig[] = [...userForm];
   userId!: string;
   currentUser!: currentUser;
   userList!: Array<object>;
@@ -32,14 +32,16 @@ export class AddEditUserComponent {
     this.activatedRoute.paramMap.subscribe((param: any) => {
       this.userId = param.params.id;
     });
-    this.config[this.config.length - 1].name = 'Save'
     if (this.userId) {
+    this.config[this.config.length - 1].name = commonEnum.update
       this.config.filter(item => {
         if (item.fieldType === commonEnum.email) {
           item.disabled = true;
         }
         return item
       })
+    }else {
+      this.config[this.config.length - 1].name = commonEnum.save
     }
     this.formHeading = this.userId ? commonEnum.editUser : commonEnum.addUser;
   }
@@ -129,7 +131,7 @@ export class AddEditUserComponent {
         password: btoa(this.form.form.value.password),
         userRole: this.form.form.value.userRole,
         status: tableEnum.Active,
-        assignTo: assignTo,
+        assignTo: this.form.form.value.userRole == commonEnum.Candidate ? assignTo : null,
         createdBy: this.currentUser.id,
       }
       if (type == commonEnum.update) {
