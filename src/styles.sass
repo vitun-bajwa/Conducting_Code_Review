@@ -405,8 +405,8 @@ app-table
 app-button-field
     .statusBtn
         border: solid 2px $danger
-        background: $danger
-        color: $text-white
+        background: transparent
+        color: $text-black
         font-size: 14px
         width: 100px
         border-radius: 5px
@@ -419,8 +419,12 @@ app-button-field
     &.pending
         .statusBtn
             border: solid 2px $warning
-            background: $warning
+            background: transparent
             color: $text-black
+            cursor: default
+    &.reviewed
+        .statusBtn
+            border: solid 2px $success
     .statusBtnNonClick
         cursor: default
 

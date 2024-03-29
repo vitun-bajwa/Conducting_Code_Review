@@ -106,6 +106,19 @@ export const loginForm = [
       ]
     },
     {
+      type: 'select',
+      fieldType: 'text',
+      name: 'assignTo',
+      value: '',
+      placeholder: 'Select Admin',
+      isRequired: false,
+      class: 'input',
+      error: false,
+      hidden: true,
+      disabled: false,
+      options: []
+    },
+    {
       type: 'button',
       name: 'Sign Up',
       class: 'button',

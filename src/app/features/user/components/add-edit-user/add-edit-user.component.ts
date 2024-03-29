@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { adminList, signUpForm } from 'src/app/core/config/form.constant';
@@ -42,8 +43,6 @@ export class AddEditUserComponent {
     }
     this.formHeading = this.userId ? commonEnum.editUser : commonEnum.addUser;
   }
-  ngAfterViewInit() {
-  }
 
   ngOnInit() {
     this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
@@ -72,28 +71,39 @@ export class AddEditUserComponent {
 
   }
 
+  ngAfterViewInit() {
+    this.onRoleChange();
+  }
+  
+  onRoleChange() {
+    this.form.form.controls[commonEnum.userRole].valueChanges.subscribe((res: string) => {
+      if (this.currentUser.userRole == commonEnum.superAdmin && this.form.form.value[commonEnum.userRole] !== res) {
+        this.config.find((item:FieldConfig) => {
+          if (item.name == commonEnum.assignTo) {
+            if (res == commonEnum.Candidate) {
+              item.options = this.activeAdmin
+              item.hidden = false;
+              item.isRequired = true;
+              if (this.userData) this.form.form.controls[commonEnum.assignTo].setValue(this.userData.assignTo?.name)
+              this.form.form.controls[commonEnum.assignTo].setValidators([Validators.required]);
+            }else {
+              item.hidden = true;
+              item.isRequired = false;
+              this.form.form.controls[commonEnum.assignTo].clearValidators();
+            }
+            this.form.form.controls[commonEnum.assignTo].updateValueAndValidity();
+          }
+        })
+      }
+    });
+  }
+
   userModify(type: string) {
     this.trimFormValues();
     if (this.form.form.invalid) {
       this.form.form.markAllAsTouched();
     } else {
-      if (this.currentUser.userRole === commonEnum.superAdmin && this.form.form.userRole == commonEnum.Candidate) {
-        this.adminListConfig[0].options = this.activeAdmin;
-        const dialogRef = this.dialog.open(CommonDialogComponent, {
-          data: {
-            heading: modalData.assignAdmin,
-            title: modalData.selectAdmin,
-            config: this.adminListConfig
-          },
-        });
-        dialogRef.afterClosed().subscribe((res: any) => {
-          if (res) {
-            this.updateData(type);
-          }
-        });
-      }else {
-        this.updateData(type);
-      }
+      this.updateData(type);
     }
   }
 
@@ -102,6 +112,16 @@ export class AddEditUserComponent {
     if (existingUser) {
       this.apiService.errorMSG(errorMessage.alreadyEmailRegistered);
     } else {
+      let assignTo;
+      if (this.currentUser.userRole == commonEnum.superAdmin) {
+        this.activeAdmin.find((item: any) => {
+          if (item.name == this.form.form.value.assignTo) {
+            assignTo = {id: item.id!, name: item.name!};
+          }
+        });
+      }else {
+        assignTo = {id:this.currentUser.id!, name: this.currentUser.name!}
+      }
       let data: addUser = {
         firstName: this.form.form.value.firstName,
         lastName: this.form.form.value.lastName,
@@ -109,15 +129,14 @@ export class AddEditUserComponent {
         password: btoa(this.form.form.value.password),
         userRole: this.form.form.value.userRole,
         status: tableEnum.Active,
-        assignTo: this.currentUser.id,
+        assignTo: assignTo,
         createdBy: this.currentUser.id,
       }
       if (type == commonEnum.update) {
         let userData = {...this.userData}
         delete userData.id
           data.status = this.userData.status
-          // data.createdBy = this.userData.id
-          
+          data.createdBy = this.userData.createdBy
           if (JSON.stringify(data) !== JSON.stringify(userData)) {
             this.apiService.edit(apiEndPoints.user + this.userId, data).subscribe((res: any) => {
               this.apiService.successMSG(succssMessage.Updated)

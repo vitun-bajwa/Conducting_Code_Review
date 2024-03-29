@@ -4,7 +4,7 @@ import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
 import { Router } from '@angular/router';
 import { apiEndPoints, commonEnum, errorMessage, routes, succssMessage } from 'src/app/core/enums/common.enum';
-import { currentUser, signUp } from 'src/app/core/models/common-config';
+import { addUser, currentUser } from 'src/app/core/models/common-config';
 
 @Component({
   selector: 'app-sign-up',
@@ -32,7 +32,7 @@ export class SignUpComponent {
             this.apiService.errorMSG(errorMessage.alreadyRegistered);
             this.form.form.reset();
           } else {
-            const data : signUp = {
+            const data : addUser = {
               firstName: this.form.form.value.firstName,
               lastName: this.form.form.value.lastName,
               email: this.form.form.value.email,
