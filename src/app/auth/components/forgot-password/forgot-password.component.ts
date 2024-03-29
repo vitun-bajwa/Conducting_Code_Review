@@ -33,9 +33,7 @@ export class ForgotPasswordComponent {
 
   constructor(
     private commonService: CommonService, 
-    private router: Router, 
-    private route: ActivatedRoute,
-    private snackBar: MatSnackBar) { }
+    private router: Router) { }
 
   ngOnInit() {
 
