@@ -1,5 +1,5 @@
 <div *ngIf="!config?.hidden" [formGroup]="group" >
-  <label *ngIf="config.label" for="">{{config.label}}</label>
+  <label *ngIf="config.label" for="">{{config.label}}<span *ngIf="config?.isRequired">*</span></label>
   <mat-form-field>
       <mat-select [placeholder]="config.placeholder"  [formControlName]="config.name">
         <mat-option *ngFor="let option of config.options" [value]="option.name">

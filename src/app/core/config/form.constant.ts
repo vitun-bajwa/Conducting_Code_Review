@@ -356,6 +356,7 @@ export const loginForm = [
 
   export const codeReviewRequestForm:any = [
     {
+      label: "Title",
       type: 'input',
       fieldType: 'text',
       name: 'title',
@@ -368,6 +369,7 @@ export const loginForm = [
       disabled: false
     },
     {
+      label: "Module Start Date",
       type: 'daterange', 
       fieldType: 'date', 
       name: 'startDate', 
@@ -380,6 +382,7 @@ export const loginForm = [
       disabled: false
     },
     {
+      label: "Module End Date",
       type: 'daterange', 
       fieldType: 'date',
       name: 'endDate',
@@ -392,6 +395,7 @@ export const loginForm = [
       disabled: false
     },
     {
+      label: "Functional Description",
       type: 'textArea', 
       fieldType: 'codeDetails', 
       name: 'codeDescription', 
@@ -404,6 +408,7 @@ export const loginForm = [
       disabled: false
     },
     {
+      label: "Add Code Snippets",
       type: 'textEditor', 
       fieldType: 'textEditor', 
       name: 'textEditor', 
@@ -419,6 +424,7 @@ export const loginForm = [
   
   export const codeReviewForm:any = [
     {
+      label: "Review Comments",
       type: 'textArea', 
       fieldType: 'codeReview', 
       name: 'codeReview', 
