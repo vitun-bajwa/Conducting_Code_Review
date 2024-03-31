@@ -20,7 +20,12 @@
       "userRole": "Admin",
       "createdBy": "9907",
       "assignTo": null,
-      "status": "active"
+      "status": "active",
+      "statusBtn": {
+        "name": "active",
+        "class": "statusBtn"
+      },
+      "name": "Admin Two"
     },
     {
       "id": "4c91",
@@ -52,7 +57,11 @@
         "id": "fa6f",
         "name": "john dee"
       },
-      "status": "active"
+      "status": "active",
+      "statusBtn": {
+        "name": "active",
+        "class": "statusBtn"
+      }
     },
     {
       "firstName": "candidate",
@@ -70,10 +79,11 @@
       "lastName": "dee",
       "email": "johndee@gmail.com",
       "password": "VXNlckAxMjM=",
-      "userRole": "Candidate",
+      "userRole": "Admin",
       "createdBy": "self",
       "assignTo": null,
-      "status": "active"
+      "status": "active",
+      "id": "280c"
     },
     {
       "id": "2c6c",
@@ -85,20 +95,6 @@
       "status": "active",
       "assignTo": "fa6f",
       "createdBy": "fa6f"
-    },
-    {
-      "firstName": "nhvjb",
-      "lastName": "sdgvzx",
-      "email": "bbvnvnb@gmail.com",
-      "password": "dW5kZWZpbmVk",
-      "userRole": "Candidate",
-      "createdBy": "0de9",
-      "id": "0de9",
-      "assignTo": {
-        "id": "af9d1",
-        "name": "Admin One"
-      },
-      "status": "active"
     },
     {
       "firstName": "vitun",
@@ -131,6 +127,33 @@
       "createdBy": "self",
       "id": "5880",
       "status": "pending"
+    },
+    {
+      "id": "697b",
+      "firstName": "a",
+      "lastName": "a",
+      "email": "1@gmail.com",
+      "password": "ITEyMzQ1QWo=",
+      "userRole": "Candidate",
+      "status": "Pending"
+    },
+    {
+      "id": "359b",
+      "firstName": "a    kumar",
+      "lastName": "a kumar",
+      "email": "12332@gmil.mov",
+      "password": "IWFzZEBhQTEx",
+      "userRole": "Candidate",
+      "status": "Pending"
+    },
+    {
+      "firstName": "jatt",
+      "lastName": "saab",
+      "email": "jattsaab@gmail.com",
+      "password": "SmF0dEAxMjM=",
+      "userRole": "Candidate",
+      "status": "Pending",
+      "id": "WUR3Kfe"
     }
   ],
   "roles": [
@@ -244,6 +267,26 @@
       "reviewedBy": {},
       "status": "pending",
       "codeReview": ""
+    },
+    {
+      "title": "Test Code",
+      "startDate": "2024-03-20T18:30:00.000Z",
+      "endDate": "2024-03-21T18:30:00.000Z",
+      "codeDescription": "Check this code.........",
+      "textEditor": "<p>&lt;html&gt;</p><p>&lt;head&gt;</p><p>&lt;title&gt;&lt;/title&gt;</p><p>&lt;head&gt;</p><p>&nbsp;</p><p>&lt;body&gt;</p><p>&lt;/body&gt;</p><p>&lt;/html&gt;</p>",
+      "userId": "4c98",
+      "assignTo": {
+        "id": "fa6f",
+        "name": "john dee"
+      },
+      "createdBy": "candidate three",
+      "reviewedBy": {
+        "id": "9907",
+        "name": "Super Admin"
+      },
+      "status": "reviewed",
+      "codeReview": "Code is fine",
+      "id": "41c7"
     }
   ]
 }

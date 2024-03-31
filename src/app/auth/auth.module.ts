@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { NgOtpInputModule } from  'ng-otp-input';
 import { UiModule } from '../ui/ui.module';
 import { ButtonFieldComponent } from "../shared/dynmic-form/component/button-field/button-field.component";
+import { ErrorsComponent } from "../shared/dynmic-form/component/errors/errors.component";
 
 @NgModule({
     declarations: [
@@ -21,8 +22,9 @@ import { ButtonFieldComponent } from "../shared/dynmic-form/component/button-fie
         SharedModule,
         NgOtpInputModule,
         UiModule,
-        ButtonFieldComponent
-    ],
+        ButtonFieldComponent,
+        ErrorsComponent
+    ]
 })
 export class AuthModule { constructor(){
   }}

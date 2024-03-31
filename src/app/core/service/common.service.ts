@@ -41,9 +41,9 @@ export class CommonService {
       duration: 3000, panelClass: ['snackbar-success']
     });
   }
-  errorMSG(msg:string) { 
+  errorMSG(msg:string, duration?:number) { 
     this.snackBar.open(msg,'',{
-      duration: 3000, panelClass: ['snackbar-error']
+      duration: duration ? duration : 3000, panelClass: ['snackbar-error']
     });
   }
 
