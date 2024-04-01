@@ -98,7 +98,6 @@ export const signUpForm:any = [
     placeholder: 'Confirm Password',
     validation: [Validators.required, Validators.pattern(reg.password), passwordvalidaator()],
     isRequired: true,
-    hint: true,
     class: 'input',
     error: false
   },
