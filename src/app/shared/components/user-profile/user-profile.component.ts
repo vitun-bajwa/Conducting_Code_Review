@@ -6,7 +6,7 @@ import { DynamicFormModule } from '../../dynmic-form/dynamic-form.module';
 import { CommonService } from 'src/app/core/service/common.service';
 import { Router } from '@angular/router';
 import { currentUser } from 'src/app/core/models/common-config';
-import { apiEndPoints, getItem, routes, setItem, succssMessage } from 'src/app/core/enums/common.enum';
+import { apiEndPoints, commonEnum, getItem, routes, setItem, succssMessage } from 'src/app/core/enums/common.enum';
 
 @Component({
   selector: 'app-user-profile',
@@ -20,6 +20,7 @@ export class UserProfileComponent {
   config: FieldConfig[] = profileForm;
   currentUser!: currentUser;
   userConfig: any;
+  formHeading: string = commonEnum.profile;
 
   constructor(private commonService: CommonService, private router: Router,) { }
 

@@ -1,4 +1,5 @@
 export enum commonEnum {
+  profile = "Profile",
   addUser = "Add User",
   editUser = "Update User Form",
   addCodeReview = "Add Code Review Request",

@@ -7,7 +7,6 @@ import { apiEndPoints, commonEnum, errorMessage, getItem, modalData, routes, suc
 import { addUser, currentUser } from 'src/app/core/models/common-config';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
-import { CommonDialogComponent } from 'src/app/shared/components/common-dialog/common-dialog.component';
 
 @Component({
   selector: 'app-add-edit-user',
@@ -34,12 +33,6 @@ export class AddEditUserComponent {
     });
     if (this.userId) {
     this.config[this.config.length - 1].name = commonEnum.update
-      this.config.filter(item => {
-        if (item.fieldType === commonEnum.email) {
-          item.disabled = true;
-        }
-        return item
-      })
     }else {
       this.config[this.config.length - 1].name = commonEnum.save
     }
@@ -111,7 +104,7 @@ export class AddEditUserComponent {
 
   updateData(type: string) {
     const existingUser = this.userList.find((user: any) => user.email === this.form.form.value.email);
-    if (existingUser) {
+    if (existingUser && this.userData.email != this.form.form.value.email) {
       this.apiService.errorMSG(errorMessage.alreadyEmailRegistered);
     } else {
       let assignTo;

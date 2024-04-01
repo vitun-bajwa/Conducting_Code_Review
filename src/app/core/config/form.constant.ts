@@ -354,6 +354,7 @@ export const profileForm :any = [
     placeholder: 'Email',
     validation: [Validators.required, Validators.pattern(reg.email)],
     isRequired: true,
+    disabled: true,
     hint: false,
     class: 'input',
     error: false,
