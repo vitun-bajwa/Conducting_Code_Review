@@ -190,6 +190,9 @@ mat-form-field
             color: $text-black
     .mdc-line-ripple, .mat-mdc-form-field-subscript-wrapper
         display: none
+    &.mat-form-field-disabled
+        .mdc-text-field--filled:not(.mdc-text-field--disabled), .mdc-text-field--filled.mdc-text-field--disabled input
+            background-color: $background-disabled
 
 mat-form-field.withIcon 
     .mat-mdc-form-field-infix
@@ -285,6 +288,8 @@ app-errors
             font-size: 26px
             font-weight: bold
             color: $secondary
+            width: 100%
+            text-align: center
         h5 
             width: 100%
             text-align: center
@@ -337,6 +342,9 @@ app-errors
 .content
     .card
         border: none
+        .otp_box
+            position: relative
+            padding: 10px 0px 20px
         ng-otp-input
             input
                 width: 45px !important
