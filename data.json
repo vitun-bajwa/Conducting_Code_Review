@@ -126,7 +126,8 @@
       "userRole": "Candidate",
       "createdBy": "self",
       "id": "5880",
-      "status": "pending"
+      "assignTo": {},
+      "status": "active"
     },
     {
       "id": "697b",
@@ -139,8 +140,8 @@
     },
     {
       "id": "359b",
-      "firstName": "a    kumar",
-      "lastName": "a kumar",
+      "firstName": "akumar",
+      "lastName": "akumar",
       "email": "12332@gmil.mov",
       "password": "IWFzZEBhQTEx",
       "userRole": "Candidate",
@@ -152,8 +153,10 @@
       "email": "jattsaab@gmail.com",
       "password": "SmF0dEAxMjM=",
       "userRole": "Candidate",
-      "status": "Pending",
-      "id": "WUR3Kfe"
+      "createdBy": "self",
+      "id": "WUR3Kfe",
+      "declinedReason": "dgs",
+      "status": "rejected"
     }
   ],
   "roles": [

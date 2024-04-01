@@ -24,19 +24,25 @@
 
       <td mat-cdell *ngIf="column == tableEnum.action && element.status != tableEnum.Pending && element.status !== tableEnum.Rejected">
         <ng-container *ngIf="(currentUser.userRole == commonEnum.Admin|| currentUser.userRole == commonEnum.superAdmin)">
-          <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
+          <!-- <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
             color="primary" (click)="editRecord(element)">
             <mat-icon>edit</mat-icon>
-          </button> 
-          <button mat-icon-button matTooltip="Delete" class="iconbutton"
+          </button>  -->
+          <app-button-field [config]="editBtn" (btnClickEvent)="editRecord(element)">
+          </app-button-field>
+          <!-- <button mat-icon-button matTooltip="Delete" class="iconbutton"
                 (click)="deleteRecord(element)" color="warn">
                 <mat-icon>delete</mat-icon>
-          </button>
+          </button> -->
+          <app-button-field [config]="deleteBtn" (btnClickEvent)="deleteRecord(element)">
+          </app-button-field>
         </ng-container>
         <ng-container *ngIf="currentUser.userRole == commonEnum.Candidate">
-          <button mat-icon-button matTooltip="View" class="iconbutton" (click)="viewReview(element)">
+          <!-- <button mat-icon-button matTooltip="View" class="iconbutton" (click)="viewReview(element)">
             <mat-icon >visibility</mat-icon>
-          </button>
+          </button> -->
+          <app-button-field [config]="visibilityBtn" (btnClickEvent)="viewReview(element)">
+          </app-button-field>
         </ng-container>
       </td>
       <td mat-cdell *ngIf="column == tableEnum.action && element.status === tableEnum.Pending && currentUser.userRole != commonEnum.Candidate">
