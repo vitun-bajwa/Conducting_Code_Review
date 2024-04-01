@@ -1,2 +1,4 @@
-<button [class]="config.class" *ngIf="config.fieldType != 'toggle'" [disabled]="config.disabled" (click)="onButtonClicked()"> {{config.name}} </button>
+<button [class]="config.class" *ngIf="config.fieldType != 'toggle'" [disabled]="config.disabled" (click)="onButtonClicked()"> 
+    <mat-icon *ngIf="config.type && config.type == 'icon'">{{config.name}}</mat-icon> {{(config.type && config.type == 'icon') ? '' : config.name }}
+</button>
 <mat-slide-toggle *ngIf="config.fieldType && config.fieldType == 'toggle'"></mat-slide-toggle>

@@ -11,7 +11,7 @@ export class CommonDialogComponent {
   @ViewChild('review') review: any;
   isConfirmDisabled: boolean = false; 
   cancelBtn = {
-    class: 'button',
+    class: 'button',  
     name: 'Cancel'
   }
   saveBtn = {

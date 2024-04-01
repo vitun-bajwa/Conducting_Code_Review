@@ -34,7 +34,21 @@ export class TableComponent {
   currentUser: currentUser;
   commonEnum: typeof commonEnum = commonEnum;
   tableEnum: typeof tableEnum = tableEnum;
-
+  editBtn = {
+    name: "edit",
+    class: 'icon-edit',
+    type : "icon"
+  }
+  deleteBtn = {
+    name: "delete",
+    class: 'icon-delete',
+    type : "icon"
+  }
+  visibilityBtn = {
+    name: "visibility",
+    class: 'icon-delete',
+    type : "icon"
+  }
   constructor(public dialog: MatDialog, public commonService: CommonService) {
     this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
    }
