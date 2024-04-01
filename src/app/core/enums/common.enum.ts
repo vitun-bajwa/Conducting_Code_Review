@@ -93,6 +93,7 @@ export enum succssMessage {
 
 export enum errorMessage { 
   alreadyRegistered = "This email is already registered. Please use a different email address.",
+  invalidEmail = "Invalid email",
   Invalid = "Invalid email or password",
   inActive = "Your profile is inactive. Please contact the administrator",
   alreadyEmailRegistered = "This email is already registered. Please use a different email address.",

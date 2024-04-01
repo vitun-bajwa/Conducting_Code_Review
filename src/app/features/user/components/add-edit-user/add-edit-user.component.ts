@@ -68,9 +68,9 @@ export class AddEditUserComponent {
         email: res?.email,
         lastName: res?.lastName,
         userRole: res?.userRole,
+        status: res?.status
       })
     });
-
   }
 
   ngAfterViewInit() {
@@ -130,23 +130,22 @@ export class AddEditUserComponent {
         email: this.form.form.value.email ? this.form.form.value.email : this.userData.email,
         password: btoa(this.form.form.value.password),
         userRole: this.form.form.value.userRole,
-        status: tableEnum.Active,
+        status: this.form.form.value.status,
         assignTo: this.form.form.value.userRole == commonEnum.Candidate ? assignTo : null,
         createdBy: this.currentUser.id,
       }
       if (type == commonEnum.update) {
         let userData = {...this.userData}
         delete userData.id
-          data.status = this.userData.status
-          data.createdBy = this.userData.createdBy
-          if (JSON.stringify(data) !== JSON.stringify(userData)) {
-            this.apiService.edit(apiEndPoints.user + this.userId, data).subscribe((res: any) => {
-              this.apiService.successMSG(succssMessage.Updated)
-              this.router.navigateByUrl(routes.user);
-            })
-          }else {
-            this.apiService.warningMSG(warningMessage.nothingToUpdated)
-          }
+        data.createdBy = this.userData.createdBy
+        if (JSON.stringify(data) !== JSON.stringify(userData)) {
+          this.apiService.edit(apiEndPoints.user + this.userId, data).subscribe((res: any) => {
+            this.apiService.successMSG(succssMessage.Updated)
+            this.router.navigateByUrl(routes.user);
+          })
+        }else {
+          this.apiService.warningMSG(warningMessage.nothingToUpdated)
+        }
       } else {
         this.apiService.add(apiEndPoints.users, data).subscribe((res: any) => {
           this.apiService.successMSG(succssMessage.userAdded)

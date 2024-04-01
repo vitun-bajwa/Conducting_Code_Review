@@ -41,49 +41,22 @@ export class ForgotPasswordComponent {
     name: 'Submit',
   }
   filledDigits: number = 0;
+  submit: boolean = false;
 
   constructor(
     private commonService: CommonService,
     private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit() {}
 
-  }
-
-  // forgotPassword(e: any) {
-  //   this.form.form.markAllAsTouched();
-  //   let alluseremail: any = {
-  //     email: e.email,
-  //   }
-  //   this.commonService.get(apiEndPoints.users).subscribe(
-  //     (data: any) => {
-  //       this.loader = true;
-  //       this.logindata = data;
-  //       this.matchdata = this.logindata.find((data: any) => data.email === alluseremail.email);
-  //       this.commonService.successMSG(this.matchdata ? succssMessage.emailVerified : succssMessage.enterValidEmail);
-  //       if (this.matchdata) {
-  //         setTimeout(() => {
-  //           this.loader = false;
-  //           this.showloginpage = false
-  //           this.validOtp = Math.floor(Math.random() * 1000000);
-  //           this.configs.length = this.validOtp.toString().length
-  //         }, 1500);
-  //       } else {
-  //         this.loader = false;
-  //       }
-  //     this.form.form.reset();
-  //   });
-  // }
   forgotPassword(e: any) {
     this.form.form.markAllAsTouched();
-    let alluseremail: any = {
-      email: e.email,
-    }
+    let email = e.email
     this.commonService.get(apiEndPoints.users).subscribe(
       (data: any) => {
         this.loader = true;
         this.logindata = data;
-        this.matchdata = this.logindata.find((data: any) => data.email === alluseremail.email);
+        this.matchdata = this.logindata.find((data: any) => data.email === email);
 
         // Check if user's status is active
         if (this.matchdata && this.matchdata.status === 'active') {
@@ -100,6 +73,8 @@ export class ForgotPasswordComponent {
           // Display message if user's status is inactive
           if (this.matchdata && this.matchdata.status !== 'active') {
             this.commonService.errorMSG(errorMessage.statusInctive, 4000);
+          }else if (email) {
+            this.commonService.errorMSG(errorMessage.invalidEmail, 4000);
           }
           this.loader = false;
         }
@@ -107,24 +82,17 @@ export class ForgotPasswordComponent {
       });
   }
 
-    onOtpChange(otp: any) {
+  onOtpChange(otp: any) {
     this.otp = otp;
+    if (this.validOtp.toString()?.length != this.otp?.length && this.submit){
+      this.errorConfig.hidden = false;
+    }else {
+      this.errorConfig.hidden = true;
+    }
   }
 
-  // otpVerfication() {
-  //   if (this.timer) {
-  //     clearInterval(this.timer)
-  //   }
-  //   if (this.validOtp == this.otp) {
-  //     this.verifiedReset = true;
-  //   }
-  //   else {
-  //     this.timer = setTimeout(() => {
-  //     }, 1000);
-  //   }
-  // }
-
   otpVerfication() {
+    this.submit = true;
     if (this.timer) {
       clearInterval(this.timer);
     }
@@ -149,7 +117,6 @@ export class ForgotPasswordComponent {
   isOTPFilledAndCorrect(): boolean {
     return this.filledDigits === this.configs.length && this.validOtp === this.otp.join('');
   }
-  
   
   resetPassword() {
     this.trimFormValues();
@@ -178,4 +145,5 @@ export class ForgotPasswordComponent {
       }
     });
   }
+
 }
