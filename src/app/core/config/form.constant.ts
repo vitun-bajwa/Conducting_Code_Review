@@ -49,7 +49,7 @@ export const signUpForm:any = [
     fieldType: 'text',
     name: 'firstName',
     value: '',
-    placeholder: 'First Name',
+    placeholder: 'First Name *',
     validation: [Validators.required, Validators.pattern(reg.name)],
     isRequired: true,
     class: 'input',
@@ -162,6 +162,7 @@ export const signUpForm:any = [
       error: false,
     },
     {
+      label: 'Password',
       type: 'input',
       fieldType: 'password',
       name: 'password',
@@ -174,6 +175,7 @@ export const signUpForm:any = [
       error: false
     },
     {
+      label: 'Confirm Password',
       type: 'input',
       fieldType: 'password',
       name: 'confirmPassword',
@@ -192,6 +194,7 @@ export const signUpForm:any = [
       name: 'status',
       value: 'Active',
       placeholder: 'Status',
+      validation: [Validators.required],
       isRequired: true,
       class: 'input',
       error: false,

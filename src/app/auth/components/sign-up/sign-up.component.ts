@@ -15,6 +15,7 @@ export class SignUpComponent {
   @ViewChild('form') form: any;
   config: FieldConfig[] = signUpForm
   currentUser!: currentUser;
+  title: string = commonEnum.title;
   constructor(private apiService: CommonService, private router: Router) { }
 
   ngOnInit() { }

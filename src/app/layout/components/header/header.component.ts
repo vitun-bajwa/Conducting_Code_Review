@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { getItem, routes } from 'src/app/core/enums/common.enum';
+import { commonEnum, getItem, routes } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
 
 @Component({
@@ -10,7 +10,7 @@ import { currentUser } from 'src/app/core/models/common-config';
 })
 export class HeaderComponent {
   currentUser!: currentUser;
-
+  title: string = commonEnum.title;
   constructor(private router: Router) {}
 
   ngOnInit() {

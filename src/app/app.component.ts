@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { commonEnum } from './core/enums/common.enum';
 
 @Component({
   selector: 'app-root',
@@ -6,8 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent implements OnInit{
-  title = 'ccr';
-  constructor() {}
+  constructor() {
+    document.getElementById('indexTitle')!.innerHTML = commonEnum.title
+  }
 
   ngOnInit() { 
   } 

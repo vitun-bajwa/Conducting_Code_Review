@@ -16,6 +16,7 @@ export class LoginComponent {
   @ViewChild('form') form: any;
   config: FieldConfig[] = loginForm
   user: any = [];
+  title: string = commonEnum.title;
   loginButton: object = {
     type: 'button',
     name: 'Login',
