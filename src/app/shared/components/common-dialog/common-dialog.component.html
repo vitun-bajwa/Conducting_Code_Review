@@ -1,4 +1,7 @@
 <div class="model_otr">
+  <button mat-icon-button class="close-button" [mat-dialog-close]="true">
+  <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
   <h1> {{data.heading}} </h1>
   <p> {{data.title}} </p>
   <app-dynamic-form *ngIf="data.config" [config]="data.config" #review="dynamicForm"></app-dynamic-form>

@@ -13,6 +13,8 @@ export class DropdownComponent {
   constructor() { }
 
   ngAfterViewInit() {
+    this.config.options
+    this.group
   }
 
 }

@@ -12,6 +12,7 @@ export enum commonEnum {
   reviewedBy = "reviewedBy",
   email = "email",
   update = "update",
+  save = "save",
   string = "string",
   assignTo = "assignTo",
   userRole = "userRole"
@@ -47,7 +48,7 @@ export enum modalData {
 export enum tableEnum {
   password = "password",
   addUser = "AddUser",
-  signUp = "Sign-Up",
+  signUp = "Sign Up",
   statusBtn = "statusBtn",
   status = "status",
   assignTo = "assignTo",
@@ -97,6 +98,10 @@ export enum errorMessage {
   oldPassword = "Old Password Does Not Match",
   statusInctive = "Your Profile is inactive. Password cannot be changed, Please contact adminninistrator.",
   wrongOtp = "Your OTP is incorrect. Please enter a valid OTP."
+} 
+
+export enum warningMessage { 
+  nothingToUpdated = "There is nothing to update.",
 } 
 
 export enum validation {

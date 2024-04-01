@@ -32,6 +32,11 @@ export class AddCodeReviewComponent {
     name: 'Save',
   }
 
+  approveBtn: FieldConfig = {
+    class: 'button',
+    name: 'Approve',
+  }
+
   constructor(private commonService: CommonService, private router: Router,
     private activatedRoute: ActivatedRoute) {
     this.activatedRoute.paramMap.subscribe((param: any) => {

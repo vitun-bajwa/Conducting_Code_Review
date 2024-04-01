@@ -1,8 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { adminList, signUpForm } from 'src/app/core/config/form.constant';
-import { apiEndPoints, commonEnum, errorMessage, getItem, modalData, routes, succssMessage, tableEnum } from 'src/app/core/enums/common.enum';
+import { adminList, userForm } from 'src/app/core/config/form.constant';
+import { apiEndPoints, commonEnum, errorMessage, getItem, modalData, routes, succssMessage, tableEnum, warningMessage } from 'src/app/core/enums/common.enum';
 import { addUser, currentUser } from 'src/app/core/models/common-config';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
@@ -15,7 +16,7 @@ import { CommonDialogComponent } from 'src/app/shared/components/common-dialog/c
 })
 export class AddEditUserComponent {
   @ViewChild('form') form: any;
-  config: FieldConfig[] = [...signUpForm];
+  config: FieldConfig[] = [...userForm];
   userId!: string;
   currentUser!: currentUser;
   userList!: Array<object>;
@@ -31,18 +32,18 @@ export class AddEditUserComponent {
     this.activatedRoute.paramMap.subscribe((param: any) => {
       this.userId = param.params.id;
     });
-    this.config[this.config.length - 1].name = 'Save'
     if (this.userId) {
+    this.config[this.config.length - 1].name = commonEnum.update
       this.config.filter(item => {
         if (item.fieldType === commonEnum.email) {
           item.disabled = true;
         }
         return item
       })
+    }else {
+      this.config[this.config.length - 1].name = commonEnum.save
     }
     this.formHeading = this.userId ? commonEnum.editUser : commonEnum.addUser;
-  }
-  ngAfterViewInit() {
   }
 
   ngOnInit() {
@@ -72,26 +73,39 @@ export class AddEditUserComponent {
 
   }
 
+  ngAfterViewInit() {
+    this.onRoleChange();
+  }
+  
+  onRoleChange() {
+    this.form.form.controls[commonEnum.userRole].valueChanges.subscribe((res: string) => {
+      if (this.currentUser.userRole == commonEnum.superAdmin && this.form.form.value[commonEnum.userRole] !== res) {
+        this.config.find((item:FieldConfig) => {
+          if (item.name == commonEnum.assignTo) {
+            if (res == commonEnum.Candidate) {
+              item.options = this.activeAdmin
+              item.hidden = false;
+              item.isRequired = true;
+              if (this.userData) this.form.form.controls[commonEnum.assignTo].setValue(this.userData.assignTo?.name)
+              this.form.form.controls[commonEnum.assignTo].setValidators([Validators.required]);
+            }else {
+              item.hidden = true;
+              item.isRequired = false;
+              this.form.form.controls[commonEnum.assignTo].clearValidators();
+            }
+            this.form.form.controls[commonEnum.assignTo].updateValueAndValidity();
+          }
+        })
+      }
+    });
+  }
+
   userModify(type: string) {
     this.trimFormValues();
     if (this.form.form.invalid) {
       this.form.form.markAllAsTouched();
     } else {
-      if (this.currentUser.userRole === commonEnum.superAdmin) {
-        this.adminListConfig[0].options = this.activeAdmin;
-        const dialogRef = this.dialog.open(CommonDialogComponent, {
-          data: {
-            heading: modalData.assignAdmin,
-            title: modalData.selectAdmin,
-            config: this.adminListConfig
-          },
-        });
-        dialogRef.afterClosed().subscribe((res: any) => {
-          if (res) {
-            this.updateData(type);
-          }
-        });
-      }
+      this.updateData(type);
     }
   }
 
@@ -100,6 +114,16 @@ export class AddEditUserComponent {
     if (existingUser) {
       this.apiService.errorMSG(errorMessage.alreadyEmailRegistered);
     } else {
+      let assignTo;
+      if (this.currentUser.userRole == commonEnum.superAdmin) {
+        this.activeAdmin.find((item: any) => {
+          if (item.name == this.form.form.value.assignTo) {
+            assignTo = {id: item.id!, name: item.name!};
+          }
+        });
+      }else {
+        assignTo = {id:this.currentUser.id!, name: this.currentUser.name!}
+      }
       let data: addUser = {
         firstName: this.form.form.value.firstName,
         lastName: this.form.form.value.lastName,
@@ -107,16 +131,22 @@ export class AddEditUserComponent {
         password: btoa(this.form.form.value.password),
         userRole: this.form.form.value.userRole,
         status: tableEnum.Active,
-        assignTo: this.currentUser.id,
+        assignTo: this.form.form.value.userRole == commonEnum.Candidate ? assignTo : null,
         createdBy: this.currentUser.id,
       }
       if (type == commonEnum.update) {
-        data.status = this.userData.status,
-          data.createdBy = this.userData.id,
-          this.apiService.edit(apiEndPoints.user + this.userId, data).subscribe((res: any) => {
-            this.apiService.successMSG(succssMessage.Updated)
-            this.router.navigateByUrl(routes.user);
-          })
+        let userData = {...this.userData}
+        delete userData.id
+          data.status = this.userData.status
+          data.createdBy = this.userData.createdBy
+          if (JSON.stringify(data) !== JSON.stringify(userData)) {
+            this.apiService.edit(apiEndPoints.user + this.userId, data).subscribe((res: any) => {
+              this.apiService.successMSG(succssMessage.Updated)
+              this.router.navigateByUrl(routes.user);
+            })
+          }else {
+            this.apiService.warningMSG(warningMessage.nothingToUpdated)
+          }
       } else {
         this.apiService.add(apiEndPoints.users, data).subscribe((res: any) => {
           this.apiService.successMSG(succssMessage.userAdded)

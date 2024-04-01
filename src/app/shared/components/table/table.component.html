@@ -6,18 +6,18 @@
 
       <td mat-cell *ngIf="column == tableEnum.startDate || column == tableEnum.endDate">{{element[column] | date}}</td>
       <td mat-cell *ngIf="column != tableEnum.status && column != tableEnum.action && column != tableEnum.srNo && column != tableEnum.startDate && column != tableEnum.endDate && column != tableEnum.assignTo && column != commonEnum.reviewedBy">{{element[column]}} </td>
-      <td mat-cell *ngIf="column == tableEnum.assignTo">{{element[column].name}}</td>
+      <td mat-cell *ngIf="column == tableEnum.assignTo">{{element[column]?.name}}</td>
       <td mat-cell *ngIf="column == commonEnum.reviewedBy">{{(element[column]?.name) ? element[column]?.name : '--'}}</td>
 
       <td mat-cell *ngIf="column == tableEnum.status">
         <app-button-field 
         *ngIf="element['statusBtn'] && currentUser.userRole == tableEnum.Admin || currentUser.userRole == tableEnum.superAdmin" 
         (btnClickEvent)="updateStatus(element)" [config]="element['statusBtn']" 
-        [ngClass]="(element['statusBtn'].name===tableEnum.Active) ? tableEnum.Active : (element['statusBtn'].name===tableEnum.Pending) ? tableEnum.Pending : element['statusBtn'].name===tableEnum.Reviewed ? tableEnum.Active : ''"></app-button-field>
+        [ngClass]="(element['statusBtn'].name===tableEnum.Active) ? tableEnum.Active : (element['statusBtn'].name===tableEnum.Pending) ? tableEnum.Pending : element['statusBtn'].name===tableEnum.Reviewed ? tableEnum.Reviewed : ''"></app-button-field>
 
         <ng-container *ngIf="currentUser.userRole == tableEnum.Candidate && element['statusBtn']">
           <app-button-field [config]="element['statusBtn']" 
-          [ngClass]="(element['statusBtn'].name===tableEnum.Active) ? tableEnum.Active : (element['statusBtn'].name===tableEnum.Pending) ? tableEnum.Pending : element['statusBtn'].name===tableEnum.Reviewed ? tableEnum.Active : ''">
+          [ngClass]="(element['statusBtn'].name===tableEnum.Active) ? tableEnum.Active : (element['statusBtn'].name===tableEnum.Pending) ? tableEnum.Pending : element['statusBtn'].name===tableEnum.Reviewed ? tableEnum.Reviewed : ''">
           </app-button-field>
         </ng-container>
       </td>
@@ -41,7 +41,7 @@
       </td>
       <td mat-cdell *ngIf="column == tableEnum.action && element.status === tableEnum.Pending && currentUser.userRole != commonEnum.Candidate">
           <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary" (click)="editRequest(element)">
-            <mat-icon>check</mat-icon>
+            <mat-icon> {{this.tableConfig.page != 'user' ? 'visibility' : 'check'}} </mat-icon>
           </button> 
           <button mat-icon-button matTooltip="Decline" class="iconbutton" (click)="declineRequest(element)" color="warn">
               <mat-icon>close</mat-icon>

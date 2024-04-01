@@ -7,7 +7,7 @@ export interface currentUser {
     userRole?: string,
     status?: string,
     createdBy?: string,
-    assignTo?: Array<object>,
+    assignTo?: {id:string, name:string} | null,
     name?: string,
 }
 export interface codeReview {
@@ -17,24 +17,12 @@ export interface codeReview {
     codeDescription?: string,
     textEditor?: string,
     userId?: string,
-    assignTo?: object,
+    assignTo?: {id:string, name:string} | null,
     createdBy?: string,
     reviewedBy?: object,
     status?: string,
     codeReview?: string,
 }
-
-export interface signUp {
-    firstName?: string,
-    lastName?: string,
-    email?: string,
-    password?: string,
-    userRole?: string,
-    status?: string,
-    assignTo?: object,
-    createdBy?: string,
-}
-
 export interface addUser {
     firstName?: string
     lastName?: string
@@ -42,6 +30,6 @@ export interface addUser {
     password?: string
     userRole?: string
     status?: string
-    assignTo?: string
+    assignTo?: {id:string, name:string} | null,
     createdBy?: string
 }
