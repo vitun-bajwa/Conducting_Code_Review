@@ -74,6 +74,7 @@ export enum tableEnum {
   developmentDate = "developmentDate",
   srNo = "sr No",
   Candidate = "Candidate",
+  confirmPassword = "confirmPassword"
 }
 
 export enum succssMessage { 

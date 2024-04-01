@@ -40,15 +40,19 @@
           <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary" (click)="editRequest(element)">
             <mat-icon> {{this.tableConfig.page != 'user' ? 'visibility' : 'check'}} </mat-icon>
           </button> 
-          <button mat-icon-button matTooltip="Decline" class="iconbutton" (click)="declineRequest(element)" color="warn">
+          <!-- <button mat-icon-button matTooltip="Decline" class="iconbutton" (click)="declineRequest(element)" color="warn">
               <mat-icon>close</mat-icon>
-          </button>
+          </button> -->
+          <app-button-field [config]="closeBtn" (btnClickEvent)="declineRequest(element)">
+          </app-button-field>
       </td>
       
-      <td mat-cdell *ngIf="column == 'action' && (currentUser.userRole == commonEnum.Candidate || element.status === tableEnum.Rejected)">
-          <button *ngIf="element.status === tableEnum.Rejected" mat-icon-button matTooltip="Accept" class="iconbutton" color="primary" (click)="declineReason(element)">
+      <td mat-cdell *ngIf="column == tableEnum.action && (currentUser.userRole == commonEnum.Candidate || element.status === tableEnum.Rejected)">
+          <!-- <button *ngIf="element.status === tableEnum.Rejected" mat-icon-button matTooltip="Accept" class="iconbutton" color="primary" (click)="declineReason(element)">
             <mat-icon>info</mat-icon>
-          </button>
+          </button> -->
+          <app-button-field *ngIf="element.status === tableEnum.Rejected" [config]="infoBtn" (btnClickEvent)="declineReason(element)">
+          </app-button-field>
       </td>
       
     </ng-container>

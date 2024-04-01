@@ -44,7 +44,7 @@ export class ChangePasswordComponent {
     }
     else{
       this.apiService.errorMSG(errorMessage.oldPassword);
-      this.form.form.reset();
+      // this.form.form.reset();
     }
   }
 

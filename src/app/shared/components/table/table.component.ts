@@ -49,6 +49,16 @@ export class TableComponent {
     class: 'icon edit',
     type : "icon"
   }
+  infoBtn = {
+    name: "info",
+    class: 'icon edit',
+    type : "icon"
+  }
+  closeBtn = {
+    name: "close",
+    class: 'icon delete',
+    type : "icon"
+  }
   constructor(public dialog: MatDialog, public commonService: CommonService) {
     this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
    }

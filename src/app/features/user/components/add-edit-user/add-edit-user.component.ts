@@ -49,8 +49,14 @@ export class AddEditUserComponent {
   ngOnInit() {
     this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
     if (this.userId) {
-      let index = this.config.findIndex((x: any) => x.fieldType == tableEnum.password)
-      if (index != -1) this.config.splice(index, 1);
+      let passwordIndex = this.config.findIndex((x:any) => x.fieldType === tableEnum.password);
+      let confirmPasswordIndex = this.config.findIndex((x:any) => x.fieldType === tableEnum.confirmPassword);
+      if(confirmPasswordIndex != -1) {
+        this.config.splice(confirmPasswordIndex, 1);
+      }
+      if(passwordIndex != -1) {
+        this.config.splice(passwordIndex, 2);
+      }
     }
     this.apiService.get(apiEndPoints.users).subscribe((res: any) => {
       this.userList = res
@@ -70,7 +76,7 @@ export class AddEditUserComponent {
         userRole: res?.userRole,
       })
     });
-
+    
   }
 
   ngAfterViewInit() {
