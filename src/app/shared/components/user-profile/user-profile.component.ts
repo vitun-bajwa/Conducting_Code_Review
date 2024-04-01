@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { currentUser } from 'src/app/core/models/common-config';
 import { apiEndPoints, commonEnum, getItem, routes, setItem, succssMessage, warningMessage } from 'src/app/core/enums/common.enum';
 import { ButtonFieldComponent } from "../../dynmic-form/component/button-field/button-field.component";
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-user-profile',
@@ -20,6 +21,7 @@ export class UserProfileComponent {
   @ViewChild('form') form: any;
   config: FieldConfig[] = profileForm;
   currentUser!: currentUser;
+  subscription = new Subscription();
   userData: any;
   formHeading: string = commonEnum.profile;
   routeTo!: string;
@@ -40,7 +42,7 @@ export class UserProfileComponent {
   }
 
   getUserInfo() {
-    this.commonService.get(apiEndPoints.users, '').subscribe((res: any) => {
+    this.subscription.add(this.commonService.get(apiEndPoints.users, '').subscribe((res: any) => {
       this.userData = res;
       this.userData = this.userData.find((x: any) => x.id == this.currentUser.id);
       this.form.form.patchValue({
@@ -48,11 +50,11 @@ export class UserProfileComponent {
         email: this.userData?.email,
         lastName: this.userData?.lastName,
       })
-    });
+    }));
   }
 
   updateUserInfo() {
-    this.commonService.get(apiEndPoints.user + this.currentUser.id).subscribe((res: any) => {
+    this.subscription.add(this.commonService.get(apiEndPoints.user + this.currentUser.id).subscribe((res: any) => {
       let userData = {...this.userData}
       let data = {...this.userData}
       data.firstName = this.form.form.value.firstName,
@@ -60,20 +62,24 @@ export class UserProfileComponent {
       data.email = this.form.form.value.email ? this.form.form.value.email : this.userData.email
       debugger
       if (JSON.stringify(data) !== JSON.stringify(userData)) {
-        this.commonService.edit(apiEndPoints.user + this.currentUser.id, data).subscribe((updateRes: any) => {
+        this.subscription.add(this.commonService.edit(apiEndPoints.user + this.currentUser.id, data).subscribe((updateRes: any) => {
           this.commonService.successMSG(succssMessage.detailsUpdated);
           sessionStorage.setItem(setItem.user, JSON.stringify(updateRes));
           this.router.navigateByUrl(this.routeTo);
-        });
+        }));
       }
       else{
         this.commonService.warningMSG(warningMessage.nothingToUpdated);
       }
-    });
+    }));
   }
 
   back() {
     this.router.navigateByUrl(this.routeTo);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

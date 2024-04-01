@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/core/service/common.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { apiEndPoints, commonEnum, errorMessage, routes, succssMessage } from 'src/app/core/enums/common.enum';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-forgot-password',
@@ -16,6 +17,7 @@ export class ForgotPasswordComponent {
   @ViewChild('ngOtpInput') ngOtpInput: any;
   title: string = commonEnum.title;
   config: FieldConfig[] = forgotForm
+  subscription = new Subscription();
   errorConfig: FieldConfig = {
     name: 'forgot-password',
     fieldType: 'otp',
@@ -53,7 +55,7 @@ export class ForgotPasswordComponent {
   forgotPassword(e: any) {
     this.form.form.markAllAsTouched();
     let email = e.email
-    this.commonService.get(apiEndPoints.users).subscribe(
+    this.subscription.add(this.commonService.get(apiEndPoints.users).subscribe(
       (data: any) => {
         this.loader = true;
         this.logindata = data;
@@ -80,7 +82,7 @@ export class ForgotPasswordComponent {
           this.loader = false;
         }
         // this.form.form.reset();
-      });
+    }));
   }
 
   onOtpChange(otp: any) {
@@ -129,11 +131,10 @@ export class ForgotPasswordComponent {
         ...this.matchdata,
         password: btoa(this.form.form.value.password),
       }
-      this.commonService.edit(apiEndPoints.user + this.matchdata.id, data).subscribe((data: any) => {
+      this.subscription.add(this.commonService.edit(apiEndPoints.user + this.matchdata.id, data).subscribe((data: any) => {
         this.router.navigateByUrl(routes.empty);
         this.commonService.successMSG(succssMessage.passwordUpdated);
-      }
-      );
+      }));
       this.form.form.reset()
     }
   }
@@ -145,6 +146,10 @@ export class ForgotPasswordComponent {
         control.setValue(control.value.trim());
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }
