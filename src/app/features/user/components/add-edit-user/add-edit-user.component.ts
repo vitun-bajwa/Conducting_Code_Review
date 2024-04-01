@@ -22,7 +22,7 @@ export class AddEditUserComponent {
   activeAdmin!: Array<object>;
   userData!: currentUser;
   adminListConfig: FieldConfig[] = adminList;
-  addBtn = {
+  backBtn = {
     class: 'button',
     name: 'Back',
   }

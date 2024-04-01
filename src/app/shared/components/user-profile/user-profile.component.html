@@ -1,4 +1,5 @@
 <div class="hdr">
     <h2>{{formHeading}}</h2>
+    <app-button-field [config]="backBtn" (btnClickEvent)="back()"></app-button-field>
 </div>
 <app-dynamic-form class="feild_50" [config]="config"  #form="dynamicForm" (submitted)="updateUserInfo()"></app-dynamic-form>
