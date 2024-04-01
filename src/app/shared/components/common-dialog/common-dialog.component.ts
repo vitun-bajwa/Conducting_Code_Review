@@ -19,6 +19,11 @@ export class CommonDialogComponent {
     name: 'Save',
     disabled: false
   }
+  closeBtn = {
+    name: "close",
+    class: 'icon delete',
+    type : "icon"
+  }
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
