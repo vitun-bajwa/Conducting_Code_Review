@@ -96,8 +96,7 @@
       "userRole": "Candidate",
       "createdBy": "self",
       "id": "5880",
-      "assignTo": {},
-      "status": "active"
+      "status": "pending"
     },
     {
       "id": "697b",
@@ -110,8 +109,8 @@
     },
     {
       "id": "359b",
-      "firstName": "akumar",
-      "lastName": "akumar",
+      "firstName": "a    kumar",
+      "lastName": "a kumar",
       "email": "12332@gmil.mov",
       "password": "IWFzZEBhQTEx",
       "userRole": "Candidate",
