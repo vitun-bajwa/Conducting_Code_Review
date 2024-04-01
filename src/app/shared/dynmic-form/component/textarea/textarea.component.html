@@ -1,4 +1,4 @@
-<label *ngIf="config.label" for="">{{config.label}}<span *ngIf="config?.isRequired">*</span></label>
+<label *ngIf="config.label" for="">{{config.label}}<span class="astrick" *ngIf="config?.isRequired">*</span></label>
 <mat-form-field [formGroup]="group" [class]="config.class">
     <textarea matInput [formControlName]="config.name" [placeholder]="config.placeholder"></textarea>
 </mat-form-field>
