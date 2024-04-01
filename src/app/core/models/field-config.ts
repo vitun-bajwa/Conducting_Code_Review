@@ -11,6 +11,8 @@ export interface FieldConfig {
   value?: any;
   class?: string;
   readOnly?: boolean;
+  min?: boolean;
+  max?: boolean;
   isRequired?: any;
   hidden?: boolean;
   error?: boolean;

@@ -235,7 +235,6 @@ export const loginForm = [
       class: 'button',
     },
   ]
-
   
   export const resetPasswordForm:any = [
     {
@@ -375,6 +374,7 @@ export const loginForm = [
       placeholder: 'Start Date',
       validation: [Validators.required],
       isRequired: true,
+      max: true,
       class: 'date',
       error: false,
       disabled: false
@@ -387,6 +387,7 @@ export const loginForm = [
       placeholder: 'End Date',
       validation: [Validators.required],
       isRequired: true,
+      min: true,
       class: 'input',
       error: false,
       disabled: false
@@ -446,6 +447,7 @@ export const loginForm = [
       disabled: false,
     }
   ];
+
   export const adminList:any = [
   {
     type: 'select',
