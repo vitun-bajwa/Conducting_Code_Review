@@ -20,7 +20,7 @@ export class UserProfileComponent {
   @ViewChild('form') form: any;
   config: FieldConfig[] = profileForm;
   currentUser!: currentUser;
-  userConfig: any;
+  userData: any;
   formHeading: string = commonEnum.profile;
   routeTo!: string;
   backBtn = {
@@ -41,34 +41,34 @@ export class UserProfileComponent {
 
   getUserInfo() {
     this.commonService.get(apiEndPoints.users, '').subscribe((res: any) => {
-      this.userConfig = res;
-      let user = this.userConfig.find((x: any) => x.id == this.currentUser.id);
+      this.userData = res;
+      this.userData = this.userData.find((x: any) => x.id == this.currentUser.id);
       this.form.form.patchValue({
-        firstName: user?.firstName,
-        email: user?.email,
-        lastName: user?.lastName,
+        firstName: this.userData?.firstName,
+        email: this.userData?.email,
+        lastName: this.userData?.lastName,
       })
     });
   }
 
   updateUserInfo() {
     this.commonService.get(apiEndPoints.user + this.currentUser.id).subscribe((res: any) => {
-      const originalUser = res;
-      const updatedUser = {
-        ...res,
-        ...this.form.form.value,
-      };
-      const isUpdated = Object.keys(originalUser).some(key => originalUser[key] !== updatedUser[key])
-      if (!isUpdated) {
-        this.commonService.warningMSG(warningMessage.nothingToUpdated);
-        return
+      let userData = {...this.userData}
+      let data = {...this.userData}
+      data.firstName = this.form.form.value.firstName,
+      data.lastName = this.form.form.value.lastName,
+      data.email = this.form.form.value.email ? this.form.form.value.email : this.userData.email
+      debugger
+      if (JSON.stringify(data) !== JSON.stringify(userData)) {
+        this.commonService.edit(apiEndPoints.user + this.currentUser.id, data).subscribe((updateRes: any) => {
+          this.commonService.successMSG(succssMessage.detailsUpdated);
+          sessionStorage.setItem(setItem.user, JSON.stringify(updateRes));
+          this.router.navigateByUrl(this.routeTo);
+        });
       }
-      this.commonService.edit(apiEndPoints.user + this.currentUser.id, updatedUser).subscribe((updateRes: any) => {
-        this.commonService.warningMSG(warningMessage.nothingToUpdated)
-        this.commonService.successMSG(succssMessage.detailsUpdated);
-        sessionStorage.setItem(setItem.user, JSON.stringify(updateRes));
-        this.router.navigateByUrl(this.routeTo);
-      });
+      else{
+        this.commonService.warningMSG(warningMessage.nothingToUpdated);
+      }
     });
   }
 

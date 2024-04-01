@@ -132,7 +132,8 @@ export enum routes {
   admin = "admin",
   auth = "/auth",
   login = "/login",
-  empty = "/"
+  empty = "/",
+  approve = "/approve/",
 }
 
 export enum setItem { 
