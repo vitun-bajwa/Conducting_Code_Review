@@ -17,15 +17,10 @@
       "email": "Admintwo@gmail.com",
       "password": "dW5kZWZpbmVk",
       "userRole": "Admin",
-      "status": "active",
+      "status": "Active",
       "assignTo": null,
       "createdBy": "9907",
-      "id": "afd",
-      "statusBtn": {
-        "name": "active",
-        "class": "statusBtn"
-      },
-      "name": "Admin Two"
+      "id": "afd"
     },
     {
       "firstName": "candidate",
@@ -96,7 +91,8 @@
       "userRole": "Candidate",
       "createdBy": "self",
       "id": "5880",
-      "status": "pending"
+      "assignTo": {},
+      "status": "active"
     },
     {
       "id": "697b",
@@ -109,8 +105,8 @@
     },
     {
       "id": "359b",
-      "firstName": "a    kumar",
-      "lastName": "a kumar",
+      "firstName": "akumar",
+      "lastName": "akumar",
       "email": "12332@gmil.mov",
       "password": "IWFzZEBhQTEx",
       "userRole": "Candidate",
