@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { codeReviewForm, codeReviewRequestForm } from 'src/app/core/config/form.constant';
-import { commonEnum, apiEndPoints, succssMessage, getItem, routes, tableEnum, headingEnum } from 'src/app/core/enums/common.enum';
+import { commonEnum, apiEndPoints, succssMessage, getItem, routes, tableEnum, headingEnum, warningMessage } from 'src/app/core/enums/common.enum';
 import { codeReview, currentUser } from 'src/app/core/models/common-config';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
@@ -103,13 +103,20 @@ export class AddCodeReviewComponent {
           data.assignTo = this.codeReviewData.assignTo,
           data.createdBy = this.codeReviewData.createdBy,
           data.reviewedBy = { id: this.currentUser.id, name: this.currentUser.firstName +' '+ this.currentUser.lastName},
-          data.status = tableEnum.Reviewed,
-          this.commonService.edit(apiEndPoints.codeReview + this.userId, data).subscribe((res: any) => {
-            this.commonService.successMSG(succssMessage.codeReviewUpdated)
-            this.router.navigateByUrl(routes.codeReview);
-          })
+          data.status = tableEnum.Reviewed
+          let codeReviewData = {...this.codeReviewData}
+          delete codeReviewData.id
+          if (JSON.stringify(data) !== JSON.stringify(codeReviewData)) {
+            this.commonService.edit(apiEndPoints.codeReview + this.userId, data).subscribe((res: any) => {
+              this.commonService.successMSG(succssMessage.codeReviewUpdated)
+              this.router.navigateByUrl(routes.codeReview);
+            })
+          }else {
+            this.commonService.warningMSG(warningMessage.nothingToUpdated);
+          }
         }
-      }else {
+      }
+      else {
         this.commonService.add(apiEndPoints.codeReviews, data).subscribe((res: any) => {
           this.commonService.successMSG(succssMessage.codeReview)
           this.router.navigateByUrl(routes.codeReview);
@@ -117,7 +124,7 @@ export class AddCodeReviewComponent {
       }
     }
   }
-
+  
   ngAfterViewInit() {}
   trimFormValues() {
     Object.keys(this.form.form.controls).forEach(controlName => {
@@ -128,3 +135,4 @@ export class AddCodeReviewComponent {
     });
   }
 }
+      
