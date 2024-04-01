@@ -1,4 +1,5 @@
 <div [formGroup]="group" >
+  <label *ngIf="config.label" for="">{{config.label}}<span *ngIf="config?.isRequired">*</span></label>
     <mat-form-field color="accent">
         <input matInput [matDatepicker]="picker1" [min]="(config.min && group.value.startDate) ? group.value.startDate : null" [max]="(config.max && group.value.endDate) ? group.value.endDate : null" [formControlName]="config.name" [placeholder]="config.placeholder!">
         <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>

@@ -15,14 +15,15 @@ import { TextareaComponent } from './component/textarea/textarea.component'
 
 
 @NgModule({
-  declarations: [DynamicFormComponent, DynamicFormDirective, InputFieldComponent, DropdownComponent, ErrorsComponent, DatePickerComponent, TextareaComponent],
-  imports: [
-    CommonModule,
-    DynamicFormRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    UiModule
-  ],
-  exports: [DynamicFormComponent, InputFieldComponent]
+    declarations: [DynamicFormComponent, DynamicFormDirective, InputFieldComponent, DropdownComponent, DatePickerComponent, TextareaComponent],
+    exports: [DynamicFormComponent, InputFieldComponent],
+    imports: [
+        CommonModule,
+        DynamicFormRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        UiModule,
+        ErrorsComponent
+    ]
 })
 export class DynamicFormModule { }

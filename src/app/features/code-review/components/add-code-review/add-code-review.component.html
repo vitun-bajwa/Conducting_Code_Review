@@ -6,11 +6,14 @@
     <div class="lft" [class.full]="currentUser.userRole == 'Candidate' && !codeReviewData?.reviewedBy">
         <app-dynamic-form [config]="configRequest" #form="dynamicForm"></app-dynamic-form>
     </div>
-    <div class="rgt" [class.d-none]="currentUser.userRole == 'Candidate' && !codeReviewData && !codeReviewData?.reviewedBy">
-        <p class="reviewdBy" *ngIf="codeReviewData?.reviewedBy && codeReviewData.reviewedBy.name"> {{enum.reviewedBy}} :- {{codeReviewData.reviewedBy.name}} </p>
-        <app-dynamic-form [config]="configReview" #review="dynamicForm" ></app-dynamic-form>
+    <div class="rgt"
+        [class.d-none]="currentUser.userRole == 'Candidate' && !codeReviewData && !codeReviewData?.reviewedBy">
+        <p class="reviewdBy" *ngIf="codeReviewData?.reviewedBy && codeReviewData.reviewedBy.name"> {{enum.reviewedBy}}
+            :- {{codeReviewData.reviewedBy.name}} </p>
+        <app-dynamic-form [config]="configReview" #review="dynamicForm"></app-dynamic-form>
     </div>
 </div>
 <div class="btnBx rgt">
-    <app-button-field *ngIf="notView" [config]="addBtn" (click)="codeReview(userId? 'update' : 'add' )"></app-button-field>
+    <app-button-field *ngIf="notView" [config]="userId ? approveBtn : addBtn"
+        (click)="codeReview(userId ? 'update' : 'add' )"></app-button-field>
 </div>

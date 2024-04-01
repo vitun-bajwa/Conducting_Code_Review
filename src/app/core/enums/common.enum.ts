@@ -96,6 +96,8 @@ export enum errorMessage {
   inActive = "Your profile is inactive. Please contact the administrator",
   alreadyEmailRegistered = "This email is already registered. Please use a different email address.",
   oldPassword = "Old Password Does Not Match",
+  statusInctive = "Your Profile is inactive. Password cannot be changed, Please contact adminninistrator.",
+  wrongOtp = "Your OTP is incorrect. Please enter a valid OTP."
 } 
 
 export enum warningMessage { 
@@ -103,7 +105,7 @@ export enum warningMessage {
 } 
 
 export enum validation {
-  requiredFeild = "This feild is required",
+  requiredFeild = "This field is required",
   invalidInput = "Invalid input",
   passwordHint = "Hint :- 8+ chars, mix: upper, lower, num, special.",
   emailHint = "Hint :- abc@gmail.com",

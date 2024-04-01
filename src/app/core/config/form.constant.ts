@@ -18,7 +18,7 @@ export const loginForm = [
       name: 'email',
       value: '',
       placeholder: 'Email',
-      validation: [Validators.required, Validators.pattern(reg.email)],
+      validation: [Validators.required],
       isRequired: true,
       hint: false,
       class: 'input',
@@ -30,7 +30,7 @@ export const loginForm = [
       name: 'password',
       value: '',
       placeholder: 'Password',
-      validation: [Validators.required, Validators.pattern(reg.password)],
+      validation: [Validators.required],
       isRequired: true,
       hint: false,
       class: 'input',
@@ -84,7 +84,19 @@ export const loginForm = [
       name: 'password',
       value: '',
       placeholder: 'Password',
-      validation: [Validators.required, Validators.pattern(reg.password)],
+      validation: [Validators.required, Validators.pattern(reg.password), passwordvalidaator()],
+      isRequired: true,
+      hint: true,
+      class: 'input',
+      error: false
+    },
+    {
+      type: 'input',
+      fieldType: 'password',
+      name: 'confirmPassword',
+      value: '',
+      placeholder: 'Confirm Password',
+      validation: [Validators.required, Validators.pattern(reg.password), passwordvalidaator()],
       isRequired: true,
       hint: true,
       class: 'input',
@@ -355,6 +367,7 @@ export const loginForm = [
 
   export const codeReviewRequestForm:any = [
     {
+      label: "Title",
       type: 'input',
       fieldType: 'text',
       name: 'title',
@@ -367,6 +380,7 @@ export const loginForm = [
       disabled: false
     },
     {
+      label: "Module Start Date",
       type: 'daterange', 
       fieldType: 'date', 
       name: 'startDate', 
@@ -380,6 +394,7 @@ export const loginForm = [
       disabled: false
     },
     {
+      label: "Module End Date",
       type: 'daterange', 
       fieldType: 'date',
       name: 'endDate',
@@ -393,6 +408,7 @@ export const loginForm = [
       disabled: false
     },
     {
+      label: "Functional Description",
       type: 'textArea', 
       fieldType: 'codeDetails', 
       name: 'codeDescription', 
@@ -405,6 +421,7 @@ export const loginForm = [
       disabled: false
     },
     {
+      label: "Add Code Snippets",
       type: 'textEditor', 
       fieldType: 'textEditor', 
       name: 'textEditor', 
@@ -420,6 +437,7 @@ export const loginForm = [
   
   export const codeReviewForm:any = [
     {
+      label: "Review Comments",
       type: 'textArea', 
       fieldType: 'codeReview', 
       name: 'codeReview', 

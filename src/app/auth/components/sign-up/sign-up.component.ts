@@ -30,7 +30,6 @@ export class SignUpComponent {
           const existingUser = response.find((user: any) => user.email === email);
           if (existingUser) {
             this.apiService.errorMSG(errorMessage.alreadyRegistered);
-            this.form.form.reset();
           } else {
             const data : addUser = {
               firstName: this.form.form.value.firstName,

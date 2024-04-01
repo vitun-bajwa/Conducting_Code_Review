@@ -4,7 +4,7 @@ import { forgotForm, resetPasswordForm } from '../../../core/config/form.constan
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/core/service/common.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { apiEndPoints, commonEnum, routes, succssMessage } from 'src/app/core/enums/common.enum';
+import { apiEndPoints, commonEnum, errorMessage, routes, succssMessage } from 'src/app/core/enums/common.enum';
 
 @Component({
   selector: 'app-forgot-password',
@@ -13,7 +13,13 @@ import { apiEndPoints, commonEnum, routes, succssMessage } from 'src/app/core/en
 })
 export class ForgotPasswordComponent {
   @ViewChild('form') form: any;
+  @ViewChild('ngOtpInput') ngOtpInput: any;
   config: FieldConfig[] = forgotForm
+  errorConfig: FieldConfig = {
+    name: 'forgot-password',
+    fieldType: 'otp',
+    hidden: true,
+  }
   resetPasswordForm: FieldConfig[] = resetPasswordForm
   verifiedReset: boolean = false;
   loader: boolean = false;
@@ -30,15 +36,44 @@ export class ForgotPasswordComponent {
     isPasswordInput: false,
     disableAutoFocus: false,
   }
+  SubmitBtn: FieldConfig = {
+    class: 'button',
+    name: 'Submit',
+  }
+  filledDigits: number = 0;
 
   constructor(
-    private commonService: CommonService, 
+    private commonService: CommonService,
     private router: Router) { }
 
   ngOnInit() {
 
   }
 
+  // forgotPassword(e: any) {
+  //   this.form.form.markAllAsTouched();
+  //   let alluseremail: any = {
+  //     email: e.email,
+  //   }
+  //   this.commonService.get(apiEndPoints.users).subscribe(
+  //     (data: any) => {
+  //       this.loader = true;
+  //       this.logindata = data;
+  //       this.matchdata = this.logindata.find((data: any) => data.email === alluseremail.email);
+  //       this.commonService.successMSG(this.matchdata ? succssMessage.emailVerified : succssMessage.enterValidEmail);
+  //       if (this.matchdata) {
+  //         setTimeout(() => {
+  //           this.loader = false;
+  //           this.showloginpage = false
+  //           this.validOtp = Math.floor(Math.random() * 1000000);
+  //           this.configs.length = this.validOtp.toString().length
+  //         }, 1500);
+  //       } else {
+  //         this.loader = false;
+  //       }
+  //     this.form.form.reset();
+  //   });
+  // }
   forgotPassword(e: any) {
     this.form.form.markAllAsTouched();
     let alluseremail: any = {
@@ -49,37 +84,73 @@ export class ForgotPasswordComponent {
         this.loader = true;
         this.logindata = data;
         this.matchdata = this.logindata.find((data: any) => data.email === alluseremail.email);
-        this.commonService.successMSG(this.matchdata ? succssMessage.emailVerified : succssMessage.enterValidEmail);
-        if (this.matchdata) {
+
+        // Check if user's status is active
+        if (this.matchdata && this.matchdata.status === 'active') {
+          this.commonService.successMSG(succssMessage.emailVerified);
+
+          // Proceed with password change
           setTimeout(() => {
             this.loader = false;
-            this.showloginpage = false
+            this.showloginpage = false;
             this.validOtp = Math.floor(Math.random() * 1000000);
-            this.configs.length = this.validOtp.toString().length
+            this.configs.length = this.validOtp.toString().length;
           }, 1500);
         } else {
+          // Display message if user's status is inactive
+          if (this.matchdata && this.matchdata.status !== 'active') {
+            this.commonService.errorMSG(errorMessage.statusInctive, 4000);
+          }
           this.loader = false;
         }
-      this.form.form.reset();
-    });
+        // this.form.form.reset();
+      });
   }
 
-  otpVerfication() {
-    if (this.timer) {
-      clearInterval(this.timer)
-    }
-    if (this.validOtp == this.otp) {
-      this.verifiedReset = true;
-    }
-    else {
-      this.timer = setTimeout(() => {
-      }, 1000);
-    }
-  }
-  onOtpChange(otp: any) {
+    onOtpChange(otp: any) {
     this.otp = otp;
   }
 
+  // otpVerfication() {
+  //   if (this.timer) {
+  //     clearInterval(this.timer)
+  //   }
+  //   if (this.validOtp == this.otp) {
+  //     this.verifiedReset = true;
+  //   }
+  //   else {
+  //     this.timer = setTimeout(() => {
+  //     }, 1000);
+  //   }
+  // }
+
+  otpVerfication() {
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
+    if (this.validOtp == this.otp) {
+      this.verifiedReset = true;
+    } else if (this.validOtp.toString()?.length != this.otp?.length){
+      this.errorConfig.hidden = false;
+    }else {
+      this.commonService.errorMSG(errorMessage.wrongOtp);
+    }
+  }
+  onInput(event: any) {
+    let inputValue = event.target.value;
+    inputValue = inputValue.replace(/\D/g, '');
+    event.target.value = inputValue;
+  }
+
+  onOTPDigitChange() {
+    this.filledDigits = this.otp?.filter((digit: any) => digit).length;
+  }
+
+  isOTPFilledAndCorrect(): boolean {
+    return this.filledDigits === this.configs.length && this.validOtp === this.otp.join('');
+  }
+  
+  
   resetPassword() {
     this.trimFormValues();
     if (this.form.form.invalid) {
