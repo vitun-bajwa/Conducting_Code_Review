@@ -1,4 +1,5 @@
 <div [formGroup]="group">
     <label *ngIf="config.label" for="">{{config.label}}<span class="astrick" *ngIf="config?.isRequired">*</span></label>
     <ckeditor #myCkeditor [editor]="Editor" [formControlName]="config?.name" (ready)="onReady($event)"></ckeditor>
+    <app-errors *ngIf="config?.name" [errors]="config" [group]="group"></app-errors>
 </div>

@@ -175,7 +175,6 @@ export class TableComponent {
       if (res) {
         data['declinedReason'] = res.codeReview
         this.updateRequest.emit(data);
-        this.createTableData();
       }
     })
   }

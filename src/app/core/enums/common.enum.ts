@@ -1,4 +1,5 @@
 export enum commonEnum {
+  title= 'Code Review Hub',
   profile = "Profile",
   addUser = "Add User",
   editUser = "Update User Form",

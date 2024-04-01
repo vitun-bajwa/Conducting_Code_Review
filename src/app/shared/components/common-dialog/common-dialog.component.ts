@@ -48,8 +48,16 @@ export class CommonDialogComponent {
     }
   }
 
-
   onConfirmClick(): void {
-    this.dialogRef.close(this.data.config ? this.review.form.value : true);
+    if(this.data.config) {
+      if(this.review.form.valid) {
+        this.dialogRef.close(this.review.form.value);
+      }else {
+        this.review.form.markAllAsTouched();
+      }
+    }else {
+      this.dialogRef.close(true);
+    }
   }
+
 }

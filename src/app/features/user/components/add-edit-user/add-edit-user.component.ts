@@ -83,7 +83,7 @@ export class AddEditUserComponent {
         this.config.find((item:FieldConfig) => {
           if (item.name == commonEnum.assignTo) {
             if (res == commonEnum.Candidate) {
-              item.options = this.activeAdmin
+              item.options = this.activeAdmin;
               item.hidden = false;
               item.isRequired = true;
               if (this.userData) this.form.form.controls[commonEnum.assignTo].setValue(this.userData.assignTo?.name)

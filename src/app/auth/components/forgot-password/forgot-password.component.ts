@@ -14,6 +14,7 @@ import { apiEndPoints, commonEnum, errorMessage, routes, succssMessage } from 's
 export class ForgotPasswordComponent {
   @ViewChild('form') form: any;
   @ViewChild('ngOtpInput') ngOtpInput: any;
+  title: string = commonEnum.title;
   config: FieldConfig[] = forgotForm
   errorConfig: FieldConfig = {
     name: 'forgot-password',

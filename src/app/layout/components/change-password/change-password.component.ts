@@ -16,6 +16,7 @@ export class ChangePasswordComponent {
   config: FieldConfig[] = changePasswordForm;
   user: any = [];
   currentUser!: currentUser;
+  title: string = commonEnum.title;
   commonEnum: typeof commonEnum = commonEnum;
   routes: typeof routes = routes;
   constructor(
