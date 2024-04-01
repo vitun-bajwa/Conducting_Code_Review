@@ -166,6 +166,7 @@ mat-form-field
         mat-select
             padding: 8px
             font-size: 14px
+            text-transform: capitalize
             .mat-mdc-select-placeholder
                 color: $placeholder !important
         input
@@ -195,6 +196,9 @@ mat-form-field
     &.mat-form-field-disabled
         .mdc-text-field--filled:not(.mdc-text-field--disabled), .mdc-text-field--filled.mdc-text-field--disabled input
             background-color: $background-disabled
+
+mat-option
+    text-transform: capitalize
 
 mat-form-field.withIcon 
     .mat-mdc-form-field-infix
@@ -469,10 +473,11 @@ app-button-field
     p
         padding: 0px 0px 10px
         font-size: 14px
-    .close-icon
+    .icon.delete
         position: absolute
-        top: 3px
-        right: 3px
+        top: 4px
+        right: 4px
+        margin: 0px
 
 /* Model css End */
 
