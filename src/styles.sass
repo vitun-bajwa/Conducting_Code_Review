@@ -124,16 +124,14 @@ mat-spinner.mat-mdc-progress-spinner
 .button.danger
     background: $danger
 
-.button.icon
-    @include f_c_c
+button.icon
     background: transparent
-    border: 2px solid $secondary
-    border-radius: 5px
-    padding: 0px
-    width: 35px
-    height: 35px
+    border: 0px solid $secondary
     color: $secondary
-    font-size: 20px
+    padding: 0px
+    margin: 0px 10px
+    &.delete
+        color: $danger
 
 .btnBx
     .button
