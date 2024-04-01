@@ -182,7 +182,7 @@ export const loginForm = [
       name: 'status',
       value: 'Active',
       placeholder: 'Status',
-      isRequired: false,
+      isRequired: true,
       class: 'input',
       error: false,
       disabled: false,
@@ -380,7 +380,7 @@ export const loginForm = [
       disabled: false
     },
     {
-      label: "Module Start Date",
+      label: "Development Start Date",
       type: 'daterange', 
       fieldType: 'date', 
       name: 'startDate', 
@@ -394,7 +394,7 @@ export const loginForm = [
       disabled: false
     },
     {
-      label: "Module End Date",
+      label: "Development End Date",
       type: 'daterange', 
       fieldType: 'date',
       name: 'endDate',
@@ -413,7 +413,7 @@ export const loginForm = [
       fieldType: 'codeDetails', 
       name: 'codeDescription', 
       value: '',
-      placeholder: 'Code description..',
+      placeholder: 'Functional description..',
       validation: [Validators.required],
       isRequired: true,
       class: 'textArea',

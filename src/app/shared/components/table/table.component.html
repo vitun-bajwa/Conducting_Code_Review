@@ -1,11 +1,13 @@
 <table mat-table [dataSource]="tableData" matSort="true" class="mat-elevation-z8">
   <ng-container [matColumnDef]="column" *ngFor="let column of tableConfiguration?.tableHeaders;">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column | titlecase}} </th>
+    <th [class.w-100px]="column == tableEnum.action" mat-header-cell *matHeaderCellDef mat-sort-header> {{column | titlecase}} </th>
     <ng-container *matCellDef="let element;  let index = index">
       <td mat-cell *ngIf="column == tableEnum.srNo">{{(paginatorRef.pageIndex * paginatorRef.pageSize) + (index + 1)}}</td>
-
-      <td mat-cell *ngIf="column == tableEnum.startDate || column == tableEnum.endDate">{{element[column] | date}}</td>
-      <td mat-cell *ngIf="column != tableEnum.status && column != tableEnum.action && column != tableEnum.srNo && column != tableEnum.startDate && column != tableEnum.endDate && column != tableEnum.assignTo && column != commonEnum.reviewedBy">{{element[column]}} </td>
+      <td mat-cell *ngIf="column == tableEnum.developmentDate"> 
+        <p>{{element[tableEnum.startDate] | date}}</p>
+        <p>{{element[tableEnum.endDate] | date}}</p>
+      </td>
+      <td mat-cell *ngIf="column != tableEnum.status && column != tableEnum.action && column != tableEnum.srNo && column != tableEnum.developmentDate && column != tableEnum.assignTo && column != commonEnum.reviewedBy">{{element[column]}} </td>
       <td mat-cell *ngIf="column == tableEnum.assignTo">{{element[column]?.name}}</td>
       <td mat-cell *ngIf="column == commonEnum.reviewedBy">{{(element[column]?.name) ? element[column]?.name : '--'}}</td>
 

@@ -51,8 +51,9 @@ export class CodeReviewListingComponent implements OnInit {
     if (reviewData.length > 0) {
       tableColumns = Object?.keys(reviewData[0])?.filter((x: any) => 
       this.currentUser.userRole != commonEnum.superAdmin ? 
-      (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.assignTo && x != tableEnum.codeReview) : 
-      (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.codeReview));
+      (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.assignTo && x != tableEnum.codeReview && x != tableEnum.startDate && x != tableEnum.endDate) : 
+      (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.codeReview && x != tableEnum.startDate && x != tableEnum.endDate));
+      tableColumns.splice(2, 0, tableEnum.developmentDate)
       tableColumns.push(tableEnum.action)
     }
     if(this.currentUser.userRole != commonEnum.superAdmin) {
