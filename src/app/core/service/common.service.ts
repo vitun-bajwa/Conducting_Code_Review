@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { apiEndPoints, getItem, routes, tableEnum } from '../enums/common.enum';
 import { currentUser } from '../models/common-config';
