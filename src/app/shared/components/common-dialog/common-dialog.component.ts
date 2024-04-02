@@ -17,7 +17,6 @@ export class CommonDialogComponent {
   saveBtn = {
     class: 'button',
     name: 'Save',
-    disabled: false
   }
   closeBtn = {
     name: "close",
@@ -31,12 +30,6 @@ export class CommonDialogComponent {
   ){}
 
   ngAfterViewInit() {
-    if(this.data.config && this.data.config[0].name == commonEnum.assignTo && this.review) {
-      this.saveBtn.disabled = true
-      this.review.form.controls[this.data.config[0].name].valueChanges.subscribe((res:any) => {
-        this.saveBtn.disabled = false;
-      })
-    }
     if(this.data.declinedReason) {
       this.review.form.patchValue({
         [this.data.config[0].name] : this.data.declinedReason.declinedReason

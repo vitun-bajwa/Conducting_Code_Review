@@ -17,15 +17,10 @@
       "email": "Admintwo@gmail.com",
       "password": "dW5kZWZpbmVk",
       "userRole": "Admin",
-      "status": "active",
+      "status": "Active",
       "assignTo": null,
       "createdBy": "9907",
-      "id": "afd",
-      "statusBtn": {
-        "name": "active",
-        "class": "statusBtn"
-      },
-      "name": "Admin Two"
+      "id": "afd"
     },
     {
       "firstName": "candidate",

@@ -95,7 +95,8 @@ export class CodeReviewListingComponent implements OnInit {
         this.getReviewData();
       }))
     }else {
-      this.router.navigateByUrl(routes.codeReview + routes.edit + codeReviewData.id);
+      let route = codeReviewData.status == tableEnum.Pending ? routes.approve : routes.edit
+      this.router.navigateByUrl(routes.codeReview + route + codeReviewData.id);
     }
   }
 

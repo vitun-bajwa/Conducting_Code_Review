@@ -14,6 +14,6 @@
     </div>
 </div>
 <div class="btnBx rgt">
-    <app-button-field *ngIf="notView" [config]="userId ? approveBtn : addBtn"
+    <app-button-field *ngIf="currentPage != commonEnum.viewCodeReview" [config]="addBtn"
         (click)="codeReview(userId ? 'update' : 'add' )"></app-button-field>
 </div>

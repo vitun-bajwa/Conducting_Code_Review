@@ -22,9 +22,9 @@ export class AddCodeReviewComponent {
   currentUser!: currentUser;
   userId: any;
   formHeading!: string;
-  notView: boolean = false;
   codeReviewData: any;
   enum: typeof headingEnum = headingEnum;
+  commonEnum: typeof commonEnum = commonEnum;
   backBtn: FieldConfig = {
     class: 'button',
     name: 'Back',
@@ -33,27 +33,24 @@ export class AddCodeReviewComponent {
     class: 'button',
     name: 'Save',
   }
-
-  approveBtn: FieldConfig = {
-    class: 'button',
-    name: 'Approve',
-  }
+  currentPage!: commonEnum;
 
   constructor(private commonService: CommonService, private router: Router,
     private activatedRoute: ActivatedRoute) {
     this.subscription.add(this.activatedRoute.paramMap.subscribe((param: any) => {
-      this.notView = this.router.url.includes('edit') || this.router.url.includes('add');
+      this.currentPage = this.router.url.includes('edit') ? commonEnum.editCodeReview : this.router.url.includes('add') ? commonEnum.addCodeReview : this.router.url.includes('approve') ? commonEnum.approveCodeReview : commonEnum.viewCodeReview;
       this.userId = param.params.id;
+      this.formHeading = this.currentPage;
+      this.addBtn.name = this.currentPage == commonEnum.editCodeReview ? commonEnum.update : this.currentPage == commonEnum.approveCodeReview ? commonEnum.approve : commonEnum.save ;
+      if (this.currentPage == commonEnum.viewCodeReview) {
+        this.configRequest.map((item:any) => {
+          item.disabled = true
+        });
+        this.configReview.map((item:any) => {
+          item.disabled = true
+        });
+      }
     }));
-    this.formHeading = this.userId ? !this.notView ? commonEnum.viewCodeReview : commonEnum.editCodeReview : commonEnum.addCodeReview;
-    if (!this.notView) {
-      this.configRequest.map((item:any) => {
-        item.disabled = true
-      });
-      this.configReview.map((item:any) => {
-        item.disabled = true
-      });
-    }
   }
 
   ngOnInit() {

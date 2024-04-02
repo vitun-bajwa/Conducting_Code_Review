@@ -60,7 +60,6 @@ export class UserProfileComponent {
       data.firstName = this.form.form.value.firstName,
       data.lastName = this.form.form.value.lastName,
       data.email = this.form.form.value.email ? this.form.form.value.email : this.userData.email
-      debugger
       if (JSON.stringify(data) !== JSON.stringify(userData)) {
         this.subscription.add(this.commonService.edit(apiEndPoints.user + this.currentUser.id, data).subscribe((updateRes: any) => {
           this.commonService.successMSG(succssMessage.detailsUpdated);
