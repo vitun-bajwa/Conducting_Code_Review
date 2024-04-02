@@ -1,9 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { forgotForm, resetPasswordForm } from '../../../core/config/form.constant';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonService } from 'src/app/core/service/common.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { apiEndPoints, commonEnum, errorMessage, routes, succssMessage } from 'src/app/core/enums/common.enum';
 
 @Component({
