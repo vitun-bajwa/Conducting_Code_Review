@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { UserProfileComponent } from '../shared/components/user-profile/user-profile.component';
+import { userGuard } from '../core/guards/user.guard';
 
 const routes: Routes = [
   {
@@ -11,6 +12,7 @@ const routes: Routes = [
     children: [
       {
         path: 'user',
+        canActivate: [userGuard],
         loadChildren: () => import('./../features/user/user.module').then((m) => m.UserModule),
       },
       {
