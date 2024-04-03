@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { codeReviewForm, codeReviewRequestForm } from 'src/app/core/config/form.constant';
 import { commonEnum, apiEndPoints, succssMessage, getItem, routes, tableEnum, headingEnum, warningMessage } from 'src/app/core/enums/common.enum';
 import { codeReview, currentUser } from 'src/app/core/models/common-config';
@@ -15,14 +16,15 @@ export class AddCodeReviewComponent {
   @ViewChild('form') form: any;
   @ViewChild('review') review: any;
   @ViewChild(EditorComponent) editor: any;
+  subscription = new Subscription();
   configRequest: FieldConfig[] = codeReviewRequestForm
   configReview: FieldConfig[] = codeReviewForm
   currentUser!: currentUser;
   userId: any;
   formHeading!: string;
-  notView: boolean = false;
   codeReviewData: any;
   enum: typeof headingEnum = headingEnum;
+  commonEnum: typeof commonEnum = commonEnum;
   backBtn: FieldConfig = {
     class: 'button',
     name: 'Back',
@@ -31,33 +33,30 @@ export class AddCodeReviewComponent {
     class: 'button',
     name: 'Save',
   }
-
-  approveBtn: FieldConfig = {
-    class: 'button',
-    name: 'Approve',
-  }
+  currentPage!: commonEnum;
 
   constructor(private commonService: CommonService, private router: Router,
     private activatedRoute: ActivatedRoute) {
-    this.activatedRoute.paramMap.subscribe((param: any) => {
-      this.notView = this.router.url.includes('edit') || this.router.url.includes('add');
+    this.subscription.add(this.activatedRoute.paramMap.subscribe((param: any) => {
+      this.currentPage = this.router.url.includes('edit') ? commonEnum.editCodeReview : this.router.url.includes('add') ? commonEnum.addCodeReview : this.router.url.includes('approve') ? commonEnum.approveCodeReview : commonEnum.viewCodeReview;
       this.userId = param.params.id;
-    });
-    this.formHeading = this.userId ? !this.notView ? commonEnum.viewCodeReview : commonEnum.editCodeReview : commonEnum.addCodeReview;
-    if (!this.notView) {
-      this.configRequest.map((item:any) => {
-        item.disabled = true
-      })
-      this.configReview.map((item:any) => {
-        item.disabled = true
-      })
-    }
+      this.formHeading = this.currentPage;
+      this.addBtn.name = this.currentPage == commonEnum.editCodeReview ? commonEnum.update : this.currentPage == commonEnum.approveCodeReview ? commonEnum.approve : commonEnum.save ;
+      if (this.currentPage == commonEnum.viewCodeReview) {
+        this.configRequest.map((item:any) => {
+          item.disabled = true
+        });
+        this.configReview.map((item:any) => {
+          item.disabled = true
+        });
+      }
+    }));
   }
 
   ngOnInit() {
     this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
     if (this.userId) {
-      this.commonService.get(apiEndPoints.codeReview, this.userId).subscribe((res: any) => {
+      this.subscription.add(this.commonService.get(apiEndPoints.codeReview, this.userId).subscribe((res: any) => {
         this.codeReviewData = res
         this.form?.form.patchValue({
           title: res?.title,
@@ -69,7 +68,7 @@ export class AddCodeReviewComponent {
         this.review?.form.patchValue({
           codeReview: res?.codeReview,
         })
-      });
+      }));
     }
   }
 
@@ -107,20 +106,20 @@ export class AddCodeReviewComponent {
           let codeReviewData = {...this.codeReviewData}
           delete codeReviewData.id
           if (JSON.stringify(data) !== JSON.stringify(codeReviewData)) {
-            this.commonService.edit(apiEndPoints.codeReview + this.userId, data).subscribe((res: any) => {
+            this.subscription.add(this.commonService.edit(apiEndPoints.codeReview + this.userId, data).subscribe((res: any) => {
               this.commonService.successMSG(succssMessage.codeReviewUpdated)
               this.router.navigateByUrl(routes.codeReview);
-            })
+            }));
           }else {
             this.commonService.warningMSG(warningMessage.nothingToUpdated);
           }
         }
       }
       else {
-        this.commonService.add(apiEndPoints.codeReviews, data).subscribe((res: any) => {
+        this.subscription.add(this.commonService.add(apiEndPoints.codeReviews, data).subscribe((res: any) => {
           this.commonService.successMSG(succssMessage.codeReview)
           this.router.navigateByUrl(routes.codeReview);
-        })
+        }));
       }
     }
   }
@@ -134,5 +133,8 @@ export class AddCodeReviewComponent {
       }
     });
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }
-      

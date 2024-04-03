@@ -5,6 +5,7 @@ import { CommonService } from 'src/app/core/service/common.service';
 import { Router } from '@angular/router';
 import { apiEndPoints, commonEnum, errorMessage, routes, succssMessage } from 'src/app/core/enums/common.enum';
 import { addUser, currentUser } from 'src/app/core/models/common-config';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,6 +15,7 @@ import { addUser, currentUser } from 'src/app/core/models/common-config';
 export class SignUpComponent {
   @ViewChild('form') form: any;
   config: FieldConfig[] = signUpForm
+  subscription = new Subscription();
   currentUser!: currentUser;
   title: string = commonEnum.title;
   constructor(private apiService: CommonService, private router: Router) { }
@@ -26,7 +28,7 @@ export class SignUpComponent {
       this.form.form.markAllAsTouched();
     } else {
       const email = this.form.form.get('email').value;
-      this.apiService.get(apiEndPoints.users).subscribe(
+      this.subscription.add(this.apiService.get(apiEndPoints.users).subscribe(
         (response: any) => {
           const existingUser = response.find((user: any) => user.email === email);
           if (existingUser) {
@@ -40,13 +42,13 @@ export class SignUpComponent {
               userRole: this.form.form.value.userRole,
               status: 'Pending',
             };
-            this.apiService.add(apiEndPoints.users, data).subscribe((res: any) => {
+            this.subscription.add(this.apiService.add(apiEndPoints.users, data).subscribe((res: any) => {
               this.router.navigateByUrl(routes.auth + routes.login);
               this.apiService.successMSG(succssMessage.signUp);
-            });
+            }));
             this.form.form.reset();
           }
-        });
+        }));
     }
   }
 
@@ -58,4 +60,9 @@ export class SignUpComponent {
       }
     });
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+  
 }

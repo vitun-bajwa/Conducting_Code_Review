@@ -5,6 +5,7 @@ import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
 import { apiEndPoints, commonEnum, errorMessage, getItem, routes, setItem, succssMessage } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-change-password',
@@ -16,6 +17,7 @@ export class ChangePasswordComponent {
   config: FieldConfig[] = changePasswordForm;
   user: any = [];
   currentUser!: currentUser;
+  subscription = new Subscription();
   title: string = commonEnum.title;
   commonEnum: typeof commonEnum = commonEnum;
   routes: typeof routes = routes;
@@ -37,11 +39,11 @@ export class ChangePasswordComponent {
         ...user,
         password: btoa(this.form.form.value.password),
       }
-      this.apiService.edit(apiEndPoints.user + user.id, data).subscribe((data: any) => {
+      this.subscription.add(this.apiService.edit(apiEndPoints.user + user.id, data).subscribe((data: any) => {
         sessionStorage.setItem(setItem.user, JSON.stringify(data));
         this.apiService.successMSG(succssMessage.changePassword);
         this.router.navigateByUrl(routes.users);
-      });
+      }));
     }
     else{
       this.apiService.errorMSG(errorMessage.oldPassword);
@@ -57,4 +59,9 @@ export class ChangePasswordComponent {
       }
     });
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
 }

@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { adminList, userForm } from 'src/app/core/config/form.constant';
 import { apiEndPoints, commonEnum, errorMessage, getItem, modalData, routes, succssMessage, tableEnum, warningMessage } from 'src/app/core/enums/common.enum';
 import { addUser, currentUser } from 'src/app/core/models/common-config';
@@ -19,6 +20,7 @@ export class AddEditUserComponent {
   userId!: string;
   currentUser!: currentUser;
   userList!: Array<object>;
+  subscription = new Subscription();
   activeAdmin!: Array<object>;
   userData!: currentUser;
   adminListConfig: FieldConfig[] = adminList;
@@ -28,9 +30,9 @@ export class AddEditUserComponent {
   }
   formHeading!: string;
   constructor(private apiService: CommonService, private router: Router, private activatedRoute: ActivatedRoute, public dialog: MatDialog) {
-    this.activatedRoute.paramMap.subscribe((param: any) => {
+    this.subscription.add(this.activatedRoute.paramMap.subscribe((param: any) => {
       this.userId = param.params.id;
-    });
+    }));
     if (this.userId) {
     this.config[this.config.length - 1].name = commonEnum.update
     }else {
@@ -51,7 +53,7 @@ export class AddEditUserComponent {
         this.config.splice(passwordIndex, 2);
       }
     }
-    this.apiService.get(apiEndPoints.users).subscribe((res: any) => {
+    this.subscription.add(this.apiService.get(apiEndPoints.users).subscribe((res: any) => {
       this.userList = res
       this.activeAdmin = this.userList.filter((user: any) => {
         if (user.userRole === commonEnum.Admin && user.status === tableEnum.Active) {
@@ -59,8 +61,8 @@ export class AddEditUserComponent {
           return user
         }
       });
-    });
-    this.apiService.get(apiEndPoints.user, this.userId).subscribe((res: any) => {
+    }));
+    this.subscription.add(this.apiService.get(apiEndPoints.user, this.userId).subscribe((res: any) => {
       this.userData = res;
       this.form.form.patchValue({
         firstName: res?.firstName,
@@ -69,8 +71,7 @@ export class AddEditUserComponent {
         userRole: res?.userRole,
         status: res?.status
       })
-    });
-    
+    }));
   }
 
   ngAfterViewInit() {
@@ -78,7 +79,7 @@ export class AddEditUserComponent {
   }
   
   onRoleChange() {
-    this.form.form.controls[commonEnum.userRole].valueChanges.subscribe((res: string) => {
+    this.subscription.add(this.form.form.controls[commonEnum.userRole].valueChanges.subscribe((res: string) => {
       if (this.currentUser.userRole == commonEnum.superAdmin && this.form.form.value[commonEnum.userRole] !== res) {
         this.config.find((item:FieldConfig) => {
           if (item.name == commonEnum.assignTo) {
@@ -97,7 +98,7 @@ export class AddEditUserComponent {
           }
         })
       }
-    });
+    }));
   }
 
   userModify(type: string) {
@@ -139,18 +140,18 @@ export class AddEditUserComponent {
         delete userData.id
         data.createdBy = this.userData.createdBy
         if (JSON.stringify(data) !== JSON.stringify(userData)) {
-          this.apiService.edit(apiEndPoints.user + this.userId, data).subscribe((res: any) => {
+          this.subscription.add(this.apiService.edit(apiEndPoints.user + this.userId, data).subscribe((res: any) => {
             this.apiService.successMSG(succssMessage.Updated)
             this.router.navigateByUrl(routes.user);
-          })
+          }));
         }else {
           this.apiService.warningMSG(warningMessage.nothingToUpdated)
         }
       } else {
-        this.apiService.add(apiEndPoints.users, data).subscribe((res: any) => {
+        this.subscription.add(this.apiService.add(apiEndPoints.users, data).subscribe((res: any) => {
           this.apiService.successMSG(succssMessage.userAdded)
           this.router.navigateByUrl(routes.user);
-        })
+        }));
       }
     }
   }
@@ -163,4 +164,10 @@ export class AddEditUserComponent {
       }
     });
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+
 }

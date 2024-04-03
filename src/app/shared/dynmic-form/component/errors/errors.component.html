@@ -5,6 +5,6 @@
 <mat-error *ngIf="group && errors?.fieldType === 'email' && group.controls[errors.name].touched && group.controls[errors.name].errors?.['pattern'] && group.value[errors.name] && errors?.hint">
   {{enum.emailHint}}
 </mat-error>
-<mat-error *ngIf="group && errors?.name == 'confirmPassword' && (group.controls['confirmPassword'].errors?.['matched'] &&  group.controls['password'].errors?.['matched'])  && group.controls[errors.name].touched"> {{enum.passwordMismatched}} </mat-error>
+<mat-error *ngIf="group && errors?.name == 'confirmPassword' && (!group.controls['confirmPassword'].errors?.['matched'] ||  !group.controls['password'].errors?.['matched'])  && group.controls[errors.name].touched"> {{enum.passwordMismatched}} </mat-error>
 <!-- <mat-error *ngIf="group && group.controls[errors.name].touched && group.controls[errors.name].errors?.['pattern'] && group.value[errors.name]"> {{enum.invalidInput}} </mat-error> -->
 <mat-error *ngIf="errors?.fieldType === 'otp' && !errors.hidden" >{{enum.requiredFeild}}</mat-error>

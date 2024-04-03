@@ -4,7 +4,7 @@ import { CommonService } from 'src/app/core/service/common.service';
 import { currentUser } from 'src/app/core/models/common-config';
 import { MatDialog } from '@angular/material/dialog';
 import { commonEnum, apiEndPoints, succssMessage, tableEnum, getItem, routes } from 'src/app/core/enums/common.enum';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { searchFeild } from 'src/app/core/config/form.constant';
 
@@ -18,6 +18,7 @@ export class UserListingComponent {
   tableHeaders: Array<object> = [];
   pendingTableConfig: any;
   currentUser!: currentUser;
+  subscription = new Subscription();
   formHeading: commonEnum = commonEnum.userModule;
   searchInput: FieldConfig = searchFeild;
   addBtn = {
@@ -38,15 +39,15 @@ export class UserListingComponent {
   }
 
   getUserData() {
-    this.commonService.get(apiEndPoints.users).subscribe((res: any) => {
+    this.subscription.add(this.commonService.get(apiEndPoints.users).subscribe((res: any) => {
       this.userData = res
-      if (this.userData) {
+      if (this.userData){
         this.userData.map((item: any) => {
           item.status = item.status.toLowerCase();
         })
       }
       this.createData();
-    });
+    }));
   }
 
   createData() {
@@ -62,7 +63,8 @@ export class UserListingComponent {
     userData.filter((user: any) => {
       user['statusBtn'] = {
         name: user.status == tableEnum.Active ? tableEnum.Active : user.status == tableEnum.Inactive ? tableEnum.Inactive : user.status === tableEnum.Rejected ? tableEnum.Rejected : tableEnum.Pending,
-        class: 'statusBtn'
+        class: 'statusBtn',
+        fieldType: user.status == tableEnum.Active ? 'toggle' : user.status == tableEnum.Inactive ? 'toggle' : ''
       }
     });
     let existingUser = userData.filter((user: any) => {
@@ -83,11 +85,11 @@ export class UserListingComponent {
     if (userData['status'] != tableEnum.Pending) {
       userData['status'] = userData['status'] == tableEnum.Active ? tableEnum.Inactive : tableEnum.Active;
       userData.statusBtn.name = userData['status']
-      this.commonService.edit(apiEndPoints.user + userData.id, userData).subscribe((res: any) => {
+      this.subscription.add(this.commonService.edit(apiEndPoints.user + userData.id, userData).subscribe((res: any) => {
         if (res) {
           this.commonService.successMSG(succssMessage.statusUpdated)
         }
-      })
+      }))
     }
   }
 
@@ -114,16 +116,16 @@ export class UserListingComponent {
       }
     }
     data['status'] = userData.declinedReason ? tableEnum.Rejected : tableEnum.Active
-    this.commonService.edit(apiEndPoints.user + userData.id, data).subscribe((res: any) => {
+    this.subscription.add(this.commonService.edit(apiEndPoints.user + userData.id, data).subscribe((res: any) => {
       this.getUserData();
       this.commonService.successMSG(succssMessage.Updated)
-    });
+    }));
   }
 
   deleteUser(event: any) {
-    this.commonService.delete(apiEndPoints.user + event).subscribe((res: any) => {
+    this.subscription.add(this.commonService.delete(apiEndPoints.user + event).subscribe((res: any) => {
       this.getUserData();
-    });
+    }));
   }
 
   tabChange(e: any) {
@@ -141,6 +143,10 @@ export class UserListingComponent {
         event == '' ? this.searchRequest.next(event) : this.searchRequest.next(event?.target?.value)
         break;
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

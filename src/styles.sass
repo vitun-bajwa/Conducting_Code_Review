@@ -1,7 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')
 @import assets/sass/mixin
 @import assets/sass/variables
-@import ~@angular/material/prebuilt-themes/indigo-pink.css
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')
 
 /* Preset Css */
 
@@ -92,6 +91,9 @@ mat-spinner.mat-mdc-progress-spinner
 
 .w-100px
     width: 100px
+
+.mdc-switch.mdc-switch--selected:enabled .mdc-switch__handle::after, .mdc-switch:enabled .mdc-switch__track::after
+    background: $background-dark !important
 
 /* Common Css End */
 
@@ -194,6 +196,7 @@ mat-form-field
     .mdc-line-ripple, .mat-mdc-form-field-subscript-wrapper
         display: none
     &.mat-form-field-disabled
+        .mdc-text-field--filled:not(.mdc-text-field--disabled), .mdc-text-field--filled.mdc-text-field--disabled,
         .mdc-text-field--filled:not(.mdc-text-field--disabled), .mdc-text-field--filled.mdc-text-field--disabled input
             background-color: $background-disabled
 

@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { apiEndPoints, getItem, routes, tableEnum } from '../enums/common.enum';
 import { currentUser } from '../models/common-config';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,7 @@ import { Router } from '@angular/router';
 export class CommonService {
   baseUrl = environment.baseURL;
   users: any = []
+  subscription = new Subscription();
   httpClient: any;
   currentUser!: currentUser;
   constructor(public http: HttpClient, private snackBar: MatSnackBar, private router: Router) {
@@ -53,13 +55,17 @@ export class CommonService {
   }
 
   isActive() {
-    this.get(apiEndPoints.users).subscribe((res: any) => {
+    this.subscription.add(this.get(apiEndPoints.users).subscribe((res: any) => {
       let currentUser = res.find((item: any) => this.currentUser.id === item.id)
       if (currentUser.status != tableEnum.Active) {
         sessionStorage.clear();
         this.router.navigateByUrl(routes.auth + routes.login);
       }
-    });
+    }));
   }
   
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
  }
