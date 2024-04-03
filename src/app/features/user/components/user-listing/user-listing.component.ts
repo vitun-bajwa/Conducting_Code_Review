@@ -63,7 +63,8 @@ export class UserListingComponent {
     userData.filter((user: any) => {
       user['statusBtn'] = {
         name: user.status == tableEnum.Active ? tableEnum.Active : user.status == tableEnum.Inactive ? tableEnum.Inactive : user.status === tableEnum.Rejected ? tableEnum.Rejected : tableEnum.Pending,
-        class: 'statusBtn'
+        class: 'statusBtn',
+        fieldType: user.status == tableEnum.Active ? 'toggle' : user.status == tableEnum.Inactive ? 'toggle' : ''
       }
     });
     let existingUser = userData.filter((user: any) => {

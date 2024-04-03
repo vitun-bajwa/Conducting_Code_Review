@@ -17,10 +17,16 @@
       "email": "Admintwo@gmail.com",
       "password": "dW5kZWZpbmVk",
       "userRole": "Admin",
-      "status": "Active",
+      "status": "active",
       "assignTo": null,
       "createdBy": "9907",
-      "id": "afd"
+      "id": "afd",
+      "statusBtn": {
+        "name": "active",
+        "class": "statusBtn",
+        "fieldType": "toggle"
+      },
+      "name": "Admin Two"
     },
     {
       "firstName": "candidate",
@@ -34,7 +40,12 @@
         "name": "john dee"
       },
       "createdBy": "b495",
-      "id": "b495"
+      "id": "b495",
+      "statusBtn": {
+        "name": "active",
+        "class": "statusBtn",
+        "fieldType": "toggle"
+      }
     },
     {
       "firstName": "john",
@@ -56,7 +67,13 @@
       "userRole": "Admin",
       "status": "active",
       "assignTo": "fa6f",
-      "createdBy": "fa6f"
+      "createdBy": "fa6f",
+      "statusBtn": {
+        "name": "active",
+        "class": "statusBtn",
+        "fieldType": "toggle"
+      },
+      "name": "Admin Under"
     },
     {
       "firstName": "vitun",
@@ -70,7 +87,12 @@
         "name": "Admin Two"
       },
       "createdBy": "self",
-      "id": "029d"
+      "id": "029d",
+      "statusBtn": {
+        "name": "active",
+        "class": "statusBtn",
+        "fieldType": "toggle"
+      }
     },
     {
       "firstName": "jaspreet",

@@ -12,10 +12,11 @@
       <td mat-cell *ngIf="column == commonEnum.reviewedBy">{{(element[column]?.name) ? element[column]?.name : '--'}}</td>
 
       <td mat-cell *ngIf="column == tableEnum.status">
-        <app-button-field 
-        *ngIf="element['statusBtn'] && currentUser.userRole == tableEnum.Admin || currentUser.userRole == tableEnum.superAdmin" 
-        (btnClickEvent)="updateStatus(element)" [config]="element['statusBtn']" 
-        [ngClass]="(element['statusBtn'].name===tableEnum.Active) ? tableEnum.Active : (element['statusBtn'].name===tableEnum.Pending) ? tableEnum.Pending : element['statusBtn'].name===tableEnum.Reviewed ? tableEnum.Reviewed : ''"></app-button-field>
+        <ng-container *ngIf="element['statusBtn'] && currentUser.userRole == tableEnum.Admin || currentUser.userRole == tableEnum.superAdmin">
+          <app-button-field
+          (btnClickEvent)="updateStatus(element)" [config]="element['statusBtn']" 
+          [ngClass]="(element['statusBtn'].name===tableEnum.Active) ? tableEnum.Active : (element['statusBtn'].name===tableEnum.Pending) ? tableEnum.Pending : element['statusBtn'].name===tableEnum.Reviewed ? tableEnum.Reviewed : ''"></app-button-field>
+        </ng-container>
 
         <ng-container *ngIf="currentUser.userRole == tableEnum.Candidate && element['statusBtn']">
           <app-button-field [config]="element['statusBtn']" 
