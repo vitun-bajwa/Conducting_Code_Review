@@ -34,7 +34,31 @@ export class TableComponent {
   currentUser: currentUser;
   commonEnum: typeof commonEnum = commonEnum;
   tableEnum: typeof tableEnum = tableEnum;
-
+  editBtn = {
+    name: "edit",
+    class: 'icon edit',
+    type : "icon"
+  }
+  deleteBtn = {
+    name: "delete",
+    class: 'icon delete',
+    type : "icon"
+  }
+  visibilityBtn = {
+    name: "visibility",
+    class: 'icon edit',
+    type : "icon"
+  }
+  infoBtn = {
+    name: "info",
+    class: 'icon edit',
+    type : "icon"
+  }
+  closeBtn = {
+    name: "close",
+    class: 'icon delete',
+    type : "icon"
+  }
   constructor(public dialog: MatDialog, public commonService: CommonService) {
     this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
    }
@@ -71,16 +95,16 @@ export class TableComponent {
     this.userInfo.emit(event);
   }
 
-  editUser(userData: any) {
+  editRecord(userData: any) {
     this.editInfo.emit(userData);
   }
 
-  deleteUser(userData: any) {
+  deleteRecord(userData: any) {
     const dialogRef = this.dialog.open(CommonDialogComponent, {
       data: {
         id: userData.id,
-        heading: modalData.deleteUser,
-        title: modalData.deleteUserTitle,
+        heading: this.tableConfig.page === routes.user ? modalData.deleteUser : modalData.deleteCodereview,
+        title: modalData.deleteTitle,
       },
     })
     dialogRef.afterClosed().subscribe((res: boolean) => {
@@ -151,7 +175,6 @@ export class TableComponent {
       if (res) {
         data['declinedReason'] = res.codeReview
         this.updateRequest.emit(data);
-        this.createTableData();
       }
     })
   }

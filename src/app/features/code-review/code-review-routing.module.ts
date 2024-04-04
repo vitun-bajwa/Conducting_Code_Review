@@ -21,6 +21,10 @@ const routes: Routes = [
     path:'view/:id',
     component: AddCodeReviewComponent
   },
+  {
+    path:'approve/:id',
+    component: AddCodeReviewComponent
+  }
 ];
 
 @NgModule({

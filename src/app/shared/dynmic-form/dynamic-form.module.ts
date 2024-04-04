@@ -12,17 +12,19 @@ import { DropdownComponent } from './component/dropdown/dropdown.component';
 import { ErrorsComponent } from './component/errors/errors.component';
 import { DatePickerComponent } from './component/date-picker/date-picker.component';
 import { TextareaComponent } from './component/textarea/textarea.component'
+import { EditorComponent } from './component/editor/editor.component';
 
 
 @NgModule({
-  declarations: [DynamicFormComponent, DynamicFormDirective, InputFieldComponent, DropdownComponent, ErrorsComponent, DatePickerComponent, TextareaComponent],
-  imports: [
-    CommonModule,
-    DynamicFormRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    UiModule
-  ],
-  exports: [DynamicFormComponent, InputFieldComponent]
+    declarations: [DynamicFormComponent, DynamicFormDirective, InputFieldComponent, DropdownComponent, DatePickerComponent, TextareaComponent, EditorComponent],
+    exports: [DynamicFormComponent, InputFieldComponent],
+    imports: [
+        CommonModule,
+        DynamicFormRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        UiModule,
+        ErrorsComponent
+    ]
 })
 export class DynamicFormModule { }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { searchFeild } from 'src/app/core/config/form.constant';
 import { commonEnum, apiEndPoints, setItem, tableEnum, getItem, routes, succssMessage } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
@@ -17,6 +17,7 @@ export class CodeReviewListingComponent implements OnInit {
   tableHeaders: any = [];
   pendingTableConfig: any;
   reviewData: any;
+  subscription = new Subscription();
   currentUser!: currentUser;
   searchInput: FieldConfig = searchFeild;
   enum: typeof commonEnum = commonEnum;
@@ -37,10 +38,10 @@ export class CodeReviewListingComponent implements OnInit {
   }
 
   getReviewData() {
-    this.commonService.get(apiEndPoints.codeReviews).subscribe((res: any) => {
+    this.subscription.add(this.commonService.get(apiEndPoints.codeReviews).subscribe((res: any) => {
       this.reviewData = res;
       this.createData();
-    });
+    }));
   }
 
   createData() {
@@ -51,8 +52,9 @@ export class CodeReviewListingComponent implements OnInit {
     if (reviewData.length > 0) {
       tableColumns = Object?.keys(reviewData[0])?.filter((x: any) => 
       this.currentUser.userRole != commonEnum.superAdmin ? 
-      (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.assignTo && x != tableEnum.codeReview) : 
-      (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.codeReview));
+      (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.assignTo && x != tableEnum.codeReview && x != tableEnum.startDate && x != tableEnum.endDate) : 
+      (x != tableEnum.textEditor && x != tableEnum.addReviewRequest && x != tableEnum.Id && x != tableEnum.userId && x != tableEnum.codeReview && x != tableEnum.startDate && x != tableEnum.endDate));
+      tableColumns.splice(2, 0, tableEnum.developmentDate)
       tableColumns.push(tableEnum.action)
     }
     if(this.currentUser.userRole != commonEnum.superAdmin) {
@@ -88,19 +90,20 @@ export class CodeReviewListingComponent implements OnInit {
       }
       data['status'] = codeReviewData.declinedReason ? tableEnum.Rejected : tableEnum.Active
       if(codeReviewData.declinedReason) data['declinedReason'] = codeReviewData.declinedReason
-      this.commonService.edit(apiEndPoints.codeReview + codeReviewData.id, data).subscribe((res: any) => {
+      this.subscription.add(this.commonService.edit(apiEndPoints.codeReview + codeReviewData.id, data).subscribe((res: any) => {
         this.commonService.successMSG(succssMessage.codeReviewUpdated)
-      })
-      this.getReviewData();
+        this.getReviewData();
+      }))
     }else {
-      this.router.navigateByUrl(routes.codeReview + routes.edit + codeReviewData.id);
+      let route = codeReviewData.status == tableEnum.Pending ? routes.approve : routes.edit
+      this.router.navigateByUrl(routes.codeReview + route + codeReviewData.id);
     }
   }
 
   deleteReview(event: any){
-    this.commonService.delete(apiEndPoints.codeReview + event).subscribe((res: any) => {
+    this.subscription.add(this.commonService.delete(apiEndPoints.codeReview + event).subscribe((res: any) => {
       this.getReviewData();
-    })
+    }))
   }
 
   tabChange(e:any) {
@@ -123,4 +126,9 @@ export class CodeReviewListingComponent implements OnInit {
   viewCodeReview(event: any){
     this.router.navigateByUrl(routes.codeReview + routes.view + event.id);
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Adapter } from './ckEditorAdapter'

@@ -1,7 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')
 @import assets/sass/mixin
 @import assets/sass/variables
-@import ~@angular/material/prebuilt-themes/indigo-pink.css
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')
 
 /* Preset Css */
 
@@ -90,6 +89,12 @@ mat-spinner.mat-mdc-progress-spinner
 .d-none
     display: none
 
+.w-100px
+    width: 100px
+
+.mdc-switch.mdc-switch--selected:enabled .mdc-switch__handle::after, .mdc-switch:enabled .mdc-switch__track::after
+    background: $background-dark !important
+
 /* Common Css End */
 
 /* Form Css */
@@ -116,20 +121,19 @@ mat-spinner.mat-mdc-progress-spinner
     background: $background-dark
     border-radius: 5px
     margin-top: 10px
+    text-transform: capitalize
 
 .button.danger
     background: $danger
 
-.button.icon
-    @include f_c_c
+button.icon
     background: transparent
-    border: 2px solid $secondary
-    border-radius: 5px
-    padding: 0px
-    width: 35px
-    height: 35px
+    border: 0px solid $secondary
     color: $secondary
-    font-size: 20px
+    padding: 0px
+    margin: 0px 10px
+    &.delete
+        color: $danger
 
 .btnBx
     .button
@@ -142,7 +146,12 @@ mat-spinner.mat-mdc-progress-spinner
 
 app-dynamic-form 
     width: 100%
-    app-input-field, app-dropdown, app-date-picker, app-textarea
+    label
+        font-size: 14px
+        color: $secondary
+        .astrick
+            color: $danger
+    app-input-field, app-dropdown, app-date-picker, app-textarea, app-editor
         position: relative
         display: block
 
@@ -159,6 +168,9 @@ mat-form-field
         mat-select
             padding: 8px
             font-size: 14px
+            text-transform: capitalize
+            .mat-mdc-select-placeholder
+                color: $placeholder !important
         input
             width: 100%
             border: 0px
@@ -183,6 +195,13 @@ mat-form-field
             color: $text-black
     .mdc-line-ripple, .mat-mdc-form-field-subscript-wrapper
         display: none
+    &.mat-form-field-disabled
+        .mdc-text-field--filled:not(.mdc-text-field--disabled), .mdc-text-field--filled.mdc-text-field--disabled,
+        .mdc-text-field--filled:not(.mdc-text-field--disabled), .mdc-text-field--filled.mdc-text-field--disabled input
+            background-color: $background-disabled
+
+mat-option
+    text-transform: capitalize
 
 mat-form-field.withIcon 
     .mat-mdc-form-field-infix
@@ -196,10 +215,13 @@ mat-form-field.withIcon
 
 app-input-field.searchFilter
     width: 230px
+    .mat-mdc-form-field:hover .mat-mdc-form-field-focus-overlay
+        opacity: 0
     .mdc-text-field--filled:not(.mdc-text-field--disabled) .input
-        width: 70%
+        width: 75%
     mat-icon 
-        width: 30%
+        width: 25%
+        cursor: default
 
 app-errors 
     position: absolute
@@ -275,6 +297,8 @@ app-errors
             font-size: 26px
             font-weight: bold
             color: $secondary
+            width: 100%
+            text-align: center
         h5 
             width: 100%
             text-align: center
@@ -327,6 +351,9 @@ app-errors
 .content
     .card
         border: none
+        .otp_box
+            position: relative
+            padding: 10px 0px 20px
         ng-otp-input
             input
                 width: 45px !important
@@ -405,8 +432,8 @@ app-table
 app-button-field
     .statusBtn
         border: solid 2px $danger
-        background: $danger
-        color: $text-white
+        background: transparent
+        color: $text-black
         font-size: 14px
         width: 100px
         border-radius: 5px
@@ -419,8 +446,12 @@ app-button-field
     &.pending
         .statusBtn
             border: solid 2px $warning
-            background: $warning
+            background: transparent
             color: $text-black
+            cursor: default
+    &.reviewed
+        .statusBtn
+            border: solid 2px $success
     .statusBtnNonClick
         cursor: default
 
@@ -434,7 +465,10 @@ app-button-field
 /* Model css */
 
 .model_otr
-    padding: 20px
+    padding: 25px
+    position: relative
+    width: 400px
+    max-width: 100%
     h1
         padding: 0px 0px 10px
         margin: 0px
@@ -442,6 +476,11 @@ app-button-field
     p
         padding: 0px 0px 10px
         font-size: 14px
+    .icon.delete
+        position: absolute
+        top: 4px
+        right: 4px
+        margin: 0px
 
 /* Model css End */
 
