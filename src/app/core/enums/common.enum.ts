@@ -78,7 +78,11 @@ export enum tableEnum {
   developmentDate = "developmentDate",
   srNo = "sr No",
   Candidate = "Candidate",
-  confirmPassword = "confirmPassword"
+  confirmPassword = "confirmPassword",
+  toggle = "toggle",
+  add = "add",
+  approve = "approve",
+  edit = "edit",
 }
 
 export enum succssMessage { 
@@ -149,4 +153,47 @@ export enum getItem {
   token = "token"
 }
 
+export enum Button {
+  class = 'button',
+  name = 'Add User'
+}
 
+export enum backBtn {
+  class = 'button',
+  name = 'Back',
+}
+export enum codeReview {
+  class = 'button',
+  name = 'Add Code Review'
+}
+
+export enum save {
+  class = 'button',
+  name = 'Save',
+}
+
+export enum editBtn {
+  name = "edit",
+  class = 'icon edit',
+  type  = "icon"
+}
+export enum deleteBtn {
+  name = "delete",
+  class = 'icon delete',
+  type  = "icon"
+}
+export enum visibilityBtn {
+  name = "visibility",
+  class = 'icon edit',
+  type  = "icon"
+}
+export enum infoBtn {
+  name = "info",
+  class = 'icon edit',
+  type  = "icon"
+}
+export enum closeBtn {
+  name = "close",
+  class = 'icon delete',
+  type  = "icon"
+}

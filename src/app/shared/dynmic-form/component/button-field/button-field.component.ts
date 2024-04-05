@@ -17,17 +17,18 @@ export class ButtonFieldComponent {
   group!: FormGroup;
   @Output() btnClickEvent = new EventEmitter<string>();
   statusVal: boolean = false;
+  toggleBtn: typeof tableEnum = tableEnum;
 
   constructor() {}
 
   ngAfterViewInit() {
-    if (this.config?.fieldType == 'toggle') {
+    if (this.config?.fieldType == tableEnum.toggle) {
       this.statusVal = this.config.name == tableEnum.Active ? true : false;
     }
   }
 
   onButtonClicked() {
-    if(this.config.fieldType == 'toggle') this.statusVal != this.statusVal
+    if(this.config.fieldType == tableEnum.toggle) this.statusVal != this.statusVal
     this.btnClickEvent.emit('Click');
   }
   

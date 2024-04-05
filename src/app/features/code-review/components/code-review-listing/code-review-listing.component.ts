@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { searchFeild } from 'src/app/core/config/form.constant';
-import { commonEnum, apiEndPoints, setItem, tableEnum, getItem, routes, succssMessage } from 'src/app/core/enums/common.enum';
+import { commonEnum, apiEndPoints, setItem, tableEnum, getItem, routes, succssMessage, codeReview } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonService } from 'src/app/core/service/common.service';
@@ -24,10 +24,8 @@ export class CodeReviewListingComponent implements OnInit {
   searchList: Subject<boolean> = new Subject();
   searchRequest: Subject<boolean> = new Subject();
   activeTab: string = 'Code Review Listing';
-  addBtn = {
-    class: 'button',
-    name: 'Add Code Review'
-  }
+  addBtn: typeof codeReview = codeReview;
+
 
   constructor(private commonService: CommonService, private router: Router) {
     this.getReviewData();

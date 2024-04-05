@@ -56,7 +56,7 @@ export class CommonService {
 
   isActive() {
     this.subscription.add(this.get(apiEndPoints.users).subscribe((res: any) => {
-      let currentUser = res.find((item: any) => this.currentUser.id === item.id)
+      let currentUser = res.find((item: any) => this.currentUser?.id === item.id)
       if (currentUser.status != tableEnum.Active) {
         sessionStorage.clear();
         this.router.navigateByUrl(routes.auth + routes.login);

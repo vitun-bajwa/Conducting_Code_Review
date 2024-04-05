@@ -10,7 +10,6 @@ export interface FieldConfig {
   validation?: ValidatorFn[];
   value?: any;
   class?: string;
-  readOnly?: boolean;
   min?: boolean;
   max?: boolean;
   isRequired?: any;

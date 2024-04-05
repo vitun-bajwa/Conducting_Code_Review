@@ -34,7 +34,7 @@ export class SignUpComponent {
           if (existingUser) {
             this.apiService.errorMSG(errorMessage.alreadyRegistered);
           } else {
-            const data : addUser = {
+            const data: addUser = {
               firstName: this.form.form.value.firstName,
               lastName: this.form.form.value.lastName,
               email: this.form.form.value.email,
@@ -64,5 +64,5 @@ export class SignUpComponent {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-  
+
 }

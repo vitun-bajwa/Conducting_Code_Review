@@ -38,7 +38,7 @@ export class AddCodeReviewComponent {
   constructor(private commonService: CommonService, private router: Router,
     private activatedRoute: ActivatedRoute) {
     this.subscription.add(this.activatedRoute.paramMap.subscribe((param: any) => {
-      this.currentPage = this.router.url.includes('edit') ? commonEnum.editCodeReview : this.router.url.includes('add') ? commonEnum.addCodeReview : this.router.url.includes('approve') ? commonEnum.approveCodeReview : commonEnum.viewCodeReview;
+      this.currentPage = this.router.url.includes(tableEnum.edit) ? commonEnum.editCodeReview : this.router.url.includes(tableEnum.add) ? commonEnum.addCodeReview : this.router.url.includes(tableEnum.approve) ? commonEnum.approveCodeReview : commonEnum.viewCodeReview;
       this.userId = param.params.id;
       this.formHeading = this.currentPage;
       this.addBtn.name = this.currentPage == commonEnum.editCodeReview ? commonEnum.update : this.currentPage == commonEnum.approveCodeReview ? commonEnum.approve : commonEnum.save ;

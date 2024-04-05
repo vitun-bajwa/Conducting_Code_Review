@@ -19,12 +19,7 @@ export class LoginComponent {
   user: any = [];
   subscription = new Subscription();
   title: string = commonEnum.title;
-  loginButton: object = {
-    type: 'button',
-    name: 'Login',
-    class: 'button',
-  }
-
+  
   constructor(private commonService: CommonService, private router: Router) { }
 
   ngOnInit() {

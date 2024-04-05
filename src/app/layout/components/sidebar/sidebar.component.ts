@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { getItem } from 'src/app/core/enums/common.enum';
+import { commonEnum, getItem, routes } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
 
 @Component({
@@ -9,12 +9,13 @@ import { currentUser } from 'src/app/core/models/common-config';
 })
 export class SidebarComponent {
   currentUser!: currentUser;
+  commonEnum: typeof commonEnum = commonEnum;
+  routes: typeof routes = routes;
+  constructor() { }
 
-constructor() {}
-
-ngOnInit() {
-  this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
-}
+  ngOnInit() {
+    this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
+  }
 
 
 }

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { CommonService } from 'src/app/core/service/common.service';
 import { currentUser } from 'src/app/core/models/common-config';
 import { MatDialog } from '@angular/material/dialog';
-import { commonEnum, apiEndPoints, succssMessage, tableEnum, getItem, routes } from 'src/app/core/enums/common.enum';
+import { commonEnum, apiEndPoints, succssMessage, tableEnum, getItem, routes, Button } from 'src/app/core/enums/common.enum';
 import { Subject, Subscription } from 'rxjs';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { searchFeild } from 'src/app/core/config/form.constant';
@@ -21,10 +21,7 @@ export class UserListingComponent {
   subscription = new Subscription();
   formHeading: commonEnum = commonEnum.userModule;
   searchInput: FieldConfig = searchFeild;
-  addBtn = {
-    class: 'button',
-    name: 'Add User'
-  }
+  addBtn: typeof Button = Button;
   userData: any;
   activeTab: string = 'User Listing';
   searchList: Subject<boolean> = new Subject();
@@ -64,7 +61,7 @@ export class UserListingComponent {
       user['statusBtn'] = {
         name: user.status == tableEnum.Active ? tableEnum.Active : user.status == tableEnum.Inactive ? tableEnum.Inactive : user.status === tableEnum.Rejected ? tableEnum.Rejected : tableEnum.Pending,
         class: 'statusBtn',
-        fieldType: user.status == tableEnum.Active ? 'toggle' : user.status == tableEnum.Inactive ? 'toggle' : ''
+        fieldType: user.status == tableEnum.Active ?  tableEnum.toggle : user.status == tableEnum.Inactive ? tableEnum.toggle : ''
       }
     });
     let existingUser = userData.filter((user: any) => {
@@ -95,6 +92,10 @@ export class UserListingComponent {
 
   editUser(event: any) {
     this.router.navigateByUrl(routes.user + routes.edit + event.id);
+  }
+
+  viewUserdetail(event: any){
+    this.router.navigateByUrl(routes.user + routes.view + event.id);
   }
 
   updateRequest(userData: any) {

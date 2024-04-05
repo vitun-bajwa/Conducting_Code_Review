@@ -6,7 +6,6 @@ export function passwordvalidaator(): ValidatorFn {
     formgroup.parent.controls.confirmPassword.errors['matched'] = val;
   };
   return (formgroup: any): { [key: string]: any } | null => {
-    // let forbidden = false;
     if (formgroup.value) {
       formgroup.get('confirmPassword')?.updateValueAndValidity();
       if (formgroup.parent.controls.password.value !== formgroup.parent.controls.confirmPassword.value) {

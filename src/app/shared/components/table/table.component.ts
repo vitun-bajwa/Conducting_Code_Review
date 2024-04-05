@@ -7,7 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FieldConfig } from 'src/app/core/models/field-config';
 import { CommonDialogComponent } from '../common-dialog/common-dialog.component';
 import { adminList, declineReason } from 'src/app/core/config/form.constant';
-import { commonEnum, getItem, modalData, routes, tableEnum } from 'src/app/core/enums/common.enum';
+import { closeBtn, commonEnum, deleteBtn, editBtn, getItem, infoBtn, modalData, routes, tableEnum, visibilityBtn } from 'src/app/core/enums/common.enum';
 import { currentUser } from 'src/app/core/models/common-config';
 @Component({
   selector: 'app-table',
@@ -22,7 +22,7 @@ export class TableComponent {
   @Output() editInfo = new EventEmitter();
   @Output() deleteInfo = new EventEmitter();
   @Output() updateRequest = new EventEmitter();
-  @Output() viewCodeReview = new EventEmitter();
+  @Output() viewDetail = new EventEmitter();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('form') form: any;
@@ -34,31 +34,12 @@ export class TableComponent {
   currentUser: currentUser;
   commonEnum: typeof commonEnum = commonEnum;
   tableEnum: typeof tableEnum = tableEnum;
-  editBtn = {
-    name: "edit",
-    class: 'icon edit',
-    type : "icon"
-  }
-  deleteBtn = {
-    name: "delete",
-    class: 'icon delete',
-    type : "icon"
-  }
-  visibilityBtn = {
-    name: "visibility",
-    class: 'icon edit',
-    type : "icon"
-  }
-  infoBtn = {
-    name: "info",
-    class: 'icon edit',
-    type : "icon"
-  }
-  closeBtn = {
-    name: "close",
-    class: 'icon delete',
-    type : "icon"
-  }
+  editBtn: typeof editBtn = editBtn;
+  deleteBtn: typeof deleteBtn = deleteBtn;
+  visibilityBtn: typeof visibilityBtn = visibilityBtn;
+  infoBtn: typeof infoBtn = infoBtn;
+  closeBtn: typeof closeBtn = closeBtn;
+
   constructor(public dialog: MatDialog, public commonService: CommonService) {
     this.currentUser = JSON.parse(sessionStorage.getItem(getItem.user)!);
    }
@@ -180,7 +161,6 @@ export class TableComponent {
   }
 
   viewReview(data: any){
-    this.viewCodeReview.emit(data);
+    this.viewDetail.emit(data);
   }
-
 }
